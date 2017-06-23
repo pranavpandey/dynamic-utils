@@ -1,0 +1,58 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    projectName = 'DynamicUtils'
+    projectDesc = 'A collection of static methods to perform various operations including color, ' +
+            'device, drawable, package, tasks and sdk on Android 9+ (Gingerbread or above) devices.'
+    siteUrl = 'https://github.com/pranavpandey/dynamic-utils'
+    gitUrl = 'https://github.com/pranavpandey/dynamic-utils'
+    issueUrl = 'https://github.com/pranavpandey/dynamic-utils/issues'
+
+    mavenGroup = 'com.pranavpandey.android'
+    mavenVersion = '0.1.0'
+    mavenInceptionYear = 2017
+    mavenArtifactId = 'dynamic-utils'
+    bintrayRepo = 'android'
+
+    developerId = 'pranavpandey'
+    developerName = 'Pranav Pandey'
+    developerEmail = 'pranavpande92@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    licenseDistribution = 'repo'
+    allLicenses = ["Apache-2.0"]
+
+    versionCode = 1
+
+    buildTools = '25.0.3'
+    minSdk = 9
+    compileSdk = 25
+    targetSdk = 25
+
+    androidSupport = '25.4.0'
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2017 Pranav Pandey
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+	   http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+
+<resources>
+
+    <!-- Share app -->
+    <string name="adu_share_to">Share via&#8230;</string>
+    <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>
+
+    <!-- Submit bug report -->
+    <string name="adu_bug_title">%1$s (v%2$s, %3$s, %4$s, %5$s)</string>
+    <string name="adu_bug_desc">My bug or question is&#8230;\n\nHow often it occurs in case of a bug?\n\nAre you using any custom / modified ROM, framework or kernel?</string>
+
+</resources>

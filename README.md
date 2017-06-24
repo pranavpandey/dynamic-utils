@@ -3,6 +3,8 @@
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
 
+<img src="https://raw.githubusercontent.com/pranavpandey/dynamic-utils/master/graphics/dynamic-utils_512x512.png" width="160" height="160" align="right" hspace="20">
+
 A collection of static methods to perform various operations including color, device, drawable, 
 package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
 
@@ -31,17 +33,6 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 allprojects {
-    repositories {
-        ...
-        
-        maven {
-            url 'https://dl.bintray.com/pranavpandey/android/'
-        }
-    }
-}
-
-...
-
 dependencies {
     compile 'com.pranavpandey.android:dynamic-utils:0.1.0'
 }

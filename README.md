@@ -1,9 +1,9 @@
+<img src="https://raw.githubusercontent.com/pranavpandey/dynamic-utils/master/graphics/dynamic-utils_512x512.png" width="160" height="160" align="right" hspace="20">
+
 # Dynamic Utils
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
-
-<img src="https://raw.githubusercontent.com/pranavpandey/dynamic-utils/master/graphics/dynamic-utils_512x512.png" width="160" height="160" align="right" hspace="20">
 
 A collection of static methods to perform various operations including color, device, drawable, 
 package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
@@ -32,7 +32,6 @@ package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
 It can be installed by adding the following dependency to your `build.gradle` file:
 
 ```groovy
-allprojects {
 dependencies {
     compile 'com.pranavpandey.android:dynamic-utils:0.1.0'
 }
@@ -132,7 +131,7 @@ Helper class to easily execute or cancel an AsyncTask by handling all the except
 Helper class to detect the Android SDK version at runtime so that we can provide the user 
 experience accordingly.
 
-1. `isHoneycomb()` - To detect if the current Android version is Honeycomb or above.
+1. `isGingerbread()` - To detect if the current Android version is Gingerbread or above.
 
 2. `isIceCreamSandwich()` - To detect if the current Android version is Ice Cream Sandwich or above.
 
@@ -142,7 +141,7 @@ experience accordingly.
 
 11. `isNougatMR1()` - To detect if the current Android version is N_MR1 or above.
 
-### DynamicWindowsUtils
+### DynamicWindowUtils
 
 Helper class to perform Window operations and to detect system configurations at runtime.
 

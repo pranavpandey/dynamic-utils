@@ -130,6 +130,7 @@ public class DynamicWindowUtils {
      * @return {@code true} if navigation bar theme is supported.
      */
     public static boolean isNavigationBarThemeSupported(@NonNull Context context) {
-        return DynamicVersionUtils.isLollipop() && !getNavigationBarSize(context).equals(0, 0);
+        return DynamicVersionUtils.isLollipop()
+                && !getNavigationBarSize(context).equals(0, 0);
     }
 }

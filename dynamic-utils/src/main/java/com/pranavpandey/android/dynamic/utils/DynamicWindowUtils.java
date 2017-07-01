@@ -18,7 +18,6 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.Display;
 import android.view.WindowManager;
@@ -30,34 +29,6 @@ import java.lang.reflect.InvocationTargetException;
  * detect system configurations at runtime.
  */
 public class DynamicWindowUtils {
-
-    /**
-     * Get the on-screen navigation bar size.
-     *
-     * @param context Context to get the resources and window service.
-     *
-     * @return On-screen navigation bar in point.
-     *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
-     */
-    public static Point getNavigationBarSize(@NonNull Context context) {
-        Point appUsableSize = getAppUsableScreenSize(context);
-        Point realScreenSize = getRealScreenSize(context);
-
-        // navigation bar on the right
-        if (appUsableSize.x < realScreenSize.x) {
-            return new Point(realScreenSize.x - appUsableSize.x, appUsableSize.y);
-        }
-
-        // navigation bar at the bottom
-        if (appUsableSize.y < realScreenSize.y) {
-            return new Point(appUsableSize.x, realScreenSize.y - appUsableSize.y);
-        }
-
-        // navigation bar is not present
-        return new Point();
-    }
 
     /**
      * Get the app usable screen size.
@@ -117,6 +88,34 @@ public class DynamicWindowUtils {
         }
 
         return size;
+    }
+
+    /**
+     * Get the on-screen navigation bar size.
+     *
+     * @param context Context to get the resources and window service.
+     *
+     * @return On-screen navigation bar in point.
+     *
+     * @see android.content.Context#WINDOW_SERVICE
+     * @see android.graphics.Point
+     */
+    public static Point getNavigationBarSize(@NonNull Context context) {
+        Point appUsableSize = getAppUsableScreenSize(context);
+        Point realScreenSize = getRealScreenSize(context);
+
+        // navigation bar on the right
+        if (appUsableSize.x < realScreenSize.x) {
+            return new Point(realScreenSize.x - appUsableSize.x, appUsableSize.y);
+        }
+
+        // navigation bar at the bottom
+        if (appUsableSize.y < realScreenSize.y) {
+            return new Point(appUsableSize.x, realScreenSize.y - appUsableSize.y);
+        }
+
+        // navigation bar is not present
+        return new Point();
     }
 
     /**

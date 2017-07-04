@@ -4,6 +4,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
+[![Download](https://api.bintray.com/packages/pranavpandey/android/dynamic-utils/images/download.svg)](https://bintray.com/pranavpandey/android/dynamic-utils/_latestVersion)
 
 A collection of static methods to perform various operations including color, device, drawable, 
 package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
@@ -12,19 +13,19 @@ package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
 
 ## Table of Contents
 
-1. [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
-2. [Usage](https://github.com/pranavpandey/dynamic-utils#usage)
-    1. [DynamicColorUtils](https://github.com/pranavpandey/dynamic-utils#dynamiccolorutils)
-    2. [DynamicDeviceUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdeviceutils)
-    3. [DynamicDrawableUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdrawableutils)
-    4. [DynamicLinkUtils](https://github.com/pranavpandey/dynamic-utils#dynamiclinkutils)
-    5. [DynamicPackageUtils](https://github.com/pranavpandey/dynamic-utils#dynamicpackageutils)
-    6. [DynamicTaskUtils](https://github.com/pranavpandey/dynamic-utils#dynamictaskutils)
-    7. [DynamicVersionUtils](https://github.com/pranavpandey/dynamic-utils#dynamicversionutils)
-    8. [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-    9. [DynamicUnitUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-    10. [Dependency](https://github.com/pranavpandey/dynamic-utils#dynamicunitutils)
-3. [License](https://github.com/pranavpandey/dynamic-utils#license)
+- [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
+- [Usage](https://github.com/pranavpandey/dynamic-utils#usage)
+    - [DynamicColorUtils](https://github.com/pranavpandey/dynamic-utils#dynamiccolorutils)
+    - [DynamicDeviceUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdeviceutils)
+    - [DynamicDrawableUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdrawableutils)
+    - [DynamicLinkUtils](https://github.com/pranavpandey/dynamic-utils#dynamiclinkutils)
+    - [DynamicPackageUtils](https://github.com/pranavpandey/dynamic-utils#dynamicpackageutils)
+    - [DynamicTaskUtils](https://github.com/pranavpandey/dynamic-utils#dynamictaskutils)
+    - [DynamicVersionUtils](https://github.com/pranavpandey/dynamic-utils#dynamicversionutils)
+    - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
+    - [DynamicUnitUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
+    - [Dependency](https://github.com/pranavpandey/dynamic-utils#dynamicunitutils)
+- [License](https://github.com/pranavpandey/dynamic-utils#license)
 
 ---
 
@@ -174,7 +175,7 @@ Helper class to perform unit conversions.
 
 ### Dependency
 
-As it depends on the [support-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-compat), its functions
+This library depends on the [support-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-compat) so, its functions
 can be used to perform other operations.
 
 ---

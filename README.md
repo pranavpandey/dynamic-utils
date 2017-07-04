@@ -11,7 +11,7 @@ package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
 
 ---
 
-## Table of Contents
+## Contents
 
 - [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
 - [Usage](https://github.com/pranavpandey/dynamic-utils#usage)

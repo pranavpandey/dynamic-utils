@@ -16,6 +16,7 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -73,6 +74,9 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can
      * select from the available apps if more than one apps are available.
      *
+     * <p>This method throws {@link ActivityNotFoundException}
+     * if there was no Activity found to run the given Intent.</p>
+     *
      * @param context Context to retrieve the resources. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
@@ -80,6 +84,8 @@ public class DynamicLinkUtils {
      * @param message Default share message which user can modify.
      *                If it is <code>null</code>; app and package name will be
      *                supplied.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  android.content.Intent#ACTION_SEND
      */
@@ -108,9 +114,14 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can
      * select from the available apps if more than one apps are available.
      *
+     * <p>This method throws {@link ActivityNotFoundException}
+     * if there was no Activity found to run the given Intent.</p>
+     *
      * @param context Context to retrieve the resources. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  #shareApp(Context, String, String)
      */
@@ -125,6 +136,8 @@ public class DynamicLinkUtils {
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param packageName Application package name to build the search query.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  android.content.Intent#ACTION_VIEW
      */
@@ -145,9 +158,14 @@ public class DynamicLinkUtils {
      * View app in the Google Play or Android Market. Can be used for the
      * quick feedback or rating from the user.
      *
+     * <p>This method throws {@link ActivityNotFoundException}
+     * if there was no Activity found to run the given Intent.</p>
+     *
      * @param context Context to get the package name. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  #viewInGooglePlay(Context, String)
      */
@@ -158,10 +176,15 @@ public class DynamicLinkUtils {
     /**
      * View other apps of a Publisher in the Google Play or Android Market.
      *
+     * <p>This method throws {@link ActivityNotFoundException}
+     * if there was no Activity found to run the given Intent.</p>
+     *
      * @param context Context to start the activity. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param publisher Publisher name to build the search query.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  android.content.Intent#ACTION_VIEW
      */
@@ -182,10 +205,15 @@ public class DynamicLinkUtils {
      * open in their respective apps if installed on the the device. Special
      * treatment is applied for the Facebook URLs to open them directly in the app.
      *
+     * <p>This method throws {@link ActivityNotFoundException}
+     * if there was no Activity found to run the given Intent.</p>
+     *
      * @param context Context to start the activity. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param url Web or app link to open.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  android.content.Intent#ACTION_VIEW
      * @see #LINK_FACEBOOK_APP
@@ -212,12 +240,17 @@ public class DynamicLinkUtils {
      * manufacturer, device, Android version and the app version along with
      * the supplied app name.
      *
+     * <p>This method throws {@link ActivityNotFoundException}
+     * if there was no Activity found to run the given Intent.</p>
+     *
      * @param context Context to retrieve the resources. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param appName App name in the email subject. If it is <code>null</code>;
      *                it will try to get it from the supplied context.
      * @param email Email id of the developer.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  android.content.Intent#ACTION_SENDTO
      * @see  #MAIL_TO

@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-compat:$androidSupport"
+    api "com.android.support:support-compat:$androidSupport"
 }
 
 if (project.rootProject.file('local.properties').exists()) {

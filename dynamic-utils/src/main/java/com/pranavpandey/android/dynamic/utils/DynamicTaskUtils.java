@@ -17,6 +17,7 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 /**
  * Helper class to easily execute or cancel an {@link AsyncTask} by
@@ -31,7 +32,7 @@ public class DynamicTaskUtils {
      *
      * @see AsyncTask#execute(Object[])
      */
-    public static void executeTask(AsyncTask asyncTask) {
+    public static void executeTask(@NonNull AsyncTask asyncTask) {
         try {
             if (asyncTask != null &&
                     asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
@@ -54,7 +55,7 @@ public class DynamicTaskUtils {
      *
      * @see AsyncTask#cancel(boolean)
      */
-    public static void cancelTask(AsyncTask asyncTask) {
+    public static void cancelTask(@NonNull AsyncTask asyncTask) {
         try {
             if (asyncTask != null &&
                     asyncTask.getStatus() == AsyncTask.Status.RUNNING) {

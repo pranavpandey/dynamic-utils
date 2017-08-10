@@ -9,6 +9,9 @@
 A collection of static methods to perform various operations including color, device, drawable, 
 package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
 
+> Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
+so, minimum SDK will be Android 14+ (ICS or above).
+
 ---
 
 ## Contents
@@ -24,7 +27,6 @@ package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
     - [DynamicVersionUtils](https://github.com/pranavpandey/dynamic-utils#dynamicversionutils)
     - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
     - [DynamicUnitUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-    - [Dependency](https://github.com/pranavpandey/dynamic-utils#dynamicunitutils)
 - [License](https://github.com/pranavpandey/dynamic-utils#license)
 
 ---
@@ -35,7 +37,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
-    compile 'com.pranavpandey.android:dynamic-utils:0.3.0'
+    compile 'com.pranavpandey.android:dynamic-utils:0.4.0'
 }
 ```
 
@@ -122,7 +124,7 @@ Helper class to get package or app related information.
 
 - `Drawable getAppIcon(context)` - Load application icon from the given context.
 
-- `booelan isSystemApp(applicationInfo)` - To detect the given ApplicationInfo is a system app 
+- `boolean isSystemApp(applicationInfo)` - To detect the given ApplicationInfo is a system app
 or not.
 
 ### DynamicTaskUtils
@@ -172,11 +174,6 @@ Helper class to perform unit conversions.
 - `int convertSpToPixels(sp)` - To convert SP into pixels.
 
 - `int convertPixelsToSp(pixels)` - To convert pixels into SP.
-
-### Dependency
-
-This library depends on the [support-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-compat) so, its functions
-can be used to perform other operations.
 
 ---
 

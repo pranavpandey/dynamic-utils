@@ -62,7 +62,7 @@ public class DynamicDrawableUtils {
      * @see android.graphics.PorterDuff.Mode
      */
     public static Drawable colorizeDrawable(
-            @NonNull Drawable drawable, boolean wrap, @ColorInt int color,
+            @Nullable Drawable drawable, boolean wrap, @ColorInt int color,
             @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {
             if (wrap) {
@@ -76,10 +76,14 @@ public class DynamicDrawableUtils {
                 }
             }
 
-            if (DynamicVersionUtils.isLollipop()) {
-                DrawableCompat.setTint(drawable, color);
+            if (mode != null) {
+                if (DynamicVersionUtils.isLollipop()) {
+                    DrawableCompat.setTint(drawable, color);
+                } else {
+                    drawable.setColorFilter(color, mode);
+                }
             } else {
-                drawable.setColorFilter(color, mode);
+                DrawableCompat.clearColorFilter(drawable);
             }
 
             if (!DynamicVersionUtils.isMarshmallow()) {

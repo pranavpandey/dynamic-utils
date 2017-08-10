@@ -34,14 +34,8 @@ public class DynamicTaskUtils {
      */
     public static void executeTask(@NonNull AsyncTask asyncTask) {
         try {
-            if (asyncTask != null &&
-                    asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                if (DynamicVersionUtils.isHoneycomb()) {
-                    asyncTask.executeOnExecutor(
-                            AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
-                } else {
-                    asyncTask.execute((Object[]) null);
-                }
+            if (asyncTask != null && asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
+                asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,8 +51,7 @@ public class DynamicTaskUtils {
      */
     public static void cancelTask(@NonNull AsyncTask asyncTask) {
         try {
-            if (asyncTask != null &&
-                    asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            if (asyncTask != null && asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
                 asyncTask.cancel(true);
             }
         } catch(Exception e) {

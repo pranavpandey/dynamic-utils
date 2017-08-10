@@ -31,6 +31,8 @@ public class DynamicVersionUtils {
      *
      * @return {@code true} if current version is greater than or equal to
      * {@link Build.VERSION_CODES#GINGERBREAD}.
+     *
+     * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isGingerbread() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
@@ -41,6 +43,8 @@ public class DynamicVersionUtils {
      *
      * @return {@code true} if current version is greater than or equal to
      * {@link Build.VERSION_CODES#GINGERBREAD_MR1}.
+     *
+     * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isGingerbreadMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1;
@@ -51,6 +55,8 @@ public class DynamicVersionUtils {
      *
      * @return {@code true} if current version is greater than or equal to
      * {@link Build.VERSION_CODES#HONEYCOMB}.
+     *
+     * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isHoneycomb() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
@@ -61,6 +67,8 @@ public class DynamicVersionUtils {
      *
      * @return {@code true} if current version is greater than or equal to
      * {@link Build.VERSION_CODES#HONEYCOMB_MR1}.
+     *
+     * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isHoneycombMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1;
@@ -71,6 +79,8 @@ public class DynamicVersionUtils {
      *
      * @return {@code true} if current version is greater than or equal to
      * {@link Build.VERSION_CODES#HONEYCOMB_MR2}.
+     *
+     * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isHoneycombMR2() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2;
@@ -174,5 +184,15 @@ public class DynamicVersionUtils {
      */
     public static boolean isNougatMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+    }
+
+    /**
+     * To detect if the current Android version is O or above.
+     *
+     * @return {@code true} if current version is greater than or equal to
+     * {@link Build.VERSION_CODES#O}.
+     */
+    public static boolean isO() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 }

@@ -45,13 +45,7 @@ public class DynamicWindowUtils {
                 (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
-
-        if (DynamicVersionUtils.isHoneycombMR2()) {
-            display.getSize(size);
-        } else {
-            size.x = display.getWidth();
-            size.y = display.getHeight();
-        }
+        display.getSize(size);
 
         return size;
     }

@@ -53,9 +53,9 @@ ext {
     versionCode = 3
 
     buildTools = '26.0.1'
-    minSdk = 9
+    minSdk = 14
     compileSdk = 26
     targetSdk = 25
 
-    androidSupport = '25.4.0'
+    androidSupport = '26.0.1'
 }

@@ -16,6 +16,7 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -47,6 +48,41 @@ public class DynamicDrawableUtils {
     }
 
     /**
+     * Apply color filter and return the mutated drawable so that, all other
+     * references do not change.
+     *
+     * @param drawable Drawable to be colorized.
+     * @param wrap {@code true} if  wrap {@code drawable} so that it may be
+     *             used for tinting across the different API levels.
+     * @param colorFilter Color filter to be applied on the drawable.
+     *
+     * @return Drawable after applying the color filter.
+     *
+     * @see Drawable#setColorFilter(ColorFilter)
+     * @see ColorFilter
+     */
+    public static Drawable colorizeDrawable(@NonNull Drawable drawable, boolean wrap,
+                                            @NonNull ColorFilter colorFilter) {
+        if (drawable != null) {
+            if (wrap) {
+                if (DynamicVersionUtils.isLollipop()) {
+                    drawable = DrawableCompat.wrap(drawable.mutate());
+                } else {
+                    drawable = drawable.mutate();
+                }
+            }
+
+            drawable.setColorFilter(colorFilter);
+
+            if (!DynamicVersionUtils.isMarshmallow()) {
+                drawable.invalidateSelf();
+            }
+        }
+
+        return drawable;
+    }
+
+    /**
      * Colorize and return the mutated drawable so that, all other references
      * do not change.
      *
@@ -58,12 +94,11 @@ public class DynamicDrawableUtils {
      *
      * @return Drawable after applying the color filter.
      *
-     * @see android.graphics.drawable.Drawable#setColorFilter(int, PorterDuff.Mode)
-     * @see android.graphics.PorterDuff.Mode
+     * @see Drawable#setColorFilter(int, PorterDuff.Mode)
+     * @see PorterDuff.Mode
      */
-    public static Drawable colorizeDrawable(
-            @Nullable Drawable drawable, boolean wrap, @ColorInt int color,
-            @Nullable PorterDuff.Mode mode) {
+    public static Drawable colorizeDrawable(@NonNull Drawable drawable, boolean wrap,
+                                            @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {
             if (wrap) {
                 if (DynamicVersionUtils.isLollipop()) {
@@ -76,14 +111,10 @@ public class DynamicDrawableUtils {
                 }
             }
 
-            if (mode != null) {
-                if (DynamicVersionUtils.isLollipop()) {
-                    DrawableCompat.setTint(drawable, color);
-                } else {
-                    drawable.setColorFilter(color, mode);
-                }
-            } else {
-                DrawableCompat.clearColorFilter(drawable);
+            if (DynamicVersionUtils.isLollipop()) {
+                DrawableCompat.setTint(drawable, color);
+            } else if (mode != null) {
+                drawable.setColorFilter(color, mode);
             }
 
             if (!DynamicVersionUtils.isMarshmallow()) {
@@ -104,8 +135,8 @@ public class DynamicDrawableUtils {
      *
      * @return Drawable after applying the color filter.
      *
-     * @see android.graphics.drawable.Drawable#setColorFilter(int, PorterDuff.Mode)
-     * @see android.graphics.PorterDuff.Mode
+     * @see Drawable#setColorFilter(int, PorterDuff.Mode)
+     * @see PorterDuff
      */
     public static Drawable colorizeDrawable(
             @NonNull Drawable drawable, @ColorInt int color,
@@ -124,11 +155,11 @@ public class DynamicDrawableUtils {
      *
      * @return Drawable after applying the color filter.
      *
-     * @see android.graphics.drawable.Drawable#setColorFilter(int, PorterDuff.Mode)
-     * @see android.graphics.PorterDuff.Mode#SRC_IN
+     * @see Drawable#setColorFilter(int, PorterDuff.Mode)
+     * @see PorterDuff.Mode#SRC_IN
      */
-    public static Drawable colorizeDrawable(
-            @NonNull Drawable drawable, boolean wrap, @ColorInt int color) {
+    public static Drawable colorizeDrawable(@NonNull Drawable drawable, boolean wrap,
+                                            @ColorInt int color) {
         return colorizeDrawable(drawable, wrap, color, PorterDuff.Mode.SRC_IN);
     }
 
@@ -141,8 +172,24 @@ public class DynamicDrawableUtils {
      *
      * @return Drawable after applying the color filter.
      */
-    public static Drawable colorizeDrawable(
-            @NonNull Drawable drawable, @ColorInt int color) {
+    public static Drawable colorizeDrawable(@NonNull Drawable drawable, @ColorInt int color) {
         return colorizeDrawable(drawable, true, color);
+    }
+
+    /**
+     * Apply color filter and return the mutated drawable so that, all other
+     * references do not change.
+     *
+     * @param drawable Drawable to be colorized.
+     * @param colorFilter Color filter to be applied on the drawable.
+     *
+     * @return Drawable after applying the color filter.
+     *
+     * @see Drawable#setColorFilter(ColorFilter)
+     * @see ColorFilter
+     */
+    public static Drawable colorizeDrawable(@NonNull Drawable drawable,
+                                            @NonNull ColorFilter colorFilter) {
+        return colorizeDrawable(drawable, true, colorFilter);
     }
 }

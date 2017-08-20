@@ -61,7 +61,7 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter
      */
-    public static Drawable colorizeDrawable(@NonNull Drawable drawable, boolean wrap,
+    public static Drawable colorizeDrawable(@Nullable Drawable drawable, boolean wrap,
                                             @NonNull ColorFilter colorFilter) {
         if (drawable != null) {
             if (wrap) {
@@ -97,7 +97,7 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode
      */
-    public static Drawable colorizeDrawable(@NonNull Drawable drawable, boolean wrap,
+    public static Drawable colorizeDrawable(@Nullable Drawable drawable, boolean wrap,
                                             @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {
             if (wrap) {
@@ -138,9 +138,8 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff
      */
-    public static Drawable colorizeDrawable(
-            @NonNull Drawable drawable, @ColorInt int color,
-            @Nullable PorterDuff.Mode mode) {
+    public static Drawable colorizeDrawable(@Nullable Drawable drawable,
+                                            @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         return colorizeDrawable(drawable, true, color, mode);
     }
 
@@ -158,7 +157,7 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode#SRC_IN
      */
-    public static Drawable colorizeDrawable(@NonNull Drawable drawable, boolean wrap,
+    public static Drawable colorizeDrawable(@Nullable Drawable drawable, boolean wrap,
                                             @ColorInt int color) {
         return colorizeDrawable(drawable, wrap, color, PorterDuff.Mode.SRC_IN);
     }
@@ -172,7 +171,7 @@ public class DynamicDrawableUtils {
      *
      * @return Drawable after applying the color filter.
      */
-    public static Drawable colorizeDrawable(@NonNull Drawable drawable, @ColorInt int color) {
+    public static Drawable colorizeDrawable(@Nullable Drawable drawable, @ColorInt int color) {
         return colorizeDrawable(drawable, true, color);
     }
 
@@ -188,7 +187,7 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter
      */
-    public static Drawable colorizeDrawable(@NonNull Drawable drawable,
+    public static Drawable colorizeDrawable(@Nullable Drawable drawable,
                                             @NonNull ColorFilter colorFilter) {
         return colorizeDrawable(drawable, true, colorFilter);
     }

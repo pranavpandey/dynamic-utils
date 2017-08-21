@@ -28,7 +28,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    projectName = 'DynamicUtils'
+    projectName = 'dynamic-utils'
     projectDesc = 'A collection of static methods to perform various operations including color, ' +
             'device, drawable, package, tasks and sdk on Android devices.'
     versionDesc = 'A collection of static methods to perform various operations including color, ' +

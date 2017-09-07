@@ -37,15 +37,24 @@ public class DynamicWindowUtils {
      *
      * @return App usable screen size in point.
      *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
+     * @see Context#WINDOW_SERVICE
+     * @see Point
      */
     public static Point getAppUsableScreenSize(@NonNull Context context) {
-        WindowManager windowManager =
-                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        WindowManager windowManager = (WindowManager)
+                context.getSystemService(Context.WINDOW_SERVICE);
+
+        if (windowManager != null) {
+            Display display = windowManager.getDefaultDisplay();
+
+            if (DynamicVersionUtils.isHoneycombMR2()) {
+                display.getSize(size);
+            } else {
+                size.x = display.getWidth();
+                size.y = display.getHeight();
+            }
+        }
 
         return size;
     }
@@ -57,27 +66,30 @@ public class DynamicWindowUtils {
      *
      * @return Real screen size in point.
      *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
+     * @see Context#WINDOW_SERVICE
+     * @see Point
      */
     public static Point getRealScreenSize(@NonNull Context context) {
+        Point size = new Point();
         WindowManager windowManager =
                 (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
-        Point size = new Point();
 
-        if (DynamicVersionUtils.isJellyBeanMR1()) {
-            display.getRealSize(size);
-        } else if (DynamicVersionUtils.isIceCreamSandwich()) {
-            try {
-                size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
-                size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+        if (windowManager != null) {
+            Display display = windowManager.getDefaultDisplay();
+
+            if (DynamicVersionUtils.isJellyBeanMR1()) {
+                display.getRealSize(size);
+            } else if (DynamicVersionUtils.isIceCreamSandwich()) {
+                try {
+                    size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+                    size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -91,8 +103,8 @@ public class DynamicWindowUtils {
      *
      * @return On-screen navigation bar in point.
      *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
+     * @see Context#WINDOW_SERVICE
+     * @see Point
      */
     public static Point getNavigationBarSize(@NonNull Context context) {
         Point appUsableSize = getAppUsableScreenSize(context);
@@ -113,6 +125,20 @@ public class DynamicWindowUtils {
     }
 
     /**
+     * Detect if on-screen navigation bar is present or not.
+     *
+     * @param context Context to get the resources. Usually your
+     *                {@link android.app.Application} or
+     *                {@link android.app.Activity}
+     *                object.
+     *
+     * @return {@code true} if on-screen navigation bar is present.
+     */
+    public static boolean isNavigationBarPresent(@NonNull Context context) {
+        return !getNavigationBarSize(context).equals(0, 0);
+    }
+
+    /**
      * Detect support for navigation bar theme.
      *
      * @param context Context to get the resources. Usually your
@@ -123,7 +149,6 @@ public class DynamicWindowUtils {
      * @return {@code true} if navigation bar theme is supported.
      */
     public static boolean isNavigationBarThemeSupported(@NonNull Context context) {
-        return DynamicVersionUtils.isLollipop()
-                && !getNavigationBarSize(context).equals(0, 0);
+        return DynamicVersionUtils.isLollipop() && isNavigationBarPresent(context);
     }
 }

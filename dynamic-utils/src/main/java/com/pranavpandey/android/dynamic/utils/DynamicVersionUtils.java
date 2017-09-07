@@ -191,8 +191,20 @@ public class DynamicVersionUtils {
      *
      * @return {@code true} if current version is greater than or equal to
      * {@link Build.VERSION_CODES#O}.
+     *
+     * @deprecated Use {@link #isOreo()}.
      */
     public static boolean isO() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
+
+    /**
+     * To detect if the current Android version is O or above.
+     *
+     * @return {@code true} if current version is greater than or equal to
+     * {@link Build.VERSION_CODES#O}.
+     */
+    public static boolean isOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 }

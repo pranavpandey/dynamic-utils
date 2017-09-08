@@ -24,9 +24,10 @@ so, minimum SDK will be Android 14+ (ICS or above).
     - [DynamicLinkUtils](https://github.com/pranavpandey/dynamic-utils#dynamiclinkutils)
     - [DynamicPackageUtils](https://github.com/pranavpandey/dynamic-utils#dynamicpackageutils)
     - [DynamicTaskUtils](https://github.com/pranavpandey/dynamic-utils#dynamictaskutils)
-    - [DynamicVersionUtils](https://github.com/pranavpandey/dynamic-utils#dynamicversionutils)
-    - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
     - [DynamicUnitUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
+    - [DynamicVersionUtils](https://github.com/pranavpandey/dynamic-utils#dynamicversionutils)
+    - [DynamicViewUtils](https://github.com/pranavpandey/dynamic-utils#dynamicviewutils)
+    - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
 - [License](https://github.com/pranavpandey/dynamic-utils#license)
 
 ---
@@ -37,7 +38,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
-    compile 'com.pranavpandey.android:dynamic-utils:0.4.0'
+    compile 'com.pranavpandey.android:dynamic-utils:0.5.0'
 }
 ```
 
@@ -135,6 +136,18 @@ Helper class to easily execute or cancel an AsyncTask by handling all the except
 
 - `void executeTask(asyncTask)` - Try to execute the supplied AsyncTask.
 
+### DynamicUnitUtils
+
+Helper class to perform unit conversions.
+
+- `int convertDpToPixels(dp)` - To convert DP into pixels.
+
+- `int convertPixelsToDp(pixels)` - To convert pixels into DP.
+
+- `int convertSpToPixels(sp)` - To convert SP into pixels.
+
+- `int convertPixelsToSp(pixels)` - To convert pixels into SP.
+
 ### DynamicVersionUtils
 
 Helper class to detect the Android SDK version at runtime so that we can provide the user 
@@ -147,9 +160,19 @@ or above.
 
 ...
 
-- `boolean isNougat()` - To detect if the current Android version is N or above.
+- `boolean isNougatMR1()` - To detect if the current Android version is NougatMR1 or above.
 
-- `boolean isNougatMR1()` - To detect if the current Android version is N_MR1 or above.
+- `boolean isOreo()` - To detect if the current Android version is Oreo or above.
+
+### DynamicViewUtils
+
+Helper class to perform `view` operations.
+
+- `void setLightStatusBar(view, isLight)` - Set light status bar if we are using light primary 
+color on Android M or above devices.
+
+- `void setLightNavigationBar(view, isLight)` - Set light navigation bar if we are using light 
+primary color on Android O or above devices.
 
 ### DynamicWindowUtils
 
@@ -161,19 +184,9 @@ Helper class to perform Window operations and to detect system configurations at
 
 - `Point getNavigationBarSize(context)` - Get the on-screen navigation bar size.
 
+- `boolean isNavigationBarPresent(context)` - Detect if on-screen navigation bar is present or not.
+
 - `boolean isNavigationBarThemeSupported(context)` - Detect support for navigation bar theme.
-
-### DynamicUnitUtils
-
-Helper class to perform unit conversions.
-
-- `int convertDpToPixels(dp)` - To convert DP into pixels.
-
-- `int convertPixelsToDp(pixels)` - To convert pixels into DP.
-
-- `int convertSpToPixels(sp)` - To convert SP into pixels.
-
-- `int convertPixelsToSp(pixels)` - To convert pixels into SP.
 
 ---
 

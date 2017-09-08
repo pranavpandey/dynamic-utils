@@ -56,7 +56,8 @@ public class DynamicPackageUtils {
      *
      * @see ApplicationInfo#loadLabel(PackageManager)
      */
-    public static CharSequence getAppLabel(@NonNull Context context, @Nullable String packageName) {
+    public static CharSequence getAppLabel(@NonNull Context context,
+                                           @Nullable String packageName) {
         PackageManager packageManager = context.getPackageManager();
         try {
             return packageManager.getPackageInfo(packageName,

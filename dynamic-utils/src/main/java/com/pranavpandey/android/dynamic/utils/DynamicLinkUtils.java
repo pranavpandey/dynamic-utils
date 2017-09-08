@@ -89,8 +89,8 @@ public class DynamicLinkUtils {
      *
      * @see  android.content.Intent#ACTION_SEND
      */
-    public static void shareApp(@NonNull Context context,
-                                @Nullable String title, @Nullable String message) {
+    public static void shareApp(@NonNull Context context, @Nullable String title,
+                                @Nullable String message) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
@@ -141,8 +141,8 @@ public class DynamicLinkUtils {
      *
      * @see  android.content.Intent#ACTION_VIEW
      */
-    public static void viewInGooglePlay(
-            @NonNull Context context, @NonNull String packageName) {
+    public static void viewInGooglePlay(@NonNull Context context,
+                                        @NonNull String packageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(LINK_MARKET + packageName)));

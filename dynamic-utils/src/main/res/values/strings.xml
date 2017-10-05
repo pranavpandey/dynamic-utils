@@ -17,6 +17,9 @@
 
 <resources>
 
+    <!-- Format -->
+    <string name="adu_format_blank_space">%1$s %2$s</string>
+
     <!-- Share app -->
     <string name="adu_share_to">Share via&#8230;</string>
     <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>

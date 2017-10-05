@@ -17,9 +17,12 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.Surface;
 import android.view.WindowManager;
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,8 +40,8 @@ public class DynamicWindowUtils {
      *
      * @return App usable screen size in point.
      *
-     * @see Context#WINDOW_SERVICE
-     * @see Point
+     * @see android.content.Context#WINDOW_SERVICE
+     * @see android.graphics.Point
      */
     public static Point getAppUsableScreenSize(@NonNull Context context) {
         Point size = new Point();
@@ -66,8 +69,8 @@ public class DynamicWindowUtils {
      *
      * @return Real screen size in point.
      *
-     * @see Context#WINDOW_SERVICE
-     * @see Point
+     * @see android.content.Context#WINDOW_SERVICE
+     * @see android.graphics.Point
      */
     public static Point getRealScreenSize(@NonNull Context context) {
         Point size = new Point();
@@ -103,8 +106,8 @@ public class DynamicWindowUtils {
      *
      * @return On-screen navigation bar in point.
      *
-     * @see Context#WINDOW_SERVICE
-     * @see Point
+     * @see android.content.Context#WINDOW_SERVICE
+     * @see android.graphics.Point
      */
     public static Point getNavigationBarSize(@NonNull Context context) {
         Point appUsableSize = getAppUsableScreenSize(context);
@@ -150,5 +153,77 @@ public class DynamicWindowUtils {
      */
     public static boolean isNavigationBarThemeSupported(@NonNull Context context) {
         return DynamicVersionUtils.isLollipop() && isNavigationBarPresent(context);
+    }
+
+    /**
+     * Get the current device orientation.
+     *
+     * @param context Context to get the resources and window service.
+     *
+     * @return Current activity orientation info.
+     *
+     * @see ActivityInfo#SCREEN_ORIENTATION_PORTRAIT
+     * @see ActivityInfo#SCREEN_ORIENTATION_REVERSE_PORTRAIT
+     * @see ActivityInfo#SCREEN_ORIENTATION_LANDSCAPE
+     * @see ActivityInfo#SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+     */
+    public static int getScreenOrientation(@NonNull Context context) {
+        WindowManager windowManager = (WindowManager)
+                context.getSystemService(Context.WINDOW_SERVICE);
+
+        if (windowManager == null) {
+            return ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+        }
+
+        Display display = windowManager.getDefaultDisplay();
+        int rotation = display.getRotation();
+        DisplayMetrics displayMatrix = context.getResources().getDisplayMetrics();
+        float scale = displayMatrix.density;
+        int width = (int) (displayMatrix.widthPixels * scale + 0.5f);
+        int height = (int) (displayMatrix.heightPixels * scale + 0.5f);
+
+        int orientation;
+        if ((rotation == Surface.ROTATION_0
+                || rotation == Surface.ROTATION_180) && height > width ||
+                (rotation == Surface.ROTATION_90
+                        || rotation == Surface.ROTATION_270) && width > height) {
+            switch(rotation) {
+                case Surface.ROTATION_0:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                    break;
+                case Surface.ROTATION_90:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                    break;
+                case Surface.ROTATION_180:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+                    break;
+                case Surface.ROTATION_270:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+                    break;
+                default:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                    break;
+            }
+        } else {
+            switch(rotation) {
+                case Surface.ROTATION_0:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                    break;
+                case Surface.ROTATION_90:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                    break;
+                case Surface.ROTATION_180:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+                    break;
+                case Surface.ROTATION_270:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+                    break;
+                default:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                    break;
+            }
+        }
+
+        return orientation;
     }
 }

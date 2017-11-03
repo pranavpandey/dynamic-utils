@@ -18,6 +18,7 @@ so, minimum SDK will be Android 14+ (ICS or above).
 
 - [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
 - [Usage](https://github.com/pranavpandey/dynamic-utils#usage)
+    - [DynamicBitmapUtils](https://github.com/pranavpandey/dynamic-utils#dynamicbitmaputils)
     - [DynamicColorUtils](https://github.com/pranavpandey/dynamic-utils#dynamiccolorutils)
     - [DynamicDeviceUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdeviceutils)
     - [DynamicDrawableUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdrawableutils)
@@ -50,6 +51,20 @@ It is divided into different classes according to their category for easy unders
 This library is fully commented so I am highlighting some of the functions below, keep exploring 
 for more hidden features.
 
+### DynamicBitmapUtils
+
+Helper class to perform bitmap operations.
+
+- `Bitmap getBitmapFormDrawable(drawable)` - Get bitmap from the supplied drawable.
+
+- `Bitmap resizeBitmap(bitmap, newWidth, newHeight)` - Resize bitmap to the new width and height.
+
+- `Bitmap applyColorFilter(bitmap, colorFilter)` - Apply color filter on the supplied bitmap.
+
+- `Bitmap applyColorFilter(bitmap, color)` - Apply monochrome color filter on the supplied bitmap.
+
+- `@ColorInt int getDominantColor(bitmap)` - Extract the dominant color form the supplied bitmap.
+
 ### DynamicColorUtils
 
 Helper class to change colors dynamically.
@@ -57,13 +72,13 @@ Helper class to change colors dynamically.
 - `@ColorInt int adjustAlpha(color, factor)` - Adjust alpha of a color according to the given 
 parameter.
 
-- `@ColorInt int calculateContrast(color1, color2) ` - Calculate color contrast difference 
+- `@ColorInt int calculateContrast(color1, color2)` - Calculate color contrast difference 
 between two colors based on luma value according to XYZ color space.
 
 - `@ColorInt int getAccentColor(color)` - Calculate accent color based on the given color for 
 dynamic theme generation.
 
-- `@ColorInt int getColorDarkness(color) ` - Calculate darkness of a color.
+- `@ColorInt int getColorDarkness(color)` - Calculate darkness of a color.
 
 - `@ColorInt int getContrastColor(color, contrastWithColor)` - Calculate contrast of a color 
 based on the given base color so that it will be visible always on top of the base color.

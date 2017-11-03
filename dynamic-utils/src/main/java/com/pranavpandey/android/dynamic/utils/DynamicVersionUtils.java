@@ -207,4 +207,14 @@ public class DynamicVersionUtils {
     public static boolean isOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
+
+    /**
+     * To detect if the current Android version is O_MR1 or above.
+     *
+     * @return {@code true} if current version is greater than or equal to
+     * {@link Build.VERSION_CODES#O_MR1}.
+     */
+    public static boolean isOreoMR1() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
+    }
 }

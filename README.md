@@ -38,7 +38,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
-    compile 'com.pranavpandey.android:dynamic-utils:0.5.0'
+    compile 'com.pranavpandey.android:dynamic-utils:0.6.0'
 }
 ```
 
@@ -162,7 +162,7 @@ or above.
 
 - `boolean isNougatMR1()` - To detect if the current Android version is NougatMR1 or above.
 
-- `boolean isOreo()` - To detect if the current Android version is Oreo or above.
+- `boolean isOreoMR1()` - To detect if the current Android version is OreoMR1 or above.
 
 ### DynamicViewUtils
 

@@ -199,6 +199,7 @@ public class DynamicVersionUtils {
      *
      * @deprecated Use {@link #isOreo()}.
      */
+    @Deprecated
     public static boolean isO() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }

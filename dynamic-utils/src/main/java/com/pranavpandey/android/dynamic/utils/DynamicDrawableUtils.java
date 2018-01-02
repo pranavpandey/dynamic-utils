@@ -65,11 +65,7 @@ public class DynamicDrawableUtils {
                                             @NonNull ColorFilter colorFilter) {
         if (drawable != null) {
             if (wrap) {
-                if (DynamicVersionUtils.isLollipop()) {
-                    drawable = DrawableCompat.wrap(drawable.mutate());
-                } else {
-                    drawable = drawable.mutate();
-                }
+                drawable = DrawableCompat.wrap(drawable.mutate());
             }
 
             drawable.setColorFilter(colorFilter);
@@ -101,21 +97,15 @@ public class DynamicDrawableUtils {
                                             @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {
             if (wrap) {
-                if (DynamicVersionUtils.isLollipop()) {
-                    drawable = DrawableCompat.wrap(drawable.mutate());
-                    if (mode != null) {
-                        DrawableCompat.setTintMode(drawable, mode);
-                    }
-                } else {
-                    drawable = drawable.mutate();
-                }
+                drawable = DrawableCompat.wrap(drawable.mutate());
             }
 
-            if (DynamicVersionUtils.isLollipop()) {
-                DrawableCompat.setTint(drawable, color);
-            } else if (mode != null) {
-                drawable.setColorFilter(color, mode);
+            if (mode != null) {
+                DrawableCompat.setTintMode(drawable, mode);
+            } else {
+                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
             }
+            DrawableCompat.setTint(drawable, color);
 
             if (!DynamicVersionUtils.isMarshmallow()) {
                 drawable.invalidateSelf();

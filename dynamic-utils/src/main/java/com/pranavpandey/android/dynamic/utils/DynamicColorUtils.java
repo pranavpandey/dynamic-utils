@@ -26,6 +26,21 @@ import android.support.annotation.FloatRange;
 public class DynamicColorUtils {
 
     /**
+     * Visible contrast between the two colors.
+     */
+    private static final float VISIBLE_CONTRAST = 0.32f;
+
+    /**
+     * Amount to calculate the tint of a color.
+     */
+    private static final float TINT_FACTOR = 0.68f;
+
+    /**
+     * Amount to calculate the contrast color.
+     */
+    private static final float CONTRAST_FACTOR = 0.6f;
+
+    /**
      * Calculate tint based on a given color for better readability.
      *
      * @param color Color whose tint to be calculated.
@@ -33,44 +48,47 @@ public class DynamicColorUtils {
      * @return Tint of the given color.
      */
     public static @ColorInt int getTintColor(@ColorInt int color) {
-        int finalColor;
-        double tint;
-        int a = Color.alpha(color);
-        int r = Color.red(color);
-        int g = Color.green(color);
-        int b = Color.blue(color);
-        double colorDarkness = getColorDarkness(color);
-        boolean isColorDark;
-
-        if (isColorDark = isColorDark(color)) {
-            if (colorDarkness >= 0.5f && colorDarkness < 0.6f) {
-                tint = 0.9f;
-            } else if (colorDarkness >= 0.6f && colorDarkness < 0.65f) {
-                tint = 0.8f;
-            } else {
-                tint = 0.7f;
-            }
-
-            finalColor = Color.argb(a, (int) (r + (tint * (255 - r))),
-                    (int) (g + (tint * (255 - g))), (int) (b + (tint * (255 - b))));
+        if (isColorDark(color)) {
+            return getLighterColor(color, TINT_FACTOR);
         } else {
-            if (colorDarkness < 0.5f && colorDarkness >= 0.4f) {
-                tint = 0.3f;
-            } else if (colorDarkness < 0.4f && colorDarkness >= 0.3f) {
-                tint = 0.4f;
-            } else {
-                tint = 0.5f;
-            }
-
-            finalColor = Color.argb((int) Math.min(1.33 * a, 255),
-                    (int) (r * tint), (int) (g * tint), (int) (b * tint));
+            return getDarkerColor(color, TINT_FACTOR);
         }
+    }
 
-        if (calculateContrast(color, finalColor) < 0.3f) {
-            return getTintColor(finalColor);
-        }
+    /**
+     * Lightens a color by a given amount.
+     *
+     * @param color The color to lighten.
+     * @param amount The amount to lighten the color.
+     *               0 will leave the color unchanged.
+     *               1 will make the color completely white.
+     *
+     * @return The lighter color.
+     */
+    public static @ColorInt int getLighterColor(@ColorInt int color, float amount) {
+        int red = (int) ((Color.red(color) * (1 - amount) / 255 + amount) * 255);
+        int green = (int) ((Color.green(color) * (1 - amount) / 255 + amount) * 255);
+        int blue = (int) ((Color.blue(color) * (1 - amount) / 255 + amount) * 255);
 
-        return finalColor;
+        return Color.argb(Color.alpha(color), red, green, blue);
+    }
+
+    /**
+     * Darkens a color by a given amount.
+     *
+     * @param color The color to darken.
+     * @param amount The amount to darken the color.
+     *               0 will leave the color unchanged.
+     *               1 will make the color completely black.
+     *
+     * @return The darker color.
+     */
+    public static @ColorInt int getDarkerColor(@ColorInt int color, float amount) {
+        int red = (int) ((Color.red(color) * (1 - amount) / 255) * 255);
+        int green = (int) ((Color.green(color) * (1 - amount) / 255) * 255);
+        int blue = (int) ((Color.blue(color) * (1 - amount) / 255) * 255);
+
+        return Color.argb(Color.alpha(color), red, green, blue);
     }
 
     /**
@@ -122,8 +140,15 @@ public class DynamicColorUtils {
      */
     public static @ColorInt int getContrastColor(
             @ColorInt int color, @ColorInt int contrastWith) {
-        if (calculateContrast(contrastWith, color) < 0.3f) {
-            return getContrastColor(DynamicColorUtils.getTintColor(color), contrastWith);
+        float contrast = calculateContrast(color, contrastWith);
+        if (contrast < VISIBLE_CONTRAST) {
+            if (isColorDark(contrastWith)) {
+                return getLighterColor(color,
+                        Math.max(VISIBLE_CONTRAST + contrast, CONTRAST_FACTOR));
+            } else {
+                return getDarkerColor(color,
+                        Math.max(VISIBLE_CONTRAST + contrast, CONTRAST_FACTOR));
+            }
         }
 
         return color;
@@ -222,11 +247,47 @@ public class DynamicColorUtils {
      * @return Color with adjusted alpha.
      */
     public static @ColorInt int adjustAlpha(@ColorInt int color, float factor) {
-        int alpha = Math.round(Color.alpha(color) * factor);
+        int alpha = Math.min(255, (int) (Color.alpha(color) * factor));
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);
 
         return Color.argb(alpha, red, green, blue);
+    }
+
+    /**
+     * Remove alpha from a color.
+     *
+     * @param color Color whose alpha to be removed.
+     *
+     * @return Color without alpha.
+     */
+    public static @ColorInt int removeAlpha(@ColorInt int color) {
+        return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    /**
+     * Get hexadecimal string from the color integer.
+     *
+     * @param color Color to get the hex code.
+     * @param includeAlpha {@code true} to include alpha in the string.
+     * @param includeHash {@code true} to include # in the string.
+     *
+     * @return Hexadecimal string equivalent of the supplied color integer.
+     */
+    public static String getColorString(@ColorInt int color, boolean includeAlpha,
+                                        boolean includeHash) {
+        String colorString;
+        if (includeAlpha) {
+            colorString = String.format("%08X", color);
+        } else {
+            colorString = String.format("%06X", 0xFFFFFF & color);
+        }
+
+        if (includeHash) {
+            colorString = "#" + colorString;
+        }
+
+        return colorString;
     }
 }

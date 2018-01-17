@@ -36,33 +36,33 @@ public class DynamicLinkUtils {
     /**
      * Facebook web url.
      */
-    private static final String LINK_FACEBOOK = "https://www.facebook";
+    private static final String URL_FACEBOOK = "https://www.facebook";
 
     /**
      * Facebook app url template to open link in the app.
      */
-    private static final String LINK_FACEBOOK_APP = "fb://facewebmodal/f?href=";
+    private static final String URL_FACEBOOK_APP = "fb://facewebmodal/f?href=";
 
     /**
      * Android Market app url template to open app details on older devices.
      */
-    private static final String LINK_MARKET = "market://details?id=";
+    private static final String URL_MARKET = "market://details?id=";
 
     /**
-     * Google Play app url template to open app details on newer devices.
+     * Play Store app url template to open app details on newer devices.
      */
-    private static final String LINK_GOOGLE_PLAY =
+    private static final String URL_PLAY_STORE =
             "http://play.google.com/store/apps/details?id=";
 
     /**
      * Android Market app search query template to search apps of a publisher.
      */
-    private static final String LINK_MARKET_SEARCH_PUB = "market://search?q=pub:";
+    private static final String URL_MARKET_SEARCH_PUB = "market://search?q=pub:";
 
     /**
-     * Google Play app search query template to search apps of a publisher.
+     * Play Store app search query template to search apps of a publisher.
      */
-    private static final String LINK_GOOGLE_PLAY_SEARCH_PUB =
+    private static final String URL_GOOGLE_PLAY_SEARCH_PUB =
             "http://play.google.com/store/search?q=pub:";
 
     /**
@@ -89,8 +89,8 @@ public class DynamicLinkUtils {
      *
      * @see  android.content.Intent#ACTION_SEND
      */
-    public static void shareApp(@NonNull Context context, @Nullable String title,
-                                @Nullable String message) {
+    public static void shareApp(@NonNull Context context,
+                                @Nullable String title, @Nullable String message) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
@@ -107,7 +107,10 @@ public class DynamicLinkUtils {
         }
 
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
-        context.startActivity(Intent.createChooser(sendIntent, title));
+
+        try {
+            context.startActivity(Intent.createChooser(sendIntent, title));
+        } catch (Exception ignored) { }
     }
 
     /**
@@ -130,7 +133,7 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View app in the Google Play or Android Market.
+     * View app in the Play Store or Android Market.
      *
      * @param context Context to start the activity. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
@@ -141,21 +144,19 @@ public class DynamicLinkUtils {
      *
      * @see  android.content.Intent#ACTION_VIEW
      */
-    public static void viewInGooglePlay(@NonNull Context context,
-                                        @NonNull String packageName) {
+    public static void viewInGooglePlay(
+            @NonNull Context context, @NonNull String packageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(LINK_MARKET + packageName)));
+                    Uri.parse(URL_MARKET + packageName)));
         } catch (Exception e) {
-            e.printStackTrace();
-
             context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(LINK_GOOGLE_PLAY + packageName)));
+                    Uri.parse(URL_PLAY_STORE + packageName)));
         }
     }
 
     /**
-     * View app in the Google Play or Android Market. Can be used for the
+     * View app in the Play Store or Android Market. Can be used for the
      * quick feedback or rating from the user.
      *
      * <p>This method throws {@link ActivityNotFoundException}
@@ -174,7 +175,7 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View other apps of a Publisher in the Google Play or Android Market.
+     * View other apps of a Publisher in the Play Store or Android Market.
      *
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
@@ -191,12 +192,10 @@ public class DynamicLinkUtils {
     public static void moreApps(@NonNull Context context, @NonNull String publisher) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(LINK_MARKET_SEARCH_PUB + publisher)));
+                    Uri.parse(URL_MARKET_SEARCH_PUB + publisher)));
         } catch (Exception e) {
-            e.printStackTrace();
-
             context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(LINK_GOOGLE_PLAY_SEARCH_PUB + publisher)));
+                    Uri.parse(URL_GOOGLE_PLAY_SEARCH_PUB + publisher)));
         }
     }
 
@@ -216,19 +215,16 @@ public class DynamicLinkUtils {
      * @throws ActivityNotFoundException If no activity is found.
      *
      * @see  android.content.Intent#ACTION_VIEW
-     * @see #LINK_FACEBOOK_APP
+     * @see #URL_FACEBOOK_APP
      */
     public static void viewUrl(@NonNull Context context, @NonNull String url) {
-        if (url.contains(LINK_FACEBOOK)) {
+        if (url.contains(URL_FACEBOOK)) {
             try {
                 context.startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(LINK_FACEBOOK_APP + url)));
+                        Uri.parse(URL_FACEBOOK_APP + url)));
             } catch (Exception e) {
-                e.printStackTrace();
-
                 context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             }
-
         } else {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         }
@@ -267,9 +263,7 @@ public class DynamicLinkUtils {
                 appName = context.getApplicationInfo().loadLabel(
                         context.getPackageManager()).toString();
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        } catch (PackageManager.NameNotFoundException ignored) { }
 
         String subject = String.format(
                 context.getResources().getString(R.string.adu_bug_title), appName,
@@ -279,6 +273,8 @@ public class DynamicLinkUtils {
         intent.putExtra(Intent.EXTRA_TEXT,
                 context.getResources().getString(R.string.adu_bug_desc));
 
-        context.startActivity(intent);
+        try {
+            context.startActivity(intent);
+        } catch (Exception ignored) { }
     }
 }

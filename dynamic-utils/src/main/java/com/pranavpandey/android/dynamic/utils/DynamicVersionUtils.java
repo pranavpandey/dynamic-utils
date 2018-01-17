@@ -34,7 +34,6 @@ public class DynamicVersionUtils {
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
-    @Deprecated
     public static boolean isGingerbread() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
     }
@@ -47,7 +46,6 @@ public class DynamicVersionUtils {
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
-    @Deprecated
     public static boolean isGingerbreadMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1;
     }
@@ -60,7 +58,6 @@ public class DynamicVersionUtils {
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
-    @Deprecated
     public static boolean isHoneycomb() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
@@ -73,7 +70,6 @@ public class DynamicVersionUtils {
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
-    @Deprecated
     public static boolean isHoneycombMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1;
     }
@@ -86,7 +82,6 @@ public class DynamicVersionUtils {
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
-    @Deprecated
     public static boolean isHoneycombMR2() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2;
     }
@@ -110,7 +105,7 @@ public class DynamicVersionUtils {
     public static boolean isIceCreamSandwichMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
-    
+
     /**
      * To detect if the current Android version is JellyBean or above.
      *

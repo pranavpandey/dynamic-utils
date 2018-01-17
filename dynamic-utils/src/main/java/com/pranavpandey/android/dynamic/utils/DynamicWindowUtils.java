@@ -43,7 +43,7 @@ public class DynamicWindowUtils {
      * @see android.content.Context#WINDOW_SERVICE
      * @see android.graphics.Point
      */
-    public static Point getAppUsableScreenSize(@NonNull Context context) {
+    public static @NonNull Point getAppUsableScreenSize(@NonNull Context context) {
         Point size = new Point();
         WindowManager windowManager = (WindowManager)
                 context.getSystemService(Context.WINDOW_SERVICE);
@@ -72,7 +72,7 @@ public class DynamicWindowUtils {
      * @see android.content.Context#WINDOW_SERVICE
      * @see android.graphics.Point
      */
-    public static Point getRealScreenSize(@NonNull Context context) {
+    public static @NonNull Point getRealScreenSize(@NonNull Context context) {
         Point size = new Point();
         WindowManager windowManager =
                 (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -86,13 +86,9 @@ public class DynamicWindowUtils {
                 try {
                     size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
+                } catch (IllegalAccessException ignored) {
+                } catch (InvocationTargetException ignored) {
+                } catch (NoSuchMethodException ignored) { }
             }
         }
 
@@ -109,7 +105,7 @@ public class DynamicWindowUtils {
      * @see android.content.Context#WINDOW_SERVICE
      * @see android.graphics.Point
      */
-    public static Point getNavigationBarSize(@NonNull Context context) {
+    public static @NonNull Point getNavigationBarSize(@NonNull Context context) {
         Point appUsableSize = getAppUsableScreenSize(context);
         Point realScreenSize = getRealScreenSize(context);
 
@@ -225,5 +221,23 @@ public class DynamicWindowUtils {
         }
 
         return orientation;
+    }
+
+    /**
+     * @return The {@link WindowManager} overlay flag according to the
+     * android version.
+     *
+     * @param alert {@code true} to return alert flag on below Android O
+     *                devices.
+     *
+     * @see WindowManager.LayoutParams#TYPE_APPLICATION_OVERLAY
+     * @see WindowManager.LayoutParams#TYPE_SYSTEM_OVERLAY
+     * @see WindowManager.LayoutParams#TYPE_SYSTEM_ALERT
+     */
+    public static int getOverlayFlag(boolean alert) {
+        return DynamicVersionUtils.isOreo()
+                ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                : alert ? WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
+                : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
     }
 }

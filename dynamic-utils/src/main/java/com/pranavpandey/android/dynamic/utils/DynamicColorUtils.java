@@ -19,6 +19,9 @@ package com.pranavpandey.android.dynamic.utils;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
+import android.support.v4.graphics.ColorUtils;
+
+import java.util.Random;
 
 /**
  * Helper class to change colors dynamically.
@@ -53,6 +56,24 @@ public class DynamicColorUtils {
         } else {
             return getDarkerColor(color, TINT_FACTOR);
         }
+    }
+
+    /**
+     * Lightens or darkens a color by a given amount.
+     *
+     * @param color The color to be lighten or darken.
+     * @param light The amount to lighten the color.
+     *              0 will leave the color unchanged.
+     *              1 will make the color completely white.
+     * @param dark The amount to darken the color.
+     *             0 will leave the color unchanged.
+     *             1 will make the color completely black.
+     *
+     * @return The lighter color.
+     */
+    public static @ColorInt int getStateColor(@ColorInt int color, float light, float dark) {
+        return isColorDark(color) ? getLighterColor(color, light)
+                : getDarkerColor(color, dark);
     }
 
     /**
@@ -127,6 +148,35 @@ public class DynamicColorUtils {
 
         finalColor = Color.argb(a, rc, gc, bc);
         return finalColor;
+    }
+
+    /**
+     * Generate a random rgb color.
+     *
+     * @see Random
+     * @see Color#HSVToColor(float[])
+     */
+    public static @ColorInt int getRandomColor() {
+        Random random = new Random();
+        float hue = (float) random.nextInt(360);
+        float saturation = random.nextFloat();
+        float lightness = random.nextFloat();
+
+        return ColorUtils.HSLToColor(new float[] { hue, saturation, lightness });
+    }
+
+    /**
+     * Generate a random rgb color by comparing a given color.
+     *
+     * @param color The color to compare.
+     */
+    public static @ColorInt int getRandomColor(@ColorInt int color) {
+        @ColorInt int newColor = getRandomColor();
+        if (newColor != color) {
+            return newColor;
+        } else {
+            return getRandomColor();
+        }
     }
 
     /**

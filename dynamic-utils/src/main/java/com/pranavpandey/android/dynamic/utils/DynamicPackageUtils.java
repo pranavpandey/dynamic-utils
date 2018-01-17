@@ -38,9 +38,9 @@ public class DynamicPackageUtils {
      *
      * @return Component name from the given context.
      *
-     * @see ComponentName#ComponentName(String, String)
+     * @see android.content.ComponentName#ComponentName(String, String)
      */
-    public static ComponentName getComponentName(@NonNull Context context) {
+    public static @NonNull ComponentName getComponentName(@NonNull Context context) {
         return new ComponentName(context.getPackageName(), context.getClass().getName());
     }
 
@@ -54,19 +54,17 @@ public class DynamicPackageUtils {
      *
      * @return Application label or name.
      *
-     * @see ApplicationInfo#loadLabel(PackageManager)
+     * @see android.content.pm.ApplicationInfo#loadLabel(PackageManager)
      */
-    public static CharSequence getAppLabel(@NonNull Context context,
-                                           @Nullable String packageName) {
+    public static @Nullable CharSequence getAppLabel(@NonNull Context context,
+                                                     @Nullable String packageName) {
         PackageManager packageManager = context.getPackageManager();
         try {
             return packageManager.getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).applicationInfo.loadLabel(packageManager);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -78,9 +76,9 @@ public class DynamicPackageUtils {
      *
      * @return Application label or name.
      *
-     * @see ApplicationInfo#loadLabel(PackageManager)
+     * @see android.content.pm.ApplicationInfo#loadLabel(PackageManager)
      */
-    public static CharSequence getAppLabel(@NonNull Context context) {
+    public static @Nullable CharSequence getAppLabel(@NonNull Context context) {
         return getAppLabel(context, context.getPackageName());
     }
 
@@ -96,15 +94,14 @@ public class DynamicPackageUtils {
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static String getAppVersion(@NonNull Context context, @Nullable String packageName) {
+    public static @Nullable String getAppVersion(@NonNull Context context,
+                                                 @Nullable String packageName) {
         try {
             return context.getPackageManager().getPackageInfo(packageName,
-                            PackageManager.GET_META_DATA).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+                    PackageManager.GET_META_DATA).versionName;
+        } catch (Exception e) {
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -118,7 +115,7 @@ public class DynamicPackageUtils {
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static String getAppVersion(@NonNull Context context) {
+    public static @Nullable String getAppVersion(@NonNull Context context) {
         return getAppVersion(context, context.getPackageName());
     }
 
@@ -132,18 +129,17 @@ public class DynamicPackageUtils {
      *
      * @return Application icon drawable.
      *
-     * @see ApplicationInfo#loadIcon(PackageManager)
+     * @see android.content.pm.ApplicationInfo#loadIcon(PackageManager)
      */
-    public static Drawable getAppIcon(@NonNull Context context, @Nullable String packageName) {
+    public static @Nullable Drawable getAppIcon(@NonNull Context context,
+                                                @Nullable String packageName) {
         PackageManager packageManager = context.getPackageManager();
         try {
             return packageManager.getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).applicationInfo.loadIcon(packageManager);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -155,9 +151,9 @@ public class DynamicPackageUtils {
      *
      * @return Application icon drawable.
      *
-     * @see ApplicationInfo#loadIcon(PackageManager)
+     * @see android.content.pm.ApplicationInfo#loadIcon(PackageManager)
      */
-    public static Drawable getAppIcon(@NonNull Context context) {
+    public static @Nullable Drawable getAppIcon(@NonNull Context context) {
         return getAppIcon(context, context.getPackageName());
     }
 

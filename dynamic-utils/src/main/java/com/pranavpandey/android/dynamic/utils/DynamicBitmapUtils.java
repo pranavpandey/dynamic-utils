@@ -52,9 +52,7 @@ public class DynamicBitmapUtils {
             drawable.draw(canvas);
 
             return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) { }
 
         return null;
     }
@@ -68,8 +66,10 @@ public class DynamicBitmapUtils {
      *
      * @return Resized bitmap with new width and height.
      */
-    public static Bitmap resizeBitmap(@NonNull Bitmap bitmap, int newWidth, int newHeight) {
-        Bitmap resizedBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+    public static @NonNull Bitmap resizeBitmap(@NonNull Bitmap bitmap,
+                                               int newWidth, int newHeight) {
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                newWidth, newHeight, Bitmap.Config.ARGB_8888);
 
         float scaleX = newWidth / (float) bitmap.getWidth();
         float scaleY = newHeight / (float) bitmap.getHeight();
@@ -94,8 +94,8 @@ public class DynamicBitmapUtils {
      *
      * @return New bitmap with applied color filter.
      */
-    public static Bitmap applyColorFilter(@NonNull Bitmap bitmap,
-                                          @NonNull ColorFilter colorFilter) {
+    public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
+                                                   @NonNull ColorFilter colorFilter) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColorFilter(colorFilter);
         Canvas canvas1 = new Canvas(bitmap);
@@ -112,7 +112,8 @@ public class DynamicBitmapUtils {
      *
      * @return New bitmap with applied color filter.
      */
-    public static Bitmap applyColorFilter(@NonNull Bitmap bitmap, @ColorInt int color) {
+    public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
+                                                   @ColorInt int color) {
         return applyColorFilter(bitmap,
                 new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
     }

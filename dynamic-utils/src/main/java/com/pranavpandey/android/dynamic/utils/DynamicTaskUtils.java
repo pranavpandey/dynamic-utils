@@ -18,6 +18,7 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Helper class to easily execute or cancel an {@link AsyncTask} by
@@ -32,14 +33,18 @@ public class DynamicTaskUtils {
      *
      * @see AsyncTask#execute(Object[])
      */
-    public static void executeTask(@NonNull AsyncTask asyncTask) {
+    public static void executeTask(@Nullable AsyncTask asyncTask) {
         try {
-            if (asyncTask != null && asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
+            if (asyncTask != null &&
+                    asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
+                if (DynamicVersionUtils.isHoneycomb()) {
+                    asyncTask.executeOnExecutor(
+                            AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
+                } else {
+                    asyncTask.execute((Object[]) null);
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) { }
     }
 
     /**
@@ -49,13 +54,12 @@ public class DynamicTaskUtils {
      *
      * @see AsyncTask#cancel(boolean)
      */
-    public static void cancelTask(@NonNull AsyncTask asyncTask) {
+    public static void cancelTask(@Nullable AsyncTask asyncTask) {
         try {
-            if (asyncTask != null && asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            if (asyncTask != null &&
+                    asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
                 asyncTask.cancel(true);
             }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        } catch(Exception ignored) { }
     }
 }

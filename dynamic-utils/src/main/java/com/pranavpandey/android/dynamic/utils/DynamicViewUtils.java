@@ -18,6 +18,7 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.annotation.TargetApi;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,7 +34,7 @@ public class DynamicViewUtils {
      * @param isLight {@code true} to set the light status bar.
      */
     @TargetApi(android.os.Build.VERSION_CODES.M)
-    public static void setLightStatusBar(@NonNull View view, boolean isLight) {
+    public static void setLightStatusBar(@NonNull View view, boolean isLight){
         if (DynamicVersionUtils.isMarshmallow()) {
             int flags = view.getSystemUiVisibility();
             if (isLight) {
@@ -53,7 +54,7 @@ public class DynamicViewUtils {
      * @param isLight {@code true} to set the light navigation bar.
      */
     @TargetApi(android.os.Build.VERSION_CODES.O)
-    public static void setLightNavigationBar(@NonNull View view, boolean isLight) {
+    public static void setLightNavigationBar(@NonNull View view, boolean isLight){
         if (DynamicVersionUtils.isOreo()) {
             int flags = view.getSystemUiVisibility();
             if (isLight) {
@@ -81,5 +82,26 @@ public class DynamicViewUtils {
         }
 
         viewGroup.addView(view);
+    }
+
+
+    /**
+     * Manage scroll indicators for a view according to its current state.
+     *
+     * @param view View to show or hide the scroll indicators accordingly.
+     * @param upIndicator Indicator to show if the view can be scrolled upwards.
+     * @param downIndicator Indicator to show if the view can be scrolled downwards.
+     */
+    public static void manageScrollIndicators(@NonNull View view, @Nullable View upIndicator,
+                                              @Nullable View downIndicator) {
+        if (upIndicator != null) {
+            upIndicator.setVisibility(
+                    view.canScrollVertically(-1) ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        if (downIndicator != null) {
+            downIndicator.setVisibility(
+                    view.canScrollVertically(1) ? View.VISIBLE : View.INVISIBLE);
+        }
     }
 }

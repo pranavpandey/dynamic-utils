@@ -220,7 +220,8 @@ public class DynamicColorUtils {
      *
      * @param color Color whose darkness to be calculated.
      *
-     * @return Darkness of color (less that or equal to 1); 0 for white and 1 for black.
+     * @return Darkness of color (less that or equal to 1);
+     *         0 for white and 1 for black.
      */
     public static double getColorDarkness(@ColorInt int color) {
         return 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color)

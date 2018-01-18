@@ -30,7 +30,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Gingerbread or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#GINGERBREAD}.
+     *         {@link Build.VERSION_CODES#GINGERBREAD}.
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
@@ -42,7 +42,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Gingerbread MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#GINGERBREAD_MR1}.
+     *         {@link Build.VERSION_CODES#GINGERBREAD_MR1}.
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
@@ -54,7 +54,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Honeycomb or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#HONEYCOMB}.
+     *         {@link Build.VERSION_CODES#HONEYCOMB}.
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
@@ -66,7 +66,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Honeycomb MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#HONEYCOMB_MR1}.
+     *         {@link Build.VERSION_CODES#HONEYCOMB_MR1}.
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
@@ -78,7 +78,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Honeycomb MR2 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#HONEYCOMB_MR2}.
+     *         {@link Build.VERSION_CODES#HONEYCOMB_MR2}.
      *
      * @deprecated Minimum SDK is now {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
@@ -90,7 +90,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Ice Cream Sandwich or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
+     *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isIceCreamSandwich() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
@@ -100,7 +100,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Ice Cream Sandwich MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH_MR1}.
+     *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH_MR1}.
      */
     public static boolean isIceCreamSandwichMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
@@ -110,7 +110,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is JellyBean or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#JELLY_BEAN}.
+     *         {@link Build.VERSION_CODES#JELLY_BEAN}.
      */
     public static boolean isJellyBean() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
@@ -120,7 +120,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is JellyBean MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#JELLY_BEAN_MR1}.
+     *         {@link Build.VERSION_CODES#JELLY_BEAN_MR1}.
      */
     public static boolean isJellyBeanMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
@@ -130,7 +130,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is KitKat or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#KITKAT}.
+     *         {@link Build.VERSION_CODES#KITKAT}.
      */
     public static boolean isKitKat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -140,7 +140,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Lollipop or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#LOLLIPOP}.
+     *         {@link Build.VERSION_CODES#LOLLIPOP}.
      */
     public static boolean isLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
@@ -150,7 +150,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is Lollipop MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#LOLLIPOP_MR1}.
+     *         {@link Build.VERSION_CODES#LOLLIPOP_MR1}.
      */
     public static boolean isLollipopMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
@@ -160,7 +160,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is M or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#M}.
+     *         {@link Build.VERSION_CODES#M}.
      */
     public static boolean isMarshmallow() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
@@ -170,7 +170,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is N or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#N}.
+     *         {@link Build.VERSION_CODES#N}.
      */
     public static boolean isNougat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
@@ -180,7 +180,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is N_MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#N_MR1}.
+     *         {@link Build.VERSION_CODES#N_MR1}.
      */
     public static boolean isNougatMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
@@ -190,7 +190,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is O or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#O}.
+     *         {@link Build.VERSION_CODES#O}.
      */
     public static boolean isOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
@@ -200,7 +200,7 @@ public class DynamicVersionUtils {
      * To detect if the current Android version is O_MR1 or above.
      *
      * @return {@code true} if current version is greater than or equal to
-     * {@link Build.VERSION_CODES#O_MR1}.
+     *         {@link Build.VERSION_CODES#O_MR1}.
      */
     public static boolean isOreoMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;

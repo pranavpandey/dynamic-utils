@@ -207,7 +207,7 @@ Helper class to perform Window operations and to detect system configurations at
 
 ## License
 
-    Copyright (c) 2017 Pranav Pandey
+    Copyright 2017 Pranav Pandey
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -17,7 +17,6 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
@@ -44,7 +43,8 @@ public class DynamicTaskUtils {
                     asyncTask.execute((Object[]) null);
                 }
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -60,6 +60,7 @@ public class DynamicTaskUtils {
                     asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
                 asyncTask.cancel(true);
             }
-        } catch(Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 }

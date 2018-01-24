@@ -266,7 +266,8 @@ public class DynamicFileUtils {
         } else if (uri.toString().contains(URI_MATCHER_FILE)) {
             try {
                 fileName = new File(new URI(uri.toString())).getName();
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         }
 
         return fileName;
@@ -302,7 +303,8 @@ public class DynamicFileUtils {
 
                 success = true;
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         return success;
     }
@@ -338,7 +340,8 @@ public class DynamicFileUtils {
 
                 success = true;
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         return success;
     }

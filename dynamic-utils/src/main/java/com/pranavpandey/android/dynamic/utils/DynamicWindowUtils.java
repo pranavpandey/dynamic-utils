@@ -40,8 +40,8 @@ public class DynamicWindowUtils {
      *
      * @return App usable screen size in point.
      *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
+     * @see Context#WINDOW_SERVICE
+     * @see Point
      */
     public static @NonNull Point getAppUsableScreenSize(@NonNull Context context) {
         Point size = new Point();
@@ -69,8 +69,8 @@ public class DynamicWindowUtils {
      *
      * @return Real screen size in point.
      *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
+     * @see Context#WINDOW_SERVICE
+     * @see Point
      */
     public static @NonNull Point getRealScreenSize(@NonNull Context context) {
         Point size = new Point();
@@ -88,7 +88,8 @@ public class DynamicWindowUtils {
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
                 } catch (IllegalAccessException ignored) {
                 } catch (InvocationTargetException ignored) {
-                } catch (NoSuchMethodException ignored) { }
+                } catch (NoSuchMethodException ignored) {
+                }
             }
         }
 
@@ -102,8 +103,8 @@ public class DynamicWindowUtils {
      *
      * @return On-screen navigation bar in point.
      *
-     * @see android.content.Context#WINDOW_SERVICE
-     * @see android.graphics.Point
+     * @see Context#WINDOW_SERVICE
+     * @see Point
      */
     public static @NonNull Point getNavigationBarSize(@NonNull Context context) {
         Point appUsableSize = getAppUsableScreenSize(context);

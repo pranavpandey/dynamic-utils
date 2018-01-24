@@ -52,7 +52,8 @@ public class DynamicBitmapUtils {
             drawable.draw(canvas);
 
             return bitmap;
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         return null;
     }

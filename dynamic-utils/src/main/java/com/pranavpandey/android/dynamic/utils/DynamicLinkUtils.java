@@ -87,7 +87,7 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  android.content.Intent#ACTION_SEND
+     * @see  Intent#ACTION_SEND
      */
     public static void shareApp(@NonNull Context context,
                                 @Nullable String title, @Nullable String message) {
@@ -110,7 +110,8 @@ public class DynamicLinkUtils {
 
         try {
             context.startActivity(Intent.createChooser(sendIntent, title));
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -142,7 +143,7 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  android.content.Intent#ACTION_VIEW
+     * @see  Intent#ACTION_VIEW
      */
     public static void viewInGooglePlay(
             @NonNull Context context, @NonNull String packageName) {
@@ -187,7 +188,7 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  android.content.Intent#ACTION_VIEW
+     * @see  Intent#ACTION_VIEW
      */
     public static void moreApps(@NonNull Context context, @NonNull String publisher) {
         try {
@@ -214,7 +215,7 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  android.content.Intent#ACTION_VIEW
+     * @see  Intent#ACTION_VIEW
      * @see #URL_FACEBOOK_APP
      */
     public static void viewUrl(@NonNull Context context, @NonNull String url) {
@@ -248,7 +249,7 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  android.content.Intent#ACTION_SENDTO
+     * @see  Intent#ACTION_SENDTO
      * @see  #MAIL_TO
      */
     public static void report(@NonNull Context context,
@@ -263,7 +264,8 @@ public class DynamicLinkUtils {
                 appName = context.getApplicationInfo().loadLabel(
                         context.getPackageManager()).toString();
             }
-        } catch (PackageManager.NameNotFoundException ignored) { }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
 
         String subject = String.format(
                 context.getResources().getString(R.string.adu_bug_title), appName,
@@ -275,6 +277,7 @@ public class DynamicLinkUtils {
 
         try {
             context.startActivity(intent);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 }

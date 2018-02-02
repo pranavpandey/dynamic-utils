@@ -205,6 +205,12 @@ Helper class to perform Window operations and to detect system configurations at
 
 ---
 
+## Translations
+- German (de) - Flubberlutsch
+- Chinese (Simplified) (zh-rCN) - John Canny
+
+---
+
 ## License
 
     Copyright 2017 Pranav Pandey

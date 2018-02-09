@@ -36,12 +36,8 @@ public class DynamicTaskUtils {
         try {
             if (asyncTask != null &&
                     asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                if (DynamicVersionUtils.isHoneycomb()) {
-                    asyncTask.executeOnExecutor(
-                            AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
-                } else {
-                    asyncTask.execute((Object[]) null);
-                }
+                asyncTask.executeOnExecutor(
+                        AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
             }
         } catch (Exception ignored) {
         }

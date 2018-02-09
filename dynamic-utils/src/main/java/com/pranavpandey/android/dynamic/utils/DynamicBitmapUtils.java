@@ -40,19 +40,19 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @Nullable static Bitmap getBitmapFormDrawable(@NonNull Drawable drawable) {
-        try {
-            Bitmap bitmap;
+    public @Nullable static Bitmap getBitmapFormDrawable(@Nullable Drawable drawable) {
+        if (drawable != null) {
+            try {
+                Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
 
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                drawable.draw(canvas);
 
-            Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-
-            return bitmap;
-        } catch (Exception ignored) {
+                return bitmap;
+            } catch (Exception ignored) {
+            }
         }
 
         return null;

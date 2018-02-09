@@ -50,13 +50,8 @@ public class DynamicWindowUtils {
 
         if (windowManager != null) {
             Display display = windowManager.getDefaultDisplay();
-
-            if (DynamicVersionUtils.isHoneycombMR2()) {
-                display.getSize(size);
-            } else {
-                size.x = display.getWidth();
-                size.y = display.getHeight();
-            }
+            size.x = display.getWidth();
+            size.y = display.getHeight();
         }
 
         return size;

@@ -65,14 +65,11 @@ public class DynamicDrawableUtils {
             @Nullable Drawable drawable, boolean wrap, @NonNull ColorFilter colorFilter) {
         if (drawable != null) {
             if (wrap) {
-                drawable = DrawableCompat.wrap(drawable.mutate());
+                drawable = drawable.mutate();
             }
 
             drawable.setColorFilter(colorFilter);
-
-            if (!DynamicVersionUtils.isMarshmallow()) {
-                drawable.invalidateSelf();
-            }
+            drawable.invalidateSelf();
         }
 
         return drawable;
@@ -97,20 +94,26 @@ public class DynamicDrawableUtils {
             @Nullable Drawable drawable, boolean wrap,
             @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {
-            if (wrap) {
-                drawable = DrawableCompat.wrap(drawable.mutate());
+            if (mode == null) {
+                mode = PorterDuff.Mode.SRC_IN;
             }
 
-            if (mode != null) {
-                DrawableCompat.setTintMode(drawable, mode);
+            // Handle issue with layer drawables.
+            if (DynamicVersionUtils.isLollipop(true)) {
+                if (wrap) {
+                    drawable = drawable.mutate();
+                    drawable.setColorFilter(color, mode);
+                }
             } else {
-                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
-            }
-            DrawableCompat.setTint(drawable, color);
+                if (wrap) {
+                    drawable = DrawableCompat.wrap(drawable.mutate());
+                }
 
-            if (!DynamicVersionUtils.isMarshmallow()) {
-                drawable.invalidateSelf();
+                DrawableCompat.setTintMode(drawable, mode);
+                DrawableCompat.setTint(drawable, color);
             }
+
+            drawable.invalidateSelf();
         }
 
         return drawable;

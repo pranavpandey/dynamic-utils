@@ -39,7 +39,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
-    implementation 'com.pranavpandey.android:dynamic-utils:0.8.0'
+    implementation 'com.pranavpandey.android:dynamic-utils:0.9.0'
 }
 ```
 
@@ -166,18 +166,19 @@ Helper class to perform unit conversions.
 ### DynamicVersionUtils
 
 Helper class to detect the Android SDK version at runtime so that we can provide the user 
-experience accordingly.
-
-- `boolean isGingerbread()` - To detect if the current Android version is Gingerbread or above.
+experience accordingly. Pass `true` in the alternate method to check for equality.
 
 - `boolean isIceCreamSandwich()` - To detect if the current Android version is Ice Cream Sandwich 
 or above.
 
+- `boolean isIceCreamSandwich(equals)` - To detect if the current Android version is Ice Cream 
+Sandwich or above.
+
 ...
 
-- `boolean isNougatMR1()` - To detect if the current Android version is NougatMR1 or above.
-
 - `boolean isOreoMR1()` - To detect if the current Android version is OreoMR1 or above.
+
+- `boolean isOreoMR1(equals)` - To detect if the current Android version is OreoMR1 or above.
 
 ### DynamicViewUtils
 

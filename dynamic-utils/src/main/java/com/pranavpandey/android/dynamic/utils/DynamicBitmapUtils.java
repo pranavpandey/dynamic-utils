@@ -80,9 +80,12 @@ public class DynamicBitmapUtils {
         Matrix scaleMatrix = new Matrix();
         scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY);
 
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setFilterBitmap(true);
+
         Canvas canvas = new Canvas(resizedBitmap);
         canvas.setMatrix(scaleMatrix);
-        canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+        canvas.drawBitmap(bitmap, 0, 0, paint);
 
         return resizedBitmap;
     }
@@ -99,8 +102,10 @@ public class DynamicBitmapUtils {
                                                    @NonNull ColorFilter colorFilter) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColorFilter(colorFilter);
-        Canvas canvas1 = new Canvas(bitmap);
-        canvas1.drawBitmap(bitmap, 0, 0, paint);
+        paint.setFilterBitmap(true);
+
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
 
         return bitmap;
     }

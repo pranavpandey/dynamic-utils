@@ -39,7 +39,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
-    implementation 'com.pranavpandey.android:dynamic-utils:0.9.0'
+    implementation 'com.pranavpandey.android:dynamic-utils:1.0.0'
 }
 ```
 

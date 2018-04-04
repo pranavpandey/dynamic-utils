@@ -17,10 +17,13 @@
 
 <resources>
 
+    <!-- Format -->
+    <string name="adu_format_blank_space">%1$s %2$s</string>
+
     <!-- Share app -->
-    <string name="adu_share_to">Share via&#8230;</string>
+    <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>
 
     <!-- Submit bug report -->
-    <string name="adu_bug_desc">My bug or question is&#8230;\n\nHow often does it occurs in case of a bug?\n\nAre you using any custom / modified ROM, framework or kernel?</string>
+    <string name="adu_bug_title">%1$s (v%2$s, %3$s, %4$s, %5$s)</string>
 
 </resources>

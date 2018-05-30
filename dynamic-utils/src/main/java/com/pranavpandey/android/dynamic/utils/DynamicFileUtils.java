@@ -337,6 +337,7 @@ public class DynamicFileUtils {
                 output.flush();
                 output.close();
                 input.close();
+                pfdDestination.close();
 
                 success = true;
             }

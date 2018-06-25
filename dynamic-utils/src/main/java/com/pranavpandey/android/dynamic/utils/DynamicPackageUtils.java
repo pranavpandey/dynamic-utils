@@ -32,11 +32,11 @@ public class DynamicPackageUtils {
     /**
      * Get component name from the given context.
      *
-     * @param context Context to build the component. Usually your
+     * @param context The context to build the component. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      *
-     * @return Component name from the given context.
+     * @return The component name from the given context.
      *
      * @see android.content.ComponentName#ComponentName(String, String)
      */
@@ -47,12 +47,12 @@ public class DynamicPackageUtils {
     /**
      * Get application label from the given package.
      *
-     * @param context Context to get the package manager. Usually your
+     * @param context The context to get the package manager. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param packageName Package name of the app to get its label.
      *
-     * @return Application label or name.
+     * @return The application label or name.
      *
      * @see android.content.pm.ApplicationInfo#loadLabel(PackageManager)
      */
@@ -70,11 +70,11 @@ public class DynamicPackageUtils {
     /**
      * Get application label from the given context.
      *
-     * @param context Context to retrieve the label. Usually your
+     * @param context The context to retrieve the label. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      *
-     * @return Application label or name.
+     * @return The application label or name.
      *
      * @see android.content.pm.ApplicationInfo#loadLabel(PackageManager)
      */
@@ -85,7 +85,7 @@ public class DynamicPackageUtils {
     /**
      * Get application version name from the given package.
      *
-     * @param context Context to get the package manager. Usually your
+     * @param context The context to get the package manager. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param packageName Package name of the app to get its version name.
@@ -107,7 +107,7 @@ public class DynamicPackageUtils {
     /**
      * Get application version name from the given context.
      *
-     * @param context Context to retrieve the version name. Usually your
+     * @param context The context to retrieve the version name. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      *
@@ -122,7 +122,7 @@ public class DynamicPackageUtils {
     /**
      * Load application icon from the given package.
      *
-     * @param context Context to get the package manager. Usually your
+     * @param context The context to get the package manager. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      * @param packageName Package name of the app to load its icon.
@@ -145,7 +145,7 @@ public class DynamicPackageUtils {
     /**
      * Load application icon from the given context.
      *
-     * @param context Context to retrieve the app icon. Usually your
+     * @param context The context to retrieve the app icon. Usually your
      *                {@link android.app.Application} or {@link android.app.Activity}
      *                object.
      *

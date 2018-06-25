@@ -36,7 +36,7 @@ public class DynamicBitmapUtils {
     /**
      * Get bitmap from the supplied drawable.
      *
-     * @param drawable Drawable to get the bitmap.
+     * @param drawable The drawable to get the bitmap.
      *
      * @return The bitmap from the supplied drawable.
      */
@@ -61,11 +61,11 @@ public class DynamicBitmapUtils {
     /**
      * Resize bitmap to the new width and height.
      *
-     * @param bitmap Bitmap to resize.
-     * @param newWidth New width for the bitmap.
-     * @param newHeight New height for the bitmap.
+     * @param bitmap The bitmap to resize.
+     * @param newWidth The new width for the bitmap.
+     * @param newHeight The new height for the bitmap.
      *
-     * @return Resized bitmap with new width and height.
+     * @return The resized bitmap with new width and height.
      */
     public static @NonNull Bitmap resizeBitmap(@NonNull Bitmap bitmap,
                                                int newWidth, int newHeight) {
@@ -93,10 +93,11 @@ public class DynamicBitmapUtils {
     /**
      * Apply color filter on the supplied bitmap.
      *
-     * @param bitmap Bitmap to apply color filter.
-     * @param colorFilter Color filter to be applied on the bitmap.
+     * @param bitmap The bitmap to apply color filter.
+     * @param colorFilter The color filter to be applied on
+     *                    the bitmap.
      *
-     * @return New bitmap with applied color filter.
+     * @return The new bitmap with applied color filter.
      */
     public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
                                                    @NonNull ColorFilter colorFilter) {
@@ -113,10 +114,10 @@ public class DynamicBitmapUtils {
     /**
      * Apply monochrome color filter on the supplied bitmap.
      *
-     * @param bitmap Bitmap to apply color filter.
-     * @param color Color to generate color filter.
+     * @param bitmap The bitmap to apply color filter.
+     * @param color The color to generate color filter.
      *
-     * @return New bitmap with applied color filter.
+     * @return The new bitmap with applied color filter.
      */
     public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
                                                    @ColorInt int color) {
@@ -127,9 +128,9 @@ public class DynamicBitmapUtils {
     /**
      * Extract the dominant color form the supplied bitmap.
      *
-     * @param bitmap Bitmap to extract the dominant color.
+     * @param bitmap The bitmap to extract the dominant color.
      *
-     * @return Dominant color extracted from the bitmap.
+     * @return The dominant color extracted from the bitmap.
      */
     public static @ColorInt int getDominantColor(@NonNull Bitmap bitmap) {
         Bitmap newBitmap = resizeBitmap(bitmap, 1, 1);

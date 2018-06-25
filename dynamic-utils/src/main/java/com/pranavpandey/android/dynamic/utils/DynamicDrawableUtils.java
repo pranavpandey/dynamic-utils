@@ -51,12 +51,12 @@ public class DynamicDrawableUtils {
      * Apply color filter and return the mutated drawable so that, all other
      * references do not change.
      *
-     * @param drawable Drawable to be colorized.
+     * @param drawable The drawable to be colorized.
      * @param wrap {@code true} if  wrap {@code drawable} so that it may be
      *             used for tinting across the different API levels.
-     * @param colorFilter Color filter to be applied on the drawable.
+     * @param colorFilter The color filter to be applied on the drawable.
      *
-     * @return Drawable after applying the color filter.
+     * @return The drawable after applying the color filter.
      *
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter
@@ -79,13 +79,13 @@ public class DynamicDrawableUtils {
      * Colorize and return the mutated drawable so that, all other references
      * do not change.
      *
-     * @param drawable Drawable to be colorized.
-     * @param color Color to colorize the drawable.
+     * @param drawable The drawable to be colorized.
+     * @param color The color to colorize the drawable.
      * @param wrap {@code true} if  wrap {@code drawable} so that it may be
      *             used for tinting across the different API levels.
-     * @param mode PorterDuff mode.
+     * @param mode The porter duff mode.
      *
-     * @return Drawable after applying the color filter.
+     * @return The drawable after applying the color filter.
      *
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode
@@ -123,11 +123,11 @@ public class DynamicDrawableUtils {
      * Colorize and return the mutated drawable so that, all other references
      * do not change.
      *
-     * @param drawable Drawable to be colorized.
-     * @param color Color to colorize the drawable.
-     * @param mode PorterDuff mode.
+     * @param drawable The drawable to be colorized.
+     * @param color The color to colorize the drawable.
+     * @param mode The porter duff mode.
      *
-     * @return Drawable after applying the color filter.
+     * @return The drawable after applying the color filter.
      *
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff
@@ -141,12 +141,12 @@ public class DynamicDrawableUtils {
      * Colorize and return the mutated drawable so that, all other references
      * do not change.
      *
-     * @param drawable Drawable to be colorized.
+     * @param drawable The drawable to be colorized.
      * @param wrap {@code true} if  wrap {@code drawable} so that it may be
      *             used for tinting across the different API levels.
-     * @param color Color to colorize the drawable.
+     * @param color The color to colorize the drawable.
      *
-     * @return Drawable after applying the color filter.
+     * @return The drawable after applying the color filter.
      *
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode#SRC_IN
@@ -160,10 +160,10 @@ public class DynamicDrawableUtils {
      * Colorize and return the mutated drawable so that, all other references
      * do not change.
      *
-     * @param drawable Drawable to be colorized.
-     * @param color Color to colorize the drawable.
+     * @param drawable The drawable to be colorized.
+     * @param color The color to colorize the drawable.
      *
-     * @return Drawable after applying the color filter.
+     * @return The drawable after applying the color filter.
      */
     public static @Nullable Drawable colorizeDrawable(
             @Nullable Drawable drawable, @ColorInt int color) {
@@ -174,10 +174,10 @@ public class DynamicDrawableUtils {
      * Apply color filter and return the mutated drawable so that, all other
      * references do not change.
      *
-     * @param drawable Drawable to be colorized.
+     * @param drawable The drawable to be colorized.
      * @param colorFilter Color filter to be applied on the drawable.
      *
-     * @return Drawable after applying the color filter.
+     * @return The drawable after applying the color filter.
      *
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter

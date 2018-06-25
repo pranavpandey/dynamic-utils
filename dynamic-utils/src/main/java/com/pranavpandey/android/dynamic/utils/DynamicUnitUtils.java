@@ -27,7 +27,7 @@ public class DynamicUnitUtils {
     /**
      * To convert DP into pixels.
      *
-     * @param dp Value in DP to be converted into pixels.
+     * @param dp The value in DP to be converted into pixels.
      *
      * @return The converted value in pixels.
      */
@@ -39,7 +39,7 @@ public class DynamicUnitUtils {
     /**
      * To convert pixels into DP.
      *
-     * @param pixels Value in pixels to be converted into DP.
+     * @param pixels The value in pixels to be converted into DP.
      *
      * @return The converted value in DP.
      */
@@ -50,7 +50,7 @@ public class DynamicUnitUtils {
     /**
      * To convert SP into pixels.
      *
-     * @param sp Value in SP to be converted into pixels.
+     * @param sp The value in SP to be converted into pixels.
      *
      * @return The converted value in pixels.
      */
@@ -62,7 +62,7 @@ public class DynamicUnitUtils {
     /**
      * To convert pixels into SP.
      *
-     * @param pixels Value in pixels to be converted into SP.
+     * @param pixels The value in pixels to be converted into SP.
      *
      * @return The converted value in SP.
      */
@@ -73,7 +73,7 @@ public class DynamicUnitUtils {
     /**
      * To convert DP into SP.
      *
-     * @param dp Value in DP to be converted into SP.
+     * @param dp The value in DP to be converted into SP.
      *
      * @return The converted value in SP.
      */

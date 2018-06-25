@@ -26,9 +26,9 @@ import android.support.annotation.Nullable;
 public class DynamicTaskUtils {
 
     /**
-     * Try to execute the supplied AsyncTask.
+     * Try to execute the supplied async task.
      *
-     * @param asyncTask The AsyncTask to be executed.
+     * @param asyncTask The async task to be executed.
      *
      * @see AsyncTask#execute(Object[])
      */
@@ -44,9 +44,9 @@ public class DynamicTaskUtils {
     }
 
     /**
-     * Try to cancel the supplied AsyncTask.
+     * Try to cancel the supplied async task.
      *
-     * @param asyncTask The AsyncTask to be cancelled.
+     * @param asyncTask The async task to be cancelled.
      *
      * @see AsyncTask#cancel(boolean)
      */

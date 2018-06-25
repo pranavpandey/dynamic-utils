@@ -32,7 +32,7 @@ public class DynamicDeviceUtils {
      * To detect if device has telephony feature or not by using
      * PackageManager.
      *
-     * @param context Context to get the PackageManager.
+     * @param context The context to get the PackageManager.
      *
      * @return {@code true} if the device has telephony feature.
      *
@@ -48,10 +48,12 @@ public class DynamicDeviceUtils {
      * Retrieve a Date and Time string from date milliSeconds based
      * on the system settings.
      *
-     * @param context to retrieve system date and time format.
-     * @param milliSeconds to be converted into date and time.
+     * @param context The context to retrieve system date and
+     *                 time format.
+     * @param milliSeconds The millis to be converted into
+     *                     date and time.
      *
-     * @return Formatted date according to system settings.
+     * @return The formatted date according to system settings.
      *
      * @see java.util.Date
      */

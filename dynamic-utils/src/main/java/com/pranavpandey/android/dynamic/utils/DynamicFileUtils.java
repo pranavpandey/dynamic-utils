@@ -35,6 +35,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
@@ -80,7 +81,7 @@ public class DynamicFileUtils {
      *
      * @param file The file to retrieve its extension.
      *
-     * @return Extension of the file.
+     * @return The extension of the file.
      */
     public static @Nullable String getExtension(@NonNull File file) {
         String ext = null;
@@ -136,6 +137,8 @@ public class DynamicFileUtils {
      *
      * @param dir The directory to be archived.
      * @param zip The output zip archive.
+     *
+     * @throws IOException Throws IO exception.
      */
     public static void zipDirectory(@NonNull File dir,
                                     @NonNull File zip) throws IOException {
@@ -182,6 +185,9 @@ public class DynamicFileUtils {
      *
      * @param zip The zip archive to be extracted.
      * @param extractTo The unzip destination.
+     *
+     * @throws IOException Throws IO exception.
+     * @throws ZipException Throws Zip exception.
      */
     public static void unzip(@NonNull File zip,
                              @NonNull File extractTo) throws IOException {
@@ -221,7 +227,7 @@ public class DynamicFileUtils {
      * @param context The context to get file provider.
      * @param file The file to get the uri.
      *
-     * @return Uri from the file.
+     * @return The uri from the file.
      *
      * @see Uri
      */
@@ -240,7 +246,7 @@ public class DynamicFileUtils {
      * @param context The context to get content resolver.
      * @param uri The uri to get the file name.
      *
-     * @return File name from the uri.
+     * @return The file name from the uri.
      *
      * @see Context#getContentResolver()
      */
@@ -278,6 +284,7 @@ public class DynamicFileUtils {
      *
      * @param source The source file.
      * @param destination The destination file.
+     * @param outputFileName The output files name.
      *
      * @return {@code true} if the file has been written successfully.
      */
@@ -312,6 +319,7 @@ public class DynamicFileUtils {
     /**
      * Write a file uri from the source to destination.
      *
+     * @param context The context to get content resolver.
      * @param sourceUri The source file uri.
      * @param destinationUri The destination file uri.
      *

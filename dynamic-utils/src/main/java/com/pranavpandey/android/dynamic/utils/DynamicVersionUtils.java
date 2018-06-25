@@ -39,8 +39,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Ice Cream Sandwich or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
@@ -63,8 +63,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Ice Cream Sandwich MR1 or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH_MR1}.
@@ -87,8 +87,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Jelly Bean or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#JELLY_BEAN}.
@@ -111,8 +111,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Jelly Bean MR1 or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#JELLY_BEAN_MR1}.
@@ -135,8 +135,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Jelly Bean MR2 or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#JELLY_BEAN_MR2}.
@@ -159,8 +159,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is KitKat or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#KITKAT}.
@@ -183,8 +183,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is KitKat Watch or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#KITKAT_WATCH}.
@@ -207,8 +207,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Lollipop or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#LOLLIPOP}.
@@ -231,8 +231,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Lollipop MR1 or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#LOLLIPOP_MR1}.
@@ -255,8 +255,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Marshmallow or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#M}.
@@ -279,8 +279,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Nougat or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#N}.
@@ -303,8 +303,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Nougat MR1 or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#N_MR1}.
@@ -327,8 +327,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Oreo or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#O}.
@@ -351,8 +351,8 @@ public class DynamicVersionUtils {
     /**
      * To detect if the current Android version is Oreo MR1 or above.
      *
-     * @param equals {@code true} to match equal (==).
-     *               {@code false} to match greater than or equal (>=).
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
      *
      * @return {@code true} if current version is greater than or equal to
      *         {@link Build.VERSION_CODES#O_MR1}.

@@ -46,9 +46,9 @@ public class DynamicColorUtils {
     /**
      * Calculate tint based on a given color for better readability.
      *
-     * @param color Color whose tint to be calculated.
+     * @param color The color whose tint to be calculated.
      *
-     * @return Tint of the given color.
+     * @return The tint of the given color.
      */
     public static @ColorInt int getTintColor(@ColorInt int color) {
         if (isColorDark(color)) {
@@ -116,9 +116,9 @@ public class DynamicColorUtils {
      * Calculate accent color based on the given color for android theme generation.
      * Still in beta so, sometimes may be inaccurate colors.
      *
-     * @param color Color whose accent color to be calculated.
+     * @param color The color whose accent color to be calculated.
      *
-     * @return Accent color based on the given color.
+     * @return The accent color based on the given color.
      */
     public static @ColorInt int getAccentColor(@ColorInt int color) {
         int finalColor;
@@ -153,6 +153,8 @@ public class DynamicColorUtils {
     /**
      * Generate a random rgb color.
      *
+     * @return The randomly generated color.
+     *
      * @see Random
      * @see Color#HSVToColor(float[])
      */
@@ -169,9 +171,12 @@ public class DynamicColorUtils {
      * Generate a random rgb color by comparing a given color.
      *
      * @param color The color to compare.
+     *
+     * @return The randomly generated color.
      */
     public static @ColorInt int getRandomColor(@ColorInt int color) {
         @ColorInt int newColor = getRandomColor();
+
         if (newColor != color) {
             return newColor;
         } else {
@@ -183,10 +188,11 @@ public class DynamicColorUtils {
      * Calculate contrast of a color based on the given base color so
      * that it will be visible always on top of the base color.
      *
-     * @param color Color whose contrast to be calculated.
-     * @param contrastWith Background color to calculate the contrast.
+     * @param color The color whose contrast to be calculated.
+     * @param contrastWith The background color to calculate
+     *                     the contrast.
      *
-     * @return Contrast of the given color according to the base color.
+     * @return The contrast of the given color according to the base color.
      */
     public static @ColorInt int getContrastColor(
             @ColorInt int color, @ColorInt int contrastWith) {
@@ -207,7 +213,7 @@ public class DynamicColorUtils {
     /**
      * Detect light or dark color.
      *
-     * @param color Color whose darkness to be calculated.
+     * @param color The color whose darkness to be calculated.
      *
      * @return {@code true} if color is dark.
      */
@@ -218,9 +224,9 @@ public class DynamicColorUtils {
     /**
      * Calculate darkness of a color.
      *
-     * @param color Color whose darkness to be calculated.
+     * @param color The color whose darkness to be calculated.
      *
-     * @return Darkness of color (less that or equal to 1);
+     * @return The darkness of color (less that or equal to 1);
      *         0 for white and 1 for black.
      */
     public static double getColorDarkness(@ColorInt int color) {
@@ -231,9 +237,10 @@ public class DynamicColorUtils {
     /**
      * Calculate luma value according to XYZ color space of a color.
      *
-     * @param color Color whose XyzLuma to be calculated.
+     * @param color The color whose XyzLuma to be calculated.
      *
-     * @return Luma value according to XYZ color space in the range 0.0 - 1.0.
+     * @return The luma value according to XYZ color space in the
+     *         range 0.0 - 1.0.
      */
     private static float calculateXyzLuma(@ColorInt int color) {
         return (0.2126f * Color.red(color) +
@@ -248,7 +255,7 @@ public class DynamicColorUtils {
      * @param color1 First color to calculate the contrast difference.
      * @param color2 Second color to calculate the contrast difference.
      *
-     * @return Color contrast between the two colors.
+     * @return The color contrast between the two colors.
      *
      * @see #calculateXyzLuma(int)
      */
@@ -260,10 +267,10 @@ public class DynamicColorUtils {
      * Shift a color according to the given parameter. Useful to create
      * different color states.
      *
-     * @param color Color to be shifted.
-     * @param by Factor in float by which shift the color.
+     * @param color The color to be shifted.
+     * @param by The factor in float by which shift the color.
      *
-     * @return Shifted color.
+     * @return The shifted color.
      */
     public static @ColorInt int shiftColor(
             @ColorInt int color, @FloatRange(from = 0.0f, to = 2.0f) float by) {
@@ -281,9 +288,9 @@ public class DynamicColorUtils {
      * Calculate less visible color of a given color. Useful to create
      * unselected or disabled color states.
      *
-     * @param color Color whose less visible color to be calculated.
+     * @param color The color whose less visible color to be calculated.
      *
-     * @return Less visible color by shifting the color.
+     * @return The less visible color by shifting the color.
      */
     public static @ColorInt int getLessVisibleColor(@ColorInt int color) {
         return shiftColor(color, isColorDark(color) ? 0.6f : 1.6f);
@@ -292,10 +299,10 @@ public class DynamicColorUtils {
     /**
      * Adjust alpha of a color according to the given parameter.
      *
-     * @param color Color whose alpha to be adjusted.
+     * @param color The color whose alpha to be adjusted.
      * @param factor Factor in float by which adjust the alpha.
      *
-     * @return Color with adjusted alpha.
+     * @return The color with adjusted alpha.
      */
     public static @ColorInt int adjustAlpha(@ColorInt int color, float factor) {
         int alpha = Math.min(255, (int) (Color.alpha(color) * factor));
@@ -309,9 +316,9 @@ public class DynamicColorUtils {
     /**
      * Remove alpha from a color.
      *
-     * @param color Color whose alpha to be removed.
+     * @param color The color whose alpha to be removed.
      *
-     * @return Color without alpha.
+     * @return The color without alpha.
      */
     public static @ColorInt int removeAlpha(@ColorInt int color) {
         return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
@@ -320,11 +327,12 @@ public class DynamicColorUtils {
     /**
      * Get hexadecimal string from the color integer.
      *
-     * @param color Color to get the hex code.
+     * @param color The color to get the hex code.
      * @param includeAlpha {@code true} to include alpha in the string.
      * @param includeHash {@code true} to include # in the string.
      *
-     * @return Hexadecimal string equivalent of the supplied color integer.
+     * @return The hexadecimal string equivalent of the supplied
+     *         color integer.
      */
     public static String getColorString(@ColorInt int color, boolean includeAlpha,
                                         boolean includeHash) {

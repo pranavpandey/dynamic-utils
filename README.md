@@ -18,6 +18,7 @@ so, minimum SDK will be Android 14+ (ICS or above).
 
 - [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
 - [Usage](https://github.com/pranavpandey/dynamic-utils#usage)
+    - [DynamicAnimUtils](https://github.com/pranavpandey/dynamic-utils#dynamicanimutils)
     - [DynamicBitmapUtils](https://github.com/pranavpandey/dynamic-utils#dynamicbitmaputils)
     - [DynamicColorUtils](https://github.com/pranavpandey/dynamic-utils#dynamiccolorutils)
     - [DynamicDeviceUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdeviceutils)
@@ -39,7 +40,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
-    implementation 'com.pranavpandey.android:dynamic-utils:1.1.1'
+    implementation 'com.pranavpandey.android:dynamic-utils:1.2.0'
 }
 ```
 
@@ -52,6 +53,12 @@ This library is fully commented so I am highlighting some of the functions below
 for more hidden features.
 
 > For complete reference, please read the [documentation](https://pranavpandey.github.io/dynamic-utils).
+
+### DynamicAnimUtils
+
+Helper class to perform animation related operations.
+
+- `void playAnimation(view, animator)` - Play an animator animation on a view.
 
 ### DynamicBitmapUtils
 

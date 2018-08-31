@@ -17,13 +17,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion compileSdk
-    buildToolsVersion buildTools
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     defaultConfig {
-        minSdkVersion minSdk
-        targetSdkVersion targetSdk
-        versionCode versionCode
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode mavenVersionCode
         versionName mavenVersion
     }
 
@@ -35,8 +35,8 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-compat:$androidSupport"
-    implementation "com.android.support:support-core-utils:$androidSupport"
+    implementation "com.android.support:support-compat:${versions.androidSupport}"
+    implementation "com.android.support:support-core-utils:${versions.androidSupport}"
 }
 
 if (project.rootProject.file('local.properties').exists()) {

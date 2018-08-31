@@ -15,6 +15,14 @@
  */
 
 buildscript {
+    ext.versions = [
+            'compileSdk'    : 28,
+            'minSdk'        : 14,
+            'targetSdk'     : 28,
+            'buildTools'    : '28.0.2',
+            'androidSupport': '27.1.1'
+    ]
+
     repositories {
         jcenter()
         google()
@@ -44,18 +52,19 @@ ext {
             'device, drawable, package, tasks and sdk on Android devices.'
     versionDesc = 'A collection of static methods to perform various operations including color, ' +
             'device, drawable, package, tasks and sdk on Android 14+ (ICS or above) devices.'
+    referenceTitle = 'Dynamic Utils Reference'
+
     siteUrl = 'https://github.com/pranavpandey/dynamic-utils'
     gitUrl = 'https://github.com/pranavpandey/dynamic-utils'
     issueUrl = 'https://github.com/pranavpandey/dynamic-utils/issues'
-
     githubUrl = 'pranavpandey/dynamic-utils'
-    referenceTitle = 'Dynamic Utils Reference'
 
+    mavenRepo = 'android'
     mavenGroup = 'com.pranavpandey.android'
-    mavenVersion = '1.2.0'
-    mavenInceptionYear = 2017
     mavenArtifactId = 'dynamic-utils'
-    bintrayRepo = 'android'
+    mavenInceptionYear = 2017
+    mavenVersion = '1.2.0'
+    mavenVersionCode = 13
 
     developerId = 'pranavpandey'
     developerName = 'Pranav Pandey'
@@ -65,13 +74,4 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     licenseDistribution = 'repo'
     allLicenses = ["Apache-2.0"]
-
-    versionCode = 13
-
-    buildTools = '28.0.2'
-    minSdk = 14
-    compileSdk = 28
-    targetSdk = 28
-
-    androidSupport = '27.1.1'
 }

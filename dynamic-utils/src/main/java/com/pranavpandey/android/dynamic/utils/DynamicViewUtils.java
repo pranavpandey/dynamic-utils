@@ -98,8 +98,8 @@ public class DynamicViewUtils {
      * @param downIndicator The indicator to show if the view can be
      *                      scrolled downwards.
      */
-    public static void manageScrollIndicators(@NonNull View view, @Nullable View upIndicator,
-                                              @Nullable View downIndicator) {
+    public static void manageScrollIndicators(
+            @NonNull View view, @Nullable View upIndicator, @Nullable View downIndicator) {
         if (upIndicator != null) {
             upIndicator.setVisibility(
                     view.canScrollVertically(-1) ? View.VISIBLE : View.INVISIBLE);

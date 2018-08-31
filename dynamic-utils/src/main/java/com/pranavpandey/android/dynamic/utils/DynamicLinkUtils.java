@@ -77,13 +77,13 @@ public class DynamicLinkUtils {
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
      *
-     * @param context The context to retrieve the resources. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
-     * @param title Application chooser title if more than one apps are available.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
+     * @param title Application chooser title if more than one apps are
+     *              available.
      * @param message Default share message which user can modify.
-     *                If it is <code>null</code>; app and package name will be
-     *                supplied.
+     *                {@code null} to supply app and package name.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -121,9 +121,9 @@ public class DynamicLinkUtils {
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
      *
-     * @param context The context to retrieve the resources. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -136,10 +136,11 @@ public class DynamicLinkUtils {
     /**
      * View app in the Play Store or Android Market.
      *
-     * @param context The context to start the activity. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
-     * @param packageName Application package name to build the search query.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
+     * @param packageName Application package name to build the search
+     *                    query.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -163,9 +164,9 @@ public class DynamicLinkUtils {
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
      *
-     * @param context The context to get the package name. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -181,9 +182,9 @@ public class DynamicLinkUtils {
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
      *
-     * @param context The context to start the activity. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
      * @param publisher Publisher name to build the search query.
      *
      * @throws ActivityNotFoundException If no activity is found.
@@ -208,9 +209,9 @@ public class DynamicLinkUtils {
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
      *
-     * @param context The context to start the activity. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
      * @param url Web or app link to open.
      *
      * @throws ActivityNotFoundException If no activity is found.
@@ -240,11 +241,11 @@ public class DynamicLinkUtils {
      * <p>This method throws {@link ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.</p>
      *
-     * @param context The context to retrieve the resources. Usually your
-     *                {@link android.app.Application} or {@link android.app.Activity}
-     *                object.
-     * @param appName App name in the email subject. If it is <code>null</code>;
-     *                it will try to get it from the supplied context.
+     * @param context The context to retrieve the resources. Usually
+     *                your {@link android.app.Application} or
+     *                {@link android.app.Activity} object.
+     * @param appName App name in the email subject. {@code null}
+     *                to get it from the supplied context.
      * @param email Email id of the developer.
      *
      * @throws ActivityNotFoundException If no activity is found.
@@ -252,8 +253,8 @@ public class DynamicLinkUtils {
      * @see  Intent#ACTION_SENDTO
      * @see  #MAIL_TO
      */
-    public static void report(@NonNull Context context,
-                              @Nullable String appName, @NonNull String email) {
+    public static void report(@NonNull Context context, @Nullable String appName,
+                              @NonNull String email) {
         String version = null;
 
         try {

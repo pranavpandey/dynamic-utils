@@ -67,8 +67,8 @@ public class DynamicBitmapUtils {
      *
      * @return The resized bitmap with new width and height.
      */
-    public static @NonNull Bitmap resizeBitmap(@NonNull Bitmap bitmap,
-                                               int newWidth, int newHeight) {
+    public static @NonNull Bitmap resizeBitmap(
+            @NonNull Bitmap bitmap, int newWidth, int newHeight) {
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 newWidth, newHeight, Bitmap.Config.ARGB_8888);
 
@@ -99,8 +99,8 @@ public class DynamicBitmapUtils {
      *
      * @return The new bitmap with applied color filter.
      */
-    public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
-                                                   @NonNull ColorFilter colorFilter) {
+    public static @NonNull Bitmap applyColorFilter(
+            @NonNull Bitmap bitmap, @NonNull ColorFilter colorFilter) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColorFilter(colorFilter);
         paint.setFilterBitmap(true);
@@ -119,10 +119,10 @@ public class DynamicBitmapUtils {
      *
      * @return The new bitmap with applied color filter.
      */
-    public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
-                                                   @ColorInt int color) {
-        return applyColorFilter(bitmap,
-                new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
+    public static @NonNull Bitmap applyColorFilter(
+            @NonNull Bitmap bitmap, @ColorInt int color) {
+        return applyColorFilter(bitmap, new PorterDuffColorFilter(
+                color, PorterDuff.Mode.SRC_ATOP));
     }
 
     /**

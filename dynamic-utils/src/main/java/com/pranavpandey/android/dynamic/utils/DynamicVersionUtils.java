@@ -46,8 +46,8 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
      */
     public static boolean isIceCreamSandwich(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH
-                : isIceCreamSandwich();
+        return equals ? Build.VERSION.SDK_INT
+                == Build.VERSION_CODES.ICE_CREAM_SANDWICH : isIceCreamSandwich();
     }
 
     /**
@@ -70,7 +70,8 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH_MR1}.
      */
     public static boolean isIceCreamSandwichMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1
+        return equals ? Build.VERSION.SDK_INT
+                == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1
                 : isIceCreamSandwichMR1();
     }
     
@@ -94,8 +95,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#JELLY_BEAN}.
      */
     public static boolean isJellyBean(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN
-                : isJellyBean();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN : isJellyBean();
     }
 
     /**
@@ -118,8 +118,8 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#JELLY_BEAN_MR1}.
      */
     public static boolean isJellyBeanMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR1
-                : isJellyBeanMR1();
+        return equals ? Build.VERSION.SDK_INT
+                == Build.VERSION_CODES.JELLY_BEAN_MR1 : isJellyBeanMR1();
     }
 
     /**
@@ -142,8 +142,8 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#JELLY_BEAN_MR2}.
      */
     public static boolean isJellyBeanMR2(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2
-                : isJellyBeanMR2();
+        return equals ? Build.VERSION.SDK_INT
+                == Build.VERSION_CODES.JELLY_BEAN_MR2 : isJellyBeanMR2();
     }
 
     /**
@@ -166,8 +166,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#KITKAT}.
      */
     public static boolean isKitKat(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT
-                : isKitKat();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT : isKitKat();
     }
 
     /**
@@ -190,8 +189,8 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#KITKAT_WATCH}.
      */
     public static boolean isKitKatWatch(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT_WATCH
-                : isKitKatWatch();
+        return equals ? Build.VERSION.SDK_INT
+                == Build.VERSION_CODES.KITKAT_WATCH : isKitKatWatch();
     }
 
     /**
@@ -214,8 +213,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#LOLLIPOP}.
      */
     public static boolean isLollipop(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP
-                : isLollipop();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP : isLollipop();
     }
 
     /**
@@ -238,8 +236,8 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#LOLLIPOP_MR1}.
      */
     public static boolean isLollipopMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1
-                : isLollipopMR1();
+        return equals ? Build.VERSION.SDK_INT
+                == Build.VERSION_CODES.LOLLIPOP_MR1 : isLollipopMR1();
     }
 
     /**
@@ -262,8 +260,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#M}.
      */
     public static boolean isMarshmallow(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.M
-                : isMarshmallow();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.M : isMarshmallow();
     }
 
     /**
@@ -286,8 +283,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#N}.
      */
     public static boolean isNougat(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N
-                : isNougat();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N : isNougat();
     }
 
     /**
@@ -310,8 +306,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#N_MR1}.
      */
     public static boolean isNougatMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1
-                : isNougatMR1();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1 : isNougatMR1();
     }
 
     /**
@@ -334,8 +329,7 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#O}.
      */
     public static boolean isOreo(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O
-                : isOreo();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O : isOreo();
     }
 
     /**
@@ -358,7 +352,29 @@ public class DynamicVersionUtils {
      *         {@link Build.VERSION_CODES#O_MR1}.
      */
     public static boolean isOreoMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1
-                : isOreoMR1();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1 : isOreoMR1();
+    }
+
+    /**
+     * To detect if the current Android version is Pie or above.
+     *
+     * @return {@code true} if current version is greater than or equal to
+     *         {@link Build.VERSION_CODES#P}.
+     */
+    public static boolean isPie() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
+    }
+
+    /**
+     * To detect if the current Android version is Pie or above.
+     *
+     * @param equals {@code true} to check for equality.
+     *               {@code false} to match greater than or equal.
+     *
+     * @return {@code true} if current version is greater than or equal to
+     *         {@link Build.VERSION_CODES#P}.
+     */
+    public static boolean isPie(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.P : isPie();
     }
 }

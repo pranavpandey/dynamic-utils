@@ -16,9 +16,11 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -182,8 +184,76 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter
      */
-    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
-                                                      @NonNull ColorFilter colorFilter) {
+    public static @Nullable Drawable colorizeDrawable(
+            @Nullable Drawable drawable, @NonNull ColorFilter colorFilter) {
         return colorizeDrawable(drawable, true, colorFilter);
+    }
+
+    /**
+     * Get a gradient drawable for widget background according to
+     * the corner radius.
+     *
+     * @param width The width in dip for the drawable.
+     * @param height The height in dip for the drawable.
+     * @param cornerRadius The corner size in dip for the drawable.
+     * @param color The color for the drawable.
+     *
+     * @return The gradient drawable for widget background according
+     *         to the supplied parameters.
+     */
+    public static Drawable getCornerDrawable(
+            int width, int height, float cornerRadius, @ColorInt int color) {
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setCornerRadius(DynamicUnitUtils.convertDpToPixels(cornerRadius));
+        gradientDrawable.setColor(color);
+
+        if (width > 0 && height > 0) {
+            gradientDrawable.setSize(DynamicUnitUtils.convertDpToPixels(width),
+                    DynamicUnitUtils.convertDpToPixels(height));
+        }
+
+        return gradientDrawable;
+    }
+
+    /**
+     * Get a gradient drawable for widget background according to
+     * the corner radius.
+     *
+     * @param width The width in dip for the drawable.
+     * @param height The height in dip for the drawable.
+     * @param cornerRadius The corner size in dip for the drawable.
+     *
+     * @return The gradient drawable for widget background according
+     *         to the supplied parameters.
+     */
+    public static Drawable getCornerDrawable(int width, int height, float cornerRadius) {
+        return getCornerDrawable(width, height, cornerRadius, Color.WHITE);
+    }
+
+    /**
+     * Get a gradient drawable for widget background according to
+     * the corner radius.
+     *
+     * @param cornerRadius The corner size in dip for the drawable.
+     * @param color The color for the drawable.
+     *
+     * @return The gradient drawable for widget background according
+     *         to the supplied parameters.
+     */
+    public static Drawable getCornerDrawable(float cornerRadius, @ColorInt int color) {
+        return getCornerDrawable(0, 0, cornerRadius, color);
+    }
+
+    /**
+     * Get a gradient drawable for widget background according to
+     * the corner radius.
+     *
+     * @param cornerRadius The corner size in dip for the drawable.
+     *
+     * @return The gradient drawable for widget background according
+     *         to the supplied parameters.
+     */
+    public static Drawable getCornerDrawable(float cornerRadius) {
+        return getCornerDrawable(0, 0, cornerRadius, Color.WHITE);
     }
 }

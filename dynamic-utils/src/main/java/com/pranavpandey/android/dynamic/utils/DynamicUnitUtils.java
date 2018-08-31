@@ -32,8 +32,8 @@ public class DynamicUnitUtils {
      * @return The converted value in pixels.
      */
     public static int convertDpToPixels(float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dp, Resources.getSystem().getDisplayMetrics());
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dp, Resources.getSystem().getDisplayMetrics()));
     }
 
     /**
@@ -43,8 +43,8 @@ public class DynamicUnitUtils {
      *
      * @return The converted value in DP.
      */
-    public static int convertPixelsToDp(float pixels) {
-        return (int) (pixels / Resources.getSystem().getDisplayMetrics().density);
+    public static int convertPixelsToDp(int pixels) {
+        return Math.round(pixels / Resources.getSystem().getDisplayMetrics().density);
     }
 
     /**
@@ -55,8 +55,8 @@ public class DynamicUnitUtils {
      * @return The converted value in pixels.
      */
     public static int convertSpToPixels(float sp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                sp, Resources.getSystem().getDisplayMetrics());
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                sp, Resources.getSystem().getDisplayMetrics()));
     }
 
     /**
@@ -66,8 +66,8 @@ public class DynamicUnitUtils {
      *
      * @return The converted value in SP.
      */
-    public static int convertPixelsToSp(float pixels) {
-        return (int) (pixels / Resources.getSystem().getDisplayMetrics().density);
+    public static int convertPixelsToSp(int pixels) {
+        return Math.round(pixels / Resources.getSystem().getDisplayMetrics().density);
     }
 
     /**
@@ -78,6 +78,6 @@ public class DynamicUnitUtils {
      * @return The converted value in SP.
      */
     public static int convertDpToSp(float dp) {
-        return (int) (convertDpToPixels(dp) / (float) convertSpToPixels(dp));
+        return Math.round(convertDpToPixels(dp) / (float) convertSpToPixels(dp));
     }
 }

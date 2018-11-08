@@ -6,11 +6,13 @@
 [![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
 [![Download](https://api.bintray.com/packages/pranavpandey/android/dynamic-utils/images/download.svg)](https://bintray.com/pranavpandey/android/dynamic-utils/_latestVersion)
 
-A collection of static methods to perform various operations including color, device, drawable, 
+A collection of static methods to perform various operations including color, device, drawable,
 package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
 
-> Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
+>Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
 so, minimum SDK will be Android 14+ (ICS or above).
+<br/>Since v2.0.0, it uses [AndroidX](https://developer.android.com/jetpack/androidx/) so, first
+[migrate](https://developer.android.com/jetpack/androidx/migrate) your project to AndroidX.
 
 ---
 
@@ -40,6 +42,10 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 
 ```groovy
 dependencies {
+    // For AndroidX enabled projects
+    implementation 'com.pranavpandey.android:dynamic-utils:2.0.0'
+
+    // For legacy projects
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'
 }
 ```
@@ -49,7 +55,7 @@ dependencies {
 ## Usage
 
 It is divided into different classes according to their category for easy understanding and usage.
-This library is fully commented so I am highlighting some of the functions below, keep exploring 
+This library is fully commented so I am highlighting some of the functions below, keep exploring
 for more hidden features.
 
 > For complete reference, please read the [documentation](https://pranavpandey.github.io/dynamic-utils).
@@ -78,23 +84,23 @@ Helper class to perform bitmap operations.
 
 Helper class to change colors dynamically.
 
-- `@ColorInt int adjustAlpha(color, factor)` - Adjust alpha of a color according to the given 
+- `@ColorInt int adjustAlpha(color, factor)` - Adjust alpha of a color according to the given
 parameter.
 
-- `@ColorInt int calculateContrast(color1, color2)` - Calculate color contrast difference 
+- `@ColorInt int calculateContrast(color1, color2)` - Calculate color contrast difference
 between two colors based on luma value according to XYZ color space.
 
-- `@ColorInt int getAccentColor(color)` - Calculate accent color based on the given color for 
+- `@ColorInt int getAccentColor(color)` - Calculate accent color based on the given color for
 dynamic theme generation.
 
 - `@ColorInt int getColorDarkness(color)` - Calculate darkness of a color.
 
-- `@ColorInt int getContrastColor(color, contrastWithColor)` - Calculate contrast of a color 
+- `@ColorInt int getContrastColor(color, contrastWithColor)` - Calculate contrast of a color
 based on the given base color so that it will be visible always on top of the base color.
 
 - `@ColorInt int getLessVisibleColor(color)` - Calculate less visible color of a given color.
 
-- `@ColorInt int getTintColor(color)` - Calculate tint based on a given color for better 
+- `@ColorInt int getTintColor(color)` - Calculate tint based on a given color for better
 readability.
 
 - `boolean isColorDark(color)` - Detect light or dark color.
@@ -105,36 +111,36 @@ readability.
 
 Helper class to detect device specific features like Telephony, etc.
 
-- `boolean hasTelephony(context)` - To detect if device has telephony feature or not by using 
+- `boolean hasTelephony(context)` - To detect if device has telephony feature or not by using
 PackageManager.
 
 ### DynamicDrawableUtils
 
 Helper class to perform Drawable operations.
 
-- `void colorizeDrawable(drawable, wrap, color, mode)` - Colorize and return the mutated drawable 
+- `void colorizeDrawable(drawable, wrap, color, mode)` - Colorize and return the mutated drawable
 so that, all other references do not change.
 
-- `Drawable setBackground(view, drawable)` - Set background of a given view in an efficient way 
+- `Drawable setBackground(view, drawable)` - Set background of a given view in an efficient way
 by detecting the Android SDK at runtime.
 
 ### DynamicLinkUtils
 
 A collection of functions to perform various operations on the URL or to generate intents.
 
-- `void shareApp(context, title, message)` - Share application via system default share intent 
+- `void shareApp(context, title, message)` - Share application via system default share intent
 so that user can select from the available apps if more than one apps are available.
 
 - `void viewInGooglePlay(context, packageName)` - View app in the Google Play or Android Market.
 
 - `void rateApp(context)` - View app in the Google Play or Android Market.
 
-- `void moreApps(context, publisher)` - View other apps of a Publisher in the Google Play 
+- `void moreApps(context, publisher)` - View other apps of a Publisher in the Google Play
 or Android Market.
 
 - `void viewUrl(context, url)` - View any URL in the available app or browser.
 
-- `void report(context, appName, email)` - Ask questions or submit bug report to the developer 
+- `void report(context, appName, email)` - Ask questions or submit bug report to the developer
 via email.
 
 ### DynamicPackageUtils
@@ -174,13 +180,13 @@ Helper class to perform unit conversions.
 
 ### DynamicVersionUtils
 
-Helper class to detect the Android SDK version at runtime so that we can provide the user 
+Helper class to detect the Android SDK version at runtime so that we can provide the user
 experience accordingly. Pass `true` in the alternate method to check for equality.
 
-- `boolean isIceCreamSandwich()` - To detect if the current Android version is Ice Cream Sandwich 
+- `boolean isIceCreamSandwich()` - To detect if the current Android version is Ice Cream Sandwich
 or above.
 
-- `boolean isIceCreamSandwich(equals)` - To detect if the current Android version is Ice Cream 
+- `boolean isIceCreamSandwich(equals)` - To detect if the current Android version is Ice Cream
 Sandwich or above.
 
 ...
@@ -193,10 +199,10 @@ Sandwich or above.
 
 Helper class to perform `view` operations.
 
-- `void setLightStatusBar(view, isLight)` - Set light status bar if we are using light primary 
+- `void setLightStatusBar(view, isLight)` - Set light status bar if we are using light primary
 color on Android M or above devices.
 
-- `void setLightNavigationBar(view, isLight)` - Set light navigation bar if we are using light 
+- `void setLightNavigationBar(view, isLight)` - Set light navigation bar if we are using light
 primary color on Android O or above devices.
 
 ### DynamicWindowUtils

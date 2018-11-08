@@ -17,11 +17,12 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.annotation.FloatRange;
-import android.support.v4.graphics.ColorUtils;
 
 import java.util.Random;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.core.graphics.ColorUtils;
 
 /**
  * Helper class to change colors dynamically.
@@ -52,7 +53,7 @@ public class DynamicColorUtils {
         float saturation = random.nextFloat();
         float lightness = random.nextFloat();
 
-        return ColorUtils.HSLToColor(new float[] { hue, saturation, lightness });
+        return ColorUtils.HSLToColor(new float[]{hue, saturation, lightness});
     }
 
     /**
@@ -90,6 +91,17 @@ public class DynamicColorUtils {
     }
 
     /**
+     * Checks whether the color has alpha component.
+     *
+     * @param color The color to check the alpha component.
+     *
+     * @return {@code true} if the color has alpha component.
+     */
+    public static boolean isAlpha(@ColorInt int color) {
+        return Color.alpha(color) != 255;
+    }
+
+    /**
      * Remove alpha from a color.
      *
      * @param color The color whose alpha to be removed.
@@ -106,7 +118,7 @@ public class DynamicColorUtils {
      * @param color The color whose darkness to be calculated.
      *
      * @return The darkness of color (less than or equal to 1).
-     *         0 for white and 1 for black.
+     *         <p>{@code 0} for white and {@code 1} for black.
      */
     public static double getColorDarkness(@ColorInt int color) {
         return 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color)
@@ -129,8 +141,7 @@ public class DynamicColorUtils {
      *
      * @param color The color whose XyzLuma to be calculated.
      *
-     * @return The luma value according to XYZ color space in the
-     *         range 0.0 - 1.0.
+     * @return The luma value according to XYZ color space in the range {@code 0.0 - 1.0}.
      */
     private static float calculateXyzLuma(@ColorInt int color) {
         return (0.2126f * Color.red(color) +
@@ -143,8 +154,8 @@ public class DynamicColorUtils {
      *
      * @param color The color to lighten.
      * @param amount The amount to lighten the color.
-     *               0 will leave the color unchanged.
-     *               1 will make the color completely white.
+     *               <p>{@code 0} will leave the color unchanged.
+     *               <p>{@code 1} will make the color completely white.
      *
      * @return The lighter color.
      */
@@ -161,8 +172,8 @@ public class DynamicColorUtils {
      *
      * @param color The color to darken.
      * @param amount The amount to darken the color.
-     *               0 will leave the color unchanged.
-     *               1 will make the color completely black.
+     *               <p>{@code 0} will leave the color unchanged.
+     *               <p>{@code 1} will make the color completely black.
      *
      * @return The darker color.
      */
@@ -175,16 +186,16 @@ public class DynamicColorUtils {
     }
 
     /**
-     * Shift a color according to the given parameter. Useful to create
-     * different color states.
+     * Shift a color according to the given parameter.
+     * <p>Useful to create different color states.
      *
      * @param color The color to be shifted.
      * @param by The factor in float by which shift the color.
      *
      * @return The shifted color.
      */
-    public static @ColorInt int shiftColor(
-            @ColorInt int color, @FloatRange(from = 0.0f, to = 2.0f) float by) {
+    public static @ColorInt int shiftColor(@ColorInt int color,
+            @FloatRange(from = 0.0f, to = 2.0f) float by) {
         if (by == 1f) {
             return color;
         }
@@ -197,25 +208,23 @@ public class DynamicColorUtils {
 
     /**
      * Shift a color according to the supplied parameters.
-     * The shifted color will be lighter for a dark color and vice versa.
+     * <p>The shifted color will be lighter for a dark color and vice versa.
      *
      * @param color The color to be shifted.
-     * @param shiftLightBy The factor in float by which shift the light
-     *                     color.
-     * @param shiftDarkBy The factor in float by which shift the dark
-     *                    color.
+     * @param shiftLightBy The factor in float by which shift the light color.
+     * @param shiftDarkBy The factor in float by which shift the dark color.
      *
      * @return The shifted color.
      */
-    public static @ColorInt int shiftColor(
-            @ColorInt int color, @FloatRange(from = 0.0f, to = 2.0f) float shiftLightBy,
+    public static @ColorInt int shiftColor(@ColorInt int color,
+            @FloatRange(from = 0.0f, to = 2.0f) float shiftLightBy,
             @FloatRange(from = 0.0f, to = 2.0f) float shiftDarkBy) {
         return shiftColor(color, isColorDark(color) ? shiftDarkBy : shiftLightBy);
     }
 
     /**
-     * Calculate accent color based on the given color for android theme
-     * generation. Still in beta so, sometimes may be inaccurate colors.
+     * Calculate accent color based on the given color for android theme generation.
+     * <p>Still in beta so, sometimes may be inaccurate colors.
      *
      * @param color The color whose accent color to be calculated.
      *
@@ -255,10 +264,8 @@ public class DynamicColorUtils {
      * Calculate color contrast difference between two colors based
      * on luma value according to XYZ color space.
      *
-     * @param color1 The first color to calculate the contrast
-     *               difference.
-     * @param color2 The second color to calculate the contrast
-     *               difference.
+     * @param color1 The first color to calculate the contrast difference.
+     * @param color2 The second color to calculate the contrast difference.
      *
      * @return The color contrast between the two colors.
      *
@@ -284,34 +291,31 @@ public class DynamicColorUtils {
      *
      * @param color The color to be lighten or darken.
      * @param lightenBy The amount to lighten the color.
-     *                  0 will leave the color unchanged.
-     *                  1 will make the color completely white.
+     *                  <p>{@code 0} will leave the color unchanged.
+     *                  <p>{@code 1} will make the color completely white.
      * @param darkenBy The amount to darken the color.
-     *                 0 will leave the color unchanged.
-     *                 1 will make the color completely black.
+     *                 <p>{@code 0} will leave the color unchanged.
+     *                 <p>{@code 1} will make the color completely black.
      *
      * @return The state color.
      */
-    public static @ColorInt int getStateColor(
-            @ColorInt int color, @FloatRange(from = 0.0f, to = 1.0f) float lightenBy,
+    public static @ColorInt int getStateColor(@ColorInt int color,
+            @FloatRange(from = 0.0f, to = 1.0f) float lightenBy,
             @FloatRange(from = 0.0f, to = 1.0f) float darkenBy) {
         return isColorDark(color) ? getLighterColor(color, lightenBy)
                 : getDarkerColor(color, darkenBy);
     }
 
     /**
-     * Calculate contrast of a color based on the given base color so
-     * that it will be visible always on top of the base color.
+     * Calculate contrast of a color based on the given base color so that it will always
+     * be visible on top of the base color.
      *
      * @param color The color whose contrast to be calculated.
-     * @param contrastWith The background color to calculate the
-     *                     contrast.
+     * @param contrastWith The background color to calculate the contrast.
      *
-     * @return The contrast of the given color according to the base
-     * color.
+     * @return The contrast of the given color according to the base color.
      */
-    public static @ColorInt int getContrastColor(
-            @ColorInt int color, @ColorInt int contrastWith) {
+    public static @ColorInt int getContrastColor(@ColorInt int color, @ColorInt int contrastWith) {
         float contrast = calculateContrast(color, contrastWith);
         if (contrast < VISIBLE_CONTRAST) {
             if (isColorDark(contrastWith)) {
@@ -327,8 +331,8 @@ public class DynamicColorUtils {
     }
 
     /**
-     * Calculate less visible color of a given color. Useful to create
-     * unselected or disabled color states.
+     * Calculate less visible color of a given color.
+     * <p>Useful to create unselected or disabled color states.
      *
      * @param color The color whose less visible color to be calculated.
      *
@@ -343,13 +347,12 @@ public class DynamicColorUtils {
      *
      * @param color The color to get the hex code.
      * @param includeAlpha {@code true} to include alpha in the string.
-     * @param includeHash {@code true} to include # in the string.
+     * @param includeHash {@code true} to include {@code #} in the string.
      *
-     * @return The hexadecimal string equivalent of the supplied
-     *         color integer.
+     * @return The hexadecimal string equivalent of the supplied color integer.
      */
-    public static String getColorString(
-            @ColorInt int color, boolean includeAlpha, boolean includeHash) {
+    public static String getColorString(@ColorInt int color, boolean includeAlpha,
+            boolean includeHash) {
         String colorString;
         if (includeAlpha) {
             colorString = String.format("%08X", color);

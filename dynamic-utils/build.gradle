@@ -35,8 +35,7 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-compat:${versions.androidSupport}"
-    implementation "com.android.support:support-core-utils:${versions.androidSupport}"
+    implementation "androidx.core:core:${versions.androidx}"
 }
 
 if (project.rootProject.file('local.properties').exists()) {
@@ -51,8 +50,9 @@ project.afterEvaluate {
                 description = "Generates javadocs"
                 failOnError = false
                 destinationDir = new File(destinationDir, variant.baseName)
-                source = files(variant.javaCompiler.source)
-                classpath = files(variant.javaCompiler.classpath.files) + files(android.bootClasspath)
+                source = android.sourceSets.main.java.srcDirs
+                classpath += configurations.compile
+                classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
                 options.windowTitle(referenceTitle)
                 options.docTitle(referenceTitle)
                 options.header(referenceTitle)
@@ -63,4 +63,3 @@ project.afterEvaluate {
         }
     }
 }
-

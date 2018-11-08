@@ -17,11 +17,11 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 /**
- * Helper class to easily execute or cancel an {@link AsyncTask} by
- * handling all the exceptions.
+ * Helper class to easily execute or cancel an {@link AsyncTask} by handling all the exceptions.
  */
 public class DynamicTaskUtils {
 

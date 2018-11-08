@@ -17,19 +17,19 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import java.util.Locale;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
- * A collection of functions to perform various operations on the URL
- * or to generate intents.
+ * A collection of functions to perform various operations on the URL or to generate intents.
  */
 public class DynamicLinkUtils {
 
@@ -51,8 +51,7 @@ public class DynamicLinkUtils {
     /**
      * Play Store app url template to open app details on newer devices.
      */
-    private static final String URL_PLAY_STORE =
-            "http://play.google.com/store/apps/details?id=";
+    private static final String URL_PLAY_STORE = "http://play.google.com/store/apps/details?id=";
 
     /**
      * Android Market app search query template to search apps of a publisher.
@@ -71,26 +70,38 @@ public class DynamicLinkUtils {
     private static final String MAIL_TO = "mailto:";
 
     /**
-     * Share application via system default share intent so that user can
-     * select from the available apps if more than one apps are available.
+     * Copy a plain text to the clipboard.
      *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.</p>
+     * @param context The context to get the clipboard manager.
+     * @param label User visible label for the clip data.
+     * @param text The actual text in the clip.
      *
-     * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param title Application chooser title if more than one apps are
-     *              available.
-     * @param message Default share message which user can modify.
-     *                {@code null} to supply app and package name.
+     * @see ClipboardManager
+     */
+    public static void copyToClipboard(@NonNull Context context,
+            @NonNull String label, @NonNull String text) {
+        ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE))
+                .setPrimaryClip(ClipData.newPlainText(label, text));
+    }
+
+    /**
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
+     *
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
+     *
+     * @param context The context to retrieve the resources.
+     * @param title The application chooser title if more than one apps are available.
+     * @param message The default share message which user can modify.
+     *                <p>{@code null} to supply app and package name.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  Intent#ACTION_SEND
+     * @see Intent#ACTION_SEND
      */
-    public static void shareApp(@NonNull Context context,
-                                @Nullable String title, @Nullable String message) {
+    public static void share(@NonNull Context context, @Nullable String title,
+            @Nullable String message) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
@@ -100,8 +111,7 @@ public class DynamicLinkUtils {
         }
 
         if (message == null) {
-            message = String.format(Locale.getDefault(),
-                    context.getString(R.string.adu_share_desc),
+            message = String.format(context.getString(R.string.adu_share_desc),
                     context.getApplicationInfo().loadLabel(context.getPackageManager()),
                     context.getPackageName());
         }
@@ -115,36 +125,31 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * Share application via system default share intent so that user can
-     * select from the available apps if more than one apps are available.
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
      *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.</p>
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
      *
-     * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     * @param context The context to retrieve the resources.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  #shareApp(Context, String, String)
+     * @see #share(Context, String, String)
      */
     public static void shareApp(@NonNull Context context) {
-        shareApp(context, null, null);
+        share(context, null, null);
     }
 
     /**
      * View app in the Play Store or Android Market.
      *
-     * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param packageName Application package name to build the search
-     *                    query.
+     * @param context The context to retrieve the resources.
+     * @param packageName Application package name to build the search query.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  Intent#ACTION_VIEW
+     * @see Intent#ACTION_VIEW
      */
     public static void viewInGooglePlay(
             @NonNull Context context, @NonNull String packageName) {
@@ -158,19 +163,19 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View app in the Play Store or Android Market. Can be used for the
-     * quick feedback or rating from the user.
+     * View app in the Play Store or Android Market.
+     * <p>Can be used for the quick feedback or rating from the user.
      *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.</p>
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
      *
      * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     *         your {@link android.app.Application} or
+     *         {@link android.app.Activity} object.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  #viewInGooglePlay(Context, String)
+     * @see #viewInGooglePlay(Context, String)
      */
     public static void rateApp(@NonNull Context context) {
         viewInGooglePlay(context, context.getPackageName());
@@ -179,17 +184,15 @@ public class DynamicLinkUtils {
     /**
      * View other apps of a Publisher in the Play Store or Android Market.
      *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.</p>
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
      *
-     * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     * @param context The context to retrieve the resources.
      * @param publisher Publisher name to build the search query.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  Intent#ACTION_VIEW
+     * @see Intent#ACTION_VIEW
      */
     public static void moreApps(@NonNull Context context, @NonNull String publisher) {
         try {
@@ -202,21 +205,19 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View any URL in the available app or browser. Some URLs will automatically
-     * open in their respective apps if installed on the the device. Special
-     * treatment is applied for the Facebook URLs to open them directly in the app.
+     * View any URL in the available app or browser. Some URLs will automatically open in their
+     * respective apps if installed on the the device. Special treatment is applied for the
+     * Facebook URLs to open them directly in the app.
      *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.</p>
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
      *
-     * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param url Web or app link to open.
+     * @param context The context to retrieve the resources.
+     * @param url The web or app link to open.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  Intent#ACTION_VIEW
+     * @see Intent#ACTION_VIEW
      * @see #URL_FACEBOOK_APP
      */
     public static void viewUrl(@NonNull Context context, @NonNull String url) {
@@ -234,27 +235,24 @@ public class DynamicLinkUtils {
 
     /**
      * Ask questions or submit bug report to the developer via email.
-     * Subject of the email will be generated automatically by detecting the
-     * manufacturer, device, Android version and the app version along with
-     * the supplied app name.
+     * <p>Subject of the email will be generated automatically by detecting the manufacturer,
+     * device, Android version and the app version along with the supplied app name.
      *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.</p>
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
      *
-     * @param context The context to retrieve the resources. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param appName App name in the email subject. {@code null}
-     *                to get it from the supplied context.
+     * @param context The context to retrieve the resources.
+     * @param appName App name for the email subject.
+     *                <p>{@code null} to get it from the supplied context.
      * @param email Email id of the developer.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
-     * @see  Intent#ACTION_SENDTO
-     * @see  #MAIL_TO
+     * @see Intent#ACTION_SENDTO
+     * @see #MAIL_TO
      */
     public static void report(@NonNull Context context, @Nullable String appName,
-                              @NonNull String email) {
+            @NonNull String email) {
         String version = null;
 
         try {

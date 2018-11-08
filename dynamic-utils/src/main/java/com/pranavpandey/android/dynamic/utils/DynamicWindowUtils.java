@@ -19,7 +19,6 @@ package com.pranavpandey.android.dynamic.utils;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Surface;
@@ -27,17 +26,18 @@ import android.view.WindowManager;
 
 import java.lang.reflect.InvocationTargetException;
 
+import androidx.annotation.NonNull;
+
 /**
- * Helper class to perform {@link android.view.Window} operations
- * and to detect system configurations at runtime.
+ * Helper class to perform {@link android.view.Window} operations and to detect system
+ * configurations at runtime.
  */
 public class DynamicWindowUtils {
 
     /**
      * Get the app usable screen size.
      *
-     * @param context The context to get the resources and
-     *                window service.
+     * @param context The context to get the resources and window service.
      *
      * @return The app usable screen size in point.
      *
@@ -61,8 +61,7 @@ public class DynamicWindowUtils {
     /**
      * Get the real screen size.
      *
-     * @param context The context to get the resources and
-     *                window service.
+     * @param context The context to get the resources and window service.
      *
      * @return The real screen size in point.
      *
@@ -96,8 +95,7 @@ public class DynamicWindowUtils {
     /**
      * Get the on-screen navigation bar size.
      *
-     * @param context The context to get the resources and
-     *                window service.
+     * @param context The context to get the resources and window service.
      *
      * @return The on-screen navigation bar in point.
      *
@@ -123,12 +121,9 @@ public class DynamicWindowUtils {
     }
 
     /**
-     * Detect if on-screen navigation bar is present or not.
+     * Detects if on-screen navigation bar is present or not.
      *
-     * @param context The context to get the resources. Usually your
-     *                {@link android.app.Application} or
-     *                {@link android.app.Activity}
-     *                object.
+     * @param context The context to retrieve the resources.
      *
      * @return {@code true} if on-screen navigation bar is present.
      */
@@ -137,12 +132,9 @@ public class DynamicWindowUtils {
     }
 
     /**
-     * Detect support for navigation bar theme.
+     * Detects support for navigation bar theme.
      *
-     * @param context The context to get the resources. Usually your
-     *                {@link android.app.Application} or
-     *                {@link android.app.Activity}
-     *                object.
+     * @param context The context to retrieve the resources.
      *
      * @return {@code true} if navigation bar theme is supported.
      */
@@ -153,8 +145,7 @@ public class DynamicWindowUtils {
     /**
      * Get the current device orientation.
      *
-     * @param context The context to get the resources and
-     *                window service.
+     * @param context The context to get the resources and window service.
      *
      * @return The current activity orientation info.
      *
@@ -183,7 +174,7 @@ public class DynamicWindowUtils {
                 || rotation == Surface.ROTATION_180) && height > width ||
                 (rotation == Surface.ROTATION_90
                         || rotation == Surface.ROTATION_270) && width > height) {
-            switch(rotation) {
+            switch (rotation) {
                 case Surface.ROTATION_0:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                     break;
@@ -201,7 +192,7 @@ public class DynamicWindowUtils {
                     break;
             }
         } else {
-            switch(rotation) {
+            switch (rotation) {
                 case Surface.ROTATION_0:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     break;
@@ -224,11 +215,11 @@ public class DynamicWindowUtils {
     }
 
     /**
-     * @return The {@link WindowManager} overlay flag according
-     *         to the android version.
+     * Get the overlay flag according to the Android version.
      *
-     * @param alert {@code true} to return alert flag on below
-     *              Android O devices.
+     * @param alert {@code true} to return alert flag on below Android O devices.
+     *
+     * @return The {@link WindowManager} overlay flag according to the android version.
      *
      * @see WindowManager.LayoutParams#TYPE_APPLICATION_OVERLAY
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_OVERLAY

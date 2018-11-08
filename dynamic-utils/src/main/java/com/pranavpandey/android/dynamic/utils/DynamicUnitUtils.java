@@ -25,7 +25,7 @@ import android.util.TypedValue;
 public class DynamicUnitUtils {
 
     /**
-     * To convert DP into pixels.
+     * Converts DP into pixels.
      *
      * @param dp The value in DP to be converted into pixels.
      *
@@ -37,7 +37,7 @@ public class DynamicUnitUtils {
     }
 
     /**
-     * To convert pixels into DP.
+     * Converts pixels into DP.
      *
      * @param pixels The value in pixels to be converted into DP.
      *
@@ -48,7 +48,7 @@ public class DynamicUnitUtils {
     }
 
     /**
-     * To convert SP into pixels.
+     * Converts SP into pixels.
      *
      * @param sp The value in SP to be converted into pixels.
      *
@@ -60,7 +60,7 @@ public class DynamicUnitUtils {
     }
 
     /**
-     * To convert pixels into SP.
+     * Converts pixels into SP.
      *
      * @param pixels The value in pixels to be converted into SP.
      *
@@ -71,7 +71,7 @@ public class DynamicUnitUtils {
     }
 
     /**
-     * To convert DP into SP.
+     * Converts DP into SP.
      *
      * @param dp The value in DP to be converted into SP.
      *

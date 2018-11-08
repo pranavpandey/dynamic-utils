@@ -18,21 +18,20 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
 import java.text.DateFormat;
 
+import androidx.annotation.NonNull;
+
 /**
- * Helper class to detect device specific features like
- * Telephony, etc.
+ * Helper class to detect device specific features like Telephony, etc.
  */
 public class DynamicDeviceUtils {
 
     /**
-     * To detect if device has telephony feature or not by using
-     * PackageManager.
+     * Detects the telephony feature by using {@link PackageManager}.
      *
-     * @param context The context to get the PackageManager.
+     * @param context The context to get the package manager.
      *
      * @return {@code true} if the device has telephony feature.
      *
@@ -45,13 +44,10 @@ public class DynamicDeviceUtils {
     }
 
     /**
-     * Retrieve a Date and Time string from date milliSeconds based
-     * on the system settings.
+     * Retrieve a date and time string from milliSeconds according to the system settings.
      *
-     * @param context The context to retrieve system date and
-     *                 time format.
-     * @param milliSeconds The millis to be converted into
-     *                     date and time.
+     * @param context The context to retrieve system date and time format.
+     * @param milliSeconds The millis to be converted into date and time.
      *
      * @return The formatted date according to system settings.
      *

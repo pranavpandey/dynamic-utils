@@ -21,11 +21,12 @@ import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * Helper class to perform {@link Drawable} operations.
@@ -33,8 +34,8 @@ import android.view.View;
 public class DynamicDrawableUtils {
 
     /**
-     * Set background of a given view in an efficient way by detecting
-     * the Android SDK at runtime
+     * Set background of a given view in an efficient way by detecting the Android SDK
+     * at runtime.
      *
      * @param view View to set the background.
      * @param drawable Background drawable for the view.
@@ -50,12 +51,12 @@ public class DynamicDrawableUtils {
     }
 
     /**
-     * Apply color filter and return the mutated drawable so that, all other
-     * references do not change.
+     * Apply color filter and return the mutated drawable so that, all other references
+     * do not change.
      *
      * @param drawable The drawable to be colorized.
-     * @param wrap {@code true} if  wrap {@code drawable} so that it may be
-     *             used for tinting across the different API levels.
+     * @param wrap {@code true} to {@code wrap} the drawable so that it may be used for
+     *             tinting across the different API levels.
      * @param colorFilter The color filter to be applied on the drawable.
      *
      * @return The drawable after applying the color filter.
@@ -63,8 +64,8 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter
      */
-    public static @Nullable Drawable colorizeDrawable(
-            @Nullable Drawable drawable, boolean wrap, @NonNull ColorFilter colorFilter) {
+    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
+            boolean wrap, @NonNull ColorFilter colorFilter) {
         if (drawable != null) {
             if (wrap) {
                 drawable = drawable.mutate();
@@ -78,13 +79,12 @@ public class DynamicDrawableUtils {
     }
 
     /**
-     * Colorize and return the mutated drawable so that, all other references
-     * do not change.
+     * Colorize and return the mutated drawable so that, all other references do not change.
      *
      * @param drawable The drawable to be colorized.
      * @param color The color to colorize the drawable.
-     * @param wrap {@code true} if  wrap {@code drawable} so that it may be
-     *             used for tinting across the different API levels.
+     * @param wrap {@code true} to {@code wrap} the drawable so that it may be used for
+     *             tinting across the different API levels.
      * @param mode The porter duff mode.
      *
      * @return The drawable after applying the color filter.
@@ -92,9 +92,8 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode
      */
-    public static @Nullable Drawable colorizeDrawable(
-            @Nullable Drawable drawable, boolean wrap,
-            @ColorInt int color, @Nullable PorterDuff.Mode mode) {
+    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
+            boolean wrap, @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {
             if (mode == null) {
                 mode = PorterDuff.Mode.SRC_IN;
@@ -122,8 +121,7 @@ public class DynamicDrawableUtils {
     }
 
     /**
-     * Colorize and return the mutated drawable so that, all other references
-     * do not change.
+     * Colorize and return the mutated drawable so that, all other references do not change.
      *
      * @param drawable The drawable to be colorized.
      * @param color The color to colorize the drawable.
@@ -134,18 +132,17 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff
      */
-    public static @Nullable Drawable colorizeDrawable(
-            @Nullable Drawable drawable, @ColorInt int color, @Nullable PorterDuff.Mode mode) {
+    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
+            @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         return colorizeDrawable(drawable, true, color, mode);
     }
 
     /**
-     * Colorize and return the mutated drawable so that, all other references
-     * do not change.
+     * Colorize and return the mutated drawable so that, all other references do not change.
      *
      * @param drawable The drawable to be colorized.
-     * @param wrap {@code true} if  wrap {@code drawable} so that it may be
-     *             used for tinting across the different API levels.
+     * @param wrap {@code true} to {@code wrap} the drawable so that it may be used for
+     *             tinting across the different API levels.
      * @param color The color to colorize the drawable.
      *
      * @return The drawable after applying the color filter.
@@ -153,28 +150,27 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode#SRC_IN
      */
-    public static @Nullable Drawable colorizeDrawable(
-            @Nullable Drawable drawable, boolean wrap, @ColorInt int color) {
+    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
+            boolean wrap, @ColorInt int color) {
         return colorizeDrawable(drawable, wrap, color, PorterDuff.Mode.SRC_IN);
     }
 
     /**
-     * Colorize and return the mutated drawable so that, all other references
-     * do not change.
+     * Colorize and return the mutated drawable so that, all other references do not change.
      *
      * @param drawable The drawable to be colorized.
      * @param color The color to colorize the drawable.
      *
      * @return The drawable after applying the color filter.
      */
-    public static @Nullable Drawable colorizeDrawable(
-            @Nullable Drawable drawable, @ColorInt int color) {
+    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
+            @ColorInt int color) {
         return colorizeDrawable(drawable, true, color);
     }
 
     /**
-     * Apply color filter and return the mutated drawable so that, all other
-     * references do not change.
+     * Apply color filter and return the mutated drawable so that, all other references
+     * do not change.
      *
      * @param drawable The drawable to be colorized.
      * @param colorFilter Color filter to be applied on the drawable.
@@ -184,25 +180,23 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(ColorFilter)
      * @see ColorFilter
      */
-    public static @Nullable Drawable colorizeDrawable(
-            @Nullable Drawable drawable, @NonNull ColorFilter colorFilter) {
+    public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
+            @NonNull ColorFilter colorFilter) {
         return colorizeDrawable(drawable, true, colorFilter);
     }
 
     /**
-     * Get a gradient drawable for widget background according to
-     * the corner radius.
+     * Get a gradient drawable for widget background according to the corner radius.
      *
      * @param width The width in dip for the drawable.
      * @param height The height in dip for the drawable.
      * @param cornerRadius The corner size in dip for the drawable.
      * @param color The color for the drawable.
      *
-     * @return The gradient drawable for widget background according
-     *         to the supplied parameters.
+     * @return The gradient drawable for widget background according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(
-            int width, int height, float cornerRadius, @ColorInt int color) {
+    public static Drawable getCornerDrawable(int width, int height, float cornerRadius,
+            @ColorInt int color) {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(DynamicUnitUtils.convertDpToPixels(cornerRadius));
         gradientDrawable.setColor(color);
@@ -216,42 +210,36 @@ public class DynamicDrawableUtils {
     }
 
     /**
-     * Get a gradient drawable for widget background according to
-     * the corner radius.
+     * Get a gradient drawable for widget background according to the corner radius.
      *
      * @param width The width in dip for the drawable.
      * @param height The height in dip for the drawable.
      * @param cornerRadius The corner size in dip for the drawable.
      *
-     * @return The gradient drawable for widget background according
-     *         to the supplied parameters.
+     * @return The gradient drawable for widget background according to the supplied parameters.
      */
     public static Drawable getCornerDrawable(int width, int height, float cornerRadius) {
         return getCornerDrawable(width, height, cornerRadius, Color.WHITE);
     }
 
     /**
-     * Get a gradient drawable for widget background according to
-     * the corner radius.
+     * Get a gradient drawable for widget background according to the corner radius.
      *
      * @param cornerRadius The corner size in dip for the drawable.
      * @param color The color for the drawable.
      *
-     * @return The gradient drawable for widget background according
-     *         to the supplied parameters.
+     * @return The gradient drawable for widget background according to the supplied parameters.
      */
     public static Drawable getCornerDrawable(float cornerRadius, @ColorInt int color) {
         return getCornerDrawable(0, 0, cornerRadius, color);
     }
 
     /**
-     * Get a gradient drawable for widget background according to
-     * the corner radius.
+     * Get a gradient drawable for widget background according to the corner radius.
      *
      * @param cornerRadius The corner size in dip for the drawable.
      *
-     * @return The gradient drawable for widget background according
-     *         to the supplied parameters.
+     * @return The gradient drawable for widget background according to the supplied parameters.
      */
     public static Drawable getCornerDrawable(float cornerRadius) {
         return getCornerDrawable(0, 0, cornerRadius, Color.WHITE);

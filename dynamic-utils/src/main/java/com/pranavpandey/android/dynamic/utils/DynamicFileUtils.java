@@ -21,9 +21,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -38,6 +35,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
 /**
  * Helper class to perform various file operations.
@@ -61,7 +62,7 @@ public class DynamicFileUtils {
 
     /**
      * Gets the base name without extension of given file name.
-     * e.g. getBaseName("file.txt") will return "file"
+     * <p>e.g. getBaseName("file.txt") will return "file".
      *
      * @param fileName The full name of the file with extension.
      *
@@ -96,10 +97,12 @@ public class DynamicFileUtils {
     }
 
     /**
-     * @return {@code true} if a file can be accessed by automatically
-     *         creating the sub directories.
+     * Verifies a file if it exist or not.
      *
      * @param file The file to be verified.
+     *
+     * @return {@code true} if a file can be accessed by automatically creating the
+     *         sub directories.
      */
     public static boolean verifyFile(@NonNull File file) {
         boolean fileExists = true;
@@ -112,10 +115,11 @@ public class DynamicFileUtils {
     }
 
     /**
-     * @return {@code true} if the directory has been deleted
-     *         successfully.
+     * Delete a directory.
      *
      * @param dir The directory to be deleted.
+     *
+     * @return {@code true} if the directory has been deleted successfully.
      */
     public static boolean deleteDirectory(@NonNull File dir) {
         if (dir.isDirectory()) {
@@ -140,8 +144,7 @@ public class DynamicFileUtils {
      *
      * @throws IOException Throws IO exception.
      */
-    public static void zipDirectory(@NonNull File dir,
-                                    @NonNull File zip) throws IOException {
+    public static void zipDirectory(@NonNull File dir, @NonNull File zip) throws IOException {
         if (verifyFile(new File(zip.getParent()))) {
             ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zip));
             zip(dir, dir, zos);
@@ -157,7 +160,7 @@ public class DynamicFileUtils {
      * @param zos The zip output stream.
      */
     private static void zip(@NonNull File dir, @NonNull File zip,
-                            @NonNull ZipOutputStream zos) throws IOException {
+            @NonNull ZipOutputStream zos) throws IOException {
         File[] files = dir.listFiles();
         byte[] buffer = new byte[8192];
         int read;
@@ -190,7 +193,7 @@ public class DynamicFileUtils {
      * @throws ZipException Throws Zip exception.
      */
     public static void unzip(@NonNull File zip,
-                             @NonNull File extractTo) throws IOException {
+            @NonNull File extractTo) throws IOException {
         ZipFile archive = new ZipFile(zip);
         Enumeration e = archive.entries();
 
@@ -221,8 +224,8 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Get uri from the file. It will automatically use the
-     * {@link FileProvider} on Android N and above devices.
+     * Get uri from the file. It will automatically use the @link FileProvider} on
+     * Android N and above devices.
      *
      * @param context The context to get file provider.
      * @param file The file to get the uri.
@@ -289,7 +292,7 @@ public class DynamicFileUtils {
      * @return {@code true} if the file has been written successfully.
      */
     public static boolean writeToFile(@NonNull File source, @NonNull File destination,
-                                      @NonNull String outputFileName) {
+            @NonNull String outputFileName) {
         boolean success = false;
 
         try {
@@ -326,7 +329,7 @@ public class DynamicFileUtils {
      * @return {@code true} if the file has been written successfully.
      */
     public static boolean writeToFile(@NonNull Context context, @NonNull Uri sourceUri,
-                                      @NonNull Uri destinationUri) {
+            @NonNull Uri destinationUri) {
         boolean success = false;
 
         try {

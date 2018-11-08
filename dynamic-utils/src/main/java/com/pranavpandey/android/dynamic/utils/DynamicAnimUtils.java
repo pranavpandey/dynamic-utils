@@ -18,8 +18,10 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
-import android.support.annotation.AnimatorRes;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.NonNull;
+
 import android.view.View;
 
 /**

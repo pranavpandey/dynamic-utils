@@ -21,8 +21,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Helper class to get package or app related information.
@@ -32,9 +33,7 @@ public class DynamicPackageUtils {
     /**
      * Get component name from the given context.
      *
-     * @param context The context to build the component. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     * @param context The context to build the component.
      *
      * @return The component name from the given context.
      *
@@ -47,18 +46,15 @@ public class DynamicPackageUtils {
     /**
      * Get application label from the given package.
      *
-     * @param context The context to get package manager. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param packageName The package name of the app to get its
-     *                    label.
+     * @param context The context to get the package manager.
+     * @param packageName The package name of the app to get its label.
      *
      * @return The application label or name.
      *
      * @see ApplicationInfo#loadLabel(PackageManager)
      */
     public static @Nullable CharSequence getAppLabel(@NonNull Context context,
-                                                     @Nullable String packageName) {
+            @Nullable String packageName) {
         PackageManager packageManager = context.getPackageManager();
         try {
             return packageManager.getPackageInfo(packageName,
@@ -71,9 +67,7 @@ public class DynamicPackageUtils {
     /**
      * Get application label from the given context.
      *
-     * @param context The context to get package manager. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     * @param context The context to get the package manager.
      *
      * @return The application label or name.
      *
@@ -84,20 +78,17 @@ public class DynamicPackageUtils {
     }
 
     /**
-     * Get application version name from the given package.
+     * Get package version name from the given package.
      *
-     * @param context The context to get package manager. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param packageName The package name of the app to get its
-     *                    version name.
+     * @param context The context to get the package manager.
+     * @param packageName The package name to get its version name.
      *
-     * @return The application version name.
+     * @return The package version name.
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static @Nullable String getAppVersion(
-            @NonNull Context context, @Nullable String packageName) {
+    public static @Nullable String getAppVersion(@NonNull Context context,
+            @Nullable String packageName) {
         try {
             return context.getPackageManager().getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).versionName;
@@ -107,13 +98,11 @@ public class DynamicPackageUtils {
     }
 
     /**
-     * Get application version name from the given context.
+     * Get package version name from the given context.
      *
-     * @param context The context to get package manager. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     * @param context The context to get the package manager.
      *
-     * @return The application version name.
+     * @return The package version name.
      *
      * @see android.content.pm.PackageInfo#versionName
      */
@@ -124,18 +113,15 @@ public class DynamicPackageUtils {
     /**
      * Load application icon from the given package.
      *
-     * @param context The context to get package manager. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
-     * @param packageName The package name of the app to load its
-     *                    icon.
+     * @param context The context to get the package manager.
+     * @param packageName The package name of the app to load its icon.
      *
      * @return The application icon drawable.
      *
      * @see ApplicationInfo#loadIcon(PackageManager)
      */
-    public static @Nullable Drawable getAppIcon(
-            @NonNull Context context, @Nullable String packageName) {
+    public static @Nullable Drawable getAppIcon(@NonNull Context context,
+            @Nullable String packageName) {
         PackageManager packageManager = context.getPackageManager();
         try {
             return packageManager.getPackageInfo(packageName,
@@ -148,9 +134,7 @@ public class DynamicPackageUtils {
     /**
      * Load application icon from the given context.
      *
-     * @param context The context to get package manager. Usually
-     *                your {@link android.app.Application} or
-     *                {@link android.app.Activity} object.
+     * @param context The context to get the package manager.
      *
      * @return The application icon drawable.
      *
@@ -161,11 +145,11 @@ public class DynamicPackageUtils {
     }
 
     /**
-     * To detect the given ApplicationInfo is a system app or not.
+     * Detects if the given application info is a system app or not.
      *
-     * @param applicationInfo The applicationInfo of the package.
+     * @param applicationInfo The application info of the package.
      *
-     * @return {@code true} if the give package is a system app.
+     * @return {@code true} if the associated package is a system app.
      */
     public static boolean isSystemApp(@NonNull ApplicationInfo applicationInfo) {
         int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;

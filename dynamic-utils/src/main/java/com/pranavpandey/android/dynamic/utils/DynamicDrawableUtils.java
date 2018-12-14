@@ -195,8 +195,8 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable for widget background according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(int width, int height, float cornerRadius,
-            @ColorInt int color) {
+    public static Drawable getCornerDrawable(int width, int height,
+            float cornerRadius, @ColorInt int color) {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(DynamicUnitUtils.convertDpToPixels(cornerRadius));
         gradientDrawable.setColor(color);

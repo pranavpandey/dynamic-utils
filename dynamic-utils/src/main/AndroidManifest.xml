@@ -15,8 +15,6 @@
 	limitations under the License.
 -->
 
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pranavpandey.android.dynamic.utils">
+<manifest package="com.pranavpandey.android.dynamic.utils">
 
 </manifest>

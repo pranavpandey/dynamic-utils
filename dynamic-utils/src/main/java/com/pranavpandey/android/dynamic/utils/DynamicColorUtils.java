@@ -18,11 +18,11 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.graphics.Color;
 
-import java.util.Random;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import androidx.core.graphics.ColorUtils;
+
+import java.util.Random;
 
 /**
  * Helper class to change colors dynamically.
@@ -32,12 +32,12 @@ public class DynamicColorUtils {
     /**
      * Visible contrast between the two colors.
      */
-    private static final float VISIBLE_CONTRAST = 0.33f;
+    private static final float VISIBLE_CONTRAST = 0.37f;
 
     /**
      * Amount to calculate the contrast color.
      */
-    private static final float CONTRAST_FACTOR = 0.67f;
+    private static final float CONTRAST_FACTOR = 0.63f;
 
     /**
      * Generate a random rgb color.

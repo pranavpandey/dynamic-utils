@@ -18,11 +18,10 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.view.View;
 
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.NonNull;
-
-import android.view.View;
 
 /**
  * Helper class to perform animation related operations.

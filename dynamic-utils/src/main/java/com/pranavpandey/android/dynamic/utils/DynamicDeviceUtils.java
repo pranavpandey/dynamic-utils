@@ -19,9 +19,9 @@ package com.pranavpandey.android.dynamic.utils;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import java.text.DateFormat;
-
 import androidx.annotation.NonNull;
+
+import java.text.DateFormat;
 
 /**
  * Helper class to detect device specific features like Telephony, etc.

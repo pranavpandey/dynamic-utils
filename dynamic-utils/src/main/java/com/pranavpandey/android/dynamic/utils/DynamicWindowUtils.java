@@ -24,8 +24,6 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
-import java.lang.reflect.InvocationTargetException;
-
 import androidx.annotation.NonNull;
 
 /**
@@ -82,9 +80,7 @@ public class DynamicWindowUtils {
                 try {
                     size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-                } catch (IllegalAccessException ignored) {
-                } catch (InvocationTargetException ignored) {
-                } catch (NoSuchMethodException ignored) {
+                } catch (Exception ignored) {
                 }
             }
         }

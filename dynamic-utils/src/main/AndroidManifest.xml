@@ -15,6 +15,7 @@
 	limitations under the License.
 -->
 
-<manifest package="com.pranavpandey.android.dynamic.utils">
+<manifest
+    package="com.pranavpandey.android.dynamic.utils">
 
 </manifest>

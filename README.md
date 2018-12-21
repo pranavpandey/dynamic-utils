@@ -43,7 +43,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:2.1.0'
+    implementation 'com.pranavpandey.android:dynamic-utils:2.1.1'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'
@@ -223,6 +223,8 @@ Helper class to perform Window operations and to detect system configurations at
 
 ## Translations
 - German (de) - Flubberlutsch
+- Indonesian (in) - Gamal Kevin A
+- Italian (it) - Nicola
 - Spanish (es) - Dave
 - Turkish (tr) - Fatih Fırıncı
 - Chinese (Simplified) (zh-rCN) - John Canny

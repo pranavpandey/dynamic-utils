@@ -32,12 +32,12 @@ public class DynamicColorUtils {
     /**
      * Visible contrast between the two colors.
      */
-    private static final float VISIBLE_CONTRAST = 0.37f;
+    private static final float VISIBLE_CONTRAST = 0.35f;
 
     /**
      * Amount to calculate the contrast color.
      */
-    private static final float CONTRAST_FACTOR = 0.63f;
+    private static final float CONTRAST_FACTOR = 0.65f;
 
     /**
      * Generate a random rgb color.
@@ -144,9 +144,9 @@ public class DynamicColorUtils {
      * @return The luma value according to XYZ color space in the range {@code 0.0 - 1.0}.
      */
     private static float calculateXyzLuma(@ColorInt int color) {
-        return (0.2126f * Color.red(color) +
-                0.7152f * Color.green(color) +
-                0.0722f * Color.blue(color)) / 255f;
+        return (0.2126f * Color.red(color)
+                + 0.7152f * Color.green(color)
+                + 0.0722f * Color.blue(color)) / 255f;
     }
 
     /**
@@ -248,8 +248,8 @@ public class DynamicColorUtils {
         int b1 = Color.blue(finalColor);
         double YC = ((r1 * 299) + (g1 * 587) + (b1 * 114)) / 1000d;
 
-        int CD = (Math.max(r, r1) - Math.min(r, r1)) + (Math.max(g, g1) - Math.min(g, g1))
-                + (Math.max(b, b1) - Math.min(b, b1));
+        int CD = (Math.max(r, r1) - Math.min(r, r1)) + (Math.max(g, g1)
+                - Math.min(g, g1)) + (Math.max(b, b1) - Math.min(b, b1));
         if ((Y - YC <= 50) && CD <= 200) {
             rc = b ^ 0xFA;
             gc = g & 0x55;

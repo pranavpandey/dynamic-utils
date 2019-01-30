@@ -31,6 +31,25 @@ import androidx.annotation.Nullable;
 public class DynamicPackageUtils {
 
     /**
+     * Checks if a given package name exits.
+     *
+     * @param context The context to get the package manager.
+     * @param packageName The package name to be checked.
+     *
+     * @return {@code true} if the given package name exits.
+     */
+    public static boolean isPackageExists(@NonNull Context context, @Nullable String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Get component name from the given context.
      *
      * @param context The context to build the component.

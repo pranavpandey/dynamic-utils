@@ -16,6 +16,7 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.app.ApplicationErrorReport;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -70,10 +71,20 @@ public class DynamicLinkUtils {
     private static final String MAIL_TO = "mailto:";
 
     /**
+     * Package name for the Google feedback activity.
+     */
+    private static final String PACKAGE_FEEDBACK = "com.google.android.feedback";
+
+    /**
+     * Package name for the GMS (Google Mobile Services) activity.
+     */
+    private static final String PACKAGE_GMS = "com.google.android.gms";
+
+    /**
      * Copy a plain text to the clipboard.
      *
      * @param context The context to get the clipboard manager.
-     * @param label User visible label for the clip data.
+     * @param label The user visible label for the clip data.
      * @param text The actual text in the clip.
      *
      * @see ClipboardManager
@@ -169,9 +180,7 @@ public class DynamicLinkUtils {
      * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
-     * @param context The context to retrieve the resources. Usually
-     *         your {@link android.app.Application} or
-     *         {@link android.app.Activity} object.
+     * @param context The context to retrieve the resources.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -188,7 +197,7 @@ public class DynamicLinkUtils {
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
-     * @param publisher Publisher name to build the search query.
+     * @param publisher The publisher name to build the search query.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -242,9 +251,9 @@ public class DynamicLinkUtils {
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
-     * @param appName App name for the email subject.
+     * @param appName The app name for the email subject.
      *                <p>{@code null} to get it from the supplied context.
-     * @param email Email id of the developer.
+     * @param email The email id of the developer.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
@@ -253,30 +262,100 @@ public class DynamicLinkUtils {
      */
     public static void report(@NonNull Context context, @Nullable String appName,
             @NonNull String email) {
-        String version = null;
-
         try {
-            version = context.getPackageManager().getPackageInfo(
+            String version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA).versionName;
 
             if (appName == null) {
                 appName = context.getApplicationInfo().loadLabel(
                         context.getPackageManager()).toString();
             }
-        } catch (PackageManager.NameNotFoundException ignored) {
-        }
 
-        String subject = String.format(
-                context.getResources().getString(R.string.adu_bug_title), appName,
-                version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MAIL_TO + email));
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT,
-                context.getResources().getString(R.string.adu_bug_desc));
-
-        try {
+            String subject = String.format(
+                    context.getResources().getString(R.string.adu_bug_title), appName,
+                    version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE);
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MAIL_TO + email));
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT,
+                    context.getResources().getString(R.string.adu_bug_desc));
             context.startActivity(intent);
         } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Checks whether the GMS (Google Mobile Services) package exists on the device.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the GMS (Google Mobile Services) package exists on the device.
+     */
+    public static boolean isGMSExists(@NonNull Context context) {
+        return DynamicPackageUtils.isPackageExists(context, PACKAGE_GMS);
+    }
+
+    /**
+     * Checks whether the Google feedback package exists on the device.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the Google feedback package exists on the device.
+     */
+    public static boolean isGoogleFeedbackExists(@NonNull Context context) {
+        return DynamicPackageUtils.isPackageExists(context, PACKAGE_FEEDBACK);
+    }
+
+    /**
+     * Checks whether the feedback functionality exists on the device.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the feedback functionality exists on the device.
+     *
+     * @see #isGMSExists(Context)
+     * @see #isGoogleFeedbackExists(Context)
+     */
+    public static boolean isFeedbackExists(@NonNull Context context) {
+        return isGMSExists(context) || isGoogleFeedbackExists(context);
+    }
+
+    /**
+     * Ask questions or submit bug report to the developer via Google feedback.
+     *
+     * <p><p>It will redirect to {@link #report(Context, String, String)} method if feedback
+     * package is not available on the device.
+     *
+     * @param context The context to retrieve the resources.
+     * @param appName The app name for the email subject.
+     *                <p>{@code null} to get it from the supplied context.
+     * @param email The email id of the developer.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
+     *
+     * @see ApplicationErrorReport
+     */
+    public static void feedback(@NonNull Context context,
+            @Nullable String appName, @NonNull String email) {
+        ApplicationErrorReport report = new ApplicationErrorReport();
+        report.packageName = report.processName = context.getPackageName();
+        report.time = System.currentTimeMillis();
+        report.type = ApplicationErrorReport.TYPE_NONE;
+        report.systemApp = DynamicPackageUtils.isSystemApp(context.getApplicationInfo());
+
+        try {
+            if (isGMSExists(context)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setClassName(PACKAGE_GMS, PACKAGE_GMS + ".feedback.FeedbackActivity");
+                intent.putExtra(Intent.EXTRA_BUG_REPORT, report);
+                context.startActivity(intent);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setClassName(PACKAGE_FEEDBACK, PACKAGE_FEEDBACK + ".FeedbackActivity");
+                intent.putExtra(Intent.EXTRA_BUG_REPORT, report);
+                context.startActivity(intent);
+            }
+        } catch (Exception e) {
+            report(context, appName, email);
         }
     }
 }

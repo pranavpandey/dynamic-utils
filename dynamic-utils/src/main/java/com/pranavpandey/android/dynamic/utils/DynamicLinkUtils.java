@@ -251,6 +251,35 @@ public class DynamicLinkUtils {
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
+     * @param email The email id of the developer.
+     * @param subject The optional email subject.
+     * @param text The optional email text.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
+     *
+     * @see Intent#ACTION_SENDTO
+     * @see #MAIL_TO
+     */
+    public static void email(@NonNull Context context, @NonNull String email,
+            @Nullable String subject, @Nullable String text) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MAIL_TO + email));
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, text);
+            context.startActivity(intent);
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Ask questions or submit bug report to the developer via email.
+     * <p>Subject of the email will be generated automatically by detecting the manufacturer,
+     * device, Android version and the app version along with the supplied app name.
+     *
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
+     *
+     * @param context The context to retrieve the resources.
      * @param appName The app name for the email subject.
      *                <p>{@code null} to get it from the supplied context.
      * @param email The email id of the developer.
@@ -271,14 +300,10 @@ public class DynamicLinkUtils {
                         context.getPackageManager()).toString();
             }
 
-            String subject = String.format(
+            email(context, email, String.format(
                     context.getResources().getString(R.string.adu_bug_title), appName,
-                    version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE);
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MAIL_TO + email));
-            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            intent.putExtra(Intent.EXTRA_TEXT,
+                    version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE),
                     context.getResources().getString(R.string.adu_bug_desc));
-            context.startActivity(intent);
         } catch (Exception ignored) {
         }
     }

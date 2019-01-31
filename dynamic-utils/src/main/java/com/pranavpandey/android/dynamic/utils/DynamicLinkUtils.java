@@ -354,18 +354,30 @@ public class DynamicLinkUtils {
      * @param appName The app name for the email subject.
      *                <p>{@code null} to get it from the supplied context.
      * @param email The email id of the developer.
+     * @param reportType The crash report type.
+     *                   <p>Can be one of {@link ApplicationErrorReport#TYPE_NONE},
+     *                   {@link ApplicationErrorReport#TYPE_CRASH},
+     *                   {@link ApplicationErrorReport#TYPE_ANR},
+     *                   {@link ApplicationErrorReport#TYPE_BATTERY}, or
+     *                   {@link ApplicationErrorReport#TYPE_RUNNING_SERVICE}.
+     * @param crashInfo The crash info for the report.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
      * @see ApplicationErrorReport
      */
     public static void feedback(@NonNull Context context,
-            @Nullable String appName, @NonNull String email) {
+            @Nullable String appName, @NonNull String email, int reportType,
+            @Nullable ApplicationErrorReport.CrashInfo crashInfo) {
         ApplicationErrorReport report = new ApplicationErrorReport();
         report.packageName = report.processName = context.getPackageName();
         report.time = System.currentTimeMillis();
-        report.type = ApplicationErrorReport.TYPE_NONE;
+        report.type = reportType;
         report.systemApp = DynamicPackageUtils.isSystemApp(context.getApplicationInfo());
+
+        if (crashInfo != null) {
+            report.crashInfo = crashInfo;
+        }
 
         try {
             if (isGMSExists(context)) {
@@ -382,5 +394,26 @@ public class DynamicLinkUtils {
         } catch (Exception e) {
             report(context, appName, email);
         }
+    }
+
+    /**
+     * Ask questions or submit bug report to the developer via Google feedback.
+     *
+     * <p><p>It will redirect to {@link #report(Context, String, String)} method if feedback
+     * package is not available on the device.
+     *
+     * @param context The context to retrieve the resources.
+     * @param appName The app name for the email subject.
+     *                <p>{@code null} to get it from the supplied context.
+     * @param email The email id of the developer.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
+     *
+     * @see ApplicationErrorReport
+     * @see ApplicationErrorReport#TYPE_NONE
+     */
+    public static void feedback(@NonNull Context context,
+            @Nullable String appName, @NonNull String email) {
+        feedback(context, appName, email, ApplicationErrorReport.TYPE_NONE, null);
     }
 }

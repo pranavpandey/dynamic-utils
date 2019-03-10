@@ -18,7 +18,9 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 
@@ -42,6 +44,10 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Helper class to perform various file operations.
+ *
+ * <p><p>A {@link FileProvider} in the form of {@code ${applicationId}.FileProvider} must be
+ * added in the {@code manifest} to perform some operations automatically like saving the
+ * bitmap or file in cache directory.
  */
 public class DynamicFileUtils {
 
@@ -61,7 +67,7 @@ public class DynamicFileUtils {
     private static final String URI_MATCHER_FILE = "file:";
 
     /**
-     * Gets the base name without extension of given file name.
+     * Returns the base name without extension of given file name.
      * <p>e.g. getBaseName("file.txt") will return "file".
      *
      * @param fileName The full name of the file with extension.
@@ -78,7 +84,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Get the extension of a file.
+     * Returns the extension of a file.
      *
      * @param file The file to retrieve its extension.
      *
@@ -137,7 +143,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Create a zip archive from the directory.
+     * Creates a zip archive from the directory.
      *
      * @param dir The directory to be archived.
      * @param zip The output zip archive.
@@ -153,13 +159,13 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Create a zip archive from the zip output stream.
+     * Creates a zip archive from the zip output stream.
      *
      * @param dir The directory to be archived.
      * @param zip The output zip archive.
      * @param zos The zip output stream.
      */
-    private static void zip(@NonNull File dir, @NonNull File zip,
+    private static void zip(@NonNull File dir, @NonNull File zip, 
             @NonNull ZipOutputStream zos) throws IOException {
         File[] files = dir.listFiles();
         byte[] buffer = new byte[8192];
@@ -184,7 +190,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Extract a zip archive.
+     * Extracts a zip archive.
      *
      * @param zip The zip archive to be extracted.
      * @param extractTo The unzip destination.
@@ -192,8 +198,7 @@ public class DynamicFileUtils {
      * @throws IOException Throws IO exception.
      * @throws ZipException Throws Zip exception.
      */
-    public static void unzip(@NonNull File zip,
-            @NonNull File extractTo) throws IOException {
+    public static void unzip(@NonNull File zip, @NonNull File extractTo) throws IOException {
         ZipFile archive = new ZipFile(zip);
         Enumeration e = archive.entries();
 
@@ -224,10 +229,10 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Get uri from the file. It will automatically use the @link FileProvider} on
-     * Android N and above devices.
+     * Returns uri from the file. 
+     * <p>It will automatically use the @link FileProvider} on Android N and above devices.
      *
-     * @param context The context to get file provider.
+     * @param context The context to get the file provider.
      * @param file The file to get the uri.
      *
      * @return The uri from the file.
@@ -244,7 +249,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Get file name from the uri.
+     * Returns file name from the uri.
      *
      * @param context The context to get content resolver.
      * @param uri The uri to get the file name.
@@ -283,7 +288,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Write a file from the source to destination.
+     * Writes a file from the source to destination.
      *
      * @param source The source file.
      * @param destination The destination file.
@@ -291,8 +296,8 @@ public class DynamicFileUtils {
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeToFile(@NonNull File source, @NonNull File destination,
-            @NonNull String outputFileName) {
+    public static boolean writeToFile(@NonNull File source, 
+            @NonNull File destination, @NonNull String outputFileName) {
         boolean success = false;
 
         try {
@@ -320,7 +325,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Write a file uri from the source to destination.
+     * Writes a file uri from the source to destination.
      *
      * @param context The context to get content resolver.
      * @param sourceUri The source file uri.
@@ -328,8 +333,8 @@ public class DynamicFileUtils {
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeToFile(@NonNull Context context, @NonNull Uri sourceUri,
-            @NonNull Uri destinationUri) {
+    public static boolean writeToFile(@NonNull Context context, 
+            @NonNull Uri sourceUri, @NonNull Uri destinationUri) {
         boolean success = false;
 
         try {
@@ -356,5 +361,40 @@ public class DynamicFileUtils {
         }
 
         return success;
+    }
+
+    /**
+     * Save and returns uri from the bitmap.
+     * <p>It will automatically use the @link FileProvider} on Android N and above devices.
+     *
+     * @param context The context to get the file provider.
+     * @param bitmap The bitmap to get the uri.
+     *
+     * @return The uri from the bitmap.
+     *
+     * @see Uri
+     */
+    public static Uri getBitmapUri(@NonNull Context context,
+            @Nullable Bitmap bitmap, @NonNull String name) {
+        Uri bitmapUri = null;
+
+        if (bitmap != null) {
+            try {
+                File cachePath = new File(DynamicVersionUtils.isLollipop()
+                        ? context.getCacheDir().getPath()
+                        : Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getPath(), name);
+                String image = cachePath + File.separator + name + ".png";
+                cachePath.mkdirs();
+
+                FileOutputStream out = new FileOutputStream(image);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.close();
+                bitmapUri = getUriFromFile(context, new File(image));
+            } catch (Exception ignored) {
+            }
+        }
+
+        return bitmapUri;
     }
 }

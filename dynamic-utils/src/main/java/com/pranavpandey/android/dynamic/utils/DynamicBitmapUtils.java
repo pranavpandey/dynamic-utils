@@ -24,6 +24,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -41,7 +42,7 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @Nullable static Bitmap getBitmapFormDrawable(@Nullable Drawable drawable) {
+    public @Nullable static Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
         if (drawable != null) {
             try {
                 Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
@@ -68,8 +69,8 @@ public class DynamicBitmapUtils {
      *
      * @return The resized bitmap with new width and height.
      */
-    public static @NonNull Bitmap resizeBitmap(@NonNull Bitmap bitmap, int newWidth,
-            int newHeight) {
+    public static @NonNull Bitmap resizeBitmap(@NonNull Bitmap bitmap,
+            int newWidth, int newHeight) {
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 newWidth, newHeight, Bitmap.Config.ARGB_8888);
 
@@ -137,5 +138,42 @@ public class DynamicBitmapUtils {
         newBitmap.recycle();
 
         return color;
+    }
+
+    /**
+     * Creates a bitmap from the supplied view.
+     *
+     * @param view The view to get the bitmap.
+     * @param width The width for the bitmap.
+     * @param height The height for the bitmap.
+     *
+     * @return The bitmap from the supplied drawable.
+     */
+    public @NonNull static Bitmap createBitmapFromView(@NonNull View view, int width, int height) {
+        if (width > 0 && height > 0) {
+            view.measure(View.MeasureSpec.makeMeasureSpec(DynamicUnitUtils
+                            .convertDpToPixels(width), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(DynamicUnitUtils
+                            .convertDpToPixels(height), View.MeasureSpec.EXACTLY));
+        }
+
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache(true);
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+        view.setDrawingCacheEnabled(false);
+
+        return bitmap;
+    }
+
+    /**
+     * Creates a bitmap from the supplied view.
+     *
+     * @param view The view to get the bitmap.
+     *
+     * @return The bitmap from the supplied drawable.
+     */
+    public @NonNull static Bitmap createBitmapFromView(@NonNull View view) {
+        return createBitmapFromView(view, 0, 0);
     }
 }

@@ -106,13 +106,14 @@ public class DynamicLinkUtils {
      * @param title The application chooser title if more than one apps are available.
      * @param message The default share message which user can modify.
      *                <p>{@code null} to supply app and package name.
+     * @param image The optional image bitmap uri to be shared.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
      * @see Intent#ACTION_SEND
      */
     public static void share(@NonNull Context context, @Nullable String title,
-            @Nullable String message) {
+            @Nullable String message, @Nullable Uri image) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
@@ -129,10 +130,38 @@ public class DynamicLinkUtils {
 
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
 
+        if (image != null) {
+            sendIntent.putExtra(Intent.EXTRA_STREAM, image);
+            sendIntent.setType("image/*");
+            sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+
         try {
             context.startActivity(Intent.createChooser(sendIntent, title));
         } catch (Exception ignored) {
         }
+    }
+
+    /**
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
+     *
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
+     *
+     * @param context The context to retrieve the resources.
+     * @param title The application chooser title if more than one apps are available.
+     * @param message The default share message which user can modify.
+     *                <p>{@code null} to supply app and package name.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
+     *
+     * @see Intent#ACTION_SEND
+     */
+    public static void share(@NonNull Context context,
+            @Nullable String title, @Nullable String message) {
+        share(context, title, message);
     }
 
     /**
@@ -162,8 +191,7 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_VIEW
      */
-    public static void viewInGooglePlay(
-            @NonNull Context context, @NonNull String packageName) {
+    public static void viewInGooglePlay(@NonNull Context context, @NonNull String packageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(URL_MARKET + packageName)));
@@ -289,8 +317,8 @@ public class DynamicLinkUtils {
      * @see Intent#ACTION_SENDTO
      * @see #MAIL_TO
      */
-    public static void report(@NonNull Context context, @Nullable String appName,
-            @NonNull String email) {
+    public static void report(@NonNull Context context,
+            @Nullable String appName, @NonNull String email) {
         try {
             String version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA).versionName;

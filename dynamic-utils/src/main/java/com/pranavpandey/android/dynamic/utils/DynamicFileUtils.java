@@ -240,7 +240,7 @@ public class DynamicFileUtils {
      * @see Uri
      */
     public static Uri getUriFromFile(@NonNull Context context, @NonNull File file) {
-        if (DynamicVersionUtils.isNougat()) {
+        if (DynamicVersionUtils.isMarshmallow()) {
             return FileProvider.getUriForFile(context.getApplicationContext(),
                     context.getPackageName() + FILE_PROVIDER, file);
         } else {

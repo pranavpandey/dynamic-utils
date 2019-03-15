@@ -161,7 +161,7 @@ public class DynamicLinkUtils {
      */
     public static void share(@NonNull Context context,
             @Nullable String title, @Nullable String message) {
-        share(context, title, message);
+        share(context, title, message, null);
     }
 
     /**

@@ -47,7 +47,9 @@ import java.util.zip.ZipOutputStream;
  *
  * <p><p>A {@link FileProvider} in the form of {@code ${applicationId}.FileProvider} must be
  * added in the {@code manifest} to perform some operations automatically like saving the
- * bitmap or file in cache directory.
+ * bitmap or file in app isolated directory.
+ *
+ * @see Context#getExternalFilesDir(String)
  */
 public class DynamicFileUtils {
 
@@ -367,6 +369,9 @@ public class DynamicFileUtils {
      * Save and returns uri from the bitmap.
      * <p>It will automatically use the @link FileProvider} on Android N and above devices.
      *
+     * <p<p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
+     * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
+     *
      * @param context The context to get the file provider.
      * @param bitmap The bitmap to get the uri.
      *
@@ -380,12 +385,10 @@ public class DynamicFileUtils {
 
         if (bitmap != null) {
             try {
-                File cachePath = new File(DynamicVersionUtils.isLollipop()
-                        ? context.getCacheDir().getPath()
-                        : Environment.getExternalStoragePublicDirectory(
+                File storagePath = new File(context.getExternalFilesDir(
                         Environment.DIRECTORY_PICTURES).getPath(), name);
-                String image = cachePath + File.separator + name + ".png";
-                cachePath.mkdirs();
+                String image = storagePath + File.separator + name + ".png";
+                storagePath.mkdirs();
 
                 FileOutputStream out = new FileOutputStream(image);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);

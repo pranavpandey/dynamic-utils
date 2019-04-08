@@ -215,7 +215,7 @@ public class DynamicWindowUtils {
      *
      * @param alert {@code true} to return alert flag on below Android O devices.
      *
-     * @return The {@link WindowManager} overlay flag according to the android version.
+     * @return The {@link WindowManager} overlay flag according to the Android version.
      *
      * @see WindowManager.LayoutParams#TYPE_APPLICATION_OVERLAY
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_OVERLAY

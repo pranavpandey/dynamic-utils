@@ -39,14 +39,16 @@ public class DynamicBitmapUtils {
      * Get bitmap from the supplied drawable.
      *
      * @param drawable The drawable to get the bitmap.
+     * @param width The width in dip for the bitmap.
+     * @param height The height in dip for the bitmap.
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @Nullable static Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
+    public @Nullable static Bitmap getBitmapFromDrawable(
+            @Nullable Drawable drawable, int width, int height) {
         if (drawable != null) {
             try {
-                Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                        drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
                 Canvas canvas = new Canvas(bitmap);
                 drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -55,6 +57,22 @@ public class DynamicBitmapUtils {
                 return bitmap;
             } catch (Exception ignored) {
             }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get bitmap from the supplied drawable.
+     *
+     * @param drawable The drawable to get the bitmap.
+     *
+     * @return The bitmap from the supplied drawable.
+     */
+    public @Nullable static Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
+        if (drawable != null) {
+            return getBitmapFromDrawable(drawable,
+                    drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         }
 
         return null;

@@ -27,23 +27,21 @@ import android.os.Build;
 public class DynamicVersionUtils {
 
     /**
-     * Detects if the current Android version is Ice Cream Sandwich or above.
+     * Detects if the current API version is 14 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
+     * @return {@code true} if the current API version is 14 or above.
      */
     public static boolean isIceCreamSandwich() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     /**
-     * Detects if the current Android version is Ice Cream Sandwich or above.
+     * Detects if the current API version is 14 or above.
      *
-     * @param equals {@code true} to check for equality. 
+     * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
+     * @return {@code true} if the current API version is 14 or above.
      */
     public static boolean isIceCreamSandwich(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
@@ -51,23 +49,21 @@ public class DynamicVersionUtils {
     }
 
     /**
-     * Detects if the current Android version is Ice Cream Sandwich MR1 or above.
+     * Detects if the current API version is 15 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH_MR1}.
+     * @return {@code true} if the current API version is 15 or above.
      */
     public static boolean isIceCreamSandwichMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
 
     /**
-     * Detects if the current Android version is Ice Cream Sandwich MR1 or above.
+     * Detects if the current API version is 15 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH_MR1}.
+     * @return {@code true} if the current API version is 15 or above.
      */
     public static boolean isIceCreamSandwichMR1(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
@@ -76,46 +72,42 @@ public class DynamicVersionUtils {
     }
 
     /**
-     * Detects if the current Android version is Jelly Bean or above.
+     * Detects if the current API version is 16 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#JELLY_BEAN}.
+     * @return {@code true} if the current API version is 16 or above.
      */
     public static boolean isJellyBean() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
     /**
-     * Detects if the current Android version is Jelly Bean or above.
+     * Detects if the current API version is 16 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#JELLY_BEAN}.
+     * @return {@code true} if the current API version is 16 or above.
      */
     public static boolean isJellyBean(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN : isJellyBean();
     }
 
     /**
-     * Detects if the current Android version is Jelly Bean MR1 or above.
+     * Detects if the current API version is 17 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#JELLY_BEAN_MR1}.
+     * @return {@code true} if the current API version is 17 or above.
      */
     public static boolean isJellyBeanMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
     /**
-     * Detects if the current Android version is Jelly Bean MR1 or above.
+     * Detects if the current API version is 17 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#JELLY_BEAN_MR1}.
+     * @return {@code true} if the current API version is 17 or above.
      */
     public static boolean isJellyBeanMR1(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
@@ -123,23 +115,21 @@ public class DynamicVersionUtils {
     }
 
     /**
-     * Detects if the current Android version is Jelly Bean MR2 or above.
+     * Detects if the current API version is 18 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#JELLY_BEAN_MR2}.
+     * @return {@code true} if the current API version is 18 or above.
      */
     public static boolean isJellyBeanMR2() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
     /**
-     * Detects if the current Android version is Jelly Bean MR2 or above.
+     * Detects if the current API version is 18 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#JELLY_BEAN_MR2}.
+     * @return {@code true} if the current API version is 18 or above.
      */
     public static boolean isJellyBeanMR2(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
@@ -147,46 +137,42 @@ public class DynamicVersionUtils {
     }
 
     /**
-     * Detects if the current Android version is KitKat or above.
+     * Detects if the current API version is 19 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#KITKAT}.
+     * @return {@code true} if the current API version is 19 or above.
      */
     public static boolean isKitKat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
     /**
-     * Detects if the current Android version is KitKat or above.
+     * Detects if the current API version is 19 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#KITKAT}.
+     * @return {@code true} if the current API version is 19 or above.
      */
     public static boolean isKitKat(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT : isKitKat();
     }
 
     /**
-     * Detects if the current Android version is KitKat Watch or above.
+     * Detects if the current API version is 20 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#KITKAT_WATCH}.
+     * @return {@code true} if the current API version is 20 or above.
      */
     public static boolean isKitKatWatch() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
     }
 
     /**
-     * Detects if the current Android version is KitKat Watch or above.
+     * Detects if the current API version is 20 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#KITKAT_WATCH}.
+     * @return {@code true} if the current API version is 20 or above.
      */
     public static boolean isKitKatWatch(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
@@ -194,46 +180,42 @@ public class DynamicVersionUtils {
     }
 
     /**
-     * Detects if the current Android version is Lollipop or above.
+     * Detects if the current API version is 21 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#LOLLIPOP}.
+     * @return {@code true} if the current API version is 21 or above.
      */
     public static boolean isLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     /**
-     * Detects if the current Android version is Lollipop or above.
+     * Detects if the current API version is 21 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#LOLLIPOP}.
+     * @return {@code true} if the current API version is 21 or above.
      */
     public static boolean isLollipop(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP : isLollipop();
     }
 
     /**
-     * Detects if the current Android version is Lollipop MR1 or above.
+     * Detects if the current API version is 22 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#LOLLIPOP_MR1}.
+     * @return {@code true} if the current API version is 22 or above.
      */
     public static boolean isLollipopMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
     /**
-     * Detects if the current Android version is Lollipop MR1 or above.
+     * Detects if the current API version is 22 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#LOLLIPOP_MR1}.
+     * @return {@code true} if the current API version is 22 or above.
      */
     public static boolean isLollipopMR1(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
@@ -241,138 +223,126 @@ public class DynamicVersionUtils {
     }
 
     /**
-     * Detects if the current Android version is Marshmallow or above.
+     * Detects if the current API version is 23 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#M}.
+     * @return {@code true} if the current API version is 23 or above.
      */
     public static boolean isMarshmallow() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     /**
-     * Detects if the current Android version is Marshmallow or above.
+     * Detects if the current API version is 23 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#M}.
+     * @return {@code true} if the current API version is 23 or above.
      */
     public static boolean isMarshmallow(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.M : isMarshmallow();
     }
 
     /**
-     * Detects if the current Android version is Nougat or above.
+     * Detects if the current API version is 24 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#N}.
+     * @return {@code true} if the current API version is 24 or above.
      */
     public static boolean isNougat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
     /**
-     * Detects if the current Android version is Nougat or above.
+     * Detects if the current API version is 24 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#N}.
+     * @return {@code true} if the current API version is 24 or above.
      */
     public static boolean isNougat(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N : isNougat();
     }
 
     /**
-     * Detects if the current Android version is Nougat MR1 or above.
+     * Detects if the current API version is 25 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#N_MR1}.
+     * @return {@code true} if the current API version is 25 or above.
      */
     public static boolean isNougatMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
     }
 
     /**
-     * Detects if the current Android version is Nougat MR1 or above.
+     * Detects if the current API version is 25 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#N_MR1}.
+     * @return {@code true} if the current API version is 25 or above.
      */
     public static boolean isNougatMR1(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1 : isNougatMR1();
     }
 
     /**
-     * Detects if the current Android version is Oreo or above.
+     * Detects if the current API version is 26 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#O}.
+     * @return {@code true} if the current API version is 26 or above.
      */
     public static boolean isOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
     /**
-     * Detects if the current Android version is Oreo or above.
+     * Detects if the current API version is 26 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#O}.
+     * @return {@code true} if the current API version is 26 or above.
      */
     public static boolean isOreo(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O : isOreo();
     }
 
     /**
-     * Detects if the current Android version is Oreo MR1 or above.
+     * Detects if the current API version is 27 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#O_MR1}.
+     * @return {@code true} if the current API version is 27 or above.
      */
     public static boolean isOreoMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
     }
 
     /**
-     * Detects if the current Android version is Oreo MR1 or above.
+     * Detects if the current API version is 27 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#O_MR1}.
+     * @return {@code true} if the current API version is 27 or above.
      */
     public static boolean isOreoMR1(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1 : isOreoMR1();
     }
 
     /**
-     * Detects if the current Android version is Pie or above.
+     * Detects if the current API version is 28 or above.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#P}.
+     * @return {@code true} if the current API version is 28 or above.
      */
     public static boolean isPie() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
     }
 
     /**
-     * Detects if the current Android version is Pie or above.
+     * Detects if the current API version is 28 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if current version is greater than or equal to
-     *         {@link Build.VERSION_CODES#P}.
+     * @return {@code true} if the current API version is 28 or above.
      */
     public static boolean isPie(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.P : isPie();

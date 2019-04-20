@@ -50,7 +50,7 @@ public class DynamicLinkUtils {
     private static final String URL_MARKET = "market://details?id=";
 
     /**
-     * Play Store app url template to open app details on newer devices.
+     * Google Play app url template to open app details on newer devices.
      */
     private static final String URL_PLAY_STORE = "http://play.google.com/store/apps/details?id=";
 
@@ -60,7 +60,7 @@ public class DynamicLinkUtils {
     private static final String URL_MARKET_SEARCH_PUB = "market://search?q=pub:";
 
     /**
-     * Play Store app search query template to search apps of a publisher.
+     * Google Play app search query template to search apps of a publisher.
      */
     private static final String URL_GOOGLE_PLAY_SEARCH_PUB =
             "http://play.google.com/store/search?q=pub:";
@@ -182,7 +182,7 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View app in the Play Store or Android Market.
+     * View app on Google Play or Android Market.
      *
      * @param context The context to retrieve the resources.
      * @param packageName Application package name to build the search query.
@@ -202,7 +202,7 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View app in the Play Store or Android Market.
+     * View app on Google Play or Android Market.
      * <p>Can be used for the quick feedback or rating from the user.
      *
      * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
@@ -219,7 +219,7 @@ public class DynamicLinkUtils {
     }
 
     /**
-     * View other apps of a Publisher in the Play Store or Android Market.
+     * View other apps of a Publisher on Google Play or Android Market.
      *
      * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.

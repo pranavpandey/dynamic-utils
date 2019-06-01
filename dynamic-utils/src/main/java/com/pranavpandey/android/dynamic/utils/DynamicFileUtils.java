@@ -200,7 +200,8 @@ public class DynamicFileUtils {
      * @throws IOException Throws IO exception.
      * @throws ZipException Throws Zip exception.
      */
-    public static void unzip(@NonNull File zip, @NonNull File extractTo) throws IOException {
+    public static void unzip(@NonNull File zip, @NonNull File extractTo)
+            throws SecurityException, IOException {
         ZipFile archive = new ZipFile(zip);
         Enumeration e = archive.entries();
 
@@ -208,23 +209,28 @@ public class DynamicFileUtils {
             ZipEntry entry = (ZipEntry) e.nextElement();
             File file = new File(extractTo, entry.getName());
 
-            if (entry.isDirectory() && !file.exists()) {
-                verifyFile(file);
+            if (!file.getCanonicalPath().startsWith(extractTo.getCanonicalPath())) {
+                throw new SecurityException("Unsafe unzipping pattern that may " +
+                        "lead to a Path Traversal vulnerability.");
             } else {
-                if (verifyFile(file.getParentFile())) {
-                    InputStream in = archive.getInputStream(entry);
-                    BufferedOutputStream out =
-                            new BufferedOutputStream(new FileOutputStream(file));
+                if (entry.isDirectory() && !file.exists()) {
+                    verifyFile(file);
+                } else {
+                    if (verifyFile(file.getParentFile())) {
+                        InputStream in = archive.getInputStream(entry);
+                        BufferedOutputStream out =
+                                new BufferedOutputStream(new FileOutputStream(file));
 
-                    byte[] buffer = new byte[8192];
-                    int read;
+                        byte[] buffer = new byte[8192];
+                        int read;
 
-                    while (-1 != (read = in.read(buffer))) {
-                        out.write(buffer, 0, read);
+                        while (-1 != (read = in.read(buffer))) {
+                            out.write(buffer, 0, read);
+                        }
+
+                        in.close();
+                        out.close();
                     }
-
-                    in.close();
-                    out.close();
                 }
             }
         }

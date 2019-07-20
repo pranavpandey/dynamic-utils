@@ -347,4 +347,26 @@ public class DynamicVersionUtils {
     public static boolean isPie(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.P : isPie();
     }
+
+    /**
+     * Detects if the current API version is 29 or above.
+     *
+     * @return {@code true} if the current API version is 29 or above.
+     */
+    public static boolean isQ() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+                || isPie() && Build.VERSION.PREVIEW_SDK_INT > 0;
+    }
+
+    /**
+     * Detects if the current API version is 29 or above.
+     *
+     * @param equals {@code true} to check for equality.
+     *               <p>{@code false} to match greater than or equal.
+     *
+     * @return {@code true} if the current API version is 29 or above.
+     */
+    public static boolean isQ(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.Q : isQ();
+    }
 }

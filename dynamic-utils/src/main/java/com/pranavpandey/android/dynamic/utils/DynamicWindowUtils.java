@@ -74,14 +74,14 @@ public class DynamicWindowUtils {
         if (windowManager != null) {
             Display display = windowManager.getDefaultDisplay();
 
-            if (DynamicVersionUtils.isJellyBeanMR1()) {
-                display.getRealSize(size);
-            } else if (DynamicVersionUtils.isIceCreamSandwich()) {
-                try {
+            try {
+                if (DynamicVersionUtils.isJellyBeanMR1()) {
+                    display.getRealSize(size);
+                } else if (DynamicVersionUtils.isIceCreamSandwich()) {
                     size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-                } catch (Exception ignored) {
                 }
+            } catch (Exception ignored) {
             }
         }
 
@@ -139,6 +139,19 @@ public class DynamicWindowUtils {
     }
 
     /**
+     * Detects support for gesture navigation.
+     *
+     * @param context The context to retrieve the resources.
+     *
+     * @return {@code true} if gesture navigation is supported.
+     */
+    public static boolean isGestureNavigation(@NonNull Context context) {
+        Point navigationBarSize = getNavigationBarSize(context);
+        return DynamicVersionUtils.isQ() && navigationBarSize.y > 0
+                && navigationBarSize.y < DynamicUnitUtils.convertDpToPixels(24);
+    }
+
+    /**
      * Get the current device orientation.
      *
      * @param context The context to get the resources and window service.
@@ -171,6 +184,7 @@ public class DynamicWindowUtils {
                 (rotation == Surface.ROTATION_90
                         || rotation == Surface.ROTATION_270) && width > height) {
             switch (rotation) {
+                default:
                 case Surface.ROTATION_0:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                     break;
@@ -182,13 +196,11 @@ public class DynamicWindowUtils {
                     break;
                 case Surface.ROTATION_270:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
-                    break;
-                default:
-                    orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                     break;
             }
         } else {
             switch (rotation) {
+                default:
                 case Surface.ROTATION_0:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     break;
@@ -200,9 +212,6 @@ public class DynamicWindowUtils {
                     break;
                 case Surface.ROTATION_270:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
-                    break;
-                default:
-                    orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     break;
             }
         }

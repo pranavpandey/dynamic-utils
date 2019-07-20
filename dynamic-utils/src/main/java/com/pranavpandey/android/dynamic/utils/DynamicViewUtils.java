@@ -17,6 +17,7 @@
 package com.pranavpandey.android.dynamic.utils;
 
 import android.annotation.TargetApi;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,16 +30,38 @@ import androidx.annotation.Nullable;
 public class DynamicViewUtils {
 
     /**
+     * Set hide navigation flag for edge-to-edge content on Android Q or above devices,
+     *
+     * @param view The view to get the system ui flags.
+     * @param hide {@code true} to hide the layout navigation.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void setHideNavigation(@NonNull View view, boolean hide) {
+        if (DynamicVersionUtils.isMarshmallow()) {
+            int flags = view.getSystemUiVisibility();
+            if (hide) {
+                flags |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                flags |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+            } else {
+                flags &= ~View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                flags &= ~View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+            }
+
+            view.setSystemUiVisibility(flags);
+        }
+    }
+
+    /**
      * Set light status bar if we are using light primary color on Android M or above devices.
      *
      * @param view The view to get the system ui flags.
-     * @param isLight {@code true} to set the light status bar.
+     * @param light {@code true} to set the light status bar.
      */
-    @TargetApi(android.os.Build.VERSION_CODES.M)
-    public static void setLightStatusBar(@NonNull View view, boolean isLight) {
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void setLightStatusBar(@NonNull View view, boolean light) {
         if (DynamicVersionUtils.isMarshmallow()) {
             int flags = view.getSystemUiVisibility();
-            if (isLight) {
+            if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             } else {
                 flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -52,13 +75,13 @@ public class DynamicViewUtils {
      * Set light navigation bar if we are using light primary color on Android O or above devices.
      *
      * @param view The view to get the system ui flags.
-     * @param isLight {@code true} to set the light navigation bar.
+     * @param light {@code true} to set the light navigation bar.
      */
-    @TargetApi(android.os.Build.VERSION_CODES.O)
-    public static void setLightNavigationBar(@NonNull View view, boolean isLight) {
+    @TargetApi(Build.VERSION_CODES.O)
+    public static void setLightNavigationBar(@NonNull View view, boolean light) {
         if (DynamicVersionUtils.isOreo()) {
             int flags = view.getSystemUiVisibility();
-            if (isLight) {
+            if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             } else {
                 flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;

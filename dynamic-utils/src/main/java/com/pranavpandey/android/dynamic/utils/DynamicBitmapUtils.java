@@ -111,6 +111,32 @@ public class DynamicBitmapUtils {
     }
 
     /**
+     * Crop bitmap to the new width and height.
+     *
+     * @param bitmap The bitmap to crop.
+     * @param newWidth The new width for the bitmap.
+     * @param newHeight The new height for the bitmap.
+     *
+     * @return The cropped bitmap with new width and height.
+     */
+    public static @Nullable Bitmap cropBitmap(@Nullable Bitmap bitmap,
+            int newWidth, int newHeight) {
+        if (bitmap == null) {
+            return null;
+        }
+
+        Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, newWidth, newHeight);
+
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setFilterBitmap(true);
+
+        Canvas canvas = new Canvas(croppedBitmap);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+
+        return croppedBitmap;
+    }
+
+    /**
      * Apply color filter on the supplied bitmap.
      *
      * @param bitmap The bitmap to apply color filter.

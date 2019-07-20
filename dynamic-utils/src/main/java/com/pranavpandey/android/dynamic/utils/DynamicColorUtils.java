@@ -20,6 +20,7 @@ import android.graphics.Color;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
 import androidx.core.graphics.ColorUtils;
 
 import java.util.Random;
@@ -99,6 +100,18 @@ public class DynamicColorUtils {
      */
     public static boolean isAlpha(@ColorInt int color) {
         return Color.alpha(color) != 255;
+    }
+
+    /**
+     * Set alpha to a color.
+     *
+     * @param color The color whose alpha to be set.
+     *
+     * @return The color with alpha.
+     */
+    public static @ColorInt int setAlpha(@ColorInt int color,
+            @IntRange(from = 0, to = 255) int alpha) {
+        return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
     }
 
     /**

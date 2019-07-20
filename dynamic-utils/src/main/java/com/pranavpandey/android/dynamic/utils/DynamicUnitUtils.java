@@ -43,7 +43,7 @@ public class DynamicUnitUtils {
      *
      * @return The converted value in DP.
      */
-    public static int convertPixelsToDp(int pixels) {
+    public static int convertPixelsToDp(float pixels) {
         return Math.round(pixels / Resources.getSystem().getDisplayMetrics().density);
     }
 
@@ -54,7 +54,7 @@ public class DynamicUnitUtils {
      *
      * @return The converted value in pixels.
      */
-    public static int convertSpToPixels(float sp) {
+    public static float convertSpToPixels(float sp) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 sp, Resources.getSystem().getDisplayMetrics()));
     }
@@ -66,8 +66,8 @@ public class DynamicUnitUtils {
      *
      * @return The converted value in SP.
      */
-    public static int convertPixelsToSp(int pixels) {
-        return Math.round(pixels / Resources.getSystem().getDisplayMetrics().density);
+    public static float convertPixelsToSp(float pixels) {
+        return Math.round(pixels / Resources.getSystem().getDisplayMetrics().scaledDensity);
     }
 
     /**
@@ -77,7 +77,7 @@ public class DynamicUnitUtils {
      *
      * @return The converted value in SP.
      */
-    public static int convertDpToSp(float dp) {
+    public static float convertDpToSp(float dp) {
         return Math.round(convertDpToPixels(dp) / (float) convertSpToPixels(dp));
     }
 }

@@ -30,7 +30,7 @@ import androidx.annotation.Nullable;
 public class DynamicViewUtils {
 
     /**
-     * Set hide navigation flag for edge-to-edge content on Android Q or above devices,
+     * Set hide navigation flag for edge-to-edge content on Android Q or above devices.
      *
      * @param view The view to get the system ui flags.
      * @param hide {@code true} to hide the layout navigation.

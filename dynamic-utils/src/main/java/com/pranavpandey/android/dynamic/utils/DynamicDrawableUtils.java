@@ -279,19 +279,6 @@ public class DynamicDrawableUtils {
     /**
      * Get a gradient drawable according to the corner radius.
      *
-     * @param width The width in dip for the drawable.
-     * @param height The height in dip for the drawable.
-     * @param cornerRadius The corner size in dip for the drawable.
-     *
-     * @return The gradient drawable according to the supplied parameters.
-     */
-    public static Drawable getCornerTop(int width, int height, float cornerRadius) {
-        return getCornerDrawable(width, height, cornerRadius, Color.WHITE);
-    }
-
-    /**
-     * Get a gradient drawable according to the corner radius.
-     *
      * @param cornerRadius The corner size in dip for the drawable.
      * @param color The color for the drawable.
      *

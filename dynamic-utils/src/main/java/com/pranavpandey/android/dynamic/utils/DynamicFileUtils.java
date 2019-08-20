@@ -16,7 +16,9 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -26,14 +28,17 @@ import android.provider.OpenableColumns;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.Enumeration;
@@ -59,14 +64,45 @@ public class DynamicFileUtils {
     private static final String FILE_PROVIDER = ".FileProvider";
 
     /**
-     * Constant ot match the content uri.
+     * Constant to match the content uri.
      */
     private static final String URI_MATCHER_CONTENT = "content:";
 
     /**
-     * Constant ot match the file uri.
+     * Constant to match the file uri.
      */
     private static final String URI_MATCHER_FILE = "file:";
+
+    /**
+     * Constant for the default data directory.
+     */
+    public static final String DEFAULT_DIR_DATA = "data";
+
+    /**
+     * Constant for the default temp directory.
+     */
+    public static final String DEFAULT_DIR_TEMP = "temp";
+
+    /**
+     * Constant for the {@code application/octet-stream} mime type.
+     */
+    public static final String MIME_OCTET_STREAM = "application/octet-stream";
+
+    /**
+     * Returns the default {@code temp} directory for a context.
+     *
+     * @param context The context to get the package name.
+     */
+    public static @Nullable String getTempDir(@NonNull Context context) {
+        if (context.getExternalFilesDir(null) == null) {
+            return null;
+        }
+
+        return context.getExternalFilesDir(null).getPath()
+                + File.separator + DEFAULT_DIR_DATA
+                + File.separator + context.getPackageName()
+                + File.separator + DEFAULT_DIR_TEMP + File.separator;
+    }
 
     /**
      * Returns the base name without extension of given file name.
@@ -76,7 +112,11 @@ public class DynamicFileUtils {
      *
      * @return The base name of the file without extension.
      */
-    public static @NonNull String getBaseName(@NonNull String fileName) {
+    public static @Nullable String getBaseName(@Nullable String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+
         int index = fileName.lastIndexOf('.');
         if (index == -1) {
             return fileName;
@@ -86,22 +126,40 @@ public class DynamicFileUtils {
     }
 
     /**
+     * Returns the extension of a file name.
+     *
+     * @param fileName The file name to retrieve its extension.
+     *
+     * @return The extension of the file name.
+     */
+    public static @Nullable String getExtension(@Nullable String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+
+        String extension = null;
+        int i = fileName.lastIndexOf('.');
+
+        if (i > 0 && i < fileName.length() - 1) {
+            extension = fileName.substring(i + 1).toLowerCase();
+        }
+
+        return extension;
+    }
+
+    /**
      * Returns the extension of a file.
      *
      * @param file The file to retrieve its extension.
      *
      * @return The extension of the file.
      */
-    public static @Nullable String getExtension(@NonNull File file) {
-        String ext = null;
-        String s = file.getName();
-        int i = s.lastIndexOf('.');
-
-        if (i > 0 && i < s.length() - 1) {
-            ext = s.substring(i + 1).toLowerCase();
+    public static @Nullable String getExtension(@Nullable File file) {
+        if (file == null) {
+            return null;
         }
 
-        return ext;
+        return getExtension(file.getName());
     }
 
     /**
@@ -112,10 +170,13 @@ public class DynamicFileUtils {
      * @return {@code true} if a file can be accessed by automatically creating the
      *         sub directories.
      */
-    public static boolean verifyFile(@NonNull File file) {
-        boolean fileExists = true;
+    public static boolean verifyFile(@Nullable File file) {
+        if (file == null) {
+            return false;
+        }
 
-        if (!file.exists()) {
+        boolean fileExists = file.exists();
+        if (!fileExists) {
             fileExists = file.mkdirs();
         }
 
@@ -133,10 +194,12 @@ public class DynamicFileUtils {
         if (dir.isDirectory()) {
             String[] children = dir.list();
 
-            for (String aChildren : children) {
-                boolean success = deleteDirectory(new File(dir, aChildren));
-                if (!success) {
-                    return false;
+            if (children != null) {
+                for (String aChildren : children) {
+                    boolean success = deleteDirectory(new File(dir, aChildren));
+                    if (!success) {
+                        return false;
+                    }
                 }
             }
         }
@@ -153,7 +216,7 @@ public class DynamicFileUtils {
      * @throws IOException Throws IO exception.
      */
     public static void zipDirectory(@NonNull File dir, @NonNull File zip) throws IOException {
-        if (verifyFile(new File(zip.getParent()))) {
+        if (zip.getParent() != null && verifyFile(new File(zip.getParent()))) {
             ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zip));
             zip(dir, dir, zos);
             zos.close();
@@ -167,26 +230,28 @@ public class DynamicFileUtils {
      * @param zip The output zip archive.
      * @param zos The zip output stream.
      */
-    private static void zip(@NonNull File dir, @NonNull File zip, 
+    private static void zip(@NonNull File dir, @NonNull File zip,
             @NonNull ZipOutputStream zos) throws IOException {
         File[] files = dir.listFiles();
         byte[] buffer = new byte[8192];
         int read;
 
-        for (File file : files) {
-            if (file.isDirectory()) {
-                zip(file, zip, zos);
-            } else {
-                FileInputStream in = new FileInputStream(file);
-                ZipEntry entry = new ZipEntry(file.getPath().substring(
-                        zip.getPath().length() + 1));
-                zos.putNextEntry(entry);
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    zip(file, zip, zos);
+                } else {
+                    FileInputStream in = new FileInputStream(file);
+                    ZipEntry entry = new ZipEntry(file.getPath().substring(
+                            zip.getPath().length() + 1));
+                    zos.putNextEntry(entry);
 
-                while (-1 != (read = in.read(buffer))) {
-                    zos.write(buffer, 0, read);
+                    while (-1 != (read = in.read(buffer))) {
+                        zos.write(buffer, 0, read);
+                    }
+
+                    in.close();
                 }
-
-                in.close();
             }
         }
     }
@@ -247,7 +312,11 @@ public class DynamicFileUtils {
      *
      * @see Uri
      */
-    public static Uri getUriFromFile(@NonNull Context context, @NonNull File file) {
+    public static @Nullable Uri getUriFromFile(@NonNull Context context, @Nullable File file) {
+        if (file == null) {
+            return null;
+        }
+
         if (DynamicVersionUtils.isMarshmallow()) {
             return FileProvider.getUriForFile(context.getApplicationContext(),
                     context.getPackageName() + FILE_PROVIDER, file);
@@ -266,14 +335,20 @@ public class DynamicFileUtils {
      *
      * @see Context#getContentResolver()
      */
-    public static String getFileNameFromUri(@NonNull Context context, @NonNull Uri uri) {
+    public @Nullable static String getFileNameFromUri(
+            @NonNull Context context, @Nullable Uri uri) {
+        if (uri == null) {
+            return null;
+        }
+
         String fileName = null;
         Cursor cursor = null;
 
         if (uri.toString().contains(URI_MATCHER_CONTENT)) {
             try {
-                cursor = context.getContentResolver().query(
-                        uri, null, null, null, null);
+                cursor = context.getContentResolver().query(uri, null,
+                        null, null, null);
+
                 if (cursor != null) {
                     int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                     cursor.moveToFirst();
@@ -341,14 +416,19 @@ public class DynamicFileUtils {
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeToFile(@NonNull Context context, 
-            @NonNull Uri sourceUri, @NonNull Uri destinationUri) {
+    public static boolean writeToFile(@NonNull Context context,
+            @Nullable Uri sourceUri, @Nullable Uri destinationUri) {
+        if (sourceUri == null || destinationUri == null) {
+            return false;
+        }
+
         boolean success = false;
 
         try {
             InputStream input = context.getContentResolver().openInputStream(sourceUri);
             ParcelFileDescriptor pfdDestination = context.getContentResolver().
                     openFileDescriptor(destinationUri, "w");
+
             if (input != null && pfdDestination != null) {
                 OutputStream output = new FileOutputStream(pfdDestination.getFileDescriptor());
                 byte[] buffer = new byte[1024];
@@ -372,6 +452,96 @@ public class DynamicFileUtils {
     }
 
     /**
+     * Writes a string data to file uri from the source to destination.
+     *
+     * @param context The context to get content resolver.
+     * @param data The string data to be written.
+     * @param sourceUri The source file uri.
+     * @param destinationUri The destination file uri.
+     *
+     * @return {@code true} if the file has been written successfully.
+     */
+    public static boolean writeStringToFile(@NonNull Context context,
+            @Nullable String data, @NonNull Uri sourceUri, @Nullable Uri destinationUri) {
+        boolean success = false;
+
+        try {
+            ParcelFileDescriptor pfdDestination = context.getContentResolver().
+                    openFileDescriptor(sourceUri, "w");
+
+            if (pfdDestination != null) {
+                OutputStream output = new FileOutputStream(pfdDestination.getFileDescriptor());
+
+                if (data != null) {
+                    output.write(data.getBytes());
+                }
+
+                output.flush();
+                output.close();
+                pfdDestination.close();
+            }
+
+            if (destinationUri != null) {
+                success = writeToFile(context, sourceUri, destinationUri);
+            } else {
+                success = true;
+            }
+        } catch (Exception ignored) {
+        }
+
+        return success;
+    }
+
+    /**
+     * Writes a string data to file uri.
+     *
+     * @param context The context to get content resolver.
+     * @param data The string data to be written.
+     * @param sourceUri The source file uri.
+     *
+     * @return {@code true} if the file has been written successfully.
+     */
+    public static boolean writeStringToFile(@NonNull Context context,
+            @Nullable String data, @NonNull Uri sourceUri) {
+        return writeStringToFile(context, data, sourceUri, null);
+    }
+
+    /**
+     * Reads a string data from the file uri.
+     *
+     * @param context The context to get content resolver.
+     * @param fileUri The source file uri.
+     *
+     * @return The string data after reading the file.
+     */
+    public static @Nullable String readStringFromFile(
+            @NonNull Context context, @NonNull Uri fileUri) {
+        try {
+            InputStream input = context.getContentResolver().openInputStream(fileUri);
+
+            if (input != null) {
+                InputStreamReader inputReader = new InputStreamReader(input);
+                BufferedReader bufferedReader = new BufferedReader(inputReader);
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+
+                input.close();
+                inputReader.close();
+                bufferedReader.close();
+
+                return stringBuilder.toString();
+            }
+        } catch (Exception ignored) {
+        }
+
+        return null;
+    }
+
+    /**
      * Save and returns uri from the bitmap.
      * <p>It will automatically use the @link FileProvider} on Android N and above devices.
      *
@@ -385,25 +555,226 @@ public class DynamicFileUtils {
      *
      * @see Uri
      */
-    public static Uri getBitmapUri(@NonNull Context context,
+    public static @Nullable Uri getBitmapUri(@NonNull Context context,
             @Nullable Bitmap bitmap, @NonNull String name) {
         Uri bitmapUri = null;
 
         if (bitmap != null) {
             try {
-                File storagePath = new File(context.getExternalFilesDir(
-                        Environment.DIRECTORY_PICTURES).getPath(), name);
-                String image = storagePath + File.separator + name + ".png";
-                storagePath.mkdirs();
+                File picturesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                if (picturesDir != null) {
+                    File storagePath = new File(picturesDir.getPath(), name);
+                    String image = storagePath + File.separator + name + ".png";
+                    storagePath.mkdirs();
 
-                FileOutputStream out = new FileOutputStream(image);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                out.close();
-                bitmapUri = getUriFromFile(context, new File(image));
+                    FileOutputStream out = new FileOutputStream(image);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    out.close();
+                    bitmapUri = getUriFromFile(context, new File(image));
+                }
             } catch (Exception ignored) {
             }
         }
 
         return bitmapUri;
+    }
+
+    /**
+     * Checks whether the extension is valid for a path.
+     *
+     * @param path The path string to get the extension.
+     * @param extension The extension to be validated.
+     *
+     * @return {@code true} if the extension is valid for the path.
+     */
+    public static boolean isValidExtension(@Nullable String path, @Nullable String extension) {
+        if (path == null || extension == null) {
+            return false;
+        }
+
+        return extension.equals("." + getExtension(path));
+    }
+
+    /**
+     * Checks whether the mime type is valid for an intent data.
+     *
+     * @param context The context to match the uri mime type.
+     * @param intent The intent to get the data.
+     * @param mimeType The mime type to be validated.
+     * @param extension The optional extension to be validated if mime type is invalid.
+     *
+     * @return {@code true} if the mime type is valid for the intent data.
+     */
+    public static boolean isValidMimeType(@Nullable Context context,
+            @Nullable Intent intent, @NonNull String mimeType, @Nullable String extension) {
+        if (intent == null || intent.getAction() == null) {
+            return false;
+        }
+
+        boolean isValidMime = false;
+
+        if (intent.getType() != null) {
+            isValidMime = intent.getType().equals(mimeType);
+        }
+
+        if (!isValidMime && intent.getData() != null) {
+            isValidMime = isValidMimeType(context, intent.getData(), mimeType, extension);
+        }
+
+        return isValidMime;
+    }
+
+    /**
+     * Checks whether the mime type is valid for a uri.
+     *
+     * @param context The context to get the content resolver.
+     * @param uri The uri to get the type.
+     * @param mimeType The mime type to be validated.
+     * @param extension The optional extension to be validated if mime type is invalid.
+     *
+     * @return {@code true} if the mime type is valid for the intent data.
+     */
+    public static boolean isValidMimeType(@Nullable Context context,
+            @Nullable Uri uri, @NonNull String mimeType, @Nullable String extension) {
+        if (context == null || uri == null) {
+            return false;
+        }
+
+        boolean isValidMime = false;
+
+        String type = context.getApplicationContext().getContentResolver().getType(uri);
+        if (type != null) {
+            isValidMime = type.equals(mimeType);
+        }
+
+        if (!isValidMime) {
+            isValidMime = isValidExtension(uri.getPath(), extension);
+        }
+
+        return isValidMime;
+    }
+
+    /**
+     * Checks whether the mime type is valid for a file.
+     *
+     * @param context The context to get the content resolver.
+     * @param file The file to get the uri.
+     * @param mimeType The mime type to be validated.
+     * @param extension The optional extension to be validated if mime type is invalid.
+     *
+     * @return {@code true} if the mime type is valid for the intent data.
+     */
+    public static boolean isValidMimeType(@NonNull Context context,
+            @Nullable File file, @NonNull String mimeType, @Nullable String extension) {
+        return isValidMimeType(context, getUriFromFile(context, file), mimeType, extension);
+    }
+
+    /**
+     * Share file according to the mime type.
+     *
+     * @param activity The activity to create the intent chooser.
+     * @param title The title for the intent chooser.
+     * @param subject The subject for the intent chooser.
+     * @param file The file to be shared.
+     * @param mimeType The mime type of the file.
+     */
+    public static void shareFile(@NonNull Activity activity, @Nullable String title,
+            @Nullable String subject, @NonNull File file, @NonNull String mimeType) {
+        Intent shareBackup = ShareCompat.IntentBuilder
+                .from(activity)
+                .setType(mimeType)
+                .setSubject(subject != null ? subject : title)
+                .setStream(getUriFromFile(activity, file))
+                .setChooserTitle(title)
+                .createChooserIntent()
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        activity.startActivity(shareBackup);
+    }
+
+    /**
+     * Share multiple files.
+     *
+     * @param activity The activity to create the intent chooser.
+     * @param title The title for the intent chooser.
+     * @param subject The subject for the intent chooser.
+     * @param uris The content uris to be shared.
+     * @param mimeType The mime type of the file.
+     */
+    public static void shareFiles(@NonNull Activity activity, @Nullable String title,
+            @Nullable String subject, @NonNull Uri[] uris, @Nullable String mimeType) {
+        ShareCompat.IntentBuilder intentBuilder =
+                ShareCompat.IntentBuilder
+                        .from(activity)
+                        .setSubject(subject != null ? subject : title)
+                        .setType(mimeType != null ? mimeType : "*/*")
+                        .setChooserTitle(title);
+
+        for (Uri uri : uris) {
+            intentBuilder.addStream(uri);
+        }
+
+        Intent shareBackup = intentBuilder.createChooserIntent()
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        activity.startActivity(shareBackup);
+    }
+
+    /**
+     * Returns an intent to request a storage location for the supplied file.
+     *
+     * @param context The context to get the file uri.
+     * @param file The file to request the storage location.
+     * @param mimeType The mime type of the file.
+     *
+     * @return The intent to request a storage location for the supplied file.
+     */
+    public static Intent getSaveToFileIntent(@NonNull Context context,
+            @NonNull File file, @NonNull String mimeType) {
+        Uri uri = getUriFromFile(context, file);
+        Intent intent;
+
+        if (DynamicVersionUtils.isKitKat()) {
+            intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        } else {
+            intent = new Intent(Intent.ACTION_PICK);
+        }
+
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_TITLE, file.getName());
+        intent.setType(mimeType);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+        return intent;
+    }
+
+    /**
+     * Returns an intent to select a file according to the mime type.
+     *
+     * @param mimeType The mime type for the file.
+     *
+     * @return The intent intent to select a file according to the mime type.
+     */
+    public static Intent getFileSelectIntent(@NonNull String mimeType) {
+        Intent intent;
+
+        if (DynamicVersionUtils.isKitKat()) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("*/*");
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType(mimeType);
+        }
+
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+        return intent;
     }
 }

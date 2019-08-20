@@ -89,11 +89,29 @@ public class DynamicWindowUtils {
     }
 
     /**
+     * Get the status bar size.
+     *
+     * @param context The context to get the resources.
+     *
+     * @return The status bar size in pixels.
+     */
+    public static int getStatusBarSize(@NonNull Context context) {
+        int resourceId = context.getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
+
+        if (resourceId != 0) {
+            return context.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        return 0;
+    }
+
+    /**
      * Get the on-screen navigation bar size.
      *
      * @param context The context to get the resources and window service.
      *
-     * @return The on-screen navigation bar in point.
+     * @return The on-screen navigation bar size in point.
      *
      * @see Context#WINDOW_SERVICE
      * @see Point

@@ -32,6 +32,7 @@ public class DynamicTaskUtils {
      *
      * @see AsyncTask#execute(Object[])
      */
+    @SuppressWarnings("unchecked")
     public static void executeTask(@Nullable AsyncTask asyncTask) {
         try {
             if (asyncTask != null && asyncTask.getStatus() != AsyncTask.Status.RUNNING) {

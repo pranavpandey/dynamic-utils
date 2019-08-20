@@ -30,16 +30,16 @@ import androidx.annotation.Nullable;
 public class DynamicViewUtils {
 
     /**
-     * Set hide navigation flag for edge-to-edge content on Android Q or above devices.
+     * Set hide navigation flag for edge-to-edge content on Android M or above devices.
      *
      * @param view The view to get the system ui flags.
-     * @param hide {@code true} to hide the layout navigation.
+     * @param edgeToEdge {@code true} to hide the layout navigation.
      */
     @TargetApi(Build.VERSION_CODES.M)
-    public static void setHideNavigation(@NonNull View view, boolean hide) {
+    public static void setEdgeToEdge(@NonNull View view, boolean edgeToEdge) {
         if (DynamicVersionUtils.isMarshmallow()) {
             int flags = view.getSystemUiVisibility();
-            if (hide) {
+            if (edgeToEdge) {
                 flags |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
                 flags |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
             } else {
@@ -49,6 +49,27 @@ public class DynamicViewUtils {
 
             view.setSystemUiVisibility(flags);
         }
+    }
+
+    /**
+     * Checks whether the hide navigation flag is enabled for edge-to-edge content on Android M
+     * or above devices.
+     *
+     * @param view The view to get the system ui flags.
+     *
+     * @return {@code true} if hide navigation flag is enabled for edge-to-edge content on
+     *         Android M or above devices.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public static boolean isEdgeToEdge(@NonNull View view) {
+        if (DynamicVersionUtils.isMarshmallow()) {
+            int flags = view.getSystemUiVisibility();
+
+            return (flags & View.SYSTEM_UI_FLAG_LAYOUT_STABLE) == 0
+                    && (flags & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) == 0;
+        }
+
+        return false;
     }
 
     /**

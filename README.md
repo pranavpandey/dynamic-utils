@@ -223,6 +223,7 @@ Helper class to perform Window operations and to detect system configurations at
 
 ## Translations
 - German (de) - Flubberlutsch
+- Hindi (hi) - Siddh Narhari
 - Indonesian (in) - Gamal Kevin A
 - Italian (it) - Nicola
 - Spanish (es) - Dave

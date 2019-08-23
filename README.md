@@ -7,10 +7,10 @@
 [![Download](https://api.bintray.com/packages/pranavpandey/android/dynamic-utils/images/download.svg)](https://bintray.com/pranavpandey/android/dynamic-utils/_latestVersion)
 
 A collection of static methods to perform various operations including color, device, drawable,
-package, tasks and sdk on Android 9+ (Gingerbread or above) devices.
+package, tasks and sdk on Android 2.3 (API 9) and above devices.
 
 >Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
-so, minimum SDK will be Android 14+ (ICS or above).
+so, minimum SDK will be Android 4 (API 14).
 <br/>Since v2.0.0, it uses [AndroidX](https://developer.android.com/jetpack/androidx/) so, first
 [migrate](https://developer.android.com/jetpack/androidx/migrate) your project to AndroidX.
 
@@ -234,7 +234,7 @@ Helper class to perform Window operations and to detect system configurations at
 
 ## License
 
-    Copyright 2017 Pranav Pandey
+    Copyright 2019 Pranav Pandey
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

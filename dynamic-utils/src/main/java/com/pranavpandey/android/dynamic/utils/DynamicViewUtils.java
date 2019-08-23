@@ -30,14 +30,14 @@ import androidx.annotation.Nullable;
 public class DynamicViewUtils {
 
     /**
-     * Set hide navigation flag for edge-to-edge content on Android M or above devices.
+     * Set hide navigation flag for edge-to-edge content on API 23 and above devices.
      *
      * @param view The view to get the system ui flags.
      * @param edgeToEdge {@code true} to hide the layout navigation.
      */
     @TargetApi(Build.VERSION_CODES.M)
     public static void setEdgeToEdge(@NonNull View view, boolean edgeToEdge) {
-        if (DynamicVersionUtils.isMarshmallow()) {
+        if (DynamicSdkUtils.is23()) {
             int flags = view.getSystemUiVisibility();
             if (edgeToEdge) {
                 flags |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
@@ -52,17 +52,17 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Checks whether the hide navigation flag is enabled for edge-to-edge content on Android M
+     * Checks whether the hide navigation flag is enabled for edge-to-edge content on API 23
      * or above devices.
      *
      * @param view The view to get the system ui flags.
      *
      * @return {@code true} if hide navigation flag is enabled for edge-to-edge content on
-     *         Android M or above devices.
+     *         API 23 and above devices.
      */
     @TargetApi(Build.VERSION_CODES.M)
     public static boolean isEdgeToEdge(@NonNull View view) {
-        if (DynamicVersionUtils.isMarshmallow()) {
+        if (DynamicSdkUtils.is23()) {
             int flags = view.getSystemUiVisibility();
 
             return (flags & View.SYSTEM_UI_FLAG_LAYOUT_STABLE) == 0
@@ -73,14 +73,14 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Set light status bar if we are using light primary color on Android M or above devices.
+     * Set light status bar if we are using light primary color on API 23 and above devices.
      *
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light status bar.
      */
     @TargetApi(Build.VERSION_CODES.M)
     public static void setLightStatusBar(@NonNull View view, boolean light) {
-        if (DynamicVersionUtils.isMarshmallow()) {
+        if (DynamicSdkUtils.is23()) {
             int flags = view.getSystemUiVisibility();
             if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -93,14 +93,14 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Set light navigation bar if we are using light primary color on Android O or above devices.
+     * Set light navigation bar if we are using light primary color on API 26 and above devices.
      *
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light navigation bar.
      */
     @TargetApi(Build.VERSION_CODES.O)
     public static void setLightNavigationBar(@NonNull View view, boolean light) {
-        if (DynamicVersionUtils.isOreo()) {
+        if (DynamicSdkUtils.is26()) {
             int flags = view.getSystemUiVisibility();
             if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;

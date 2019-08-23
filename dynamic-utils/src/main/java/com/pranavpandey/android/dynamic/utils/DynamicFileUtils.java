@@ -303,7 +303,7 @@ public class DynamicFileUtils {
 
     /**
      * Returns uri from the file. 
-     * <p>It will automatically use the @link FileProvider} on Android N and above devices.
+     * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
      *
      * @param context The context to get the file provider.
      * @param file The file to get the uri.
@@ -317,7 +317,7 @@ public class DynamicFileUtils {
             return null;
         }
 
-        if (DynamicVersionUtils.isMarshmallow()) {
+        if (DynamicSdkUtils.is23()) {
             return FileProvider.getUriForFile(context.getApplicationContext(),
                     context.getPackageName() + FILE_PROVIDER, file);
         } else {
@@ -543,7 +543,7 @@ public class DynamicFileUtils {
 
     /**
      * Save and returns uri from the bitmap.
-     * <p>It will automatically use the @link FileProvider} on Android N and above devices.
+     * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
      *
      * <p<p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
      * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
@@ -736,7 +736,7 @@ public class DynamicFileUtils {
         Uri uri = getUriFromFile(context, file);
         Intent intent;
 
-        if (DynamicVersionUtils.isKitKat()) {
+        if (DynamicSdkUtils.is19()) {
             intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         } else {
             intent = new Intent(Intent.ACTION_PICK);
@@ -763,7 +763,7 @@ public class DynamicFileUtils {
     public static Intent getFileSelectIntent(@NonNull String mimeType) {
         Intent intent;
 
-        if (DynamicVersionUtils.isKitKat()) {
+        if (DynamicSdkUtils.is19()) {
             intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.setType("*/*");
         } else {

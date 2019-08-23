@@ -24,16 +24,14 @@ import android.os.Build;
  *
  * @see Build.VERSION#SDK_INT
  */
-public class DynamicVersionUtils {
+public class DynamicSdkUtils {
 
     /**
      * Detects if the current API version is 14 or above.
      *
      * @return {@code true} if the current API version is 14 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is14()} instead.
      */
-    public static boolean isIceCreamSandwich() {
+    public static boolean is14() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
@@ -44,22 +42,18 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 14 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is14(boolean)} instead.
      */
-    public static boolean isIceCreamSandwich(boolean equals) {
+    public static boolean is14(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.ICE_CREAM_SANDWICH : isIceCreamSandwich();
+                == Build.VERSION_CODES.ICE_CREAM_SANDWICH : is14();
     }
 
     /**
      * Detects if the current API version is 15 or above.
      *
      * @return {@code true} if the current API version is 15 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is15()} instead.
      */
-    public static boolean isIceCreamSandwichMR1() {
+    public static boolean is15() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
 
@@ -70,23 +64,19 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 15 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is15(boolean)} instead.
      */
-    public static boolean isIceCreamSandwichMR1(boolean equals) {
+    public static boolean is15(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
                 == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1
-                : isIceCreamSandwichMR1();
+                : is15();
     }
 
     /**
      * Detects if the current API version is 16 or above.
      *
      * @return {@code true} if the current API version is 16 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is16()} instead.
      */
-    public static boolean isJellyBean() {
+    public static boolean is16() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
@@ -97,21 +87,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 16 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is16(boolean)} instead.
      */
-    public static boolean isJellyBean(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN : isJellyBean();
+    public static boolean is16(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN : is16();
     }
 
     /**
      * Detects if the current API version is 17 or above.
      *
      * @return {@code true} if the current API version is 17 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is17()} instead.
      */
-    public static boolean isJellyBeanMR1() {
+    public static boolean is17() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
@@ -122,22 +108,18 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 17 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is17(boolean)} instead.
      */
-    public static boolean isJellyBeanMR1(boolean equals) {
+    public static boolean is17(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.JELLY_BEAN_MR1 : isJellyBeanMR1();
+                == Build.VERSION_CODES.JELLY_BEAN_MR1 : is17();
     }
 
     /**
      * Detects if the current API version is 18 or above.
      *
      * @return {@code true} if the current API version is 18 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is18()} instead.
      */
-    public static boolean isJellyBeanMR2() {
+    public static boolean is18() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
@@ -148,22 +130,18 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 18 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is18(boolean)} instead.
      */
-    public static boolean isJellyBeanMR2(boolean equals) {
+    public static boolean is18(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.JELLY_BEAN_MR2 : isJellyBeanMR2();
+                == Build.VERSION_CODES.JELLY_BEAN_MR2 : is18();
     }
 
     /**
      * Detects if the current API version is 19 or above.
      *
      * @return {@code true} if the current API version is 19 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is19()} instead.
      */
-    public static boolean isKitKat() {
+    public static boolean is19() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
@@ -174,21 +152,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 19 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is19(boolean)} instead.
      */
-    public static boolean isKitKat(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT : isKitKat();
+    public static boolean is19(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT : is19();
     }
 
     /**
      * Detects if the current API version is 20 or above.
      *
      * @return {@code true} if the current API version is 20 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is20()} instead.
      */
-    public static boolean isKitKatWatch() {
+    public static boolean is20() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
     }
 
@@ -199,22 +173,18 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 20 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is20(boolean)} instead.
      */
-    public static boolean isKitKatWatch(boolean equals) {
+    public static boolean is20(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.KITKAT_WATCH : isKitKatWatch();
+                == Build.VERSION_CODES.KITKAT_WATCH : is20();
     }
 
     /**
      * Detects if the current API version is 21 or above.
      *
      * @return {@code true} if the current API version is 21 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is21()} instead.
      */
-    public static boolean isLollipop() {
+    public static boolean is21() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
@@ -225,21 +195,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 21 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is21(boolean)} instead.
      */
-    public static boolean isLollipop(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP : isLollipop();
+    public static boolean is21(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP : is21();
     }
 
     /**
      * Detects if the current API version is 22 or above.
      *
      * @return {@code true} if the current API version is 22 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is22()} instead.
      */
-    public static boolean isLollipopMR1() {
+    public static boolean is22() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
@@ -250,22 +216,18 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 22 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is22(boolean)} instead.
      */
-    public static boolean isLollipopMR1(boolean equals) {
+    public static boolean is22(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.LOLLIPOP_MR1 : isLollipopMR1();
+                == Build.VERSION_CODES.LOLLIPOP_MR1 : is22();
     }
 
     /**
      * Detects if the current API version is 23 or above.
      *
      * @return {@code true} if the current API version is 23 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is23()} instead.
      */
-    public static boolean isMarshmallow() {
+    public static boolean is23() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
@@ -276,21 +238,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 23 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is23(boolean)} instead.
      */
-    public static boolean isMarshmallow(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.M : isMarshmallow();
+    public static boolean is23(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.M : is23();
     }
 
     /**
      * Detects if the current API version is 24 or above.
      *
      * @return {@code true} if the current API version is 24 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is24()} instead.
      */
-    public static boolean isNougat() {
+    public static boolean is24() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
@@ -301,21 +259,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 24 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is24(boolean)} instead.
      */
-    public static boolean isNougat(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N : isNougat();
+    public static boolean is24(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N : is24();
     }
 
     /**
      * Detects if the current API version is 25 or above.
      *
      * @return {@code true} if the current API version is 25 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is25()} instead.
      */
-    public static boolean isNougatMR1() {
+    public static boolean is25() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
     }
 
@@ -326,21 +280,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 25 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is25(boolean)} instead.
      */
-    public static boolean isNougatMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1 : isNougatMR1();
+    public static boolean is25(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1 : is25();
     }
 
     /**
      * Detects if the current API version is 26 or above.
      *
      * @return {@code true} if the current API version is 26 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is26()} instead.
      */
-    public static boolean isOreo() {
+    public static boolean is26() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
@@ -351,21 +301,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 26 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is26(boolean)} instead.
      */
-    public static boolean isOreo(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O : isOreo();
+    public static boolean is26(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O : is26();
     }
 
     /**
      * Detects if the current API version is 27 or above.
      *
      * @return {@code true} if the current API version is 27 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is27()} instead.
      */
-    public static boolean isOreoMR1() {
+    public static boolean is27() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
     }
 
@@ -376,21 +322,17 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 27 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is27(boolean)} instead.
      */
-    public static boolean isOreoMR1(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1 : isOreoMR1();
+    public static boolean is27(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1 : is27();
     }
 
     /**
      * Detects if the current API version is 28 or above.
      *
      * @return {@code true} if the current API version is 28 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is28()} instead.
      */
-    public static boolean isPie() {
+    public static boolean is28() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
     }
 
@@ -401,23 +343,19 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 28 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is28(boolean)} instead.
      */
-    public static boolean isPie(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.P : isPie();
+    public static boolean is28(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.P : is28();
     }
 
     /**
      * Detects if the current API version is 29 or above.
      *
      * @return {@code true} if the current API version is 29 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is29()} instead.
      */
-    public static boolean isQ() {
+    public static boolean is29() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-                || isPie() && Build.VERSION.PREVIEW_SDK_INT > 0;
+                || is28() && Build.VERSION.PREVIEW_SDK_INT > 0;
     }
 
     /**
@@ -427,10 +365,8 @@ public class DynamicVersionUtils {
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is 29 or above.
-     *
-     * @deprecated Use {@link DynamicSdkUtils#is29(boolean)} instead.
      */
-    public static boolean isQ(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.Q : isQ();
+    public static boolean is29(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.Q : is29();
     }
 }

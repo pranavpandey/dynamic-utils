@@ -203,7 +203,7 @@ Helper class to perform `view` operations.
 color on Android M or above devices.
 
 - `void setLightNavigationBar(view, isLight)` - Set light navigation bar if we are using light
-primary color on Android O or above devices.
+primary color on API 26 and above devices.
 
 ### DynamicWindowUtils
 

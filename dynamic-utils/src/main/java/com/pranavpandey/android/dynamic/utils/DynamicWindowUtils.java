@@ -75,9 +75,9 @@ public class DynamicWindowUtils {
             Display display = windowManager.getDefaultDisplay();
 
             try {
-                if (DynamicVersionUtils.isJellyBeanMR1()) {
+                if (DynamicSdkUtils.is17()) {
                     display.getRealSize(size);
-                } else if (DynamicVersionUtils.isIceCreamSandwich()) {
+                } else if (DynamicSdkUtils.is14()) {
                     size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
                 }
@@ -153,7 +153,7 @@ public class DynamicWindowUtils {
      * @return {@code true} if navigation bar theme is supported.
      */
     public static boolean isNavigationBarThemeSupported(@NonNull Context context) {
-        return DynamicVersionUtils.isLollipop() && isNavigationBarPresent(context);
+        return DynamicSdkUtils.is21() && isNavigationBarPresent(context);
     }
 
     /**
@@ -165,7 +165,7 @@ public class DynamicWindowUtils {
      */
     public static boolean isGestureNavigation(@NonNull Context context) {
         Point navigationBarSize = getNavigationBarSize(context);
-        return DynamicVersionUtils.isQ() && navigationBarSize.y > 0
+        return DynamicSdkUtils.is29() && navigationBarSize.y > 0
                 && navigationBarSize.y < DynamicUnitUtils.convertDpToPixels(24);
     }
 
@@ -240,7 +240,7 @@ public class DynamicWindowUtils {
     /**
      * Get the overlay flag according to the Android version.
      *
-     * @param alert {@code true} to return alert flag on below Android O devices.
+     * @param alert {@code true} to return alert flag on below API 26 devices.
      *
      * @return The {@link WindowManager} overlay flag according to the Android version.
      *
@@ -249,7 +249,7 @@ public class DynamicWindowUtils {
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_ALERT
      */
     public static int getOverlayFlag(boolean alert) {
-        return DynamicVersionUtils.isOreo()
+        return DynamicSdkUtils.is26()
                 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
                 : alert ? WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
                 : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;

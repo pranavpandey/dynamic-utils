@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Pranav Pandey
+ * Copyright 2017 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is 14 or above.
      */
     public static boolean is14(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.ICE_CREAM_SANDWICH : is14();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH : is14();
     }
 
     /**
@@ -67,8 +66,7 @@ public class DynamicSdkUtils {
      */
     public static boolean is15(boolean equals) {
         return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1
-                : is15();
+                == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 : is15();
     }
 
     /**
@@ -110,8 +108,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is 17 or above.
      */
     public static boolean is17(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.JELLY_BEAN_MR1 : is17();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR1 : is17();
     }
 
     /**
@@ -132,8 +129,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is 18 or above.
      */
     public static boolean is18(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.JELLY_BEAN_MR2 : is18();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2 : is18();
     }
 
     /**
@@ -175,8 +171,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is 20 or above.
      */
     public static boolean is20(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.KITKAT_WATCH : is20();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT_WATCH : is20();
     }
 
     /**
@@ -218,8 +213,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is 22 or above.
      */
     public static boolean is22(boolean equals) {
-        return equals ? Build.VERSION.SDK_INT
-                == Build.VERSION_CODES.LOLLIPOP_MR1 : is22();
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1 : is22();
     }
 
     /**

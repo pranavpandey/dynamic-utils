@@ -43,7 +43,7 @@ public class DynamicDrawableUtils {
      * @see DynamicVersionUtils
      */
     public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
-        if (DynamicVersionUtils.isJellyBean()) {
+        if (DynamicSdkUtils.is16()) {
             view.setBackground(drawable);
         } else {
             view.setBackgroundDrawable(drawable);
@@ -100,7 +100,7 @@ public class DynamicDrawableUtils {
             }
 
             // Handle issue with layer drawables.
-            if (DynamicVersionUtils.isLollipop(true)) {
+            if (DynamicSdkUtils.is21(true)) {
                 if (wrap) {
                     drawable = drawable.mutate();
                     drawable.setColorFilter(color, mode);

@@ -23,6 +23,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 /**
  * Helper class to perform {@link View} operations.
@@ -128,7 +131,6 @@ public class DynamicViewUtils {
         viewGroup.addView(view);
     }
 
-
     /**
      * Manage scroll indicators for a view according to its current state.
      *
@@ -139,13 +141,145 @@ public class DynamicViewUtils {
     public static void manageScrollIndicators(@NonNull View view,
             @Nullable View upIndicator, @Nullable View downIndicator) {
         if (upIndicator != null) {
-            upIndicator.setVisibility(
-                    view.canScrollVertically(-1) ? View.VISIBLE : View.INVISIBLE);
+            upIndicator.setVisibility(view.canScrollVertically(-1)
+                    ? View.VISIBLE : View.INVISIBLE);
         }
 
         if (downIndicator != null) {
-            downIndicator.setVisibility(
-                    view.canScrollVertically(1) ? View.VISIBLE : View.INVISIBLE);
+            downIndicator.setVisibility(view.canScrollVertically(1)
+                    ? View.VISIBLE : View.INVISIBLE);
+        }
+    }
+
+    /**
+     * Apply vertical window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     */
+    public static void applyWindowInsetsVertical(@Nullable View view) {
+        if (view == null) {
+            return;
+        }
+
+        final int paddingTop = view.getPaddingTop();
+        final int paddingBottom = view.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                v.setPadding(v.getPaddingLeft(), paddingTop + insets.getSystemWindowInsetTop(),
+                        v.getPaddingRight(), paddingBottom + insets.getSystemWindowInsetBottom());
+
+                return insets;
+            }
+        });
+
+        requestApplyWindowInsets(view);
+    }
+
+    /**
+     * Apply horizontal window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     */
+    public static void applyWindowInsetsHorizontal(@Nullable View view, final boolean consume) {
+        if (view == null) {
+            return;
+        }
+
+        final int paddingLeft = view.getPaddingLeft();
+        final int paddingRight = view.getPaddingRight();
+        ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                v.setPadding(paddingLeft + insets.getSystemWindowInsetLeft(),
+                        v.getPaddingTop(), paddingRight + insets.getSystemWindowInsetRight(),
+                        v.getPaddingBottom());
+
+                return !consume ? insets : insets.replaceSystemWindowInsets(
+                        0, insets.getSystemWindowInsetTop(),
+                        0, insets.getSystemWindowInsetBottom());
+            }
+        });
+
+        requestApplyWindowInsets(view);
+    }
+
+    /**
+     * Apply bottom window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     */
+    public static void applyWindowInsetsBottom(@Nullable View view) {
+        if (view == null) {
+            return;
+        }
+
+        final int paddingBottom = view.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                        paddingBottom + insets.getSystemWindowInsetBottom());
+
+                return insets;
+            }
+        });
+
+        requestApplyWindowInsets(view);
+    }
+
+    /**
+     * Apply bottom window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     */
+    public static void applyWindowInsetsBottomMargin(@Nullable View view) {
+        if (view == null) {
+            return;
+        }
+
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            final ViewGroup.MarginLayoutParams layoutParams =
+                    (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            final int rightMargin = layoutParams.rightMargin;
+            final int bottomMargin = layoutParams.bottomMargin;
+            ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
+                @Override
+                public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                    layoutParams.rightMargin = rightMargin + insets.getSystemWindowInsetRight();
+                    layoutParams.bottomMargin = bottomMargin + insets.getSystemWindowInsetBottom();
+
+                    return insets;
+                }
+            });
+        }
+
+        requestApplyWindowInsets(view);
+    }
+
+    /**
+     * Request to apply window insets for a view
+     *
+     * @param view The view to request the window insets.
+     */
+    public static void requestApplyWindowInsets(@Nullable View view) {
+        if (view == null) {
+            return;
+        }
+
+        if (ViewCompat.isAttachedToWindow(view)) {
+            ViewCompat.requestApplyInsets(view);
+        } else {
+            view.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(View view) {
+                    view.removeOnAttachStateChangeListener(this);
+                    ViewCompat.requestApplyInsets(view);
+                }
+
+                @Override
+                public void onViewDetachedFromWindow(View view) { }
+            });
         }
     }
 }

@@ -462,7 +462,11 @@ public class DynamicFileUtils {
      * @return {@code true} if the file has been written successfully.
      */
     public static boolean writeStringToFile(@NonNull Context context,
-            @Nullable String data, @NonNull Uri sourceUri, @Nullable Uri destinationUri) {
+            @Nullable String data, @Nullable Uri sourceUri, @Nullable Uri destinationUri) {
+        if (sourceUri == null) {
+            return false;
+        }
+
         boolean success = false;
 
         try {
@@ -502,7 +506,7 @@ public class DynamicFileUtils {
      * @return {@code true} if the file has been written successfully.
      */
     public static boolean writeStringToFile(@NonNull Context context,
-            @Nullable String data, @NonNull Uri sourceUri) {
+            @Nullable String data, @Nullable Uri sourceUri) {
         return writeStringToFile(context, data, sourceUri, null);
     }
 
@@ -607,21 +611,18 @@ public class DynamicFileUtils {
      */
     public static boolean isValidMimeType(@Nullable Context context,
             @Nullable Intent intent, @NonNull String mimeType, @Nullable String extension) {
-        if (intent == null || intent.getAction() == null) {
+        if (intent == null || intent.getAction() == null || intent.getData() == null) {
             return false;
         }
 
-        boolean isValidMime = false;
+        boolean validMime = mimeType.equals(intent.getType());
 
-        if (intent.getType() != null) {
-            isValidMime = intent.getType().equals(mimeType);
+        if (!validMime) {
+            validMime = isValidMimeType(context, intent.getData(), MIME_OCTET_STREAM, extension)
+                    && isValidExtension(getFileNameFromUri(context, intent.getData()), extension);
         }
 
-        if (!isValidMime && intent.getData() != null) {
-            isValidMime = isValidMimeType(context, intent.getData(), mimeType, extension);
-        }
-
-        return isValidMime;
+        return validMime;
     }
 
     /**
@@ -640,18 +641,18 @@ public class DynamicFileUtils {
             return false;
         }
 
-        boolean isValidMime = false;
+        boolean validMime;
 
         String type = context.getApplicationContext().getContentResolver().getType(uri);
-        if (type != null) {
-            isValidMime = type.equals(mimeType);
+        validMime = mimeType.equals(type);
+
+
+        if (!validMime) {
+            validMime = MIME_OCTET_STREAM.equals(type)
+                    && isValidExtension(getFileNameFromUri(context, uri), extension);
         }
 
-        if (!isValidMime) {
-            isValidMime = isValidExtension(uri.getPath(), extension);
-        }
-
-        return isValidMime;
+        return validMime;
     }
 
     /**

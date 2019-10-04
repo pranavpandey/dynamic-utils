@@ -49,9 +49,9 @@ task clean(type: Delete) {
 ext {
     projectName = 'dynamic-utils'
     projectDesc = 'A collection of static methods to perform various operations including ' +
-            'color, device, drawable, package, tasks and sdk on Android devices.'
+            'color, device, drawable, package, tasks and SDK on Android devices.'
     versionDesc = 'A collection of static methods to perform various operations including ' +
-            'color, device, drawable, package, tasks and sdk on Android 4 (API 14) and above ' +
+            'color, device, drawable, package, tasks and SDK on Android 4.0 (API 14) and above ' +
             'devices.'
     referenceTitle = 'Dynamic Utils Reference'
 
@@ -64,8 +64,8 @@ ext {
     mavenGroup = 'com.pranavpandey.android'
     mavenArtifactId = 'dynamic-utils'
     mavenInceptionYear = 2017
-    mavenVersion = '2.3.0'
-    mavenVersionCode = 19
+    mavenVersion = '3.0.0'
+    mavenVersionCode = 20
 
     developerId = 'pranavpandey'
     developerName = 'Pranav Pandey'

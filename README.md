@@ -10,7 +10,7 @@ A collection of static methods to perform various operations including color, de
 package, tasks and sdk on Android 2.3 (API 9) and above devices.
 
 >Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
-so, minimum SDK will be Android 4 (API 14).
+so, minimum SDK will be Android 4.0 (API 14).
 <br/>Since v2.0.0, it uses [AndroidX](https://developer.android.com/jetpack/androidx/) so, first
 [migrate](https://developer.android.com/jetpack/androidx/migrate) your project to AndroidX.
 
@@ -29,7 +29,7 @@ so, minimum SDK will be Android 4 (API 14).
     - [DynamicPackageUtils](https://github.com/pranavpandey/dynamic-utils#dynamicpackageutils)
     - [DynamicTaskUtils](https://github.com/pranavpandey/dynamic-utils#dynamictaskutils)
     - [DynamicUnitUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-    - [DynamicVersionUtils](https://github.com/pranavpandey/dynamic-utils#dynamicversionutils)
+    - [DynamicSdkUtils](https://github.com/pranavpandey/dynamic-utils#dynamicsdkutils)
     - [DynamicViewUtils](https://github.com/pranavpandey/dynamic-utils#dynamicviewutils)
     - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
 - [License](https://github.com/pranavpandey/dynamic-utils#license)
@@ -43,7 +43,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:2.3.0'
+    implementation 'com.pranavpandey.android:dynamic-utils:3.0.0'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'
@@ -178,22 +178,20 @@ Helper class to perform unit conversions.
 
 - `int convertPixelsToSp(pixels)` - To convert pixels into SP.
 
-### DynamicVersionUtils
+### DynamicSdkUtils
 
 Helper class to detect the Android SDK version at runtime so that we can provide the user
 experience accordingly. Pass `true` in the alternate method to check for equality.
 
-- `boolean isIceCreamSandwich()` - To detect if the current Android version is Ice Cream Sandwich
-or above.
+- `boolean is14()` - To detect if the current API version is 14 (Android 4.0) or above.
 
-- `boolean isIceCreamSandwich(equals)` - To detect if the current Android version is Ice Cream
-Sandwich or above.
+- `boolean is14(equals)` - To detect if the current API version is 14 (Android 4.0) or above.
 
 ...
 
-- `boolean isOreoMR1()` - To detect if the current Android version is OreoMR1 or above.
+- `boolean is29()` - To detect if the current API version is 29 (Android 10) or above.
 
-- `boolean isOreoMR1(equals)` - To detect if the current Android version is OreoMR1 or above.
+- `boolean is29(equals)` - To detect if the current API version is 29 (Android 10) or above.
 
 ### DynamicViewUtils
 

@@ -20,7 +20,7 @@ buildscript {
             'minSdk'    : 14,
             'targetSdk' : 29,
             'buildTools': '29.0.2',
-            'androidx'  : '1.2.0-alpha04'
+            'androidx'  : '1.2.0-beta01'
     ]
 
     repositories {

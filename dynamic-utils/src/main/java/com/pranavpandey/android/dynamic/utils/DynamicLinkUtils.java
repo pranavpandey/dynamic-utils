@@ -87,12 +87,21 @@ public class DynamicLinkUtils {
      * @param label The user visible label for the clip data.
      * @param text The actual text in the clip.
      *
+     * @return {@code true} if copied to clipboard successfully.
+     *
      * @see ClipboardManager
      */
-    public static void copyToClipboard(@NonNull Context context,
+    public static boolean copyToClipboard(@NonNull Context context,
             @NonNull String label, @NonNull String text) {
-        ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE))
-                .setPrimaryClip(ClipData.newPlainText(label, text));
+        ClipboardManager clipboard = (ClipboardManager)
+                context.getSystemService(Context.CLIPBOARD_SERVICE);
+
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
+            return true;
+        }
+
+        return false;
     }
 
     /**

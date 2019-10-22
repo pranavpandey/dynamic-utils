@@ -40,7 +40,7 @@ public class DynamicDrawableUtils {
      * @param view View to set the background.
      * @param drawable Background drawable for the view.
      *
-     * @see DynamicVersionUtils
+     * @see DynamicSdkUtils
      */
     public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
         if (DynamicSdkUtils.is16()) {

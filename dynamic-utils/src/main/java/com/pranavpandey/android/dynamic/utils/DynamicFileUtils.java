@@ -611,15 +611,24 @@ public class DynamicFileUtils {
      */
     public static boolean isValidMimeType(@Nullable Context context,
             @Nullable Intent intent, @NonNull String mimeType, @Nullable String extension) {
-        if (intent == null || intent.getAction() == null || intent.getData() == null) {
+        if (intent == null || intent.getAction() == null) {
             return false;
         }
 
         boolean validMime = mimeType.equals(intent.getType());
 
         if (!validMime) {
-            validMime = isValidMimeType(context, intent.getData(), MIME_OCTET_STREAM, extension)
-                    && isValidExtension(getFileNameFromUri(context, intent.getData()), extension);
+            if (intent.getParcelableExtra(Intent.EXTRA_STREAM) != null) {
+                validMime = isValidMimeType(context,
+                        (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM),
+                        MIME_OCTET_STREAM, extension)
+                        && isValidExtension(getFileNameFromUri(context,
+                        (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM)), extension);
+            } else {
+                validMime = isValidMimeType(context, intent.getData(),
+                        MIME_OCTET_STREAM, extension) && isValidExtension(
+                                getFileNameFromUri(context, intent.getData()), extension);
+            }
         }
 
         return validMime;

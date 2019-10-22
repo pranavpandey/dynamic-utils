@@ -27,8 +27,9 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 /**
- * Helper class to perform {@link android.view.Window} operations and to detect system
- * configurations at runtime.
+ * Helper class to perform window operations and to detect system configurations at runtime.
+ *
+ * @see WindowManager
  */
 public class DynamicWindowUtils {
 

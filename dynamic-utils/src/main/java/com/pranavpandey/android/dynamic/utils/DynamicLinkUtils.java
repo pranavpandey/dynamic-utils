@@ -115,14 +115,15 @@ public class DynamicLinkUtils {
      * @param title The application chooser title if more than one apps are available.
      * @param message The default share message which user can modify.
      *                <p>{@code null} to supply app and package name.
-     * @param image The optional image bitmap uri to be shared.
+     * @param uri The optional content uri to be shared.
+     * @param mimeType The optional mime type for the file.
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
      * @see Intent#ACTION_SEND
      */
     public static void share(@NonNull Context context, @Nullable String title,
-            @Nullable String message, @Nullable Uri image) {
+            @Nullable String message, @Nullable Uri uri, @Nullable String mimeType) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
@@ -139,9 +140,9 @@ public class DynamicLinkUtils {
 
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
 
-        if (image != null) {
-            sendIntent.putExtra(Intent.EXTRA_STREAM, image);
-            sendIntent.setType("image/*");
+        if (uri != null) {
+            sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            sendIntent.setType(mimeType != null ? mimeType : "*/*");
             sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }
@@ -150,6 +151,28 @@ public class DynamicLinkUtils {
             context.startActivity(Intent.createChooser(sendIntent, title));
         } catch (Exception ignored) {
         }
+    }
+
+    /**
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
+     *
+     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * to run the given intent.
+     *
+     * @param context The context to retrieve the resources.
+     * @param title The application chooser title if more than one apps are available.
+     * @param message The default share message which user can modify.
+     *                <p>{@code null} to supply app and package name.
+     * @param image The optional image bitmap uri to be shared.
+     *
+     * @throws ActivityNotFoundException If no activity is found.
+     *
+     * @see Intent#ACTION_SEND
+     */
+    public static void share(@NonNull Context context, @Nullable String title,
+            @Nullable String message, @Nullable Uri image) {
+        share(context, title, message, image, "image/*");
     }
 
     /**

@@ -195,7 +195,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(int width, int height,
+    public static @NonNull Drawable getCornerDrawable(int width, int height,
             @NonNull GradientDrawable drawable, @ColorInt int color) {
         drawable.setColor(color);
 
@@ -216,7 +216,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(int width, 
+    public static @NonNull Drawable getCornerDrawable(int width,
             int height, @NonNull GradientDrawable drawable) {
         return getCornerDrawable(width, height, drawable, Color.WHITE);
     }
@@ -229,7 +229,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(
+    public static @NonNull Drawable getCornerDrawable(
             @NonNull GradientDrawable drawable, @ColorInt int color) {
         return getCornerDrawable(0, 0, drawable, color);
     }
@@ -241,7 +241,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(@NonNull GradientDrawable drawable) {
+    public static @NonNull Drawable getCornerDrawable(@NonNull GradientDrawable drawable) {
         return getCornerDrawable(0, 0, drawable, Color.WHITE);
     }
 
@@ -255,7 +255,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(int width, int height,
+    public static @NonNull Drawable getCornerDrawable(int width, int height,
             float cornerRadius, @ColorInt int color) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(DynamicUnitUtils.convertDpToPixels(cornerRadius));
@@ -272,7 +272,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(int width, int height, float cornerRadius) {
+    public static @NonNull Drawable getCornerDrawable(int width, int height, float cornerRadius) {
         return getCornerDrawable(width, height, cornerRadius, Color.WHITE);
     }
 
@@ -284,7 +284,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(float cornerRadius, @ColorInt int color) {
+    public static @NonNull Drawable getCornerDrawable(float cornerRadius, @ColorInt int color) {
         return getCornerDrawable(0, 0, cornerRadius, color);
     }
 
@@ -295,7 +295,7 @@ public class DynamicDrawableUtils {
      *
      * @return The gradient drawable according to the supplied parameters.
      */
-    public static Drawable getCornerDrawable(float cornerRadius) {
+    public static @NonNull Drawable getCornerDrawable(float cornerRadius) {
         return getCornerDrawable(0, 0, cornerRadius, Color.WHITE);
     }
 }

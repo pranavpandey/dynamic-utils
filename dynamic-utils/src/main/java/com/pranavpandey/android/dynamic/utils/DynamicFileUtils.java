@@ -335,7 +335,7 @@ public class DynamicFileUtils {
      *
      * @see Context#getContentResolver()
      */
-    public @Nullable static String getFileNameFromUri(
+    public static @Nullable String getFileNameFromUri(
             @NonNull Context context, @Nullable Uri uri) {
         if (uri == null) {
             return null;

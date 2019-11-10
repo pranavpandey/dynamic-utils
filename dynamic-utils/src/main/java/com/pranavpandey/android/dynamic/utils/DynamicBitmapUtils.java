@@ -44,12 +44,12 @@ public class DynamicBitmapUtils {
      * @param drawable The drawable to get the bitmap.
      * @param width The width in dip for the bitmap.
      * @param height The height in dip for the bitmap.
-     * @param compress {2code true} to compress the bitmap.
+     * @param compress {@code true} to compress the bitmap.
      * @param quality The quality of the compressed bitmap.
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @Nullable static Bitmap getBitmapFromDrawable(@Nullable Drawable drawable,
+    public static @Nullable Bitmap getBitmapFromDrawable(@Nullable Drawable drawable,
             int width, int height, boolean compress, int quality) {
         if (drawable != null) {
             try {
@@ -77,12 +77,12 @@ public class DynamicBitmapUtils {
      * Get bitmap from the supplied drawable.
      *
      * @param drawable The drawable to get the bitmap.
-     * @param compress {2code true} to compress the bitmap.
+     * @param compress {@code true} to compress the bitmap.
      * @param quality The quality of the compressed bitmap.
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @Nullable static Bitmap getBitmapFromDrawable(
+    public static @Nullable Bitmap getBitmapFromDrawable(
             @Nullable Drawable drawable, boolean compress, int quality) {
         if (drawable != null) {
             return getBitmapFromDrawable(drawable, drawable.getIntrinsicWidth(),
@@ -99,7 +99,7 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @Nullable static Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
+    public static @Nullable Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
         if (drawable != null) {
             return getBitmapFromDrawable(drawable, drawable.getIntrinsicWidth(),
                     drawable.getIntrinsicHeight(), false, 0);
@@ -223,7 +223,7 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @NonNull static Bitmap createBitmapFromView(@NonNull View view, int width, int height) {
+    public static @NonNull Bitmap createBitmapFromView(@NonNull View view, int width, int height) {
         if (width > 0 && height > 0) {
             view.measure(View.MeasureSpec.makeMeasureSpec(DynamicUnitUtils
                             .convertDpToPixels(width), View.MeasureSpec.EXACTLY),
@@ -252,7 +252,7 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public @NonNull static Bitmap createBitmapFromView(@NonNull View view) {
+    public static @NonNull Bitmap createBitmapFromView(@NonNull View view) {
         return createBitmapFromView(view, 0, 0);
     }
 }

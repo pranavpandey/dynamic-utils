@@ -7,7 +7,7 @@
 [![Download](https://api.bintray.com/packages/pranavpandey/android/dynamic-utils/images/download.svg)](https://bintray.com/pranavpandey/android/dynamic-utils/_latestVersion)
 
 A collection of static methods to perform various operations including color, device, drawable,
-package, tasks and sdk on Android 2.3 (API 9) and above devices.
+package and SDK on Android 2.3 (API 9) and above devices.
 
 >Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
 so, minimum SDK will be Android 4.0 (API 14).
@@ -62,7 +62,7 @@ for more hidden features.
 
 ### DynamicAnimUtils
 
-Helper class to perform animation related operations.
+Helper class to perform `animation` related operations.
 
 - `void playAnimation(view, animator)` - Play an animator animation on a view.
 
@@ -82,7 +82,7 @@ Helper class to perform bitmap operations.
 
 ### DynamicColorUtils
 
-Helper class to change colors dynamically.
+Helper class to change `colors` dynamically.
 
 - `@ColorInt int adjustAlpha(color, factor)` - Adjust alpha of a color according to the given
 parameter.
@@ -109,14 +109,14 @@ readability.
 
 ### DynamicDeviceUtils
 
-Helper class to detect device specific features like Telephony, etc.
+Helper class to detect `device` specific features like `Telephony`, etc.
 
 - `boolean hasTelephony(context)` - To detect if device has telephony feature or not by using
 PackageManager.
 
 ### DynamicDrawableUtils
 
-Helper class to perform Drawable operations.
+Helper class to perform `drawable` operations.
 
 - `void colorizeDrawable(drawable, wrap, color, mode)` - Colorize and return the mutated drawable
 so that, all other references do not change.
@@ -126,7 +126,7 @@ by detecting the Android SDK at runtime.
 
 ### DynamicLinkUtils
 
-A collection of functions to perform various operations on the URL or to generate intents.
+A collection of functions to perform various operations on the `URL` or to generate intents.
 
 - `void shareApp(context, title, message)` - Share application via system default share intent
 so that user can select from the available apps if more than one apps are available.
@@ -145,7 +145,7 @@ via email.
 
 ### DynamicPackageUtils
 
-Helper class to get package or app related information.
+Helper class to get `package` or app related information.
 
 - `ComponentName getComponentName(context)` - Get component name from the given context.
 
@@ -158,17 +158,9 @@ Helper class to get package or app related information.
 - `boolean isSystemApp(applicationInfo)` - To detect the given ApplicationInfo is a system app
 or not.
 
-### DynamicTaskUtils
-
-Helper class to easily execute or cancel an AsyncTask by handling all the exceptions.
-
-- `void cancelTask(asyncTask)` - Try to cancel the supplied AsyncTask.
-
-- `void executeTask(asyncTask)` - Try to execute the supplied AsyncTask.
-
 ### DynamicUnitUtils
 
-Helper class to perform unit conversions.
+Helper class to perform `unit` conversions.
 
 - `int convertDpToPixels(dp)` - To convert DP into pixels.
 
@@ -180,7 +172,7 @@ Helper class to perform unit conversions.
 
 ### DynamicSdkUtils
 
-Helper class to detect the Android SDK version at runtime so that we can provide the user
+Helper class to detect the Android `SDK` version at runtime so that we can provide the user
 experience accordingly. Pass `true` in the alternate method to check for equality.
 
 - `boolean is14()` - To detect if the current API version is 14 (Android 4.0) or above.
@@ -205,7 +197,7 @@ primary color on API 26 and above devices.
 
 ### DynamicWindowUtils
 
-Helper class to perform Window operations and to detect system configurations at runtime.
+Helper class to perform `window` operations and to detect system configurations at runtime.
 
 - `Point getAppUsableScreenSize(context)` - Get the app usable screen size.
 

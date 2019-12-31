@@ -56,7 +56,7 @@ public class DynamicViewUtils {
 
     /**
      * Checks whether the hide navigation flag is enabled for edge-to-edge content on API 23
-     * or above devices.
+     * and above devices.
      *
      * @param view The view to get the system ui flags.
      *
@@ -122,8 +122,12 @@ public class DynamicViewUtils {
      * @param view The view to be added.
      * @param removePrevious {@code true} to remove all the previous views of the view group.
      */
-    public static void addView(@NonNull ViewGroup viewGroup,
-            @NonNull View view, boolean removePrevious) {
+    public static void addView(@Nullable ViewGroup viewGroup,
+            @Nullable View view, boolean removePrevious) {
+        if (viewGroup == null) {
+            return;
+        }
+
         if (removePrevious && viewGroup.getChildCount() > 0) {
             viewGroup.removeAllViews();
         }

@@ -53,6 +53,11 @@ public class DynamicBitmapUtils {
             int width, int height, boolean compress, int quality) {
         if (drawable != null) {
             try {
+                if (width < 0 || height < 0) {
+                    width = 1;
+                    height = 1;
+                }
+
                 Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());

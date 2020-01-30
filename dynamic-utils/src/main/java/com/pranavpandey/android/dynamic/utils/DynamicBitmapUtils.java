@@ -205,7 +205,7 @@ public class DynamicBitmapUtils {
     }
 
     /**
-     * Extract the dominant color form the supplied bitmap.
+     * Extract the dominant color from the supplied bitmap.
      *
      * @param bitmap The bitmap to extract the dominant color.
      *

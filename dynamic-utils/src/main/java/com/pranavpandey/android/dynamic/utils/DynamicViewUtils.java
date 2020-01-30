@@ -132,7 +132,9 @@ public class DynamicViewUtils {
             viewGroup.removeAllViews();
         }
 
-        viewGroup.addView(view);
+        if (view != null) {
+            viewGroup.addView(view);
+        }
     }
 
     /**

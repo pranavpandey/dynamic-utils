@@ -18,7 +18,7 @@
 <resources>
 
     <!-- Share app -->
-    <string name="adu_share_to">分享&#8230;</string>
+    <string name="adu_share_to">通过&#8230;分享</string>
 
     <!-- Submit bug report -->
     <string name="adu_bug_desc">我遇到的错误或问题是&#8230;\n\n发生错误的频率如何？\n\n你使用的是什么ROM(定制/修改的ROM)，框架和内核？</string>

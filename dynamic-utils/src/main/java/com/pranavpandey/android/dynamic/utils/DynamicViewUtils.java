@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -158,24 +159,41 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Apply vertical window insets padding for the supplied view.
+     * Apply window insets padding for the supplied view.
      *
      * @param view The view to set the insets padding.
+     * @param left {@code true} to apply the left window inset padding.
+     * @param top {@code true} to apply the top window inset padding.
+     * @param right {@code true} to apply the right window inset padding.
+     * @param bottom {@code true} to apply the bottom window inset padding.
+     * @param consume {@code true} to consume the applied window insets.
      */
-    public static void applyWindowInsetsVertical(@Nullable View view) {
+    public static void applyWindowInsets(@Nullable View view, final boolean left,
+            final boolean top, final boolean right, final boolean bottom, final boolean consume) {
         if (view == null) {
             return;
         }
 
+        final int paddingLeft = view.getPaddingLeft();
         final int paddingTop = view.getPaddingTop();
+        final int paddingRight = view.getPaddingRight();
         final int paddingBottom = view.getPaddingBottom();
+
         ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                v.setPadding(v.getPaddingLeft(), paddingTop + insets.getSystemWindowInsetTop(),
-                        v.getPaddingRight(), paddingBottom + insets.getSystemWindowInsetBottom());
+                v.setPadding(left ? paddingLeft + insets.getSystemWindowInsetLeft(): paddingLeft,
+                        top ? paddingTop + insets.getSystemWindowInsetTop() : paddingTop,
+                        right ? paddingRight + insets.getSystemWindowInsetRight() : paddingRight,
+                        bottom ? paddingBottom + insets.getSystemWindowInsetBottom() : paddingBottom);
 
-                return insets;
+                return !consume ? insets :
+                        new WindowInsetsCompat.Builder(insets).setSystemWindowInsets(
+                                Insets.of(left ? 0 : insets.getSystemWindowInsetLeft(),
+                                        top ? 0 : insets.getSystemWindowInsetTop(),
+                                        right ? 0 : insets.getSystemWindowInsetRight(),
+                                        bottom ? 0 : insets.getSystemWindowInsetBottom()))
+                                .build();
             }
         });
 
@@ -186,60 +204,60 @@ public class DynamicViewUtils {
      * Apply horizontal window insets padding for the supplied view.
      *
      * @param view The view to set the insets padding.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
      */
-    public static void applyWindowInsetsHorizontal(@Nullable View view, final boolean consume) {
-        if (view == null) {
-            return;
-        }
+    public static void applyWindowInsetsHorizontal(@Nullable View view, boolean consume) {
+        applyWindowInsets(view, true, false, true, false, consume);
+    }
 
-        final int paddingLeft = view.getPaddingLeft();
-        final int paddingRight = view.getPaddingRight();
-        ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                v.setPadding(paddingLeft + insets.getSystemWindowInsetLeft(),
-                        v.getPaddingTop(), paddingRight + insets.getSystemWindowInsetRight(),
-                        v.getPaddingBottom());
-
-                return !consume ? insets : insets.replaceSystemWindowInsets(
-                        0, insets.getSystemWindowInsetTop(),
-                        0, insets.getSystemWindowInsetBottom());
-            }
-        });
-
-        requestApplyWindowInsets(view);
+    /**
+     * Apply vertical window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsVertical(@Nullable View view, boolean consume) {
+        applyWindowInsets(view, false, true, false, true, consume);
     }
 
     /**
      * Apply bottom window insets padding for the supplied view.
      *
      * @param view The view to set the insets padding.
+     *
+     * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
      */
     public static void applyWindowInsetsBottom(@Nullable View view) {
-        if (view == null) {
-            return;
-        }
-
-        final int paddingBottom = view.getPaddingBottom();
-        ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                        paddingBottom + insets.getSystemWindowInsetBottom());
-
-                return insets;
-            }
-        });
-
-        requestApplyWindowInsets(view);
+        applyWindowInsets(view, false, false, false, true, false);
     }
 
     /**
-     * Apply bottom window insets margin for the supplied view.
+     * Apply horizontal and bottom window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     *
+     * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsHorizontalBottom(@Nullable View view) {
+        applyWindowInsets(view, true, false, true, true, false);
+    }
+
+    /**
+     * Apply window insets margin for the supplied view.
      *
      * @param view The view to set the insets margin.
+     * @param left {@code true} to apply the left window inset margin.
+     * @param top {@code true} to apply the top window inset margin.
+     * @param right {@code true} to apply the right window inset margin.
+     * @param bottom {@code true} to apply the bottom window inset margin.
+     * @param consume {@code true} to consume the applied window margin.
      */
-    public static void applyWindowInsetsBottomMargin(@Nullable View view) {
+    public static void applyWindowInsetsMargin(@Nullable View view, final boolean left,
+            final boolean top, final boolean right, final boolean bottom, final boolean consume) {
         if (view == null) {
             return;
         }
@@ -247,20 +265,88 @@ public class DynamicViewUtils {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             final ViewGroup.MarginLayoutParams layoutParams =
                     (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            final int rightMargin = layoutParams.rightMargin;
-            final int bottomMargin = layoutParams.bottomMargin;
+
+            final int marginLeft = layoutParams.leftMargin;
+            final int marginTop = layoutParams.topMargin;
+            final int marginRight = layoutParams.rightMargin;
+            final int marginBottom = layoutParams.bottomMargin;
+
             ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                    layoutParams.rightMargin = rightMargin + insets.getSystemWindowInsetRight();
-                    layoutParams.bottomMargin = bottomMargin + insets.getSystemWindowInsetBottom();
+                    if (left) {
+                        layoutParams.leftMargin = marginLeft
+                                + insets.getSystemWindowInsetLeft();
+                    }
+                    if (top) {
+                        layoutParams.topMargin = marginTop
+                                + insets.getSystemWindowInsetTop();
+                    }
+                    if (right) {
+                        layoutParams.rightMargin = marginRight
+                                + insets.getSystemWindowInsetRight();
+                    }
+                    if (bottom) {
+                        layoutParams.bottomMargin = marginBottom
+                                + insets.getSystemWindowInsetBottom();
+                    }
 
-                    return insets;
+                    return !consume ? insets :
+                            new WindowInsetsCompat.Builder(insets).setSystemWindowInsets(
+                                    Insets.of(left ? 0 : insets.getSystemWindowInsetLeft(),
+                                            top ? 0 : insets.getSystemWindowInsetTop(),
+                                            right ? 0 : insets.getSystemWindowInsetRight(),
+                                            bottom ? 0 : insets.getSystemWindowInsetBottom()))
+                                    .build();
                 }
             });
         }
+    }
 
-        requestApplyWindowInsets(view);
+    /**
+     * Apply horizontal window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsMarginHorizontal(@Nullable View view, boolean consume) {
+        applyWindowInsetsMargin(view, true, false, true, false, consume);
+    }
+
+    /**
+     * Apply vertical window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsMarginVertical(@Nullable View view, boolean consume) {
+        applyWindowInsetsMargin(view, false, true, false, true, consume);
+    }
+
+    /**
+     * Apply bottom window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     *
+     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsMarginBottom(@Nullable View view) {
+        applyWindowInsetsMargin(view, false, false, false, true, false);
+    }
+
+    /**
+     * Apply horizontal and bottom window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     *
+     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsMarginHorizontalBottom(@Nullable View view) {
+        applyWindowInsetsMargin(view, true, false, true, true, false);
     }
 
     /**

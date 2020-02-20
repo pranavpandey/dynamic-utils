@@ -20,6 +20,8 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -372,6 +374,27 @@ public class DynamicViewUtils {
                 @Override
                 public void onViewDetachedFromWindow(View view) { }
             });
+        }
+    }
+
+    /**
+     * Equivalent to calling {@link TextView#setTextSize(int, float)}.
+     *
+     * @param remoteViews The remote views to set the text size.
+     * @param viewId The id of the view whose text size should change.
+     * @param units The units of size (e.g. COMPLEX_UNIT_SP).
+     * @param size The size of the text.
+     */
+    public static void setTextViewTextSize(@Nullable RemoteViews remoteViews,
+            int viewId, int units, float size) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        if (DynamicSdkUtils.is16()) {
+            remoteViews.setTextViewTextSize(viewId, units, size);
+        } else {
+            remoteViews.setFloat(viewId, "setTextSize", size);
         }
     }
 }

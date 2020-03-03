@@ -76,17 +76,17 @@ public class DynamicFileUtils {
     /**
      * Constant for the default data directory.
      */
-    public static final String DEFAULT_DIR_DATA = "data";
+    public static final String ADU_DEFAULT_DIR_DATA = "data";
 
     /**
      * Constant for the default temp directory.
      */
-    public static final String DEFAULT_DIR_TEMP = "temp";
+    public static final String ADU_DEFAULT_DIR_TEMP = "temp";
 
     /**
      * Constant for the {@code application/octet-stream} mime type.
      */
-    public static final String MIME_OCTET_STREAM = "application/octet-stream";
+    public static final String ADU_MIME_OCTET_STREAM = "application/octet-stream";
 
     /**
      * Returns the default {@code temp} directory for a context.
@@ -99,9 +99,9 @@ public class DynamicFileUtils {
         }
 
         return context.getExternalFilesDir(null).getPath()
-                + File.separator + DEFAULT_DIR_DATA
+                + File.separator + ADU_DEFAULT_DIR_DATA
                 + File.separator + context.getPackageName()
-                + File.separator + DEFAULT_DIR_TEMP + File.separator;
+                + File.separator + ADU_DEFAULT_DIR_TEMP + File.separator;
     }
 
     /**
@@ -621,12 +621,12 @@ public class DynamicFileUtils {
             if (intent.getParcelableExtra(Intent.EXTRA_STREAM) != null) {
                 validMime = isValidMimeType(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM),
-                        MIME_OCTET_STREAM, extension)
+                        ADU_MIME_OCTET_STREAM, extension)
                         && isValidExtension(getFileNameFromUri(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM)), extension);
             } else {
                 validMime = isValidMimeType(context, intent.getData(),
-                        MIME_OCTET_STREAM, extension) && isValidExtension(
+                        ADU_MIME_OCTET_STREAM, extension) && isValidExtension(
                                 getFileNameFromUri(context, intent.getData()), extension);
             }
         }
@@ -660,7 +660,7 @@ public class DynamicFileUtils {
         }
 
         if (!validMime) {
-            validMime = MIME_OCTET_STREAM.equals(type)
+            validMime = ADU_MIME_OCTET_STREAM.equals(type)
                     && isValidExtension(getFileNameFromUri(context, uri), extension);
         }
 

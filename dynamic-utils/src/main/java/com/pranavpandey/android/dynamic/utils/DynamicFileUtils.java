@@ -655,6 +655,9 @@ public class DynamicFileUtils {
         String type = context.getApplicationContext().getContentResolver().getType(uri);
         validMime = mimeType.equals(type);
 
+        if (type == null) {
+            validMime = true;
+        }
 
         if (!validMime) {
             validMime = MIME_OCTET_STREAM.equals(type)

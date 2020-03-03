@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Pranav Pandey
+ * Copyright 2020 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -230,11 +230,35 @@ public class DynamicViewUtils {
      * Apply bottom window insets padding for the supplied view.
      *
      * @param view The view to set the insets padding.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsBottom(@Nullable View view, boolean consume) {
+        applyWindowInsets(view, false, false, false, true, consume);
+    }
+
+    /**
+     * Apply bottom window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
      *
      * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
      */
     public static void applyWindowInsetsBottom(@Nullable View view) {
-        applyWindowInsets(view, false, false, false, true, false);
+        applyWindowInsetsBottom(view, false);
+    }
+
+    /**
+     * Apply horizontal and bottom window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsHorizontalBottom(@Nullable View view, boolean consume) {
+        applyWindowInsets(view, true, false, true, true, consume);
     }
 
     /**
@@ -245,7 +269,7 @@ public class DynamicViewUtils {
      * @see #applyWindowInsets(View, boolean, boolean, boolean, boolean, boolean)
      */
     public static void applyWindowInsetsHorizontalBottom(@Nullable View view) {
-        applyWindowInsets(view, true, false, true, true, false);
+        applyWindowInsetsHorizontalBottom(view, false);
     }
 
     /**

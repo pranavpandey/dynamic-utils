@@ -173,6 +173,13 @@ public class DynamicColorUtils {
      * @return The lighter color.
      */
     public static @ColorInt int getLighterColor(@ColorInt int color, float amount) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        if (hsv[2] == 0) {
+            hsv[2] = VISIBLE_CONTRAST / 10;
+            color = Color.HSVToColor(Color.alpha(color), hsv);
+        }
+
         int red = (int) ((Color.red(color) * (1 - amount) / 255 + amount) * 255);
         int green = (int) ((Color.green(color) * (1 - amount) / 255 + amount) * 255);
         int blue = (int) ((Color.blue(color) * (1 - amount) / 255 + amount) * 255);
@@ -209,6 +216,7 @@ public class DynamicColorUtils {
      */
     public static @ColorInt int shiftColor(@ColorInt int color,
             @FloatRange(from = 0.0f, to = 2.0f) float by) {
+        int alpha = Color.alpha(color);
         if (by == 1f) {
             return color;
         }
@@ -216,7 +224,7 @@ public class DynamicColorUtils {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] *= by;
-        return Color.HSVToColor(hsv);
+        return Color.HSVToColor(alpha, hsv);
     }
 
     /**

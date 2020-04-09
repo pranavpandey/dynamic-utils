@@ -16,11 +16,13 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
@@ -42,6 +44,7 @@ public class DynamicDrawableUtils {
      *
      * @see DynamicSdkUtils
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
         if (DynamicSdkUtils.is16()) {
             view.setBackground(drawable);

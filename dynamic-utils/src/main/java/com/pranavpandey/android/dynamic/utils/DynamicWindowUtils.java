@@ -16,9 +16,11 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Surface;
@@ -67,6 +69,7 @@ public class DynamicWindowUtils {
      * @see Context#WINDOW_SERVICE
      * @see Point
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static @NonNull Point getRealScreenSize(@NonNull Context context) {
         Point size = new Point();
         WindowManager windowManager =

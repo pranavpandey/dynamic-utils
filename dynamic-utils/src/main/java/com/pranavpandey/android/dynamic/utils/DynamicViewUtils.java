@@ -409,6 +409,7 @@ public class DynamicViewUtils {
      * @param units The units of size (e.g. COMPLEX_UNIT_SP).
      * @param size The size of the text.
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setTextViewTextSize(@Nullable RemoteViews remoteViews,
             int viewId, int units, float size) {
         if (remoteViews == null) {

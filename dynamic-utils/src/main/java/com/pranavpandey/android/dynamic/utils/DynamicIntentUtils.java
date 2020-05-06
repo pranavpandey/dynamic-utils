@@ -16,6 +16,8 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -26,6 +28,75 @@ import androidx.annotation.Nullable;
  * Helper class to perform {@link Intent} operations.
  */
 public class DynamicIntentUtils {
+
+    /**
+     * Returns the intent for the supplied class and flags.
+     *
+     * @param context The context to create the intent.
+     * @param clazz The class for which the intent to be created.
+     * @param flags intent flags to be set.
+     *
+     * @see Intent#setComponent(ComponentName)
+     * @see Intent#addFlags(int)
+     *
+     * @return The intent for the supplied class and flags.
+     */
+    public static @NonNull Intent getIntent(@NonNull Context context,
+            @NonNull Class<?> clazz, int flags) {
+        Intent intent = new Intent(context, clazz);
+        intent.setComponent(new ComponentName(context, clazz));
+        intent.addFlags(flags);
+
+        return intent;
+    }
+
+    /**
+     * Returns the intent for the supplied class.
+     *
+     * @param context The context to create the intent.
+     * @param clazz The class for which the intent to be created.
+     *
+     * @see #getIntent(Context, Class, int)
+     *
+     * @return The intent for the supplied class.
+     */
+    public static @NonNull Intent getIntent(@NonNull Context context, @NonNull Class<?> clazz) {
+        return getIntent(context, clazz, 0);
+    }
+
+    /**
+     * Returns the activity intent for the supplied class.
+     *
+     * @param context The context to create the intent.
+     * @param clazz The activity class for which the intent to be created.
+     *
+     * @see Intent#FLAG_ACTIVITY_NEW_TASK
+     * @see Intent#FLAG_ACTIVITY_CLEAR_TOP
+     * @see #getIntent(Context, Class, int)
+     *
+     * @return The activity intent for the supplied class.
+     */
+    public static @NonNull Intent getActivityIntent(
+            @NonNull Context context, @NonNull Class<?> clazz) {
+        return getIntent(context, clazz, Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    }
+
+    /**
+     * Returns the activity intent for the supplied class to get the result.
+     *
+     * @param context The context to create the intent.
+     * @param clazz The activity class for which the intent to be created.
+     *
+     * @see Intent#FLAG_ACTIVITY_CLEAR_TOP
+     * @see #getIntent(Context, Class, int)
+     *
+     * @return The activity intent for the supplied class to get the result.
+     */
+    public @NonNull static Intent getActivityIntentForResult(
+            @NonNull Context context, @NonNull Class<?> clazz) {
+        return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    }
 
     /**
      * Returns the intent stream or data uri according to the supplied action.

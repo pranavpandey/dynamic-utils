@@ -23,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -411,7 +413,7 @@ public class DynamicViewUtils {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setTextViewTextSize(@Nullable RemoteViews remoteViews,
-            int viewId, int units, float size) {
+            @IdRes int viewId, int units, float size) {
         if (remoteViews == null) {
             return;
         }
@@ -421,5 +423,76 @@ public class DynamicViewUtils {
         } else {
             remoteViews.setFloat(viewId, "setTextSize", size);
         }
+    }
+
+    /**
+     * Set the alpha for the remote views.
+     *
+     * @param remoteViews The remote views to set the alpha.
+     * @param viewId The id of the view whose alpha to be set.
+     * @param alpha The alpha value to be set.
+     *
+     * @see RemoteViews#setInt(int, String, int)
+     */
+    public static void setAlpha(@Nullable RemoteViews remoteViews, @IdRes int viewId, int alpha) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setInt(viewId, "setAlpha", alpha);
+    }
+
+    /**
+     * Set the enabled state for the remote views.
+     *
+     * @param remoteViews The remote views to set the enabled state.
+     * @param viewId The id of the view whose enabled state to be set.
+     * @param enabled {@code true} to enable the view.
+     *
+     * @see RemoteViews#setBoolean(int, String, boolean)
+     */
+    public static void setEnabled(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, boolean enabled) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setBoolean(viewId, "setEnabled", enabled);
+    }
+
+    /**
+     * Set the background color for the remote views.
+     *
+     * @param remoteViews The remote views to set the background color.
+     * @param viewId The id of the view whose background color to be set.
+     * @param color The color value to be set.
+     *
+     * @see RemoteViews#setInt(int, String, int)
+     */
+    public static void setBackgroundColor(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @ColorInt int color) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setInt(viewId, "setBackgroundColor", color);
+    }
+
+    /**
+     * Set the color filter for the remote views.
+     *
+     * @param remoteViews The remote views to set the color filter.
+     * @param viewId The id of the view whose color filter to be set.
+     * @param color The color value to be set.
+     *
+     * @see RemoteViews#setInt(int, String, int)
+     */
+    public static void setColorFilter(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @ColorInt int color) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setInt(viewId, "setColorFilter", color);
     }
 }

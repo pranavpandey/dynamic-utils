@@ -229,6 +229,9 @@ public class DynamicBitmapUtils {
      * @return The bitmap from the supplied drawable.
      */
     public static @NonNull Bitmap createBitmapFromView(@NonNull View view, int width, int height) {
+        final int oldWidth = view.getWidth();
+        final int oldHeight = view.getHeight();
+
         if (width > 0 && height > 0) {
             view.measure(View.MeasureSpec.makeMeasureSpec(DynamicUnitUtils
                             .convertDpToPixels(width), View.MeasureSpec.EXACTLY),
@@ -245,7 +248,11 @@ public class DynamicBitmapUtils {
         if (background != null) {
             background.draw(canvas);
         }
+
         view.draw(canvas);
+        view.measure(View.MeasureSpec.makeMeasureSpec(oldWidth, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(oldHeight, View.MeasureSpec.EXACTLY));
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
 
         return bitmap;
     }

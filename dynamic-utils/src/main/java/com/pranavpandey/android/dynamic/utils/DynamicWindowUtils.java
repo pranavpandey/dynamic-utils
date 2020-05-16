@@ -252,6 +252,7 @@ public class DynamicWindowUtils {
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_OVERLAY
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_ALERT
      */
+    @TargetApi(Build.VERSION_CODES.O)
     public static int getOverlayFlag(boolean alert) {
         return DynamicSdkUtils.is26()
                 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY

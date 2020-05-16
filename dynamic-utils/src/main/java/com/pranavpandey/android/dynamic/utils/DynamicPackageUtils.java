@@ -39,9 +39,12 @@ public class DynamicPackageUtils {
      * @return {@code true} if the given package name exits.
      */
     public static boolean isPackageExists(@NonNull Context context, @Nullable String packageName) {
-        PackageManager packageManager = context.getPackageManager();
+        if (packageName == null) {
+            return false;
+        }
+
         try {
-            packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA);
+            context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
@@ -74,8 +77,12 @@ public class DynamicPackageUtils {
      */
     public static @Nullable CharSequence getAppLabel(@NonNull Context context,
             @Nullable String packageName) {
-        PackageManager packageManager = context.getPackageManager();
+        if (packageName == null) {
+            return null;
+        }
+
         try {
+            PackageManager packageManager = context.getPackageManager();
             return packageManager.getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).applicationInfo.loadLabel(packageManager);
         } catch (Exception e) {
@@ -108,6 +115,10 @@ public class DynamicPackageUtils {
      */
     public static @Nullable String getAppVersion(@NonNull Context context,
             @Nullable String packageName) {
+        if (packageName == null) {
+            return null;
+        }
+
         try {
             return context.getPackageManager().getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).versionName;
@@ -141,8 +152,12 @@ public class DynamicPackageUtils {
      */
     public static @Nullable Drawable getAppIcon(@NonNull Context context,
             @Nullable String packageName) {
-        PackageManager packageManager = context.getPackageManager();
+        if (packageName == null) {
+            return null;
+        }
+
         try {
+            PackageManager packageManager = context.getPackageManager();
             return packageManager.getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).applicationInfo.loadIcon(packageManager);
         } catch (Exception e) {

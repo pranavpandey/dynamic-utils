@@ -19,6 +19,7 @@ package com.pranavpandey.android.dynamic.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -78,8 +79,8 @@ public class DynamicIntentUtils {
      */
     public static @NonNull Intent getActivityIntent(
             @NonNull Context context, @NonNull Class<?> clazz) {
-        return getIntent(context, clazz, Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**
@@ -93,7 +94,7 @@ public class DynamicIntentUtils {
      *
      * @return The activity intent for the supplied class to get the result.
      */
-    public @NonNull static Intent getActivityIntentForResult(
+    public static @NonNull Intent getActivityIntentForResult(
             @NonNull Context context, @NonNull Class<?> clazz) {
         return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
@@ -120,5 +121,22 @@ public class DynamicIntentUtils {
         }
 
         return intent.getData();
+    }
+
+    /**
+     * Checks whether the supplied intent has at least one activity to handle it.
+     *
+     * @param context The context to ge the package manager.
+     * @param intent The intent to be resolved.
+     *
+     * @return {@code true} if the supplied intent has at least one activity to handle it.
+     */
+    public static boolean isActivityResolved(@NonNull Context context, @Nullable Intent intent) {
+        if (intent == null) {
+            return false;
+        }
+
+        return (context.getPackageManager().resolveActivity(
+                intent, PackageManager.MATCH_DEFAULT_ONLY) != null);
     }
 }

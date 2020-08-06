@@ -216,6 +216,7 @@ Helper class to perform `window` operations and to detect system configurations 
 - Hindi (hi) - Siddh Narhari
 - Indonesian (in) - Gamal Kevin A
 - Italian (it) - Nicola
+- Russian (ru) - Maxim Anisimov
 - Spanish (es) - Dave
 - Turkish (tr) - Fatih Fırıncı
 - Chinese (Simplified) (zh-rCN) - John Canny

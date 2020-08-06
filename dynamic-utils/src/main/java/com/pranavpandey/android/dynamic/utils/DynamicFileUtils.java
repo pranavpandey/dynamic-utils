@@ -16,12 +16,14 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
@@ -48,7 +50,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Helper class to perform various file operations.
+ * Helper class to perform various {@link File} operations.
  *
  * <p><p>A {@link FileProvider} in the form of {@code ${applicationId}.FileProvider} must be
  * added in the {@code manifest} to perform some operations automatically like saving the
@@ -268,10 +270,10 @@ public class DynamicFileUtils {
     public static void unzip(@NonNull File zip, @NonNull File extractTo)
             throws SecurityException, IOException {
         ZipFile archive = new ZipFile(zip);
-        Enumeration e = archive.entries();
+        Enumeration<? extends ZipEntry> entries = archive.entries();
 
-        while (e.hasMoreElements()) {
-            ZipEntry entry = (ZipEntry) e.nextElement();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
             File file = new File(extractTo, entry.getName());
 
             if (!file.getCanonicalPath().startsWith(extractTo.getCanonicalPath())) {
@@ -354,7 +356,6 @@ public class DynamicFileUtils {
                     cursor.moveToFirst();
                     fileName = cursor.getString(nameIndex);
                 }
-            } catch (Exception ignored) {
             } finally {
                 if (cursor != null) {
                     cursor.close();
@@ -388,18 +389,21 @@ public class DynamicFileUtils {
                 FileInputStream input = new FileInputStream(source);
                 OutputStream output = new FileOutputStream(destination
                         + File.separator + outputFileName);
-                byte[] buffer = new byte[1024];
-                int length;
 
-                while ((length = input.read(buffer)) > 0) {
-                    output.write(buffer, 0, length);
+                try {
+                    byte[] buffer = new byte[1024];
+                    int length;
+
+                    while ((length = input.read(buffer)) > 0) {
+                        output.write(buffer, 0, length);
+                    }
+
+                    success = true;
+                } finally {
+                    output.flush();
+                    output.close();
+                    input.close();
                 }
-
-                output.flush();
-                output.close();
-                input.close();
-
-                success = true;
             }
         } catch (Exception ignored) {
         }
@@ -413,11 +417,13 @@ public class DynamicFileUtils {
      * @param context The context to get content resolver.
      * @param sourceUri The source file uri.
      * @param destinationUri The destination file uri.
+     * @param mode Mode for the destination file.
+     *             <p>May be "w", "wa", "rw", or "rwt".
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeToFile(@NonNull Context context,
-            @Nullable Uri sourceUri, @Nullable Uri destinationUri) {
+    public static boolean writeToFile(@NonNull Context context, 
+            @Nullable Uri sourceUri, @Nullable Uri destinationUri, @NonNull String mode) {
         if (sourceUri == null || destinationUri == null) {
             return false;
         }
@@ -427,28 +433,48 @@ public class DynamicFileUtils {
         try {
             InputStream input = context.getContentResolver().openInputStream(sourceUri);
             ParcelFileDescriptor pfdDestination = context.getContentResolver().
-                    openFileDescriptor(destinationUri, "w");
+                    openFileDescriptor(destinationUri, mode);
 
             if (input != null && pfdDestination != null) {
                 OutputStream output = new FileOutputStream(pfdDestination.getFileDescriptor());
-                byte[] buffer = new byte[1024];
-                int length;
 
-                while ((length = input.read(buffer)) > 0) {
-                    output.write(buffer, 0, length);
+                try {
+                    byte[] buffer = new byte[1024];
+                    int length;
+
+                    while ((length = input.read(buffer)) > 0) {
+                        output.write(buffer, 0, length);
+                    }
+
+                    success = true;
+                } finally {
+                    output.flush();
+                    output.close();
+                    input.close();
+                    pfdDestination.close();
                 }
-
-                output.flush();
-                output.close();
-                input.close();
-                pfdDestination.close();
-
-                success = true;
             }
         } catch (Exception ignored) {
         }
 
         return success;
+    }
+
+    /**
+     * Writes a file uri from the source to destination in "rwt" mode which truncates all the 
+     * previous content if the destination uri already exists.
+     *
+     * @param context The context to get content resolver.
+     * @param sourceUri The source file uri.
+     * @param destinationUri The destination file uri.
+     *
+     * @return {@code true} if the file has been written successfully.
+     * 
+     * @see #writeToFile(Context, Uri, Uri, String) 
+     */
+    public static boolean writeToFile(@NonNull Context context, 
+            @Nullable Uri sourceUri, @Nullable Uri destinationUri) {
+        return writeToFile(context, sourceUri, destinationUri, "rwt");
     }
 
     /**
@@ -458,11 +484,13 @@ public class DynamicFileUtils {
      * @param data The string data to be written.
      * @param sourceUri The source file uri.
      * @param destinationUri The destination file uri.
+     * @param mode Mode for the destination file.
+     *             <p>May be "w", "wa", "rw", or "rwt".
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeStringToFile(@NonNull Context context,
-            @Nullable String data, @Nullable Uri sourceUri, @Nullable Uri destinationUri) {
+    public static boolean writeStringToFile(@NonNull Context context, @Nullable String data, 
+            @Nullable Uri sourceUri, @Nullable Uri destinationUri, @NonNull String mode) {
         if (sourceUri == null) {
             return false;
         }
@@ -471,18 +499,20 @@ public class DynamicFileUtils {
 
         try {
             ParcelFileDescriptor pfdDestination = context.getContentResolver().
-                    openFileDescriptor(sourceUri, "w");
+                    openFileDescriptor(sourceUri, mode);
 
             if (pfdDestination != null) {
                 OutputStream output = new FileOutputStream(pfdDestination.getFileDescriptor());
 
-                if (data != null) {
-                    output.write(data.getBytes());
+                try {
+                    if (data != null) {
+                        output.write(data.getBytes());
+                    }
+                } finally {
+                    output.flush();
+                    output.close();
+                    pfdDestination.close();
                 }
-
-                output.flush();
-                output.close();
-                pfdDestination.close();
             }
 
             if (destinationUri != null) {
@@ -497,6 +527,24 @@ public class DynamicFileUtils {
     }
 
     /**
+     * Writes a string data to file uri from the source to destination in "rwt" mode which 
+     * truncates all the previous content if the destination uri already exists.
+     *
+     * @param context The context to get content resolver.
+     * @param data The string data to be written.
+     * @param sourceUri The source file uri.
+     * @param destinationUri The destination file uri.
+     *
+     * @return {@code true} if the file has been written successfully.
+     * 
+     * @see #writeStringToFile(Context, String, Uri, Uri, String) 
+     */
+    public static boolean writeStringToFile(@NonNull Context context, 
+            @Nullable String data, @Nullable Uri sourceUri, @Nullable Uri destinationUri) {
+        return writeStringToFile(context, data, sourceUri, destinationUri, "rwt");
+    }
+
+    /**
      * Writes a string data to file uri.
      *
      * @param context The context to get content resolver.
@@ -504,6 +552,8 @@ public class DynamicFileUtils {
      * @param sourceUri The source file uri.
      *
      * @return {@code true} if the file has been written successfully.
+     * 
+     * @see #writeStringToFile(Context, String, Uri, Uri)
      */
     public static boolean writeStringToFile(@NonNull Context context,
             @Nullable String data, @Nullable Uri sourceUri) {
@@ -520,29 +570,31 @@ public class DynamicFileUtils {
      */
     public static @Nullable String readStringFromFile(
             @NonNull Context context, @NonNull Uri fileUri) {
+        String string = null;
+
         try {
             InputStream input = context.getContentResolver().openInputStream(fileUri);
 
             if (input != null) {
-                InputStreamReader inputReader = new InputStreamReader(input);
-                BufferedReader bufferedReader = new BufferedReader(inputReader);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
                 StringBuilder stringBuilder = new StringBuilder();
 
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
+                try {
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                    }
+                } finally {
+                    input.close();
+                    bufferedReader.close();
                 }
 
-                input.close();
-                inputReader.close();
-                bufferedReader.close();
-
-                return stringBuilder.toString();
+                string = stringBuilder.toString();
             }
         } catch (Exception ignored) {
         }
 
-        return null;
+        return string;
     }
 
     /**
@@ -651,16 +703,12 @@ public class DynamicFileUtils {
         }
 
         boolean validMime;
-
         String type = context.getApplicationContext().getContentResolver().getType(uri);
+
         validMime = mimeType.equals(type);
 
-        if (type == null) {
-            validMime = true;
-        }
-
         if (!validMime) {
-            validMime = ADU_MIME_OCTET_STREAM.equals(type)
+            validMime = (type == null || ADU_MIME_OCTET_STREAM.equals(type))
                     && isValidExtension(getFileNameFromUri(context, uri), extension);
         }
 
@@ -739,14 +787,14 @@ public class DynamicFileUtils {
      * Returns an intent to request a storage location for the supplied file.
      *
      * @param context The context to get the file uri.
-     * @param file The file to request the storage location.
+     * @param file The file uri to request the storage location.
      * @param mimeType The mime type of the file.
      *
      * @return The intent to request a storage location for the supplied file.
      */
-    public static Intent getSaveToFileIntent(@NonNull Context context,
-            @NonNull File file, @NonNull String mimeType) {
-        Uri uri = getUriFromFile(context, file);
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static @NonNull Intent getSaveToFileIntent(@NonNull Context context,
+            @Nullable Uri file, @NonNull String mimeType) {
         Intent intent;
 
         if (DynamicSdkUtils.is19()) {
@@ -756,14 +804,29 @@ public class DynamicFileUtils {
         }
 
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.putExtra(Intent.EXTRA_TITLE, file.getName());
+        intent.putExtra(Intent.EXTRA_TITLE, getFileNameFromUri(context, file));
         intent.setType(mimeType);
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.putExtra(Intent.EXTRA_STREAM, file);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                 | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                 | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
         return intent;
+    }
+
+    /**
+     * Returns an intent to request a storage location for the supplied file.
+     *
+     * @param context The context to get the file uri.
+     * @param file The file to request the storage location.
+     * @param mimeType The mime type of the file.
+     *
+     * @return The intent to request a storage location for the supplied file.
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static @NonNull Intent getSaveToFileIntent(@NonNull Context context,
+            @NonNull File file, @NonNull String mimeType) {
+        return getSaveToFileIntent(context, getUriFromFile(context, file), mimeType);
     }
 
     /**
@@ -773,6 +836,7 @@ public class DynamicFileUtils {
      *
      * @return The intent intent to select a file according to the mime type.
      */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static Intent getFileSelectIntent(@NonNull String mimeType) {
         Intent intent;
 

@@ -21,6 +21,8 @@ import android.graphics.Color;
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 import androidx.core.graphics.ColorUtils;
 
 import java.util.Random;
@@ -154,7 +156,7 @@ public class DynamicColorUtils {
      *
      * @param color The color whose XyzLuma to be calculated.
      *
-     * @return The luma value according to XYZ color space in the range {@code 0.0 - 1.0}.
+     * @return The luma value according to XYZ color space in the range {@code 0 - 1f}.
      */
     private static float calculateXyzLuma(@ColorInt int color) {
         return (0.2126f * Color.red(color)
@@ -215,7 +217,7 @@ public class DynamicColorUtils {
      * @return The shifted color.
      */
     public static @ColorInt int shiftColor(@ColorInt int color,
-            @FloatRange(from = 0.0f, to = 2.0f) float by) {
+            @FloatRange(from = 0f, to = 2f) float by) {
         int alpha = Color.alpha(color);
         if (by == 1f) {
             return color;
@@ -238,8 +240,8 @@ public class DynamicColorUtils {
      * @return The shifted color.
      */
     public static @ColorInt int shiftColor(@ColorInt int color,
-            @FloatRange(from = 0.0f, to = 2.0f) float shiftLightBy,
-            @FloatRange(from = 0.0f, to = 2.0f) float shiftDarkBy) {
+            @FloatRange(from = 0f, to = 2f) float shiftLightBy,
+            @FloatRange(from = 0f, to = 2f) float shiftDarkBy) {
         return shiftColor(color, isColorDark(color) ? shiftDarkBy : shiftLightBy);
     }
 
@@ -321,8 +323,8 @@ public class DynamicColorUtils {
      * @return The state color.
      */
     public static @ColorInt int getStateColor(@ColorInt int color,
-            @FloatRange(from = 0.0f, to = 1.0f) float lightenBy,
-            @FloatRange(from = 0.0f, to = 1.0f) float darkenBy) {
+            @FloatRange(from = 0f, to = 1f) float lightenBy,
+            @FloatRange(from = 0f, to = 1f) float darkenBy) {
         return isColorDark(color) ? getLighterColor(color, lightenBy)
                 : getDarkerColor(color, darkenBy);
     }
@@ -386,5 +388,43 @@ public class DynamicColorUtils {
         }
 
         return colorString;
+    }
+
+    /**
+     * Generate the color integer from the CMYK color space.
+     *
+     * @param cyan The cyan color component of the CMYK color space.
+     * @param magenta The magenta color component of the CMYK color space.
+     * @param yellow The yellow color component of the CMYK color space.
+     * @param black The black color component of the CMYK color space.
+     *
+     * @return The generated color integer from the CMYK color space.
+     */
+    public static @ColorInt int CMYKToRGB(@FloatRange(from = 0f, to = 100f) float cyan,
+            @FloatRange(from = 0f, to = 100f) float magenta,
+            @FloatRange(from = 0f, to = 100f) float yellow,
+            @FloatRange(from = 0f, to = 100f) float black) {
+        float red = 255 * (1f - (cyan / 100f)) * (1f - (black / 100f));
+        float green = 255 * (1f - (magenta / 100f)) * (1f - (black / 100f));
+        float blue = 255 * (1f - (yellow / 100f)) * (1f - (black / 100f));
+
+        return Color.rgb(Math.round(red), Math.round(green), Math.round(blue));
+    }
+
+    /**
+     * Generate the CMYK color space from the color integer.
+     *
+     * @param color The color to generate the CMYK color space.
+     * @param cmyk The array to store the CMYK color space.
+     */
+    public static void colorToCMYK(@ColorInt int color, @NonNull @Size(value = 4) float[] cmyk) {
+        float red = Color.red(color) / 255f;
+        float green = Color.green(color) / 255f;
+        float blue = Color.blue(color) / 255f;
+
+        cmyk[3] = 1f - Math.max(Math.max(red, green), blue);
+        cmyk[0] = (1f - red - cmyk[3]) / (1f - cmyk[3]);
+        cmyk[1] = (1f - green - cmyk[3]) / (1f - cmyk[3]);
+        cmyk[2] = (1f - blue - cmyk[3]) / (1f - cmyk[3]);
     }
 }

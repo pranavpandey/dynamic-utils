@@ -206,10 +206,6 @@ public class DynamicWindowUtils {
                 (rotation == Surface.ROTATION_90
                         || rotation == Surface.ROTATION_270) && width > height) {
             switch (rotation) {
-                default:
-                case Surface.ROTATION_0:
-                    orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-                    break;
                 case Surface.ROTATION_90:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     break;
@@ -218,14 +214,14 @@ public class DynamicWindowUtils {
                     break;
                 case Surface.ROTATION_270:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+                    break;
+                case Surface.ROTATION_0:
+                default:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                     break;
             }
         } else {
             switch (rotation) {
-                default:
-                case Surface.ROTATION_0:
-                    orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-                    break;
                 case Surface.ROTATION_90:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                     break;
@@ -234,6 +230,10 @@ public class DynamicWindowUtils {
                     break;
                 case Surface.ROTATION_270:
                     orientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+                    break;
+                case Surface.ROTATION_0:
+                default:
+                    orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     break;
             }
         }

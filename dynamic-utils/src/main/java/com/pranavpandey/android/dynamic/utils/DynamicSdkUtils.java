@@ -381,23 +381,25 @@ public class DynamicSdkUtils {
     }
 
     /**
-     * Detects if the current API version is R or above.
+     * Detects if the current API version is 30 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
      * @return {@code true} if the current API version is R or above.
      */
-    public static boolean isR(boolean equals) {
-        return is29(equals) && Build.VERSION.PREVIEW_SDK_INT != 0;
+    public static boolean is30(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.R
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                || is29(true) && Build.VERSION.PREVIEW_SDK_INT != 0;
     }
 
     /**
-     * Detects if the current API version is R or above.
+     * Detects if the current API version is 30 or above.
      *
      * @return {@code true} if the current API version is R or above.
      */
-    public static boolean isR() {
-        return isR(false);
+    public static boolean is30() {
+        return is30(false);
     }
 }

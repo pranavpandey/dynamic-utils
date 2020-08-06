@@ -18,6 +18,7 @@ package com.pranavpandey.android.dynamic.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
@@ -186,7 +187,7 @@ public class DynamicViewUtils {
         ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                v.setPadding(left ? paddingLeft + insets.getSystemWindowInsetLeft(): paddingLeft,
+                v.setPadding(left ? paddingLeft + insets.getSystemWindowInsetLeft() : paddingLeft,
                         top ? paddingTop + insets.getSystemWindowInsetTop() : paddingTop,
                         right ? paddingRight + insets.getSystemWindowInsetRight() : paddingRight,
                         bottom ? paddingBottom + insets.getSystemWindowInsetBottom() : paddingBottom);
@@ -422,6 +423,42 @@ public class DynamicViewUtils {
             remoteViews.setTextViewTextSize(viewId, units, size);
         } else {
             remoteViews.setFloat(viewId, "setTextSize", size);
+        }
+    }
+
+    /**
+     * Set the text view max lines for the remote views.
+     *
+     * @param remoteViews The remote views to set the text view max lines.
+     * @param viewId The id of the text view whose max lines to be set.
+     * @param lines The max lines to be set.
+     *
+     * @see RemoteViews#setInt(int, String, int)
+     */
+    public static void setTextViewMaxLines(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, int lines) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setInt(viewId, "setMaxLines", lines);
+    }
+
+    /**
+     * Equivalent to calling {@link RemoteViews#setTextViewText(int, CharSequence)}
+     * and hide the view if the text is empty.
+     *
+     * @param remoteViews The remote views to set the text size.
+     * @param viewId The id of the view whose text size should change.
+     * @param text The text to be set.
+     */
+    public static void setTextViewText(@NonNull RemoteViews remoteViews,
+            @IdRes int viewId, @Nullable CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            remoteViews.setTextViewText(viewId, text);
+            remoteViews.setViewVisibility(viewId, View.VISIBLE);
+        } else {
+            remoteViews.setViewVisibility(viewId, View.GONE);
         }
     }
 

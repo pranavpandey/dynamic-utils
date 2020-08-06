@@ -20,6 +20,12 @@ import android.os.AsyncTask;
 
 import androidx.annotation.Nullable;
 
+import com.pranavpandey.android.dynamic.utils.concurrent.DynamicConcurrent;
+import com.pranavpandey.android.dynamic.utils.concurrent.DynamicStatus;
+import com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask;
+
+import java.util.concurrent.Executor;
+
 /**
  * Helper class to easily execute or cancel an {@link AsyncTask} by handling all the exceptions.
  */
@@ -28,15 +34,19 @@ public class DynamicTaskUtils {
     /**
      * Try to execute the supplied async task.
      *
-     * @param asyncTask The async task to be executed.
+     * @param task The async task to be executed.
      *
-     * @see AsyncTask#execute(Object[])
+     * @see AsyncTask#executeOnExecutor(Executor, Object[])
      */
     @SuppressWarnings("unchecked")
-    public static void executeTask(@Nullable AsyncTask asyncTask) {
+    public static void executeTask(@Nullable AsyncTask task) {
+        if (task == null) {
+            return;
+        }
+
         try {
-            if (asyncTask != null && asyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
+            if (task.getStatus() != AsyncTask.Status.RUNNING) {
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
             }
         } catch (Exception ignored) {
         }
@@ -45,14 +55,63 @@ public class DynamicTaskUtils {
     /**
      * Try to cancel the supplied async task.
      *
-     * @param asyncTask The async task to be cancelled.
+     * @param task The async task to be cancelled.
      *
      * @see AsyncTask#cancel(boolean)
      */
-    public static void cancelTask(@Nullable AsyncTask asyncTask) {
+    public static void cancelTask(@Nullable AsyncTask<?, ?, ?> task) {
+        if (task == null) {
+            return;
+        }
+
         try {
-            if (asyncTask != null && asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
-                asyncTask.cancel(true);
+            if (task.getStatus() == AsyncTask.Status.RUNNING) {
+                task.cancel(true);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Try to execute the supplied dynamic task.
+     *
+     * @param task The dynamic task to be executed.
+     *
+     * @see DynamicTask#executeOnExecutor(Executor)
+     */
+    public static void executeTask(@Nullable DynamicTask<?, ?, ?> task) {
+        if (task == null) {
+            return;
+        }
+
+        try {
+            if (task.getStatus() != DynamicStatus.RUNNING) {
+                task.executeOnExecutor(DynamicConcurrent.THREAD_POOL_EXECUTOR);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Try to cancel the supplied dynamic task.
+     *
+     * @param task The dynamic task to be cancelled.
+     *
+     * @param mayInterruptIfRunning {@code true} if the thread executing the
+     *        task should be interrupted; otherwise, in-progress tasks are allowed
+     *        to complete.
+     *
+     * @see DynamicTask#cancel(boolean)
+     */
+    public static void cancelTask(@Nullable DynamicTask<?, ?, ?> task,
+            boolean mayInterruptIfRunning) {
+        if (task == null) {
+            return;
+        }
+
+        try {
+            if (task.getStatus() == DynamicStatus.RUNNING) {
+                task.cancel(mayInterruptIfRunning);
             }
         } catch (Exception ignored) {
         }

@@ -38,14 +38,13 @@ public class DynamicTaskUtils {
      *
      * @see AsyncTask#executeOnExecutor(Executor, Object[])
      */
-    @SuppressWarnings("unchecked")
-    public static void executeTask(@Nullable AsyncTask task) {
+    public static void executeTask(@Nullable AsyncTask<Object, ?, ?> task) {
         if (task == null) {
             return;
         }
 
         try {
-            if (task.getStatus() != AsyncTask.Status.RUNNING) {
+            if (task.getStatus() == AsyncTask.Status.PENDING) {
                 task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Object[]) null);
             }
         } catch (Exception ignored) {
@@ -65,9 +64,7 @@ public class DynamicTaskUtils {
         }
 
         try {
-            if (task.getStatus() == AsyncTask.Status.RUNNING) {
-                task.cancel(true);
-            }
+            task.cancel(true);
         } catch (Exception ignored) {
         }
     }
@@ -85,7 +82,7 @@ public class DynamicTaskUtils {
         }
 
         try {
-            if (task.getStatus() != DynamicStatus.RUNNING) {
+            if (task.getStatus() == DynamicStatus.PENDING) {
                 task.executeOnExecutor(DynamicConcurrent.THREAD_POOL_EXECUTOR);
             }
         } catch (Exception ignored) {
@@ -110,9 +107,7 @@ public class DynamicTaskUtils {
         }
 
         try {
-            if (task.getStatus() == DynamicStatus.RUNNING) {
-                task.cancel(mayInterruptIfRunning);
-            }
+            task.cancel(mayInterruptIfRunning);
         } catch (Exception ignored) {
         }
     }

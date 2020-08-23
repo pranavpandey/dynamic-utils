@@ -606,21 +606,26 @@ public class DynamicFileUtils {
      *
      * @param context The context to get the file provider.
      * @param bitmap The bitmap to get the uri.
+     * @param name The name for the file.
+     * @param extension The extension for the file.
      *
      * @return The uri from the bitmap.
      *
      * @see Uri
      */
     public static @Nullable Uri getBitmapUri(@NonNull Context context,
-            @Nullable Bitmap bitmap, @NonNull String name) {
+            @Nullable Bitmap bitmap, @NonNull String name, @Nullable String extension) {
         Uri bitmapUri = null;
+        if (extension == null) {
+            extension = ".png";
+        }
 
         if (bitmap != null) {
             try {
                 File picturesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 if (picturesDir != null) {
                     File storagePath = new File(picturesDir.getPath(), name);
-                    String image = storagePath + File.separator + name + ".png";
+                    String image = storagePath + File.separator + name + extension;
                     storagePath.mkdirs();
 
                     FileOutputStream out = new FileOutputStream(image);
@@ -633,6 +638,26 @@ public class DynamicFileUtils {
         }
 
         return bitmapUri;
+    }
+
+    /**
+     * Save and returns uri from the bitmap.
+     * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+     *
+     * <p<p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
+     * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
+     *
+     * @param context The context to get the file provider.
+     * @param bitmap The bitmap to get the uri.
+     * @param name The name for the file.
+     *
+     * @return The uri from the bitmap.
+     *
+     * @see Uri
+     */
+    public static @Nullable Uri getBitmapUri(@NonNull Context context,
+            @Nullable Bitmap bitmap, @NonNull String name) {
+        return getBitmapUri(context, bitmap, name, null);
     }
 
     /**
@@ -705,7 +730,7 @@ public class DynamicFileUtils {
         boolean validMime;
         String type = context.getApplicationContext().getContentResolver().getType(uri);
 
-        validMime = mimeType.equals(type);
+        validMime = type != null && type.contains(mimeType);
 
         if (!validMime) {
             validMime = (type == null || ADU_MIME_OCTET_STREAM.equals(type))

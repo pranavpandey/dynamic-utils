@@ -129,7 +129,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      *
      * @param result The result to be notified.
      */
-    private void postResultIfNotInvoked(@Nullable final DynamicResult<Result> result) {
+    private void postResultIfNotInvoked(final @Nullable DynamicResult<Result> result) {
         if (!mTaskInvoked.get()) {
             postResult(result);
         }
@@ -143,7 +143,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      * @return The notified result.
      */
     private @Nullable DynamicResult<Result> postResult(
-            @Nullable final DynamicResult<Result> result) {
+            final @Nullable DynamicResult<Result> result) {
         Message message = getHandler().obtainMessage(DynamicHandler.MESSAGE_POST_RESULT, result);
         message.sendToTarget();
 
@@ -166,7 +166,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      *
      * @return The unboxed {@code boolean} value from the {@link Boolean} result.
      */
-    public boolean getBooleanResult(@Nullable final DynamicResult<Result> result) {
+    public boolean getBooleanResult(final @Nullable DynamicResult<Result> result) {
         Boolean success = null;
 
         if (result instanceof DynamicResult.Success
@@ -227,8 +227,8 @@ public abstract class DynamicTask<Params, Progress, Result>
     }
 
     @Override
-    public  @Nullable DynamicResult<Progress> publishProgress(
-            @Nullable final DynamicResult<Progress> progress) {
+    public @Nullable DynamicResult<Progress> publishProgress(
+            final @Nullable DynamicResult<Progress> progress) {
         Message message = getHandler().obtainMessage(
                 DynamicHandler.MESSAGE_POST_PROGRESS, progress);
         message.sendToTarget();

@@ -73,7 +73,7 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      */
     @WorkerThread
     public abstract @Nullable DynamicResult<Progress> publishProgress(
-            @Nullable final DynamicResult<Progress> progress);
+            final @Nullable DynamicResult<Progress> progress);
 
     /**
      * This method will be called to handle the result returned by the task.

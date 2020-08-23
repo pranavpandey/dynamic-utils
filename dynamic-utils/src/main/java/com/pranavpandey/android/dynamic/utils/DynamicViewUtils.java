@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -187,17 +188,26 @@ public class DynamicViewUtils {
         ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                v.setPadding(left ? paddingLeft + insets.getSystemWindowInsetLeft() : paddingLeft,
-                        top ? paddingTop + insets.getSystemWindowInsetTop() : paddingTop,
-                        right ? paddingRight + insets.getSystemWindowInsetRight() : paddingRight,
-                        bottom ? paddingBottom + insets.getSystemWindowInsetBottom() : paddingBottom);
+                v.setPadding(left ? paddingLeft + insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars()).left : paddingLeft,
+                        top ? paddingTop + insets.getInsets(
+                                WindowInsetsCompat.Type.systemBars()).top : paddingTop,
+                        right ? paddingRight + insets.getInsets(
+                                WindowInsetsCompat.Type.systemBars()).right : paddingRight,
+                        bottom ? paddingBottom + insets.getInsets(
+                                WindowInsetsCompat.Type.systemBars()).bottom : paddingBottom);
 
                 return !consume ? insets :
-                        new WindowInsetsCompat.Builder(insets).setSystemWindowInsets(
-                                Insets.of(left ? 0 : insets.getSystemWindowInsetLeft(),
-                                        top ? 0 : insets.getSystemWindowInsetTop(),
-                                        right ? 0 : insets.getSystemWindowInsetRight(),
-                                        bottom ? 0 : insets.getSystemWindowInsetBottom()))
+                        new WindowInsetsCompat.Builder(insets).setInsets(
+                                WindowInsetsCompat.Type.systemBars(),
+                                Insets.of(left ? 0 : insets.getInsets(
+                                        WindowInsetsCompat.Type.systemBars()).left,
+                                        top ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).top,
+                                        right ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).right,
+                                        bottom ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).bottom))
                                 .build();
             }
         });
@@ -295,37 +305,42 @@ public class DynamicViewUtils {
             final ViewGroup.MarginLayoutParams layoutParams =
                     (ViewGroup.MarginLayoutParams) view.getLayoutParams();
 
-            final int marginLeft = layoutParams.leftMargin;
-            final int marginTop = layoutParams.topMargin;
-            final int marginRight = layoutParams.rightMargin;
-            final int marginBottom = layoutParams.bottomMargin;
+            final int leftMargin = layoutParams.leftMargin;
+            final int topMargin = layoutParams.topMargin;
+            final int rightMargin = layoutParams.rightMargin;
+            final int bottomMargin = layoutParams.bottomMargin;
 
             ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
                     if (left) {
-                        layoutParams.leftMargin = marginLeft
-                                + insets.getSystemWindowInsetLeft();
+                        layoutParams.leftMargin = leftMargin
+                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).left;
                     }
                     if (top) {
-                        layoutParams.topMargin = marginTop
-                                + insets.getSystemWindowInsetTop();
+                        layoutParams.topMargin = topMargin
+                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
                     }
                     if (right) {
-                        layoutParams.rightMargin = marginRight
-                                + insets.getSystemWindowInsetRight();
+                        layoutParams.rightMargin = rightMargin
+                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
                     }
                     if (bottom) {
-                        layoutParams.bottomMargin = marginBottom
-                                + insets.getSystemWindowInsetBottom();
+                        layoutParams.bottomMargin = bottomMargin
+                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
                     }
 
                     return !consume ? insets :
-                            new WindowInsetsCompat.Builder(insets).setSystemWindowInsets(
-                                    Insets.of(left ? 0 : insets.getSystemWindowInsetLeft(),
-                                            top ? 0 : insets.getSystemWindowInsetTop(),
-                                            right ? 0 : insets.getSystemWindowInsetRight(),
-                                            bottom ? 0 : insets.getSystemWindowInsetBottom()))
+                            new WindowInsetsCompat.Builder(insets).setInsets(
+                                    WindowInsetsCompat.Type.systemBars(),
+                                    Insets.of(left ? 0 : insets.getInsets(
+                                            WindowInsetsCompat.Type.systemBars()).left,
+                                            top ? 0 : insets.getInsets(
+                                                    WindowInsetsCompat.Type.systemBars()).top,
+                                            right ? 0 : insets.getInsets(
+                                                    WindowInsetsCompat.Type.systemBars()).right,
+                                            bottom ? 0 : insets.getInsets(
+                                                    WindowInsetsCompat.Type.systemBars()).bottom))
                                     .build();
                 }
             });
@@ -401,6 +416,29 @@ public class DynamicViewUtils {
                 @Override
                 public void onViewDetachedFromWindow(View view) { }
             });
+        }
+    }
+
+    /**
+     * Set the text switcher text and animate only if there is a text change.
+     *
+     * @param view The view switcher to be used.
+     * @param text The text to be set.
+     *
+     * @see TextSwitcher#setCurrentText(CharSequence)
+     * @see TextSwitcher#setText(CharSequence)
+     */
+    public static void setTextSwitcherText(@Nullable TextSwitcher view,
+            @Nullable CharSequence text) {
+        if (view == null || !(view.getCurrentView() instanceof TextView)) {
+            return;
+        }
+
+        if (((TextView) view.getCurrentView()).getText() != null
+                && ((TextView) view.getCurrentView()).getText().equals(text)) {
+            view.setCurrentText(text);
+        } else {
+            view.setText(text);
         }
     }
 

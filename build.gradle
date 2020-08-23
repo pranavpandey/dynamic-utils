@@ -19,8 +19,8 @@ buildscript {
             'compileSdk': 30,
             'minSdk'    : 14,
             'targetSdk' : 30,
-            'buildTools': '30.0.1',
-            'androidx'  : '1.5.0-alpha01'
+            'buildTools': '30.0.2',
+            'androidx'  : '1.5.0-alpha02'
     ]
 
     repositories {

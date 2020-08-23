@@ -39,8 +39,7 @@ public class DynamicDeviceUtils {
      * @see PackageManager#FEATURE_TELEPHONY
      */
     public static boolean hasTelephony(@NonNull Context context) {
-        return context.getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
     }
 
     /**

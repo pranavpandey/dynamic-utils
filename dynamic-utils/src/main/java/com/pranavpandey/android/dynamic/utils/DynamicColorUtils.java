@@ -335,22 +335,39 @@ public class DynamicColorUtils {
      *
      * @param color The color whose contrast to be calculated.
      * @param contrastWith The background color to calculate the contrast.
+     * @param visibleContrast The acceptable contrast between the two colors.
      *
      * @return The contrast of the given color according to the base color.
      */
-    public static @ColorInt int getContrastColor(@ColorInt int color, @ColorInt int contrastWith) {
+    public static @ColorInt int getContrastColor(@ColorInt int color,
+            @ColorInt int contrastWith, @FloatRange(from = 0f, to = 1f) float visibleContrast) {
         float contrast = calculateContrast(color, contrastWith);
-        if (contrast < VISIBLE_CONTRAST) {
+        if (contrast < visibleContrast) {
             if (isColorDark(contrastWith)) {
                 return getLighterColor(color,
-                        Math.max(VISIBLE_CONTRAST + contrast, CONTRAST_FACTOR));
+                        Math.max(visibleContrast + contrast, CONTRAST_FACTOR));
             } else {
                 return getDarkerColor(color,
-                        Math.max(VISIBLE_CONTRAST + contrast, CONTRAST_FACTOR));
+                        Math.max(visibleContrast + contrast, CONTRAST_FACTOR));
             }
         }
 
         return color;
+    }
+
+    /**
+     * Calculate contrast of a color based on the given base color so that it will always
+     * be visible on top of the base color.
+     *
+     * @param color The color whose contrast to be calculated.
+     * @param contrastWith The background color to calculate the contrast.
+     *
+     * @return The contrast of the given color according to the base color.
+     *
+     * @see #getContrastColor(int, int, float)
+     */
+    public static @ColorInt int getContrastColor(@ColorInt int color, @ColorInt int contrastWith) {
+        return getContrastColor(color, contrastWith, VISIBLE_CONTRAST);
     }
 
     /**

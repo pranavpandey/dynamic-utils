@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -36,7 +36,8 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/package-summary.html">Package</a></li>
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
@@ -48,7 +49,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicSdkUtils.html" title="class in com.pranavpandey.android.dynamic.utils"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicUnitUtils.html" title="class in com.pranavpandey.android.dynamic.utils"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTextUtils.html" title="class in com.pranavpandey.android.dynamic.utils"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html" target="_top">Frames</a></li>
@@ -147,14 +148,27 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#cancelTask-android.os.AsyncTask-">cancelTask</a></span>(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&nbsp;asyncTask)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#cancelTask-android.os.AsyncTask-">cancelTask</a></span>(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&lt;?,?,?&gt;&nbsp;task)</code>
 <div class="block">Try to cancel the supplied async task.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#executeTask-android.os.AsyncTask-">executeTask</a></span>(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&nbsp;asyncTask)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#cancelTask-com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask-boolean-">cancelTask</a></span>(<a href="../../../../../com/pranavpandey/android/dynamic/utils/concurrent/DynamicTask.html" title="class in com.pranavpandey.android.dynamic.utils.concurrent">DynamicTask</a>&lt;?,?,?&gt;&nbsp;task,
+          boolean&nbsp;mayInterruptIfRunning)</code>
+<div class="block">Try to cancel the supplied dynamic task.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#executeTask-android.os.AsyncTask-">executeTask</a></span>(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&lt;<a href="https://developer.android.com/reference/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>,?,?&gt;&nbsp;task)</code>
 <div class="block">Try to execute the supplied async task.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#executeTask-com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask-">executeTask</a></span>(<a href="../../../../../com/pranavpandey/android/dynamic/utils/concurrent/DynamicTask.html" title="class in com.pranavpandey.android.dynamic.utils.concurrent">DynamicTask</a>&lt;?,?,?&gt;&nbsp;task)</code>
+<div class="block">Try to execute the supplied dynamic task.</div>
 </td>
 </tr>
 </table>
@@ -202,29 +216,65 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <ul class="blockList">
 <li class="blockList">
 <h4>executeTask</h4>
-<pre>public static&nbsp;void&nbsp;executeTask(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&nbsp;asyncTask)</pre>
+<pre>public static&nbsp;void&nbsp;executeTask(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&lt;<a href="https://developer.android.com/reference/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>,?,?&gt;&nbsp;task)</pre>
 <div class="block">Try to execute the supplied async task.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>asyncTask</code> - The async task to be executed.</dd>
+<dd><code>task</code> - The async task to be executed.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true#execute-Params...-" title="class or interface in android.os"><code>AsyncTask.execute(Object[])</code></a></dd>
+<dd><a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true#executeOnExecutor-java.util.concurrent.Executor-Params...-" title="class or interface in android.os"><code>AsyncTask.executeOnExecutor(Executor, Object[])</code></a></dd>
 </dl>
 </li>
 </ul>
 <a name="cancelTask-android.os.AsyncTask-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>cancelTask</h4>
-<pre>public static&nbsp;void&nbsp;cancelTask(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&nbsp;asyncTask)</pre>
+<pre>public static&nbsp;void&nbsp;cancelTask(<a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true" title="class or interface in android.os">AsyncTask</a>&lt;?,?,?&gt;&nbsp;task)</pre>
 <div class="block">Try to cancel the supplied async task.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>asyncTask</code> - The async task to be cancelled.</dd>
+<dd><code>task</code> - The async task to be cancelled.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://developer.android.com/reference/android/os/AsyncTask.html?is-external=true#cancel-boolean-" title="class or interface in android.os"><code>AsyncTask.cancel(boolean)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="executeTask-com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>executeTask</h4>
+<pre>public static&nbsp;void&nbsp;executeTask(<a href="../../../../../com/pranavpandey/android/dynamic/utils/concurrent/DynamicTask.html" title="class in com.pranavpandey.android.dynamic.utils.concurrent">DynamicTask</a>&lt;?,?,?&gt;&nbsp;task)</pre>
+<div class="block">Try to execute the supplied dynamic task.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>task</code> - The dynamic task to be executed.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../com/pranavpandey/android/dynamic/utils/concurrent/DynamicTask.html#executeOnExecutor-java.util.concurrent.Executor-"><code>DynamicTask.executeOnExecutor(Executor)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="cancelTask-com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask-boolean-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>cancelTask</h4>
+<pre>public static&nbsp;void&nbsp;cancelTask(<a href="../../../../../com/pranavpandey/android/dynamic/utils/concurrent/DynamicTask.html" title="class in com.pranavpandey.android.dynamic.utils.concurrent">DynamicTask</a>&lt;?,?,?&gt;&nbsp;task,
+                              boolean&nbsp;mayInterruptIfRunning)</pre>
+<div class="block">Try to cancel the supplied dynamic task.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>task</code> - The dynamic task to be cancelled.</dd>
+<dd><code>mayInterruptIfRunning</code> - <code>true</code> if the thread executing the
+        task should be interrupted; otherwise, in-progress tasks are allowed
+        to complete.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../com/pranavpandey/android/dynamic/utils/concurrent/DynamicTask.html#cancel-boolean-"><code>DynamicTask.cancel(boolean)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -244,7 +294,8 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/package-summary.html">Package</a></li>
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
@@ -256,7 +307,7 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicSdkUtils.html" title="class in com.pranavpandey.android.dynamic.utils"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicUnitUtils.html" title="class in com.pranavpandey.android.dynamic.utils"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicTextUtils.html" title="class in com.pranavpandey.android.dynamic.utils"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html" target="_top">Frames</a></li>

@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9,"i24":9,"i25":9,"i26":9,"i27":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -36,7 +36,8 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/package-summary.html">Package</a></li>
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
@@ -109,7 +110,7 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public class <span class="typeNameLabel">DynamicFileUtils</span>
 extends <a href="https://developer.android.com/reference/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
-<div class="block">Helper class to perform various file operations.
+<div class="block">Helper class to perform various <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a> operations.
 
  <p><p>A <code>FileProvider</code> in the form of <code>${applicationId}.FileProvider</code> must be
  added in the <code>manifest</code> to perform some operations automatically like saving the
@@ -207,31 +208,40 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getBitmapUri-android.content.Context-android.graphics.Bitmap-java.lang.String-java.lang.String-">getBitmapUri</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+            <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics">Bitmap</a>&nbsp;bitmap,
+            <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
+            <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;extension)</code>
+<div class="block">Save and returns uri from the bitmap.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getExtension-java.io.File-">getExtension</a></span>(<a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</code>
 <div class="block">Returns the extension of a file.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getExtension-java.lang.String-">getExtension</a></span>(<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;fileName)</code>
 <div class="block">Returns the extension of a file name.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getFileNameFromUri-android.content.Context-android.net.Uri-">getFileNameFromUri</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                   <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;uri)</code>
 <div class="block">Returns file name from the uri.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content">Intent</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getFileSelectIntent-java.lang.String-">getFileSelectIntent</a></span>(<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mimeType)</code>
 <div class="block">Returns an intent to select a file according to the mime type.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content">Intent</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getSaveToFileIntent-android.content.Context-java.io.File-java.lang.String-">getSaveToFileIntent</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                    <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
@@ -239,27 +249,35 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Returns an intent to request a storage location for the supplied file.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content">Intent</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getSaveToFileIntent-android.content.Context-android.net.Uri-java.lang.String-">getSaveToFileIntent</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+                   <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;file,
+                   <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mimeType)</code>
+<div class="block">Returns an intent to request a storage location for the supplied file.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getTempDir-android.content.Context-">getTempDir</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context)</code>
 <div class="block">Returns the default <code>temp</code> directory for a context.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#getUriFromFile-android.content.Context-java.io.File-">getUriFromFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
               <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</code>
 <div class="block">Returns uri from the file.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#isValidExtension-java.lang.String-java.lang.String-">isValidExtension</a></span>(<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;path,
                 <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;extension)</code>
 <div class="block">Checks whether the extension is valid for a path.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#isValidMimeType-android.content.Context-java.io.File-java.lang.String-java.lang.String-">isValidMimeType</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
@@ -268,7 +286,7 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Checks whether the mime type is valid for a file.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#isValidMimeType-android.content.Context-android.content.Intent-java.lang.String-java.lang.String-">isValidMimeType</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content">Intent</a>&nbsp;intent,
@@ -277,7 +295,7 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Checks whether the mime type is valid for an intent data.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#isValidMimeType-android.content.Context-android.net.Uri-java.lang.String-java.lang.String-">isValidMimeType</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;uri,
@@ -286,14 +304,14 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Checks whether the mime type is valid for a uri.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#readStringFromFile-android.content.Context-android.net.Uri-">readStringFromFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                   <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;fileUri)</code>
 <div class="block">Reads a string data from the file uri.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#shareFile-android.app.Activity-java.lang.String-java.lang.String-java.io.File-java.lang.String-">shareFile</a></span>(<a href="https://developer.android.com/reference/android/app/Activity.html?is-external=true" title="class or interface in android.app">Activity</a>&nbsp;activity,
          <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;title,
@@ -303,7 +321,7 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Share file according to the mime type.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#shareFiles-android.app.Activity-java.lang.String-java.lang.String-android.net.Uri:A-java.lang.String-">shareFiles</a></span>(<a href="https://developer.android.com/reference/android/app/Activity.html?is-external=true" title="class or interface in android.app">Activity</a>&nbsp;activity,
           <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;title,
@@ -313,20 +331,20 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Share multiple files.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#unzip-java.io.File-java.io.File-">unzip</a></span>(<a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;zip,
      <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;extractTo)</code>
 <div class="block">Extracts a zip archive.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#verifyFile-java.io.File-">verifyFile</a></span>(<a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</code>
 <div class="block">Verifies a file if it exist or not.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeStringToFile-android.content.Context-java.lang.String-android.net.Uri-">writeStringToFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                  <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data,
@@ -334,24 +352,45 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Writes a string data to file uri.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeStringToFile-android.content.Context-java.lang.String-android.net.Uri-android.net.Uri-">writeStringToFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                  <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data,
                  <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
                  <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri)</code>
+<div class="block">Writes a string data to file uri from the source to destination in "rwt" mode which 
+ truncates all the previous content if the destination uri already exists.</div>
+</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeStringToFile-android.content.Context-java.lang.String-android.net.Uri-android.net.Uri-java.lang.String-">writeStringToFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+                 <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data,
+                 <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
+                 <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri,
+                 <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mode)</code>
 <div class="block">Writes a string data to file uri from the source to destination.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeToFile-android.content.Context-android.net.Uri-android.net.Uri-">writeToFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
            <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
            <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri)</code>
+<div class="block">Writes a file uri from the source to destination in "rwt" mode which truncates all the 
+ previous content if the destination uri already exists.</div>
+</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeToFile-android.content.Context-android.net.Uri-android.net.Uri-java.lang.String-">writeToFile</a></span>(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+           <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
+           <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri,
+           <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mode)</code>
 <div class="block">Writes a file uri from the source to destination.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeToFile-java.io.File-java.io.File-java.lang.String-">writeToFile</a></span>(<a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;source,
            <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;destination,
@@ -359,7 +398,7 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <div class="block">Writes a file from the source to destination.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#zipDirectory-java.io.File-java.io.File-">zipDirectory</a></span>(<a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;dir,
             <a href="https://developer.android.com/reference/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;zip)</code>
@@ -653,6 +692,29 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 </dl>
 </li>
 </ul>
+<a name="writeToFile-android.content.Context-android.net.Uri-android.net.Uri-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>writeToFile</h4>
+<pre>public static&nbsp;boolean&nbsp;writeToFile(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+                                  <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
+                                  <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri,
+                                  <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mode)</pre>
+<div class="block">Writes a file uri from the source to destination.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get content resolver.</dd>
+<dd><code>sourceUri</code> - The source file uri.</dd>
+<dd><code>destinationUri</code> - The destination file uri.</dd>
+<dd><code>mode</code> - Mode for the destination file.
+             <p>May be "w", "wa", "rw", or "rwt".</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>true</code> if the file has been written successfully.</dd>
+</dl>
+</li>
+</ul>
 <a name="writeToFile-android.content.Context-android.net.Uri-android.net.Uri-">
 <!--   -->
 </a>
@@ -662,12 +724,40 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <pre>public static&nbsp;boolean&nbsp;writeToFile(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
                                   <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
                                   <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri)</pre>
-<div class="block">Writes a file uri from the source to destination.</div>
+<div class="block">Writes a file uri from the source to destination in "rwt" mode which truncates all the 
+ previous content if the destination uri already exists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - The context to get content resolver.</dd>
 <dd><code>sourceUri</code> - The source file uri.</dd>
 <dd><code>destinationUri</code> - The destination file uri.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>true</code> if the file has been written successfully.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeToFile-android.content.Context-android.net.Uri-android.net.Uri-java.lang.String-"><code>writeToFile(Context, Uri, Uri, String)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="writeStringToFile-android.content.Context-java.lang.String-android.net.Uri-android.net.Uri-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>writeStringToFile</h4>
+<pre>public static&nbsp;boolean&nbsp;writeStringToFile(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+                                        <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data,
+                                        <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
+                                        <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri,
+                                        <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mode)</pre>
+<div class="block">Writes a string data to file uri from the source to destination.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get content resolver.</dd>
+<dd><code>data</code> - The string data to be written.</dd>
+<dd><code>sourceUri</code> - The source file uri.</dd>
+<dd><code>destinationUri</code> - The destination file uri.</dd>
+<dd><code>mode</code> - Mode for the destination file.
+             <p>May be "w", "wa", "rw", or "rwt".</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>true</code> if the file has been written successfully.</dd>
 </dl>
@@ -683,7 +773,8 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
                                         <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data,
                                         <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;sourceUri,
                                         <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;destinationUri)</pre>
-<div class="block">Writes a string data to file uri from the source to destination.</div>
+<div class="block">Writes a string data to file uri from the source to destination in "rwt" mode which 
+ truncates all the previous content if the destination uri already exists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - The context to get content resolver.</dd>
@@ -692,6 +783,8 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <dd><code>destinationUri</code> - The destination file uri.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>true</code> if the file has been written successfully.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeStringToFile-android.content.Context-java.lang.String-android.net.Uri-android.net.Uri-java.lang.String-"><code>writeStringToFile(Context, String, Uri, Uri, String)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -712,6 +805,8 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <dd><code>sourceUri</code> - The source file uri.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>true</code> if the file has been written successfully.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../com/pranavpandey/android/dynamic/utils/DynamicFileUtils.html#writeStringToFile-android.content.Context-java.lang.String-android.net.Uri-android.net.Uri-"><code>writeStringToFile(Context, String, Uri, Uri)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -733,6 +828,34 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 </dl>
 </li>
 </ul>
+<a name="getBitmapUri-android.content.Context-android.graphics.Bitmap-java.lang.String-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBitmapUri</h4>
+<pre>public static&nbsp;<a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;getBitmapUri(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+                               <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics">Bitmap</a>&nbsp;bitmap,
+                               <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
+                               <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;extension)</pre>
+<div class="block">Save and returns uri from the bitmap.
+ <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+
+ <p<p>It requires <a href="https://developer.android.com/reference/android/Manifest.permission.html?is-external=true#WRITE_EXTERNAL_STORAGE" title="class or interface in android"><code>Manifest.permission.WRITE_EXTERNAL_STORAGE</code></a> permission on
+ pre KitKat (<a href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html?is-external=true#JELLY_BEAN_MR2" title="class or interface in android.os"><code>Build.VERSION_CODES.JELLY_BEAN_MR2</code></a> or below) devices.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the file provider.</dd>
+<dd><code>bitmap</code> - The bitmap to get the uri.</dd>
+<dd><code>name</code> - The name for the file.</dd>
+<dd><code>extension</code> - The extension for the file.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The uri from the bitmap.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net"><code>Uri</code></a></dd>
+</dl>
+</li>
+</ul>
 <a name="getBitmapUri-android.content.Context-android.graphics.Bitmap-java.lang.String-">
 <!--   -->
 </a>
@@ -751,6 +874,7 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - The context to get the file provider.</dd>
 <dd><code>bitmap</code> - The bitmap to get the uri.</dd>
+<dd><code>name</code> - The name for the file.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The uri from the bitmap.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -886,6 +1010,26 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 </dl>
 </li>
 </ul>
+<a name="getSaveToFileIntent-android.content.Context-android.net.Uri-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSaveToFileIntent</h4>
+<pre>public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content">Intent</a>&nbsp;getSaveToFileIntent(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content">Context</a>&nbsp;context,
+                                         <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net">Uri</a>&nbsp;file,
+                                         <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;mimeType)</pre>
+<div class="block">Returns an intent to request a storage location for the supplied file.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the file uri.</dd>
+<dd><code>file</code> - The file uri to request the storage location.</dd>
+<dd><code>mimeType</code> - The mime type of the file.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The intent to request a storage location for the supplied file.</dd>
+</dl>
+</li>
+</ul>
 <a name="getSaveToFileIntent-android.content.Context-java.io.File-java.lang.String-">
 <!--   -->
 </a>
@@ -938,7 +1082,8 @@ extends <a href="https://developer.android.com/reference/java/lang/Object.html?i
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../../../com/pranavpandey/android/dynamic/utils/package-summary.html">Package</a></li>
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../../../deprecated-list.html">Deprecated</a></li>

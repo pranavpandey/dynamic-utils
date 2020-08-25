@@ -282,6 +282,7 @@ Helper class to perform `window` operations and to detect system configurations 
 ---
 
 ## Translations
+
 - German (de) - Flubberlutsch
 - Hindi (hi) - Siddh Narhari
 - Indonesian (in) - Gamal Kevin A

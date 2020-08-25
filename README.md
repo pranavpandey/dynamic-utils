@@ -6,13 +6,15 @@
 [![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
 [![Download](https://api.bintray.com/packages/pranavpandey/android/dynamic-utils/images/download.svg)](https://bintray.com/pranavpandey/android/dynamic-utils/_latestVersion)
 
-A collection of static methods to perform various operations including color, device, drawable,
-package and SDK on Android 2.3 (API 9) and above devices.
+A collection of static methods and packages to perform dynamic operations on Android 2.3 (API 9)
+and above devices.
 
->Since v0.4.0, it uses [26.x.x support libraries](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
-so, minimum SDK will be Android 4.0 (API 14).
-<br/>Since v2.0.0, it uses [AndroidX](https://developer.android.com/jetpack/androidx/) so, first
-[migrate](https://developer.android.com/jetpack/androidx/migrate) your project to AndroidX.
+> Since v0.4.0, it uses [26.x.x support libraries][android-support] so, minimum SDK will be
+Android 4.0 (API 14).
+<br/>Since v2.0.0, it uses [AndroidX][androidx] so, first [migrate][androidx-migrate] your
+project to AndroidX.
+<br/>Since v3.3.0, added [Concurrent][concurrent] package to replace the deprecated
+[AsyncTask][async-task] API.
 
 ---
 
@@ -20,6 +22,7 @@ so, minimum SDK will be Android 4.0 (API 14).
 
 - [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
 - [Usage](https://github.com/pranavpandey/dynamic-utils#usage)
+    - [Concurrent](https://github.com/pranavpandey/dynamic-utils#concurrent)
     - [DynamicAnimUtils](https://github.com/pranavpandey/dynamic-utils#dynamicanimutils)
     - [DynamicBitmapUtils](https://github.com/pranavpandey/dynamic-utils#dynamicbitmaputils)
     - [DynamicColorUtils](https://github.com/pranavpandey/dynamic-utils#dynamiccolorutils)
@@ -43,7 +46,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:3.2.1'
+    implementation 'com.pranavpandey.android:dynamic-utils:3.3.0'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'
@@ -59,6 +62,73 @@ This library is fully commented so I am highlighting some of the functions below
 for more hidden features.
 
 > For complete reference, please read the [documentation](https://pranavpandey.github.io/dynamic-utils).
+
+### Concurrent
+
+A set of classes to perform quick or long running asynchronous operations. It is built according
+to the familiar [AsyncTask][async-task] API to provide a lightweight replacement and easy
+migrations as that was deprecated in Android 11 (API 30).
+
+It uses [java.util.concurrent][java-concurrent] package in the background to do most of the
+operations. Please check the [task][concurrent-task] package to know more about the basic
+implementation.
+
+```java
+/**
+ * Extend the base DynamicTask class and implement the required methods.
+ */
+public class Task<Params, Progress, Result> extends DynamicTask<Params, Progress, Result> {
+
+    /**
+     * This method will be called before doing the background work.
+     */
+    @MainThread
+    protected void onPreExecute() {
+        // Initialize on the main thread like showing the progress dialog.
+    }
+
+    /**
+     * This method will be called for doing the background work.
+     *
+     * @param params The optional parameters required for the work.
+     *
+     * @return The optional result object.
+     */
+    @WorkerThread
+    protected abstract @Nullable Result doInBackground(@Nullable Params params) {
+        // Perform the task in the background and return the result.
+    }
+
+    /**
+     * This method will be called on publishing the progress.
+     *
+     * @param progress The progress returned by the work.
+     */
+    @MainThread
+    protected void onProgressUpdate(@Nullable DynamicResult<Progress> progress) {
+        // Optional method to publish progress on the main thread.
+    }
+
+    /**
+     * This method will be called after completing the work.
+     *
+     * @param result The result returned by the work.
+     */
+    @MainThread
+    protected void onPostExecute(@Nullable DynamicResult<Result> result) {
+        // Finalize on the main thread and do operations with the result.
+    }
+}
+```
+
+Execute the above task by configuring your own [ExecutorService][executor-service] or
+by using the [DynamicExecutor][concurrent-dynamic-executor].
+
+> You can also call `DynamicTask.execute()` which uses the `DynamicExecutor` with a
+[ThreadPoolExecutor][thread-pool-executor] in the background. It is an experimental feature and
+may change in the future.
+
+---
 
 ### DynamicAnimUtils
 
@@ -181,9 +251,9 @@ experience accordingly. Pass `true` in the alternate method to check for equalit
 
 ...
 
-- `boolean is29()` - To detect if the current API version is 29 (Android 10) or above.
+- `boolean is30()` - To detect if the current API version is 30 (Android 11) or above.
 
-- `boolean is29(equals)` - To detect if the current API version is 29 (Android 10) or above.
+- `boolean is30(equals)` - To detect if the current API version is 30 (Android 11) or above.
 
 ### DynamicViewUtils
 
@@ -249,3 +319,15 @@ Pranav Pandey
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+[android-support]: https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0
+[androidx]: https://developer.android.com/jetpack/androidx
+[androidx-migrate]: https://developer.android.com/jetpack/androidx/migrate
+[async-task]: https://developer.android.com/reference/android/os/AsyncTask
+[executor-service]: https://developer.android.com/reference/java/util/concurrent/ExecutorService
+[thread-pool-executor]: https://developer.android.com/reference/java/util/concurrent/ThreadPoolExecutor
+[java-concurrent]: https://developer.android.com/reference/java/util/concurrent/package-summary
+[concurrent]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/utils/concurrent
+[concurrent-task]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/utils/concurrent/task
+[concurrent-dynamic-executor]: https://github.com/pranavpandey/dynamic-utils/blob/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/utils/concurrent/DynamicExecutor.java

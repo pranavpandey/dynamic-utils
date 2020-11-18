@@ -356,6 +356,7 @@ public class DynamicFileUtils {
                     cursor.moveToFirst();
                     fileName = cursor.getString(nameIndex);
                 }
+            } catch (Exception ignored) {
             } finally {
                 if (cursor != null) {
                     cursor.close();
@@ -399,6 +400,7 @@ public class DynamicFileUtils {
                     }
 
                     success = true;
+                } catch (Exception ignored) {
                 } finally {
                     output.flush();
                     output.close();
@@ -447,6 +449,7 @@ public class DynamicFileUtils {
                     }
 
                     success = true;
+                } catch (Exception ignored) {
                 } finally {
                     output.flush();
                     output.close();
@@ -508,6 +511,7 @@ public class DynamicFileUtils {
                     if (data != null) {
                         output.write(data.getBytes());
                     }
+                } catch (Exception ignored) {
                 } finally {
                     output.flush();
                     output.close();
@@ -584,6 +588,7 @@ public class DynamicFileUtils {
                     while ((line = bufferedReader.readLine()) != null) {
                         stringBuilder.append(line);
                     }
+                } catch (Exception ignored) {
                 } finally {
                     input.close();
                     bufferedReader.close();
@@ -677,6 +682,59 @@ public class DynamicFileUtils {
     }
 
     /**
+     * Checks whether the extension is valid for a file.
+     *
+     * @param file The file to get the extension.
+     * @param extension The extension to be validated.
+     *
+     * @return {@code true} if the extension is valid for the file.
+     */
+    public static boolean isValidExtension(@Nullable Context context,
+            @Nullable File file, @Nullable String extension) {
+        if (context == null || file == null || extension == null) {
+            return false;
+        }
+
+        return isValidExtension(file.getName(), extension);
+    }
+
+    /**
+     * Checks whether the extension is valid for a uri.
+     *
+     * @param uri The uri to get the extension.
+     * @param extension The extension to be validated.
+     *
+     * @return {@code true} if the extension is valid for the uri.
+     */
+    public static boolean isValidExtension(@Nullable Context context,
+            @Nullable Uri uri, @Nullable String extension) {
+        if (context == null || uri == null || extension == null) {
+            return false;
+        }
+
+        return isValidExtension(getFileNameFromUri(context, uri), extension);
+    }
+
+    /**
+     * Checks whether the extension is valid for an intent.
+     *
+     * @param intent The intent to get the extension.
+     * @param extension The extension to be validated.
+     *
+     * @return {@code true} if the extension is valid for the intent.
+     */
+    public static boolean isValidExtension(@Nullable Context context,
+            @Nullable Intent intent, @Nullable String extension) {
+        if (context == null || intent == null || extension == null) {
+            return false;
+        }
+
+        return isValidExtension(context, Intent.ACTION_SEND.equals(intent.getAction())
+                ? (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM)
+                : intent.getData(), extension);
+    }
+
+    /**
      * Checks whether the mime type is valid for an intent data.
      *
      * @param context The context to match the uri mime type.
@@ -699,12 +757,12 @@ public class DynamicFileUtils {
                 validMime = isValidMimeType(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM),
                         ADU_MIME_OCTET_STREAM, extension)
-                        && isValidExtension(getFileNameFromUri(context,
-                        (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM)), extension);
+                        && isValidExtension(context,
+                        (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM), extension);
             } else {
                 validMime = isValidMimeType(context, intent.getData(),
                         ADU_MIME_OCTET_STREAM, extension) && isValidExtension(
-                                getFileNameFromUri(context, intent.getData()), extension);
+                                context, intent.getData(), extension);
             }
         }
 
@@ -734,7 +792,7 @@ public class DynamicFileUtils {
 
         if (!validMime) {
             validMime = (type == null || ADU_MIME_OCTET_STREAM.equals(type))
-                    && isValidExtension(getFileNameFromUri(context, uri), extension);
+                    && isValidExtension(context, uri, extension);
         }
 
         return validMime;

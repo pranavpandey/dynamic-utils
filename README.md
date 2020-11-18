@@ -61,7 +61,7 @@ It is divided into different classes according to their category for easy unders
 This library is fully commented so I am highlighting some of the functions below, keep exploring
 for more hidden features.
 
-> For complete reference, please read the [documentation](https://pranavpandey.github.io/dynamic-utils).
+> For complete reference, please read the [documentation][documentation].
 
 ### Concurrent
 
@@ -325,6 +325,7 @@ Pranav Pandey
 [android-support]: https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0
 [androidx]: https://developer.android.com/jetpack/androidx
 [androidx-migrate]: https://developer.android.com/jetpack/androidx/migrate
+[documentation]: https://pranavpandey.github.io/dynamic-utils
 [async-task]: https://developer.android.com/reference/android/os/AsyncTask
 [executor-service]: https://developer.android.com/reference/java/util/concurrent/ExecutorService
 [thread-pool-executor]: https://developer.android.com/reference/java/util/concurrent/ThreadPoolExecutor

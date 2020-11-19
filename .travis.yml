@@ -24,7 +24,7 @@ after_success:
   - ./gradlew javadocRelease
 
 deploy:
-  provider: pages:git
+  provider: pages:repo
   token: $GITHUB_TOKEN
   edge: true
   keep_history: true

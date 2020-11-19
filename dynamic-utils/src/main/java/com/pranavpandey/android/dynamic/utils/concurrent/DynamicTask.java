@@ -18,7 +18,6 @@ package com.pranavpandey.android.dynamic.utils.concurrent;
 
 import android.os.Binder;
 import android.os.Looper;
-import android.os.Message;
 import android.os.Process;
 
 import androidx.annotation.MainThread;
@@ -36,23 +35,22 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Base class to represent {@link Runnable} according to the {@link DynamicRunnable}.
  */
-public abstract class DynamicTask<Params, Progress, Result>
-        extends DynamicRunnable<Params, Progress, Result> {
+public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
 
     /**
      * Thread handler to publish results.
      */
-    private final DynamicHandler<Progress, Result> mHandler;
+    private final DynamicHandler<P, R> mHandler;
 
     /**
      * Callable to implement the worker.
      */
-    private final DynamicCallable<Params, DynamicResult<Result>> mWorker;
+    private final DynamicCallable<T, DynamicResult<R>> mWorker;
 
     /**
      * Future task to execute the operation.
      */
-    private final FutureTask<DynamicResult<Result>> mFuture;
+    private final FutureTask<DynamicResult<R>> mFuture;
 
     /**
      * Status to represent the various states of this callback.
@@ -84,13 +82,13 @@ public abstract class DynamicTask<Params, Progress, Result>
     public DynamicTask(@NonNull Looper looper) {
         this.mHandler = new DynamicHandler<>(looper, this);
 
-        mWorker = new DynamicCallable<Params, DynamicResult<Result>>() {
-            DynamicResult<Result> result = null;
+        mWorker = new DynamicCallable<T, DynamicResult<R>>() {
+            DynamicResult<R> result = null;
 
             @Override
-            public DynamicResult<Result> call() {
+            public DynamicResult<R> call() {
                 mTaskInvoked.set(true);
-                DynamicResult<Result> result = null;
+                DynamicResult<R> result = null;
 
                 try {
                     Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -107,7 +105,7 @@ public abstract class DynamicTask<Params, Progress, Result>
             }
         };
 
-        mFuture = new FutureTask<DynamicResult<Result>>(mWorker) {
+        mFuture = new FutureTask<DynamicResult<R>>(mWorker) {
             @Override
             protected void done() {
                 try {
@@ -129,7 +127,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      *
      * @param result The result to be notified.
      */
-    private void postResultIfNotInvoked(final @Nullable DynamicResult<Result> result) {
+    private void postResultIfNotInvoked(final @Nullable DynamicResult<R> result) {
         if (!mTaskInvoked.get()) {
             postResult(result);
         }
@@ -142,11 +140,8 @@ public abstract class DynamicTask<Params, Progress, Result>
      *
      * @return The notified result.
      */
-    private @Nullable DynamicResult<Result> postResult(
-            final @Nullable DynamicResult<Result> result) {
-        Message message = getHandler().obtainMessage(DynamicHandler.MESSAGE_POST_RESULT, result);
-        message.sendToTarget();
-
+    private @Nullable DynamicResult<R> postResult(final @Nullable DynamicResult<R> result) {
+        getHandler().obtainMessage(DynamicHandler.MESSAGE_POST_RESULT, result).sendToTarget();
         return result;
     }
 
@@ -155,7 +150,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      *
      * @return The thread handler used by this task.
      */
-    public @NonNull DynamicHandler<Progress, Result> getHandler() {
+    public @NonNull DynamicHandler<P, R> getHandler() {
         return mHandler;
     }
 
@@ -166,7 +161,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      *
      * @return The unboxed {@code boolean} value from the {@link Boolean} result.
      */
-    public boolean getBooleanResult(final @Nullable DynamicResult<Result> result) {
+    public boolean getBooleanResult(final @Nullable DynamicResult<R> result) {
         Boolean success = null;
 
         if (result instanceof DynamicResult.Success
@@ -197,8 +192,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      * @throws InterruptedException If the current thread was interrupted
      *         while waiting.
      */
-    public final @Nullable DynamicResult<Result> get() throws
-            InterruptedException, ExecutionException {
+    public final @Nullable DynamicResult<R> get() throws InterruptedException, ExecutionException {
         return mFuture.get();
     }
     /**
@@ -216,7 +210,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      *         while waiting.
      * @throws TimeoutException If the wait timed out.
      */
-    public final @Nullable DynamicResult<Result> get(long timeout, TimeUnit unit) throws
+    public final @Nullable DynamicResult<R> get(long timeout, TimeUnit unit) throws
             InterruptedException, ExecutionException, TimeoutException {
         return mFuture.get(timeout, unit);
     }
@@ -227,17 +221,16 @@ public abstract class DynamicTask<Params, Progress, Result>
     }
 
     @Override
-    public @Nullable DynamicResult<Progress> publishProgress(
-            final @Nullable DynamicResult<Progress> progress) {
-        Message message = getHandler().obtainMessage(
-                DynamicHandler.MESSAGE_POST_PROGRESS, progress);
-        message.sendToTarget();
+    public @Nullable DynamicResult<P> publishProgress(
+            final @Nullable DynamicResult<P> progress) {
+        getHandler().obtainMessage(
+                DynamicHandler.MESSAGE_POST_PROGRESS, progress).sendToTarget();
 
         return progress;
     }
 
     @Override
-    public void finish(@Nullable DynamicResult<Result> result) {
+    public void finish(@Nullable DynamicResult<R> result) {
         if (isCancelled()) {
             onCancelled(result);
         } else {
@@ -269,8 +262,8 @@ public abstract class DynamicTask<Params, Progress, Result>
      * @param params The optional parameters for the task.
      */
     @MainThread
-    public final @NonNull DynamicTask<Params, Progress, Result> executeOnExecutor(
-            @NonNull Executor executor, @Nullable Params params) {
+    public final @NonNull DynamicTask<T, P, R> executeOnExecutor(
+            @NonNull Executor executor, @Nullable T params) {
         if (mStatus != DynamicStatus.PENDING) {
             switch (mStatus) {
                 case RUNNING:
@@ -299,8 +292,7 @@ public abstract class DynamicTask<Params, Progress, Result>
      * @param executor The executor to execute the task.
      */
     @MainThread
-    public final @NonNull DynamicTask<Params, Progress, Result> executeOnExecutor(
-            @NonNull Executor executor) {
+    public final @NonNull DynamicTask<T, P, R> executeOnExecutor(@NonNull Executor executor) {
         return executeOnExecutor(executor, null);
     }
 
@@ -310,22 +302,21 @@ public abstract class DynamicTask<Params, Progress, Result>
      * @param params The parameters for the task.
      *
      * @see #executeOnExecutor(Executor, Object)
-     * @see DynamicConcurrent#THREAD_POOL_EXECUTOR
+     * @see DynamicConcurrent#getThreadPoolExecutor()
      */
     @MainThread
-    public final @NonNull DynamicTask<Params, Progress, Result> execute(
-            @Nullable Params params) {
-        return executeOnExecutor(DynamicConcurrent.THREAD_POOL_EXECUTOR, params);
+    public final @NonNull DynamicTask<T, P, R> execute(@Nullable T params) {
+        return executeOnExecutor(DynamicConcurrent.getInstance().getThreadPoolExecutor(), params);
     }
 
     /**
      * Executes the task with the default executor and {@code null} parameters.
      *
      * @see #execute(Object)
-     * @see DynamicConcurrent#THREAD_POOL_EXECUTOR
+     * @see DynamicConcurrent#getThreadPoolExecutor()
      */
     @MainThread
-    public final @NonNull DynamicTask<Params, Progress, Result> execute() {
+    public final @NonNull DynamicTask<T, P, R> execute() {
         return execute(null);
     }
 }

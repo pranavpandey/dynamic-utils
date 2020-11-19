@@ -83,7 +83,7 @@ public class DynamicTaskUtils {
 
         try {
             if (task.getStatus() == DynamicStatus.PENDING) {
-                task.executeOnExecutor(DynamicConcurrent.THREAD_POOL_EXECUTOR);
+                task.executeOnExecutor(DynamicConcurrent.getInstance().getThreadPoolExecutor());
             }
         } catch (Exception ignored) {
         }

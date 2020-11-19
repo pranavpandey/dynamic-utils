@@ -21,6 +21,9 @@ import android.os.Looper;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.lang.ref.WeakReference;
 
 /**
  * A {@link Handler} to handle updates from the {@link DynamicTask}.
@@ -29,7 +32,7 @@ import androidx.annotation.NonNull;
  * @see DynamicRunnable#finish(DynamicResult)
  * @see DynamicRunnable#onProgressUpdate(DynamicResult)
  */
-public class DynamicHandler<Progress, Result> extends Handler {
+public class DynamicHandler<P, R> extends Handler {
 
     /**
      * Message constant to post the final result on the main thread.
@@ -42,9 +45,17 @@ public class DynamicHandler<Progress, Result> extends Handler {
     public static final int MESSAGE_POST_PROGRESS = 0x2;
 
     /**
+     * Message constant to set the content to {@code null} if not matched the criteria.
+     *
+     * @see com.pranavpandey.android.dynamic.utils.loader.handler.ImageViewHandler
+     * @see com.pranavpandey.android.dynamic.utils.loader.handler.TextViewHandler
+     */
+    public static final int MESSAGE_NULL_IF_NOT = 0x3;
+
+    /**
      * Runnable to receive the callbacks.
      */
-    private final DynamicRunnable<?, Progress, Result> mRunnable;
+    private final WeakReference<DynamicRunnable<?, P, R>> mRunnable;
 
     /**
      * Constructor to initialize an object of this class.
@@ -56,25 +67,27 @@ public class DynamicHandler<Progress, Result> extends Handler {
      * @see DynamicRunnable#onProgressUpdate(DynamicResult)
      */
     public DynamicHandler(@NonNull Looper looper,
-            @NonNull DynamicRunnable<?, Progress, Result> runnable) {
+            @NonNull DynamicRunnable<?, P, R> runnable) {
         super(looper);
 
-        this.mRunnable = runnable;
+        this.mRunnable = new WeakReference<DynamicRunnable<?, P, R>>(runnable);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void handleMessage(@NonNull Message msg) {
-        if (mRunnable == null) {
+        super.handleMessage(msg);
+
+        if (getRunnable() == null) {
             return;
         }
 
         switch (msg.what) {
             case MESSAGE_POST_RESULT:
-                mRunnable.finish((DynamicResult<Result>) msg.obj);
+                getRunnable().finish((DynamicResult<R>) msg.obj);
                 break;
             case MESSAGE_POST_PROGRESS:
-                mRunnable.onProgressUpdate((DynamicResult<Progress>) msg.obj);
+                getRunnable().onProgressUpdate((DynamicResult<P>) msg.obj);
                 break;
         }
     }
@@ -84,7 +97,11 @@ public class DynamicHandler<Progress, Result> extends Handler {
      *
      * @return The runnable handled by this handler.
      */
-    public @NonNull DynamicRunnable<?, Progress, Result> getRunnable() {
-        return mRunnable;
+    public @Nullable DynamicRunnable<?, P, R> getRunnable() {
+        if (mRunnable == null) {
+            return null;
+        }
+
+        return mRunnable.get();
     }
 }

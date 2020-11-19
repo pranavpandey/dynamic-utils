@@ -22,16 +22,17 @@ import androidx.annotation.Nullable;
 
 import com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask;
 
+import java.lang.ref.WeakReference;
+
 /**
  * A {@link DynamicTask} to perform operations with {@link Context}.
  */
-public abstract class ContextTask<Params, Progress, Result>
-        extends DynamicTask<Params, Progress, Result> {
+public abstract class ContextTask<T, P, R> extends DynamicTask<T, P, R> {
 
     /**
      * Context used by this task.
      */
-    private final Context mContext;
+    private final WeakReference<Context> mContext;
 
     /**
      * Constructor to initialize an object of this class.
@@ -39,7 +40,7 @@ public abstract class ContextTask<Params, Progress, Result>
      * @param context The context for this task.
      */
     public ContextTask(@Nullable Context context) {
-        this.mContext = context;
+        this.mContext = new WeakReference<>(context);
     }
 
     /**
@@ -48,6 +49,10 @@ public abstract class ContextTask<Params, Progress, Result>
      * @return The context used by this task.
      */
     public @Nullable Context getContext() {
-        return mContext;
+        if (mContext == null) {
+            return null;
+        }
+
+        return mContext.get();
     }
 }

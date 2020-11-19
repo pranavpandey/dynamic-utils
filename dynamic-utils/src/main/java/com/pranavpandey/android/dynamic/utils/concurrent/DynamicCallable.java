@@ -23,19 +23,19 @@ import java.util.concurrent.Callable;
 /**
  * Base class to implement the {@link Callable} with parameters.
  */
-public abstract class DynamicCallable<Params, Result> implements Callable<Result> {
+public abstract class DynamicCallable<T, R> implements Callable<R> {
 
     /**
      * Parameters associated with this class.
      */
-    private Params mParams;
+    private T mParams;
 
     /**
      * Get the parameters associated with this class.
      *
      * @return The parameters associated with this class.
      */
-    public @Nullable Params getParams() {
+    public @Nullable T getParams() {
         return mParams;
     }
 
@@ -44,7 +44,7 @@ public abstract class DynamicCallable<Params, Result> implements Callable<Result
      *
      * @param params The parameters for this class.
      */
-    public void setParams(@Nullable Params params) {
+    public void setParams(@Nullable T params) {
         this.mParams = params;
     }
 }

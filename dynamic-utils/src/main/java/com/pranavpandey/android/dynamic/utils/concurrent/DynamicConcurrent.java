@@ -16,12 +16,17 @@
 
 package com.pranavpandey.android.dynamic.utils.concurrent;
 
+import android.os.Handler;
+import android.os.Message;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -30,20 +35,44 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class DynamicConcurrent {
 
     /**
-     * An {@link Executor} that executes tasks one at a time in serial order.
+     * An {@link ExecutorService} that executes tasks one at a time in serial order.
      * This serialization is global to a particular process.
      */
-    public static final Executor SERIAL_EXECUTOR;
+    public final ExecutorService SERIAL_EXECUTOR;
 
     /**
-     * An {@link Executor} that can be used to execute tasks in parallel.
+     * An {@link ExecutorService} that can be used to execute tasks in parallel.
      */
-    public static final Executor THREAD_POOL_EXECUTOR;
+    public final ExecutorService THREAD_POOL_EXECUTOR;
 
-    static {
-        SERIAL_EXECUTOR = Executors.newSingleThreadExecutor();
-        THREAD_POOL_EXECUTOR = getDefaultExecutor();
-    }
+    /**
+     * An {@link ExecutorService} to be used as backup for the {@link #THREAD_POOL_EXECUTOR}.
+     */
+    private static ThreadPoolExecutor sBackupExecutor;
+
+    /**
+     * An {@link RejectedExecutionHandler} to be used for the {@link #THREAD_POOL_EXECUTOR}.
+     */
+    private static final RejectedExecutionHandler sRunOnSerialPolicy =
+            new RejectedExecutionHandler() {
+                public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
+                    // As a last ditch fallback, run it on an executor with an unbounded queue.
+                    // Create this executor lazily, hopefully almost never.
+                    synchronized (this) {
+                        if (sBackupExecutor == null) {
+                            sBackupExecutor = new ThreadPoolExecutor(
+                                    DynamicExecutor.BACKUP_POOL_SIZE,
+                                    DynamicExecutor.BACKUP_POOL_SIZE,
+                                    DynamicExecutor.KEEP_ALIVE, DynamicExecutor.KEEP_ALIVE_UNIT,
+                                    DynamicExecutor.BACKUP_WORK_QUEUE,
+                                    DynamicExecutor.THREAD_FACTORY);
+                            sBackupExecutor.allowCoreThreadTimeOut(true);
+                        }
+                    }
+
+                    sBackupExecutor.execute(r);
+                }
+            };
 
     /**
      * Singleton instance of {@link DynamicConcurrent}.
@@ -56,9 +85,15 @@ public class DynamicConcurrent {
     private static final Object sLock = new Object();
 
     /**
-     * Constructor to initialize an object of this class.
+     * Making default constructor private so that it cannot be initialized directly.
+     * <p>Use {@link #getInstance()} instead.
      */
-    private DynamicConcurrent() { }
+    private DynamicConcurrent() {
+        SERIAL_EXECUTOR = Executors.newSingleThreadExecutor();
+        THREAD_POOL_EXECUTOR = getDefaultExecutor();
+        ((ThreadPoolExecutor) THREAD_POOL_EXECUTOR)
+                .setRejectedExecutionHandler(sRunOnSerialPolicy);
+    }
 
     /**
      * Retrieves the singleton instance of {@link DynamicConcurrent}.
@@ -82,9 +117,27 @@ public class DynamicConcurrent {
      * @return The default executor service.
      */
     public static @NonNull ExecutorService getDefaultExecutor() {
-        return new ThreadPoolExecutor(DynamicExecutor.NUMBER_OF_CORES,
-                DynamicExecutor.NUMBER_OF_CORES, DynamicExecutor.KEEP_ALIVE,
+        return new ThreadPoolExecutor(DynamicExecutor.CORE_POOL_SIZE,
+                DynamicExecutor.MAXIMUM_POOL_SIZE, DynamicExecutor.KEEP_ALIVE,
                 DynamicExecutor.KEEP_ALIVE_UNIT, DynamicExecutor.WORK_QUEUE);
+    }
+
+    /**
+     * Returns the serial executor service.
+     *
+     * @return The serial executor service.
+     */
+    public @NonNull ExecutorService getSerialExecutor() {
+        return SERIAL_EXECUTOR;
+    }
+
+    /**
+     * Returns the thread pool executor service.
+     *
+     * @return The thread pool executor service.
+     */
+    public @NonNull ExecutorService getThreadPoolExecutor() {
+        return THREAD_POOL_EXECUTOR;
     }
 
     /**
@@ -93,33 +146,146 @@ public class DynamicConcurrent {
      *
      * @param executorService The executor service to be used.
      * @param runnable The task to be executed.
+     *
+     * @see ExecutorService#execute(Runnable)
      */
     public void execute(@Nullable ExecutorService executorService, @Nullable Runnable runnable) {
-        if (runnable == null) {
+        if (executorService == null || runnable == null) {
             return;
         }
 
-        if (executorService != null) {
-            if (runnable instanceof DynamicTask) {
-                ((DynamicTask<?, ?, ?>) runnable).executeOnExecutor(executorService);
-            } else {
-                executorService.execute(runnable);
-            }
+        if (runnable instanceof DynamicTask) {
+            ((DynamicTask<?, ?, ?>) runnable).executeOnExecutor(executorService);
         } else {
-            if (runnable instanceof DynamicTask) {
-                ((DynamicTask<?, ?, ?>) runnable).executeOnExecutor(THREAD_POOL_EXECUTOR);
-            } else {
-                THREAD_POOL_EXECUTOR.execute(runnable);
-            }
+            executorService.execute(runnable);
         }
     }
 
     /**
-     * Executes a {@link Runnable} for the default executor service.
+     * Executes a {@link Runnable} on the default executor service.
      *
      * @param runnable The task to be executed.
+     *
+     * @see #THREAD_POOL_EXECUTOR
+     * @see ExecutorService#execute(Runnable)
      */
     public void execute(@Nullable Runnable runnable) {
-        execute(null, runnable);
+        execute(getThreadPoolExecutor(), runnable);
+    }
+
+    /**
+     * Submits a {@link Runnable} or {@link Callable} task on the supplied executor service
+     * and returns a {@link Future} representing that task.
+     *
+     * @param executorService The executor service to be used.
+     * @param task The task to be submitted.
+     * @param result The result to return.
+     *
+     * @return The {@link Future} representing the pending completion of the task.
+     *
+     * @see ExecutorService#submit(Runnable)
+     * @see ExecutorService#submit(Callable)
+     */
+    public @Nullable <T, V> Future<?> submit(@Nullable ExecutorService executorService,
+            @Nullable T task, @Nullable V result) {
+        if (executorService != null && task != null) {
+            if (task instanceof Runnable) {
+                if (result != null) {
+                    return executorService.submit((Runnable) task, result);
+                } else {
+                    return executorService.submit((Runnable) task);
+                }
+            } else if (task instanceof Callable<?>) {
+                return executorService.submit((Callable<?>) task);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Submits a {@link Runnable} or {@link Callable} task on the default executor service
+     * and returns a {@link Future} representing that task.
+     *
+     * @param task The task to be submitted.
+     * @param result The result to return.
+     *
+     * @return The {@link Future} representing the pending completion of the task.
+     *
+     * @see #THREAD_POOL_EXECUTOR
+     * @see ExecutorService#submit(Runnable)
+     * @see ExecutorService#submit(Callable)
+     */
+    public @Nullable <T, V> Future<?> submit(@Nullable T task, @Nullable V result) {
+        return submit(getThreadPoolExecutor(), task, result);
+    }
+
+    /**
+     * Submits a {@link Runnable} or {@link Callable} task on the default executor service
+     * and returns a {@link Future} representing that task.
+     *
+     * @param task The task to be submitted.
+     *
+     * @return The {@link Future} representing the pending completion of the task.
+     *
+     * @see #THREAD_POOL_EXECUTOR
+     * @see ExecutorService#submit(Runnable)
+     * @see ExecutorService#submit(Callable)
+     */
+    public @Nullable <T> Future<?> submit(@Nullable T task) {
+        return submit(getThreadPoolExecutor(), task, null);
+    }
+
+    /**
+     * Submits a {@link Runnable} task on the supplied executor service and perform
+     * operations with the handler and callback.
+     *
+     * @param executorService The executor service to be used.
+     * @param handler The handler to be used.
+     * @param callback The callback to be used.
+     *
+     * @return The {@link Future} representing the pending completion of the task.
+     */
+    public @Nullable <V, P, R> Future<?> async(@Nullable ExecutorService executorService,
+            final @Nullable Handler handler, final @Nullable DynamicCallback<V, P, R> callback) {
+        if (handler == null || callback == null || callback.getView() == null) {
+            return null;
+        }
+
+        final Message message = Message.obtain();
+        message.obj = callback.onPlaceholder(callback.getView());
+        handler.sendMessage(message);
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Message message = Message.obtain();
+                message.obj = callback.onResult(callback.getView());
+                handler.sendMessage(message);
+            }
+        };
+
+        if (executorService != null) {
+            return executorService.submit(runnable);
+        } else {
+            new Handler().post(runnable);
+            return null;
+        }
+    }
+
+    /**
+     * Submits a {@link Runnable} task on the default executor service and perform
+     * operations with the handler and callback.
+     *
+     * @param handler The handler to be used.
+     * @param callback The callback to be used.
+     *
+     * @return The {@link Future} representing the pending completion of the task.
+     *
+     * @see #THREAD_POOL_EXECUTOR
+     */
+    public @Nullable <V, P, R> Future<?> async(@Nullable Handler handler,
+            @Nullable DynamicCallback<V, P, R> callback) {
+        return async(null, handler, callback);
     }
 }

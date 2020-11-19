@@ -23,7 +23,7 @@ import androidx.annotation.WorkerThread;
 /**
  * Base class to receive the callback from an asynchronous work.
  */
-public abstract class DynamicRunnable<Params, Progress, Result> implements Runnable {
+public abstract class DynamicRunnable<T, P, R> implements Runnable {
 
     /**
      * This method will be called before doing the background work.
@@ -39,7 +39,7 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      * @return The optional result object.
      */
     @WorkerThread
-    protected abstract @Nullable Result doInBackground(@Nullable Params params);
+    protected abstract @Nullable R doInBackground(@Nullable T params);
 
     /**
      * This method will be called on publishing the progress.
@@ -47,7 +47,7 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      * @param progress The progress returned by the work.
      */
     @MainThread
-    protected void onProgressUpdate(@Nullable DynamicResult<Progress> progress) { }
+    protected void onProgressUpdate(@Nullable DynamicResult<P> progress) { }
 
     /**
      * This method will be called after completing the work.
@@ -55,7 +55,7 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      * @param result The result returned by the work.
      */
     @MainThread
-    protected void onPostExecute(@Nullable DynamicResult<Result> result) { }
+    protected void onPostExecute(@Nullable DynamicResult<R> result) { }
 
     /**
      * This method can be invoked from {@link #doInBackground} to
@@ -72,8 +72,8 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      * @see #doInBackground
      */
     @WorkerThread
-    public abstract @Nullable DynamicResult<Progress> publishProgress(
-            final @Nullable DynamicResult<Progress> progress);
+    public abstract @Nullable DynamicResult<P> publishProgress(
+            final @Nullable DynamicResult<P> progress);
 
     /**
      * This method will be called to handle the result returned by the task.
@@ -81,7 +81,7 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      * @param result The result returned by the work.
      */
     @MainThread
-    public abstract void finish(@Nullable DynamicResult<Result> result);
+    public abstract void finish(@Nullable DynamicResult<R> result);
 
     /**
      * Runs on the UI thread after {@link #cancel(boolean)} is invoked and
@@ -99,7 +99,7 @@ public abstract class DynamicRunnable<Params, Progress, Result> implements Runna
      */
     @SuppressWarnings({"UnusedParameters"})
     @MainThread
-    protected void onCancelled(DynamicResult<Result> result) {
+    protected void onCancelled(DynamicResult<R> result) {
         onCancelled();
     }
 

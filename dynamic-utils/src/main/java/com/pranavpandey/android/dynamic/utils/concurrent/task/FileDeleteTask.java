@@ -47,13 +47,11 @@ public class FileDeleteTask extends DynamicTask<Void, Void, Boolean> {
             return false;
         }
 
-        boolean result = false;
         try {
-            result = getFile().delete();
+            return getFile().delete();
         } catch (Exception ignored) {
+            return false;
         }
-
-        return result;
     }
 
     /**

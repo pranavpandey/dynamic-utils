@@ -30,6 +30,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.net.MailTo;
 
 import java.util.List;
 
@@ -60,11 +61,6 @@ public class DynamicLinkUtils {
             "http://play.google.com/store/search?q=pub:";
 
     /**
-     * Send intent URI to open the compose mail screen.
-     */
-    private static final String MAIL_TO = "mailto:";
-
-    /**
      * Package name for the Google feedback activity.
      */
     private static final String PACKAGE_FEEDBACK = "com.google.android.feedback";
@@ -92,7 +88,6 @@ public class DynamicLinkUtils {
 
         if (clipboard != null) {
             clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
-
             return true;
         }
 
@@ -115,9 +110,11 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_SEND
      */
-    public static void share(@NonNull Context context, @Nullable String title,
+    public static boolean share(@NonNull Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri uri, @Nullable String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -144,8 +141,11 @@ public class DynamicLinkUtils {
 
         try {
             context.startActivity(Intent.createChooser(intent, title));
+            return true;
         } catch (Exception ignored) {
         }
+
+        return false;
     }
 
     /**
@@ -163,11 +163,13 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_SEND
      */
-    public static void share(@NonNull Context context, @Nullable String title,
+    public static boolean share(@NonNull Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri image) {
-        share(context, title, message, image, "image/*");
+        return share(context, title, message, image, "image/*");
     }
 
     /**
@@ -184,11 +186,13 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_SEND
      */
-    public static void share(@NonNull Context context,
+    public static boolean share(@NonNull Context context,
             @Nullable String title, @Nullable String message) {
-        share(context, title, message, null);
+        return share(context, title, message, null);
     }
 
     /**
@@ -202,15 +206,17 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see #share(Context, String, String)
      */
-    public static void shareApp(@NonNull Context context) {
-        share(context, null, null);
+    public static boolean shareApp(@NonNull Context context) {
+        return share(context, null, null);
     }
 
     /**
      * View any URL in the available app or browser. Some URLs will automatically open in their
-     * respective apps if installed on the the device. Special treatment is applied for the
+     * respective apps if installed on the device. Special treatment is applied for the
      * Facebook URLs to open them directly in the app.
      *
      * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
@@ -221,10 +227,12 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_VIEW
      */
     @TargetApi(Build.VERSION_CODES.R)
-    public static void viewUrl(@NonNull Context context, @NonNull String url) {
+    public static boolean viewUrl(@NonNull Context context, @NonNull String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -235,13 +243,20 @@ public class DynamicLinkUtils {
             }
 
             context.startActivity(intent);
+            return true;
         } catch (Exception e) {
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            intent.addCategory(Intent.CATEGORY_BROWSABLE);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            context.startActivity(intent);
+                context.startActivity(intent);
+                return true;
+            } catch (Exception ignored) {
+            }
         }
+
+        return false;
     }
 
     /**
@@ -252,15 +267,18 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_VIEW
      */
     @TargetApi(Build.VERSION_CODES.R)
-    public static void viewInGooglePlay(@NonNull Context context, @NonNull String packageName) {
-        try {
-            viewUrl(context, URL_MARKET + packageName);
-        } catch (Exception e) {
-            viewUrl(context, URL_PLAY_STORE + packageName);
+    public static boolean viewInGooglePlay(@NonNull Context context,
+            @NonNull String packageName) {
+        if (viewUrl(context, URL_MARKET + packageName)) {
+            return true;
         }
+
+        return viewUrl(context, URL_PLAY_STORE + packageName);
     }
 
     /**
@@ -274,11 +292,13 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see #viewInGooglePlay(Context, String)
      */
     @TargetApi(Build.VERSION_CODES.R)
-    public static void rateApp(@NonNull Context context) {
-        viewInGooglePlay(context, context.getPackageName());
+    public static boolean rateApp(@NonNull Context context) {
+        return viewInGooglePlay(context, context.getPackageName());
     }
 
     /**
@@ -292,15 +312,17 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_VIEW
      */
     @TargetApi(Build.VERSION_CODES.R)
-    public static void moreApps(@NonNull Context context, @NonNull String publisher) {
-        try {
-            viewUrl(context, URL_MARKET_SEARCH_PUB + publisher);
-        } catch (Exception e) {
-            viewUrl(context, URL_GOOGLE_PLAY_SEARCH_PUB + publisher);
+    public static boolean moreApps(@NonNull Context context, @NonNull String publisher) {
+        if (viewUrl(context, URL_MARKET_SEARCH_PUB + publisher)) {
+            return true;
         }
+
+        return viewUrl(context, URL_GOOGLE_PLAY_SEARCH_PUB + publisher);
     }
 
     /**
@@ -318,20 +340,26 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_SENDTO
-     * @see #MAIL_TO
+     * @see MailTo#MAILTO_SCHEME
      */
-    public static void email(@NonNull Context context, @NonNull String email,
+    public static boolean email(@NonNull Context context, @NonNull String email,
             @Nullable String subject, @Nullable String text) {
         try {
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MAIL_TO + email));
+            Intent intent = new Intent(Intent.ACTION_SENDTO,
+                    Uri.parse(MailTo.MAILTO_SCHEME + email));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
             intent.putExtra(Intent.EXTRA_TEXT, text);
 
             context.startActivity(intent);
+            return true;
         } catch (Exception ignored) {
         }
+
+        return false;
     }
 
     /**
@@ -349,10 +377,12 @@ public class DynamicLinkUtils {
      *
      * @throws ActivityNotFoundException If no activity is found.
      *
+     * @return {@code true} on successful operation.
+     *
      * @see Intent#ACTION_SENDTO
-     * @see #MAIL_TO
+     * @see MailTo#MAILTO_SCHEME
      */
-    public static void report(@NonNull Context context,
+    public static boolean report(@NonNull Context context,
             @Nullable String appName, @NonNull String email) {
         try {
             String version = context.getPackageManager().getPackageInfo(
@@ -363,16 +393,20 @@ public class DynamicLinkUtils {
                         context.getPackageManager()).toString();
             }
 
-            email(context, email, String.format(
+            return email(context, email, String.format(
                     context.getResources().getString(R.string.adu_bug_title), appName,
                     version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE),
                     context.getResources().getString(R.string.adu_bug_desc));
         } catch (Exception ignored) {
         }
+
+        return false;
     }
 
     /**
      * Checks whether the email client exists on the device.
+     * <p><p>Use {@code queries} tag for {@link Intent#ACTION_SENDTO} with scheme
+     * {@link MailTo#MAILTO_SCHEME} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to get the package manager.
      *
@@ -382,7 +416,7 @@ public class DynamicLinkUtils {
         List<ResolveInfo> list = null;
 
         try {
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MAIL_TO));
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MailTo.MAILTO_SCHEME));
             PackageManager packageManager = context.getPackageManager();
             list = packageManager.queryIntentActivities(intent, 0);
         } catch (Exception ignored) {

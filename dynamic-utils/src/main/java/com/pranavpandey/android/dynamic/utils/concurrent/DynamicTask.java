@@ -83,8 +83,6 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
         this.mHandler = new DynamicHandler<>(looper, this);
 
         mWorker = new DynamicCallable<T, DynamicResult<R>>() {
-            DynamicResult<R> result = null;
-
             @Override
             public DynamicResult<R> call() {
                 mTaskInvoked.set(true);

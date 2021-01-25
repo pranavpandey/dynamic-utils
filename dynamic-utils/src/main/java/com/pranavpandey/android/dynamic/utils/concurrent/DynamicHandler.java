@@ -46,9 +46,6 @@ public class DynamicHandler<P, R> extends Handler {
 
     /**
      * Message constant to set the content to {@code null} if not matched the criteria.
-     *
-     * @see com.pranavpandey.android.dynamic.utils.loader.handler.ImageViewHandler
-     * @see com.pranavpandey.android.dynamic.utils.loader.handler.TextViewHandler
      */
     public static final int MESSAGE_NULL_IF_NOT = 0x3;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,11 +43,16 @@ public class DynamicIntentUtils {
      * @return The intent for the supplied class and flags.
      */
     public static @NonNull Intent getIntent(@NonNull Context context,
-            @NonNull Class<?> clazz, int flags) {
-        Intent intent = new Intent(context, clazz);
-        intent.setComponent(new ComponentName(context, clazz));
-        intent.addFlags(flags);
+            @Nullable Class<?> clazz, int flags) {
+        Intent intent;
+        if (clazz != null) {
+            intent = new Intent(context, clazz);
+            intent.setComponent(new ComponentName(context, clazz));
+        } else {
+            intent = new Intent();
+        }
 
+        intent.addFlags(flags);
         return intent;
     }
 
@@ -61,7 +66,7 @@ public class DynamicIntentUtils {
      *
      * @return The intent for the supplied class.
      */
-    public static @NonNull Intent getIntent(@NonNull Context context, @NonNull Class<?> clazz) {
+    public static @NonNull Intent getIntent(@NonNull Context context, @Nullable Class<?> clazz) {
         return getIntent(context, clazz, 0);
     }
 
@@ -78,7 +83,7 @@ public class DynamicIntentUtils {
      * @return The activity intent for the supplied class.
      */
     public static @NonNull Intent getActivityIntent(
-            @NonNull Context context, @NonNull Class<?> clazz) {
+            @NonNull Context context, @Nullable Class<?> clazz) {
         return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_NEW_TASK);
     }
@@ -95,7 +100,7 @@ public class DynamicIntentUtils {
      * @return The activity intent for the supplied class to get the result.
      */
     public static @NonNull Intent getActivityIntentForResult(
-            @NonNull Context context, @NonNull Class<?> clazz) {
+            @NonNull Context context, @Nullable Class<?> clazz) {
         return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
@@ -115,7 +120,7 @@ public class DynamicIntentUtils {
             return null;
         }
 
-        if (intent.getAction() != null && intent.getAction().equals(action)
+        if (intent.getAction() != null && action.equals(intent.getAction())
                 && intent.getParcelableExtra(Intent.EXTRA_STREAM) != null) {
             return (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -180,6 +180,8 @@ public class DynamicConcurrent {
      * @param executorService The executor service to be used.
      * @param task The task to be submitted.
      * @param result The result to return.
+     * @param <T> The type of the task.
+     * @param <V> The type of the result.
      *
      * @return The {@link Future} representing the pending completion of the task.
      *
@@ -209,6 +211,8 @@ public class DynamicConcurrent {
      *
      * @param task The task to be submitted.
      * @param result The result to return.
+     * @param <T> The type of the task.
+     * @param <V> The type of the result.
      *
      * @return The {@link Future} representing the pending completion of the task.
      *
@@ -225,6 +229,7 @@ public class DynamicConcurrent {
      * and returns a {@link Future} representing that task.
      *
      * @param task The task to be submitted.
+     * @param <T> The type of the task.
      *
      * @return The {@link Future} representing the pending completion of the task.
      *
@@ -243,6 +248,9 @@ public class DynamicConcurrent {
      * @param executorService The executor service to be used.
      * @param handler The handler to be used.
      * @param callback The callback to be used.
+     * @param <V> The type of the callback view.
+     * @param <P> The type of the callback placeholder.
+     * @param <R> The type of the callback result.
      *
      * @return The {@link Future} representing the pending completion of the task.
      */
@@ -279,6 +287,9 @@ public class DynamicConcurrent {
      *
      * @param handler The handler to be used.
      * @param callback The callback to be used.
+     * @param <V> The type of the callback view.
+     * @param <P> The type of the callback placeholder.
+     * @param <R> The type of the callback result.
      *
      * @return The {@link Future} representing the pending completion of the task.
      *

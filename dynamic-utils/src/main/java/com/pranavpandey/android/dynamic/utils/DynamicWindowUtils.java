@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -245,18 +245,41 @@ public class DynamicWindowUtils {
      * Get the overlay flag according to the Android version.
      *
      * @param alert {@code true} to return alert flag on below API 26 devices.
+     * @param accessibility {@code true} to return the accessibility overlay.
      *
      * @return The {@link WindowManager} overlay flag according to the Android version.
      *
      * @see WindowManager.LayoutParams#TYPE_APPLICATION_OVERLAY
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_OVERLAY
      * @see WindowManager.LayoutParams#TYPE_SYSTEM_ALERT
+     * @see WindowManager.LayoutParams#TYPE_ACCESSIBILITY_OVERLAY
      */
     @TargetApi(Build.VERSION_CODES.O)
-    public static int getOverlayFlag(boolean alert) {
+    public static int getOverlayFlag(boolean alert, boolean accessibility) {
+        if (DynamicSdkUtils.is22() && accessibility) {
+            return WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
+        }
+
         return DynamicSdkUtils.is26()
                 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
                 : alert ? WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
                 : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+    }
+
+    /**
+     * Get the overlay flag according to the Android version.
+     *
+     * @param alert {@code true} to return alert flag on below API 26 devices.
+     *
+     * @return The {@link WindowManager} overlay flag according to the Android version.
+     *
+     * @see #getOverlayFlag(boolean, boolean)
+     * @see WindowManager.LayoutParams#TYPE_APPLICATION_OVERLAY
+     * @see WindowManager.LayoutParams#TYPE_SYSTEM_OVERLAY
+     * @see WindowManager.LayoutParams#TYPE_SYSTEM_ALERT
+     */
+    @TargetApi(Build.VERSION_CODES.O)
+    public static int getOverlayFlag(boolean alert) {
+        return getOverlayFlag(alert, false);
     }
 }

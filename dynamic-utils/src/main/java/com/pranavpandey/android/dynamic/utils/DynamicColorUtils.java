@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,6 +108,7 @@ public class DynamicColorUtils {
      * Set alpha to a color.
      *
      * @param color The color whose alpha to be set.
+     * @param alpha The alpha to be set.
      *
      * @return The color with alpha.
      */

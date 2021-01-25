@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class DynamicDeviceUtils {
      *
      * @see java.util.Date
      */
-    public static @NonNull String getDate(Context context, long milliSeconds) {
+    public static @NonNull String getDate(@NonNull Context context, long milliSeconds) {
         DateFormat df = android.text.format.DateFormat.getDateFormat(context);
         DateFormat tf = android.text.format.DateFormat.getTimeFormat(context);
 

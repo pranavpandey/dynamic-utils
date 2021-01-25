@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,8 @@ public abstract class DynamicRunnable<T, P, R> implements Runnable {
      *
      * @param progress The progress result to update the UI with.
      *
+     * @return The published result.
+     *
      * @see #onProgressUpdate
      * @see #doInBackground
      */
@@ -133,7 +135,7 @@ public abstract class DynamicRunnable<T, P, R> implements Runnable {
     /**
      * Attempts to cancel execution of this task.  This attempt will fail if the task has
      * already completed, already been cancelled, or could not be cancelled for some other
-     * reason. If successful, and this task has not started when <tt>cancel</tt> is called,
+     * reason. If successful, and this task has not started when {@code cancel} is called,
      * this task should never run. If the task has already started, then the
      * {@code mayInterruptIfRunning} parameter determines whether the thread executing this
      * task should be interrupted in an attempt to stop the task.

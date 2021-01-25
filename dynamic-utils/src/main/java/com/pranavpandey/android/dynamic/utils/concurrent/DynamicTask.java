@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -219,11 +219,8 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
     }
 
     @Override
-    public @Nullable DynamicResult<P> publishProgress(
-            final @Nullable DynamicResult<P> progress) {
-        getHandler().obtainMessage(
-                DynamicHandler.MESSAGE_POST_PROGRESS, progress).sendToTarget();
-
+    public @Nullable DynamicResult<P> publishProgress(final @Nullable DynamicResult<P> progress) {
+        getHandler().obtainMessage(DynamicHandler.MESSAGE_POST_PROGRESS, progress).sendToTarget();
         return progress;
     }
 
@@ -258,6 +255,8 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
      *
      * @param executor The executor to execute the task.
      * @param params The optional parameters for the task.
+     *
+     * @return The instance of the executed task.
      */
     @MainThread
     public final @NonNull DynamicTask<T, P, R> executeOnExecutor(
@@ -275,7 +274,6 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
         }
 
         mStatus = DynamicStatus.RUNNING;
-
         onPreExecute();
 
         mWorker.setParams(params);
@@ -288,6 +286,8 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
      * Executes the task on the supplied executor.
      *
      * @param executor The executor to execute the task.
+     *
+     * @return The instance of the executed task.
      */
     @MainThread
     public final @NonNull DynamicTask<T, P, R> executeOnExecutor(@NonNull Executor executor) {
@@ -299,6 +299,8 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
      *
      * @param params The parameters for the task.
      *
+     * @return The instance of the executed task.
+     *
      * @see #executeOnExecutor(Executor, Object)
      * @see DynamicConcurrent#getThreadPoolExecutor()
      */
@@ -309,6 +311,8 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
 
     /**
      * Executes the task with the default executor and {@code null} parameters.
+     *
+     * @return The instance of the executed task.
      *
      * @see #execute(Object)
      * @see DynamicConcurrent#getThreadPoolExecutor()

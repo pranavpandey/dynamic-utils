@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -25,6 +26,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
@@ -39,6 +42,27 @@ import java.io.ByteArrayOutputStream;
 public class DynamicBitmapUtils {
 
     /**
+     * Retrieve the bitmap from the supplied uri.
+     *
+     * @param context The context to get the content resolver.
+     * @param uri The uri to retrieve the bitmap.
+     *
+     * @return The bitmap from the supplied uri.
+     *
+     * @see Context#getContentResolver()
+     */
+    public static @Nullable Bitmap getBitmap(@Nullable Context context, @Nullable Uri uri) {
+        if (context != null && uri != null) {
+            try {
+                return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+            } catch (Exception ignored) {
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get bitmap from the supplied drawable.
      *
      * @param drawable The drawable to get the bitmap.
@@ -49,7 +73,7 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public static @Nullable Bitmap getBitmapFromDrawable(@Nullable Drawable drawable,
+    public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable,
             int width, int height, boolean compress, int quality) {
         if (drawable != null) {
             try {
@@ -87,10 +111,10 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public static @Nullable Bitmap getBitmapFromDrawable(
-            @Nullable Drawable drawable, boolean compress, int quality) {
+    public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable,
+            boolean compress, int quality) {
         if (drawable != null) {
-            return getBitmapFromDrawable(drawable, drawable.getIntrinsicWidth(),
+            return getBitmap(drawable, drawable.getIntrinsicWidth(),
                     drawable.getIntrinsicHeight(), compress, quality);
         }
 
@@ -104,9 +128,9 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public static @Nullable Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
+    public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable) {
         if (drawable != null) {
-            return getBitmapFromDrawable(drawable, drawable.getIntrinsicWidth(),
+            return getBitmap(drawable, drawable.getIntrinsicWidth(),
                     drawable.getIntrinsicHeight(), false, 0);
         }
 
@@ -179,8 +203,12 @@ public class DynamicBitmapUtils {
      *
      * @return The new bitmap with applied color filter.
      */
-    public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap,
+    public static @Nullable Bitmap applyColorFilter(@Nullable Bitmap bitmap,
             @NonNull ColorFilter colorFilter) {
+        if (bitmap == null) {
+            return null;
+        }
+
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColorFilter(colorFilter);
         paint.setFilterBitmap(true);
@@ -199,7 +227,7 @@ public class DynamicBitmapUtils {
      *
      * @return The new bitmap with applied color filter.
      */
-    public static @NonNull Bitmap applyColorFilter(@NonNull Bitmap bitmap, @ColorInt int color) {
+    public static @Nullable Bitmap applyColorFilter(@Nullable Bitmap bitmap, @ColorInt int color) {
         return applyColorFilter(bitmap, new PorterDuffColorFilter(
                 color, PorterDuff.Mode.SRC_ATOP));
     }
@@ -228,7 +256,11 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public static @NonNull Bitmap createBitmapFromView(@NonNull View view, int width, int height) {
+    public static @Nullable Bitmap createBitmap(@Nullable View view, int width, int height) {
+        if (view == null) {
+            return null;
+        }
+
         final int oldWidth = view.getWidth();
         final int oldHeight = view.getHeight();
 
@@ -264,7 +296,7 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied drawable.
      */
-    public static @NonNull Bitmap createBitmapFromView(@NonNull View view) {
-        return createBitmapFromView(view, 0, 0);
+    public static @Nullable Bitmap createBitmap(@Nullable View view) {
+        return createBitmap(view, 0, 0);
     }
 }

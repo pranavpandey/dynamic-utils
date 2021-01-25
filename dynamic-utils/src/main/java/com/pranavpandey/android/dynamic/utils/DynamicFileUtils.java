@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -91,9 +92,11 @@ public class DynamicFileUtils {
     public static final String ADU_MIME_OCTET_STREAM = "application/octet-stream";
 
     /**
-     * Returns the default {@code temp} directory for a context.
+     * Returns the default {@code temp} directory for the context.
      *
      * @param context The context to get the package name.
+     *
+     * @return The default {@code temp} directory for the context.
      */
     public static @Nullable String getTempDir(@NonNull Context context) {
         if (context.getExternalFilesDir(null) == null) {
@@ -143,7 +146,7 @@ public class DynamicFileUtils {
         int i = fileName.lastIndexOf('.');
 
         if (i > 0 && i < fileName.length() - 1) {
-            extension = fileName.substring(i + 1).toLowerCase();
+            extension = fileName.substring(i + 1).toLowerCase(Locale.ROOT);
         }
 
         return extension;
@@ -684,6 +687,7 @@ public class DynamicFileUtils {
     /**
      * Checks whether the extension is valid for a file.
      *
+     * @param context The context to retrieve the resources.
      * @param file The file to get the extension.
      * @param extension The extension to be validated.
      *
@@ -701,6 +705,7 @@ public class DynamicFileUtils {
     /**
      * Checks whether the extension is valid for a uri.
      *
+     * @param context The context to retrieve the resources.
      * @param uri The uri to get the extension.
      * @param extension The extension to be validated.
      *
@@ -718,6 +723,7 @@ public class DynamicFileUtils {
     /**
      * Checks whether the extension is valid for an intent.
      *
+     * @param context The context to retrieve the resources.
      * @param intent The intent to get the extension.
      * @param extension The extension to be validated.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 Pranav Pandey
+ * Copyright 2017-2021 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package com.pranavpandey.android.dynamic.utils;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -141,6 +143,21 @@ public class DynamicViewUtils {
 
         if (view != null) {
             viewGroup.addView(view);
+        }
+    }
+
+    /**
+     * Add a view to the view group.
+     *
+     * @param viewGroup The view group to add the view.
+     * @param layoutRes The layout resource to be added.
+     * @param removePrevious {@code true} to remove all the previous views of the view group.
+     */
+    public static void addView(@Nullable ViewGroup viewGroup,
+            @LayoutRes int layoutRes, boolean removePrevious) {
+        if (viewGroup != null) {
+            addView(viewGroup, LayoutInflater.from(viewGroup.getContext()).inflate(
+                    layoutRes, viewGroup, false), removePrevious);
         }
     }
 

@@ -16,7 +16,9 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
@@ -58,5 +60,27 @@ public class DynamicDeviceUtils {
 
         return String.format(context.getResources().getString(R.string.adu_format_blank_space),
                 df.format(milliSeconds), tf.format(milliSeconds));
+    }
+
+    /**
+     * Checks whether the device has MIUI services installed.
+     *
+     * @param context The context to resolve the activities.
+     *
+     * @return {@code true} if the device has MIUI services installed.
+     */
+    public static boolean isXiaomiMIUI(@NonNull Context context) {
+        return DynamicIntentUtils.isActivityResolved(context,
+                new Intent("miui.intent.action.OP_AUTO_START")
+                        .addCategory(Intent.CATEGORY_DEFAULT))
+                || DynamicIntentUtils.isActivityResolved(context,
+                new Intent().setComponent(new ComponentName("com.miui.securitycenter",
+                        "com.miui.permcenter.autostart.AutoStartManagementActivity")))
+                || DynamicIntentUtils.isActivityResolved(context,
+                new Intent("miui.intent.action.POWER_HIDE_MODE_APP_LIST")
+                        .addCategory(Intent.CATEGORY_DEFAULT))
+                || DynamicIntentUtils.isActivityResolved(context,
+                new Intent().setComponent(new ComponentName("com.miui.securitycenter",
+                        "com.miui.powercenter.PowerSettings")));
     }
 }

@@ -89,7 +89,7 @@ public abstract class DynamicRunnable<T, P, R> implements Runnable {
      * Runs on the UI thread after {@link #cancel(boolean)} is invoked and
      * {@link #doInBackground(Object)} has finished.
      *
-     * <p><p>The default implementation simply invokes {@link #onCancelled()} and
+     * <p>The default implementation simply invokes {@link #onCancelled()} and
      * ignores the result. If you write your own implementation, do not call
      * <code>super.onCancelled(result)</code>.
      *
@@ -110,7 +110,7 @@ public abstract class DynamicRunnable<T, P, R> implements Runnable {
      * This method is invoked by the default implementation of {@link #onCancelled(DynamicResult)}.
      * <p>The default version does nothing.
      *
-     * <p><p>Runs on the UI thread after {@link #cancel(boolean)} is invoked and
+     * <p>Runs on the UI thread after {@link #cancel(boolean)} is invoked and
      * {@link #doInBackground(Object)} has finished.
      *
      * @see #onCancelled(DynamicResult)
@@ -140,14 +140,14 @@ public abstract class DynamicRunnable<T, P, R> implements Runnable {
      * {@code mayInterruptIfRunning} parameter determines whether the thread executing this
      * task should be interrupted in an attempt to stop the task.
      *
-     * <p><p>Calling this method will result in {@link #onCancelled(DynamicResult)} being invoked
+     * <p>Calling this method will result in {@link #onCancelled(DynamicResult)} being invoked
      * on the UI thread after {@link #doInBackground(Object)} returns. Calling this method
      * guarantees that onPostExecute(Object) is never subsequently invoked, even if
      * {@code cancel} returns false, but {@link #onPostExecute} has not yet run.
      * To finish the task as early as possible, check {@link #isCancelled()} periodically
-     * from {@link #doInBackground(Object)}.</p>
+     * from {@link #doInBackground(Object)}.
      *
-     * <p><p>This only requests cancellation. It never waits for a running background task to
+     * <p>This only requests cancellation. It never waits for a running background task to
      * terminate, even if {@code mayInterruptIfRunning} is true.
      *
      * @param mayInterruptIfRunning {@code true} if the thread executing this

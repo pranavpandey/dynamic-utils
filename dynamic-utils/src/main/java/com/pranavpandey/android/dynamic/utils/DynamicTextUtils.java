@@ -47,7 +47,7 @@ public class DynamicTextUtils {
             return text.substring(0, 1).toUpperCase(locale) + text.substring(1);
         }
 
-        return text.substring(0, 1).toUpperCase() + text.substring(1);
+        return text.substring(0, 1).toUpperCase(Locale.getDefault()) + text.substring(1);
     }
 
     /**

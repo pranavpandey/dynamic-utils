@@ -35,6 +35,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Base class to represent {@link Runnable} according to the {@link DynamicRunnable}.
  */
+@SuppressWarnings({"unchecked", "deprecation"})
 public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
 
     /**

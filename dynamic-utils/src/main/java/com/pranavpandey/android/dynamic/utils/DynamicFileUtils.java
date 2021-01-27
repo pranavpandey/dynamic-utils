@@ -53,7 +53,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Helper class to perform various {@link File} operations.
  *
- * <p><p>A {@link FileProvider} in the form of {@code ${applicationId}.FileProvider} must be
+ * <p>A {@link FileProvider} in the form of {@code ${applicationId}.FileProvider} must be
  * added in the {@code manifest} to perform some operations automatically like saving the
  * bitmap or file in app isolated directory.
  *
@@ -609,7 +609,7 @@ public class DynamicFileUtils {
      * Save and returns uri from the bitmap.
      * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
      *
-     * <p><p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
+     * <p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
      * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
      *
      * @param context The context to get the file provider.
@@ -652,7 +652,7 @@ public class DynamicFileUtils {
      * Save and returns uri from the bitmap.
      * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
      *
-     * <p><p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
+     * <p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
      * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
      *
      * @param context The context to get the file provider.

@@ -16,6 +16,7 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ApplicationErrorReport;
 import android.content.ActivityNotFoundException;
@@ -98,7 +99,7 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -152,7 +153,7 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -176,7 +177,7 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -199,7 +200,7 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -219,7 +220,7 @@ public class DynamicLinkUtils {
      * respective apps if installed on the device. Special treatment is applied for the
      * Facebook URLs to open them directly in the app.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -285,7 +286,7 @@ public class DynamicLinkUtils {
      * View app on Google Play or Android Market.
      * <p>Can be used for the quick feedback or rating from the user.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -304,7 +305,7 @@ public class DynamicLinkUtils {
     /**
      * View other apps of a Publisher on Google Play or Android Market.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -330,7 +331,7 @@ public class DynamicLinkUtils {
      * <p>Subject of the email will be generated automatically by detecting the manufacturer,
      * device, Android version and the app version along with the supplied app name.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -367,7 +368,7 @@ public class DynamicLinkUtils {
      * <p>Subject of the email will be generated automatically by detecting the manufacturer,
      * device, Android version and the app version along with the supplied app name.
      *
-     * <p><p>This method throws {@link ActivityNotFoundException} if there was no activity found
+     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
      * to run the given intent.
      *
      * @param context The context to retrieve the resources.
@@ -405,13 +406,14 @@ public class DynamicLinkUtils {
 
     /**
      * Checks whether the email client exists on the device.
-     * <p><p>Use {@code queries} tag for {@link Intent#ACTION_SENDTO} with scheme
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_SENDTO} with scheme
      * {@link MailTo#MAILTO_SCHEME} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to get the package manager.
      *
      * @return {@code true} if the email client exists on the device.
      */
+    @SuppressLint("QueryPermissionsNeeded")
     public static boolean isEmailExists(@NonNull Context context) {
         List<ResolveInfo> list = null;
 
@@ -464,7 +466,7 @@ public class DynamicLinkUtils {
     /**
      * Ask questions or submit bug report to the developer via Google feedback.
      *
-     * <p><p>It will redirect to {@link #report(Context, String, String)} method if feedback
+     * <p>It will redirect to {@link #report(Context, String, String)} method if feedback
      * package is not available on the device.
      *
      * @param context The context to retrieve the resources.
@@ -515,7 +517,7 @@ public class DynamicLinkUtils {
     /**
      * Ask questions or submit bug report to the developer via Google feedback.
      *
-     * <p><p>It will redirect to {@link #report(Context, String, String)} method if feedback
+     * <p>It will redirect to {@link #report(Context, String, String)} method if feedback
      * package is not available on the device.
      *
      * @param context The context to retrieve the resources.

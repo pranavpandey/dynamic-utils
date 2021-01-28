@@ -54,6 +54,7 @@ project.afterEvaluate {
         def task = project.tasks.create("generate${variant.name.capitalize()}Javadoc", Javadoc) {
             title "${referenceTitle}"
             description "Generates Javadoc for $variant.name."
+            destinationDir = new File(destinationDir, variant.baseName)
 
             source = variant.sourceSets.collect { it.java.sourceFiles }.inject { m, i -> m + i }
             doFirst {

@@ -291,7 +291,8 @@ Helper class to perform `window` operations and to detect system configurations 
 - Russian (ru) - Maxim Anisimov
 - Spanish (es) - Dave
 - Turkish (tr) - Fatih Fırıncı
-- Chinese (Simplified) (zh-rCN) - John Canny
+- Chinese (Simplified) (zh-rCN) - 残念
+- Chinese (Traditional) (zh-rTW) - 會呼吸的風
 
 ---
 

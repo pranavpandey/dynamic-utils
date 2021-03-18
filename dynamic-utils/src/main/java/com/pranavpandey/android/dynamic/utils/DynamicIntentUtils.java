@@ -16,11 +16,14 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -143,5 +146,47 @@ public class DynamicIntentUtils {
 
         return (context.getPackageManager().resolveActivity(
                 intent, PackageManager.MATCH_DEFAULT_ONLY) != null);
+    }
+
+    /**
+     * Add mutability flag to the {@link PendingIntent}.
+     *
+     * @param flags The flags to be updated.
+     * @param mutable {@code true} to make it mutable.
+     *
+     * @see PendingIntent#FLAG_IMMUTABLE
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public static int addMutabilityFlag(int flags, boolean mutable) {
+        if (DynamicSdkUtils.is23() && !mutable) {
+            return flags | PendingIntent.FLAG_IMMUTABLE;
+        } else if (DynamicSdkUtils.isS() && mutable) {
+            // TODO: Add mutability flag.
+        }
+
+        return flags;
+    }
+
+    /**
+     * Add mutable flag to the {@link PendingIntent}.
+     *
+     * @param flags The flags to be updated.
+     *
+     * @see #addMutabilityFlag(int, boolean)
+     */
+    public static int addMutableFlag(int flags) {
+        return addMutabilityFlag(flags, true);
+    }
+
+    /**
+     * Add immutable flag to the {@link PendingIntent}.
+     *
+     * @param flags The flags to be updated.
+     *
+     * @see #addMutabilityFlag(int, boolean)
+     * @see PendingIntent#FLAG_IMMUTABLE
+     */
+    public static int addImmutableFlag(int flags) {
+        return addMutabilityFlag(flags, false);
     }
 }

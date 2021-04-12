@@ -27,7 +27,9 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
 import androidx.annotation.IdRes;
+import androidx.annotation.IntRange;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -168,8 +170,12 @@ public class DynamicViewUtils {
      * @param upIndicator The indicator to show if the view can be scrolled upwards.
      * @param downIndicator The indicator to show if the view can be scrolled downwards.
      */
-    public static void manageScrollIndicators(@NonNull View view,
-            @Nullable View upIndicator, @Nullable View downIndicator) {
+    public static void manageScrollIndicators(final @Nullable View view,
+            final @Nullable View upIndicator, final @Nullable View downIndicator) {
+        if (view == null || (upIndicator == null && downIndicator == null)) {
+            return;
+        }
+
         if (upIndicator != null) {
             upIndicator.setVisibility(view.canScrollVertically(-1)
                     ? View.VISIBLE : View.INVISIBLE);
@@ -518,6 +524,23 @@ public class DynamicViewUtils {
     }
 
     /**
+     * Set the alpha for the supplied view.
+     *
+     * @param view The view to set the alpha.
+     * @param alpha The alpha value to be set.
+     *
+     * @see View#setAlpha(float)
+     */
+    public static void setAlpha(@Nullable View view,
+            @FloatRange(from = 0.0, to = 1.0) float alpha) {
+        if (view == null) {
+            return;
+        }
+
+        view.setAlpha(alpha);
+    }
+
+    /**
      * Set the alpha for the remote views.
      *
      * @param remoteViews The remote views to set the alpha.
@@ -526,7 +549,8 @@ public class DynamicViewUtils {
      *
      * @see RemoteViews#setInt(int, String, int)
      */
-    public static void setAlpha(@Nullable RemoteViews remoteViews, @IdRes int viewId, int alpha) {
+    public static void setAlpha(@Nullable RemoteViews remoteViews, @IdRes int viewId,
+            @IntRange(from = 0, to = 255) int alpha) {
         if (remoteViews == null) {
             return;
         }

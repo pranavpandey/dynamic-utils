@@ -524,6 +524,40 @@ public class DynamicViewUtils {
     }
 
     /**
+     * Set the text view all caps for the remote views.
+     *
+     * @param remoteViews The remote views to set the text view all caps.
+     * @param viewId The id of the text view whose max lines to be set.
+     * @param allCaps {@code true} to set the all caps.
+     *
+     * @see RemoteViews#setBoolean(int, String, boolean)
+     */
+    public static void setTextViewAllCaps(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, boolean allCaps) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setBoolean(viewId, "setAllCaps", allCaps);
+    }
+
+    /**
+     * Set the text view all caps for the remote views.
+     *
+     * @param textView The remote views to set the text view max lines.
+     * @param allCaps {@code true} to set the all caps.
+     *
+     * @see TextView#setAllCaps(boolean)
+     */
+    public static void setTextViewAllCaps(@Nullable TextView textView, boolean allCaps) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setAllCaps(allCaps);
+    }
+
+    /**
      * Set the alpha for the supplied view.
      *
      * @param view The view to set the alpha.

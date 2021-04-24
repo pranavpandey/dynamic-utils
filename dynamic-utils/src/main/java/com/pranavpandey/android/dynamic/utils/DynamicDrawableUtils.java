@@ -39,10 +39,10 @@ public class DynamicDrawableUtils {
      * Set background of a given view in an efficient way by detecting the Android SDK
      * at runtime.
      *
-     * @param view View to set the background.
-     * @param drawable Background drawable for the view.
+     * @param view The view to set the background.
+     * @param drawable The background drawable to be set.
      *
-     * @see DynamicSdkUtils
+     * @see DynamicSdkUtils#is16()
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
@@ -88,7 +88,7 @@ public class DynamicDrawableUtils {
      * @param color The color to colorize the drawable.
      * @param wrap {@code true} to {@code wrap} the drawable so that it may be used for
      *             tinting across the different API levels.
-     * @param mode The porter duff mode.
+     * @param mode The porter duff mode to be used.
      *
      * @return The drawable after applying the color filter.
      *
@@ -128,7 +128,7 @@ public class DynamicDrawableUtils {
      *
      * @param drawable The drawable to be colorized.
      * @param color The color to colorize the drawable.
-     * @param mode The porter duff mode.
+     * @param mode The porter duff mode to be used.
      *
      * @return The drawable after applying the color filter.
      *
@@ -176,7 +176,7 @@ public class DynamicDrawableUtils {
      * do not change.
      *
      * @param drawable The drawable to be colorized.
-     * @param colorFilter Color filter to be applied on the drawable.
+     * @param colorFilter The color filter to be applied on the drawable.
      *
      * @return The drawable after applying the color filter.
      *

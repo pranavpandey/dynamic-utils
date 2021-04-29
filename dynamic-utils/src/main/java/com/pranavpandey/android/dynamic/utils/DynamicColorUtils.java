@@ -35,12 +35,12 @@ public class DynamicColorUtils {
     /**
      * Visible contrast between the two colors.
      */
-    private static final float VISIBLE_CONTRAST = 0.35f;
+    private static final float VISIBLE_CONTRAST = 0.4f;
 
     /**
      * Amount to calculate the contrast color.
      */
-    private static final float CONTRAST_FACTOR = 0.65f;
+    private static final float CONTRAST_FACTOR = 1.6f;
 
     /**
      * Generate a random rgb color.
@@ -56,7 +56,7 @@ public class DynamicColorUtils {
         float saturation = random.nextFloat();
         float lightness = random.nextFloat();
 
-        return ColorUtils.HSLToColor(new float[]{hue, saturation, lightness});
+        return ColorUtils.HSLToColor(new float[] { hue, saturation, lightness });
     }
 
     /**
@@ -153,15 +153,14 @@ public class DynamicColorUtils {
     }
 
     /**
-     * Calculate luma value according to XYZ color space of a color.
+     * Calculate luminance value according to the XYZ color space of a color.
      *
-     * @param color The color whose XyzLuma to be calculated.
+     * @param color The color whose luminance to be calculated.
      *
-     * @return The luma value according to XYZ color space in the range {@code 0 - 1f}.
+     * @return The luminance value according to the XYZ color space in the range {@code 0 - 1f}.
      */
     private static float calculateXyzLuma(@ColorInt int color) {
-        return (0.2126f * Color.red(color)
-                + 0.7152f * Color.green(color)
+        return (0.2126f * Color.red(color) + 0.7152f * Color.green(color)
                 + 0.0722f * Color.blue(color)) / 255f;
     }
 
@@ -175,19 +174,21 @@ public class DynamicColorUtils {
      *
      * @return The lighter color.
      */
-    public static @ColorInt int getLighterColor(@ColorInt int color, float amount) {
+    public static @ColorInt int getLighterColor(@ColorInt int color,
+            @FloatRange(from = 0f, to = 1f) float amount) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         if (hsv[2] == 0) {
-            hsv[2] = VISIBLE_CONTRAST / 10;
+            hsv[2] = Math.max(amount, VISIBLE_CONTRAST);
             color = Color.HSVToColor(Color.alpha(color), hsv);
         }
 
-        int red = (int) ((Color.red(color) * (1 - amount) / 255 + amount) * 255);
-        int green = (int) ((Color.green(color) * (1 - amount) / 255 + amount) * 255);
-        int blue = (int) ((Color.blue(color) * (1 - amount) / 255 + amount) * 255);
+        int alpha = (int) ((Color.alpha(color) + (255 - Color.alpha(color)) * amount));
+        int red = (int) ((Color.red(color) + (255 - Color.red(color)) * amount));
+        int green = (int) ((Color.green(color) + (255 - Color.green(color)) * amount));
+        int blue = (int) ((Color.blue(color) + (255 - Color.blue(color)) * amount));
 
-        return Color.argb(Color.alpha(color), red, green, blue);
+        return Color.argb(Math.max(alpha, Color.alpha(color)), red, green, blue);
     }
 
     /**
@@ -200,12 +201,14 @@ public class DynamicColorUtils {
      *
      * @return The darker color.
      */
-    public static @ColorInt int getDarkerColor(@ColorInt int color, float amount) {
-        int red = (int) ((Color.red(color) * (1 - amount) / 255) * 255);
-        int green = (int) ((Color.green(color) * (1 - amount) / 255) * 255);
-        int blue = (int) ((Color.blue(color) * (1 - amount) / 255) * 255);
+    public static @ColorInt int getDarkerColor(@ColorInt int color,
+            @FloatRange(from = 0f, to = 1f) float amount) {
+        int alpha = (int) (Color.alpha(color) * (1f - amount));
+        int red = (int) (Color.red(color) * (1f - amount));
+        int green = (int) (Color.green(color) * (1f - amount));
+        int blue = (int) (Color.blue(color) * (1f - amount));
 
-        return Color.argb(Color.alpha(color), red, green, blue);
+        return Color.argb(Math.max(alpha, Color.alpha(color)), red, green, blue);
     }
 
     /**
@@ -296,7 +299,24 @@ public class DynamicColorUtils {
      * @see #calculateXyzLuma(int)
      */
     public static float calculateContrast(@ColorInt int color1, @ColorInt int color2) {
-        return Math.abs(calculateXyzLuma(color1) - calculateXyzLuma(color2));
+        float luminance = 0;
+        float luminance1 = calculateXyzLuma(color1);
+        float luminance2 = calculateXyzLuma(color2);
+        boolean color1Dark = isColorDark(color1);
+        boolean color2Dark = isColorDark(color2);
+
+        if (removeAlpha(color1) != removeAlpha(color2) && color1Dark == color2Dark) {
+            if (isAlpha(color1)) {
+                luminance = luminance + (0.2126f * Color.alpha(color1)) / 255f;
+            }
+
+            if (isAlpha(color2)) {
+                luminance = luminance + (0.2126f * Color.alpha(color2)) / 255f;
+            }
+        }
+
+        return Math.abs(Math.max(luminance1, luminance2)
+                - Math.min(luminance1, luminance2) - luminance);
     }
 
     /**
@@ -337,23 +357,46 @@ public class DynamicColorUtils {
      * @param color The color whose contrast to be calculated.
      * @param contrastWith The background color to calculate the contrast.
      * @param visibleContrast The acceptable contrast between the two colors.
+     * @param recursive {@code true} to improve contrast by recursion.
+     *                  <p>It must be used with caution to avoid infinite loop.
      *
      * @return The contrast of the given color according to the base color.
      */
-    public static @ColorInt int getContrastColor(@ColorInt int color,
-            @ColorInt int contrastWith, @FloatRange(from = 0f, to = 1f) float visibleContrast) {
+    public static @ColorInt int getContrastColor(@ColorInt int color, @ColorInt int contrastWith,
+            @FloatRange(from = 0f, to = 1f) float visibleContrast, boolean recursive) {
         float contrast = calculateContrast(color, contrastWith);
         if (contrast < visibleContrast) {
+            float finalContrast = Math.max(visibleContrast,
+                    (visibleContrast - contrast) * CONTRAST_FACTOR);
             if (isColorDark(contrastWith)) {
-                return getLighterColor(color,
-                        Math.max(visibleContrast + contrast, CONTRAST_FACTOR));
+                return recursive && isColorDark(color)
+                        ? getContrastColor(color, color, visibleContrast, false)
+                        : getLighterColor(color, finalContrast);
             } else {
-                return getDarkerColor(color,
-                        Math.max(visibleContrast + contrast, CONTRAST_FACTOR));
+                return recursive && !isColorDark(color)
+                        ? getContrastColor(color, color, visibleContrast, false)
+                        : getDarkerColor(color, finalContrast);
             }
         }
 
         return color;
+    }
+
+    /**
+     * Calculate contrast of a color based on the given base color so that it will always
+     * be visible on top of the base color.
+     *
+     * @param color The color whose contrast to be calculated.
+     * @param contrastWith The background color to calculate the contrast.
+     * @param visibleContrast The acceptable contrast between the two colors.
+     *
+     * @return The contrast of the given color according to the base color.
+     *
+     * @see #getContrastColor(int, int, float, boolean)
+     */
+    public static @ColorInt int getContrastColor(@ColorInt int color,
+            @ColorInt int contrastWith, @FloatRange(from = 0f, to = 1f) float visibleContrast) {
+        return getContrastColor(color, contrastWith, visibleContrast, true);
     }
 
     /**

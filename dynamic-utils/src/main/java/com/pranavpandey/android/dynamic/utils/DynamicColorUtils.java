@@ -179,7 +179,7 @@ public class DynamicColorUtils {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         if (hsv[2] == 0) {
-            hsv[2] = Math.max(amount, VISIBLE_CONTRAST);
+            hsv[2] = Math.min(amount, VISIBLE_CONTRAST);
             color = Color.HSVToColor(Color.alpha(color), hsv);
         }
 

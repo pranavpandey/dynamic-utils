@@ -154,6 +154,8 @@ public class DynamicIntentUtils {
      * @param flags The flags to be updated.
      * @param mutable {@code true} to make it mutable.
      *
+     * @return The updated flags.
+     *
      * @see PendingIntent#FLAG_IMMUTABLE
      */
     @TargetApi(Build.VERSION_CODES.M)
@@ -172,6 +174,8 @@ public class DynamicIntentUtils {
      *
      * @param flags The flags to be updated.
      *
+     * @return The updated flags.
+     *
      * @see #addMutabilityFlag(int, boolean)
      */
     public static int addMutableFlag(int flags) {
@@ -182,6 +186,8 @@ public class DynamicIntentUtils {
      * Add immutable flag to the {@link PendingIntent}.
      *
      * @param flags The flags to be updated.
+     *
+     * @return The updated flags.
      *
      * @see #addMutabilityFlag(int, boolean)
      * @see PendingIntent#FLAG_IMMUTABLE

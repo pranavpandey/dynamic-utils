@@ -35,7 +35,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Base class to represent {@link Runnable} according to the {@link DynamicRunnable}.
  */
-@SuppressWarnings({"unchecked", "deprecation"})
 public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
 
     /**
@@ -163,9 +162,8 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
     public boolean getBooleanResult(final @Nullable DynamicResult<R> result) {
         Boolean success = null;
 
-        if (result instanceof DynamicResult.Success
-                && ((DynamicResult.Success<Boolean>) result).getData() instanceof Boolean) {
-            success = ((DynamicResult.Success<Boolean>) result).getData();
+        if (result instanceof DynamicResult.Success && result.getData() instanceof Boolean) {
+            success = (Boolean) result.getData();
         }
 
         return success != null;

@@ -16,17 +16,20 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.view.View;
 
@@ -51,10 +54,17 @@ public class DynamicBitmapUtils {
      *
      * @see Context#getContentResolver()
      */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.P)
     public static @Nullable Bitmap getBitmap(@Nullable Context context, @Nullable Uri uri) {
         if (context != null && uri != null) {
             try {
-                return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                if (DynamicSdkUtils.is28()) {
+                    return ImageDecoder.decodeBitmap(ImageDecoder.createSource(
+                            context.getContentResolver(), uri));
+                } else {
+                    return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                }
             } catch (Exception ignored) {
             }
         }

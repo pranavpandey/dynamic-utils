@@ -17,6 +17,7 @@
 package com.pranavpandey.android.dynamic.utils.concurrent;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
@@ -276,7 +277,7 @@ public class DynamicConcurrent {
         if (executorService != null) {
             return executorService.submit(runnable);
         } else {
-            new Handler().post(runnable);
+            new Handler(Looper.getMainLooper()).post(runnable);
             return null;
         }
     }

@@ -29,6 +29,7 @@ import java.util.concurrent.Executor;
 /**
  * Helper class to easily execute or cancel an {@link AsyncTask} by handling all the exceptions.
  */
+@SuppressWarnings("deprecation")
 public class DynamicTaskUtils {
 
     /**
@@ -37,7 +38,11 @@ public class DynamicTaskUtils {
      * @param task The async task to be executed.
      *
      * @see AsyncTask#executeOnExecutor(Executor, Object[])
+     *
+     * @deprecated Use {@link #executeTask(DynamicTask)} or standard
+     *             {@link java.util.concurrent} APIs.
      */
+    @SuppressWarnings("deprecation")
     public static void executeTask(@Nullable AsyncTask<Object, ?, ?> task) {
         if (task == null) {
             return;
@@ -57,7 +62,11 @@ public class DynamicTaskUtils {
      * @param task The async task to be cancelled.
      *
      * @see AsyncTask#cancel(boolean)
+     *
+     * @deprecated Use {@link #cancelTask(DynamicTask, boolean)} or standard
+     *             {@link java.util.concurrent} APIs.
      */
+    @SuppressWarnings("deprecation")
     public static void cancelTask(@Nullable AsyncTask<?, ?, ?> task) {
         if (task == null) {
             return;

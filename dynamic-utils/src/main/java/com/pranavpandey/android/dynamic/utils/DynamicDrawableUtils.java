@@ -44,6 +44,7 @@ public class DynamicDrawableUtils {
      *
      * @see DynamicSdkUtils#is16()
      */
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
         if (DynamicSdkUtils.is16()) {
@@ -95,6 +96,7 @@ public class DynamicDrawableUtils {
      * @see Drawable#setColorFilter(int, PorterDuff.Mode)
      * @see PorterDuff.Mode
      */
+    @SuppressWarnings("deprecation")
     public static @Nullable Drawable colorizeDrawable(@Nullable Drawable drawable,
             boolean wrap, @ColorInt int color, @Nullable PorterDuff.Mode mode) {
         if (drawable != null) {

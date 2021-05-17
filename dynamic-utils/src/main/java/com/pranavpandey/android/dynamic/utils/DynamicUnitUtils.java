@@ -78,6 +78,6 @@ public class DynamicUnitUtils {
      * @return The converted value in SP.
      */
     public static float convertDpToSp(float dp) {
-        return Math.round(convertDpToPixels(dp) / (float) convertSpToPixels(dp));
+        return Math.round(convertDpToPixels(dp) / convertSpToPixels(dp));
     }
 }

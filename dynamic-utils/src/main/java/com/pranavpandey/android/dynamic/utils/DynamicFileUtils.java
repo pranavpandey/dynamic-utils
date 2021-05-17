@@ -827,18 +827,20 @@ public class DynamicFileUtils {
      * @param subject The subject for the intent chooser.
      * @param file The file to be shared.
      * @param mimeType The mime type of the file.
+     *
+     * @throws android.content.ActivityNotFoundException The activity not found exception.
      */
     public static void shareFile(@NonNull Activity activity, @Nullable String title,
             @Nullable String subject, @NonNull File file, @NonNull String mimeType) {
-        Intent shareBackup = ShareCompat.IntentBuilder
-                .from(activity)
-                .setType(mimeType)
-                .setSubject(subject != null ? subject : title)
-                .setStream(getUriFromFile(activity, file))
-                .setChooserTitle(title)
-                .createChooserIntent()
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        Intent shareBackup =
+                new ShareCompat.IntentBuilder(activity)
+                        .setType(mimeType)
+                        .setSubject(subject != null ? subject : title)
+                        .setStream(getUriFromFile(activity, file))
+                        .setChooserTitle(title)
+                        .createChooserIntent()
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
         activity.startActivity(shareBackup);
     }
@@ -851,12 +853,13 @@ public class DynamicFileUtils {
      * @param subject The subject for the intent chooser.
      * @param uris The content uris to be shared.
      * @param mimeType The mime type of the file.
+     *
+     * @throws android.content.ActivityNotFoundException The activity not found exception.
      */
     public static void shareFiles(@NonNull Activity activity, @Nullable String title,
             @Nullable String subject, @NonNull Uri[] uris, @Nullable String mimeType) {
         ShareCompat.IntentBuilder intentBuilder =
-                ShareCompat.IntentBuilder
-                        .from(activity)
+                new ShareCompat.IntentBuilder(activity)
                         .setSubject(subject != null ? subject : title)
                         .setType(mimeType != null ? mimeType : "*/*")
                         .setChooserTitle(title);

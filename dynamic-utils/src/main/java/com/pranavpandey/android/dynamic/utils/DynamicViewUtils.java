@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.RemoteViews;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 /**
  * Helper class to perform {@link View} operations.
@@ -44,21 +46,31 @@ import androidx.core.view.WindowInsetsCompat;
 public class DynamicViewUtils {
 
     /**
-     * Set hide navigation flag for edge-to-edge content on API 23 and above devices.
+     * Set the hide navigation flag for edge-to-edge content on API 23 and above devices.
      *
      * @param view The view to get the system ui flags.
      * @param edgeToEdge {@code true} to hide the layout navigation.
+     *
+     * @deprecated Use {@link DynamicWindowUtils#setEdgeToEdge(Window, boolean)} to support
+     *             latest API levels.
      */
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.M)
-    public static void setEdgeToEdge(@NonNull View view, boolean edgeToEdge) {
+    public static void setEdgeToEdge(@Nullable View view, boolean edgeToEdge) {
+        if (view == null) {
+            return;
+        }
+
         if (DynamicSdkUtils.is23()) {
             int flags = view.getSystemUiVisibility();
             if (edgeToEdge) {
                 flags |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
                 flags |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+                flags |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             } else {
                 flags &= ~View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
                 flags &= ~View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+                flags &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             }
 
             view.setSystemUiVisibility(flags);
@@ -73,7 +85,10 @@ public class DynamicViewUtils {
      *
      * @return {@code true} if hide navigation flag is enabled for edge-to-edge content on
      *         API 23 and above devices.
+     *
+     * @deprecated Try to use {@link WindowInsetsControllerCompat} if possible.
      */
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.M)
     public static boolean isEdgeToEdge(@NonNull View view) {
         if (DynamicSdkUtils.is23()) {
@@ -92,9 +107,19 @@ public class DynamicViewUtils {
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light status bar.
      */
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.M)
-    public static void setLightStatusBar(@NonNull View view, boolean light) {
-        if (DynamicSdkUtils.is23()) {
+    public static void setLightStatusBar(@Nullable View view, boolean light) {
+        if (view == null) {
+            return;
+        }
+
+        if (DynamicSdkUtils.is30()) {
+            WindowInsetsControllerCompat controller = ViewCompat.getWindowInsetsController(view);
+            if (controller != null) {
+                controller.setAppearanceLightStatusBars(light);
+            }
+        } else if (DynamicSdkUtils.is23()) {
             int flags = view.getSystemUiVisibility();
             if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -112,9 +137,19 @@ public class DynamicViewUtils {
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light navigation bar.
      */
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.O)
-    public static void setLightNavigationBar(@NonNull View view, boolean light) {
-        if (DynamicSdkUtils.is26()) {
+    public static void setLightNavigationBar(@Nullable View view, boolean light) {
+        if (view == null) {
+            return;
+        }
+
+        if (DynamicSdkUtils.is30()) {
+            WindowInsetsControllerCompat controller = ViewCompat.getWindowInsetsController(view);
+            if (controller != null) {
+                controller.setAppearanceLightNavigationBars(light);
+            }
+        } else if (DynamicSdkUtils.is26()) {
             int flags = view.getSystemUiVisibility();
             if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;

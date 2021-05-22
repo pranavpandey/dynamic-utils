@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
-[![Download](https://api.bintray.com/packages/pranavpandey/android/dynamic-utils/images/download.svg)](https://bintray.com/pranavpandey/android/dynamic-utils/_latestVersion)
+[![Release](https://img.shields.io/maven-central/v/com.pranavpandey.android/dynamic-utils)](https://search.maven.org/artifact/com.pranavpandey.android/dynamic-utils)
 
 A collection of static methods and packages to perform dynamic operations on Android 2.3 (API 9)
 and above devices.

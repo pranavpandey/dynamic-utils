@@ -308,7 +308,7 @@ public class DynamicFileUtils {
 
     /**
      * Returns uri from the file. 
-     * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+     * <p>It will automatically use the @link FileProvider} on API 24 and above.
      *
      * @param context The context to get the file provider.
      * @param file The file to get the uri.
@@ -607,10 +607,10 @@ public class DynamicFileUtils {
 
     /**
      * Save and returns uri from the bitmap.
-     * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+     * <p>It will automatically use the @link FileProvider} on API 24 and above.
      *
      * <p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
-     * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
+     * API 18 and below.
      *
      * @param context The context to get the file provider.
      * @param bitmap The bitmap to get the uri.
@@ -650,10 +650,10 @@ public class DynamicFileUtils {
 
     /**
      * Save and returns uri from the bitmap.
-     * <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+     * <p>It will automatically use the @link FileProvider} on API 24 and above.
      *
      * <p>It requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission on
-     * pre KitKat ({@link android.os.Build.VERSION_CODES#JELLY_BEAN_MR2} or below) devices.
+     * API 18 and below.
      *
      * @param context The context to get the file provider.
      * @param bitmap The bitmap to get the uri.

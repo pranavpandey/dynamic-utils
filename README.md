@@ -7,7 +7,7 @@
 [![Release](https://img.shields.io/maven-central/v/com.pranavpandey.android/dynamic-utils)](https://search.maven.org/artifact/com.pranavpandey.android/dynamic-utils)
 
 A collection of static methods and packages to perform dynamic operations on Android 2.3 (API 9)
-and above devices.
+and above.
 
 > Since v0.4.0, it uses [26.x.x support libraries][android-support] so, minimum SDK will be
 Android 4.0 (API 14).
@@ -260,10 +260,10 @@ experience accordingly. Pass `true` in the alternate method to check for equalit
 Helper class to perform `view` operations.
 
 - `void setLightStatusBar(view, isLight)` - Set light status bar if we are using light primary
-color on Android M or above devices.
+color on Android 23 and above.
 
 - `void setLightNavigationBar(view, isLight)` - Set light navigation bar if we are using light
-primary color on API 26 and above devices.
+primary color on API 26 and above.
 
 ### DynamicWindowUtils
 

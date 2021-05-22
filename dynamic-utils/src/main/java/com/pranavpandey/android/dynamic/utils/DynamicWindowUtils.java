@@ -254,7 +254,7 @@ public class DynamicWindowUtils {
     }
 
     /**
-     * Set the hide navigation flag for edge-to-edge content on API 23 and above devices.
+     * Set the hide navigation flag for edge-to-edge content on API 23 and above.
      *
      * @param window The window to set the system ui flags.
      * @param edgeToEdge {@code true} to hide the layout navigation.
@@ -337,7 +337,7 @@ public class DynamicWindowUtils {
     /**
      * Get the overlay flag according to the Android version.
      *
-     * @param alert {@code true} to return alert flag on below API 26 devices.
+     * @param alert {@code true} to return alert flag on API 25 and below.
      * @param accessibility {@code true} to return the accessibility overlay.
      *
      * @return The {@link WindowManager} overlay flag according to the Android version.
@@ -363,7 +363,7 @@ public class DynamicWindowUtils {
     /**
      * Get the overlay flag according to the Android version.
      *
-     * @param alert {@code true} to return alert flag on below API 26 devices.
+     * @param alert {@code true} to return alert flag on API 25 and below.
      *
      * @return The {@link WindowManager} overlay flag according to the Android version.
      *

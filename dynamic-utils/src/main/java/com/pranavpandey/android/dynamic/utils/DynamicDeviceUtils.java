@@ -16,12 +16,19 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 
 import java.text.DateFormat;
 
@@ -29,6 +36,37 @@ import java.text.DateFormat;
  * Helper class to detect device specific features like Telephony, etc.
  */
 public class DynamicDeviceUtils {
+
+    /**
+     * Vibrate device for the supplied duration.
+     *
+     * @param context The context to get the vibrator service.
+     * @param duration The duration in milliseconds.
+     *
+     * @see Vibrator#vibrate(VibrationEffect)
+     * @see VibrationEffect#createOneShot(long, int)
+     * @see Vibrator#vibrate(long)
+     */
+    @SuppressWarnings("deprecation")
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    @TargetApi(Build.VERSION_CODES.O)
+    public static void vibrate(@Nullable Context context, long duration) {
+        if (context == null) {
+            return;
+        }
+
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator == null) {
+            return;
+        }
+
+        if (DynamicSdkUtils.is26()) {
+            vibrator.vibrate(VibrationEffect.createOneShot(
+                    duration, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            vibrator.vibrate(duration);
+        }
+    }
 
     /**
      * Detects the telephony feature by using {@link PackageManager}.

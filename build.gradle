@@ -20,7 +20,7 @@ buildscript {
             'minSdk'    : 14,
             'targetSdk' : 30,
             'buildTools': '30.0.3',
-            'androidx'  : '1.6.0-alpha03'
+            'androidx'  : '1.6.0-beta01'
     ]
 
     repositories {
@@ -50,9 +50,9 @@ task clean(type: Delete) {
 ext {
     projectName = 'dynamic-utils'
     projectDesc = 'A collection of static methods and packages to perform dynamic ' +
-            'operations on Android devices.'
+            'operations on Android.'
     versionDesc = 'A collection of static methods and packages to perform dynamic ' +
-            'operations on Android 4.0 (API 14) and above devices.'
+            'operations on Android 4.0 (API 14) and above.'
     referenceTitle = 'Dynamic Utils API reference'
 
     siteUrl = 'https://github.com/pranavpandey/dynamic-utils'

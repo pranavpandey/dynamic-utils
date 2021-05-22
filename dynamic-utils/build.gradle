@@ -23,6 +23,8 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
+        versionCode mavenVersionCode
+        versionName mavenVersion
     }
 
     sourceSets {

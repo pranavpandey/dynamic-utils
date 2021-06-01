@@ -108,11 +108,12 @@ public class DynamicDrawableUtils {
             if (DynamicSdkUtils.is21(true)) {
                 if (wrap) {
                     drawable = drawable.mutate();
-                    drawable.setColorFilter(color, mode);
                 }
+
+                drawable.setColorFilter(color, mode);
             } else {
                 if (wrap) {
-                    drawable = DrawableCompat.wrap(drawable.mutate());
+                    drawable = DrawableCompat.wrap(drawable);
                 }
 
                 DrawableCompat.setTintMode(drawable, mode);

@@ -222,14 +222,15 @@ public class DynamicColorUtils {
      */
     public static @ColorInt int shiftColor(@ColorInt int color,
             @FloatRange(from = 0f, to = 2f) float by) {
-        int alpha = Color.alpha(color);
         if (by == 1f) {
             return color;
         }
 
+        int alpha = Color.alpha(color);
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] *= by;
+
         return Color.HSVToColor(alpha, hsv);
     }
 

@@ -22,6 +22,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.AnyRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -31,6 +33,12 @@ import androidx.annotation.Nullable;
 public class DynamicPackageUtils {
 
     /**
+     * The {@code null} resource ID. This denotes an invalid resource ID that is returned by the
+     * system when a resource is not found or the value is set to {@code @null} in XML.
+     */
+    public static final @AnyRes int ID_NULL = 0;
+
+    /**
      * Checks if a given package name exits.
      *
      * @param context The context to get the package manager.
@@ -38,14 +46,15 @@ public class DynamicPackageUtils {
      *
      * @return {@code true} if the given package name exits.
      */
-    public static boolean isPackageExists(@NonNull Context context, @Nullable String packageName) {
-        if (packageName == null) {
+    public static boolean isPackageExists(@Nullable Context context,
+            @Nullable String packageName) {
+        if (context == null || packageName == null) {
             return false;
         }
 
         try {
             context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             return false;
         }
 
@@ -75,9 +84,9 @@ public class DynamicPackageUtils {
      *
      * @see ApplicationInfo#loadLabel(PackageManager)
      */
-    public static @Nullable CharSequence getAppLabel(@NonNull Context context,
+    public static @Nullable CharSequence getAppLabel(@Nullable Context context,
             @Nullable String packageName) {
-        if (packageName == null) {
+        if (context == null || packageName == null) {
             return null;
         }
 
@@ -99,7 +108,11 @@ public class DynamicPackageUtils {
      *
      * @see ApplicationInfo#loadLabel(PackageManager)
      */
-    public static @Nullable CharSequence getAppLabel(@NonNull Context context) {
+    public static @Nullable CharSequence getAppLabel(@Nullable Context context) {
+        if (context == null) {
+            return null;
+        }
+
         return getAppLabel(context, context.getPackageName());
     }
 
@@ -113,9 +126,9 @@ public class DynamicPackageUtils {
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static @Nullable String getAppVersion(@NonNull Context context,
+    public static @Nullable String getAppVersion(@Nullable Context context,
             @Nullable String packageName) {
-        if (packageName == null) {
+        if (context == null || packageName == null) {
             return null;
         }
 
@@ -136,7 +149,11 @@ public class DynamicPackageUtils {
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static @Nullable String getAppVersion(@NonNull Context context) {
+    public static @Nullable String getAppVersion(@Nullable Context context) {
+        if (context == null) {
+            return null;
+        }
+
         return getAppVersion(context, context.getPackageName());
     }
 
@@ -150,9 +167,9 @@ public class DynamicPackageUtils {
      *
      * @see ApplicationInfo#loadIcon(PackageManager)
      */
-    public static @Nullable Drawable getAppIcon(@NonNull Context context,
+    public static @Nullable Drawable getAppIcon(@Nullable Context context,
             @Nullable String packageName) {
-        if (packageName == null) {
+        if (context == null || packageName == null) {
             return null;
         }
 
@@ -172,8 +189,59 @@ public class DynamicPackageUtils {
      *
      * @see ApplicationInfo#loadIcon(PackageManager)
      */
-    public static @Nullable Drawable getAppIcon(@NonNull Context context) {
+    public static @Nullable Drawable getAppIcon(@Nullable Context context) {
+        if (context == null) {
+            return null;
+        }
+
         return getAppIcon(context, context.getPackageName());
+    }
+
+    /**
+     * Load activity icon from the given component name.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return The activity icon drawable.
+     *
+     * @see PackageManager#getActivityIcon(ComponentName)
+     * @see PackageManager#getDefaultActivityIcon()
+     */
+    public static @Nullable Drawable getActivityIcon(@Nullable Context context,
+            @Nullable ComponentName componentName) {
+        if (context == null || componentName == null) {
+            return null;
+        }
+
+        try {
+            return context.getPackageManager().getActivityIcon(componentName);
+        } catch (Exception e) {
+            return context.getPackageManager().getDefaultActivityIcon();
+        }
+    }
+
+    /**
+     * Load activity icon resource from the given component name.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return The activity icon resource.
+     *
+     * @see PackageManager#getActivityIcon(ComponentName)
+     * @see PackageManager#getDefaultActivityIcon()
+     */
+    public static @DrawableRes int getActivityIconRes(@Nullable Context context,
+            @Nullable ComponentName componentName) {
+        if (context == null || componentName == null) {
+            return ID_NULL;
+        }
+
+        try {
+            return context.getPackageManager().getActivityInfo(componentName,
+                    PackageManager.GET_META_DATA).getIconResource();
+        } catch (Exception e) {
+            return ID_NULL;
+        }
     }
 
     /**
@@ -183,7 +251,11 @@ public class DynamicPackageUtils {
      *
      * @return {@code true} if the associated package is a system app.
      */
-    public static boolean isSystemApp(@NonNull ApplicationInfo applicationInfo) {
+    public static boolean isSystemApp(@Nullable ApplicationInfo applicationInfo) {
+        if (applicationInfo == null) {
+            return false;
+        }
+
         int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
         return (applicationInfo.flags & mask) != 0;
     }

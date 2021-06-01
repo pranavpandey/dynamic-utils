@@ -125,7 +125,7 @@ public class DynamicIntentUtils {
 
         if (intent.getAction() != null && action.equals(intent.getAction())
                 && intent.getParcelableExtra(Intent.EXTRA_STREAM) != null) {
-            return (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+            return intent.getParcelableExtra(Intent.EXTRA_STREAM);
         }
 
         return intent.getData();
@@ -139,8 +139,8 @@ public class DynamicIntentUtils {
      *
      * @return {@code true} if the supplied intent has at least one activity to handle it.
      */
-    public static boolean isActivityResolved(@NonNull Context context, @Nullable Intent intent) {
-        if (intent == null) {
+    public static boolean isActivityResolved(@Nullable Context context, @Nullable Intent intent) {
+        if (context == null || intent == null) {
             return false;
         }
 
@@ -194,5 +194,46 @@ public class DynamicIntentUtils {
      */
     public static int addImmutableFlag(int flags) {
         return addMutabilityFlag(flags, false);
+    }
+
+    /**
+     * View any Intent in the available app or browser.
+     *
+     * @param context The context to retrieve the resources.
+     * @param intent The intent to view.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see Intent#ACTION_VIEW
+     */
+    @TargetApi(Build.VERSION_CODES.R)
+    public static boolean viewIntent(@Nullable Context context, @Nullable Intent intent) {
+        if (context == null || intent == null) {
+            return false;
+        }
+
+        Intent intentTemp = new Intent(intent);
+        intentTemp.addCategory(Intent.CATEGORY_BROWSABLE);
+        intentTemp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        try {
+            if (DynamicSdkUtils.is30()) {
+                intentTemp.addFlags(Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER);
+            }
+
+            context.startActivity(intentTemp);
+            return true;
+        } catch (Exception ignored) {
+            intentTemp = new Intent(intent);
+            intentTemp.addCategory(Intent.CATEGORY_BROWSABLE);
+            intentTemp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            if (isActivityResolved(context, intentTemp)) {
+                context.startActivity(intentTemp);
+                return true;
+            }
+        }
+
+        return false;
     }
 }

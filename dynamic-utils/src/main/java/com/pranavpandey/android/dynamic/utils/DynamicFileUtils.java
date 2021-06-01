@@ -895,13 +895,14 @@ public class DynamicFileUtils {
             intent = new Intent(Intent.ACTION_PICK);
         }
 
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.putExtra(Intent.EXTRA_TITLE, getFileNameFromUri(context, file));
-        intent.setType(mimeType);
-        intent.putExtra(Intent.EXTRA_STREAM, file);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                 | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                 | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_TITLE, getFileNameFromUri(context, file));
+        intent.putExtra(Intent.EXTRA_STREAM, file);
+        intent.setType(mimeType);
 
         return intent;
     }

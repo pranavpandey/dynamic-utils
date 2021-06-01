@@ -16,16 +16,12 @@
 
 package com.pranavpandey.android.dynamic.utils;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ApplicationErrorReport;
-import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 
@@ -33,10 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.net.MailTo;
 
-import java.util.List;
-
 /**
- * A collection of functions to perform various operations on the URL or to generate intents.
+ * Helper class to perform URL, email and feedback related operations.
  */
 public class DynamicLinkUtils {
 
@@ -99,17 +93,12 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
      * @param title The application chooser title if more than one apps are available.
      * @param message The default share message which user can modify.
      *                <p>{@code null} to supply app and package name.
      * @param uri The optional content uri to be shared.
      * @param mimeType The optional mime type for the file.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
@@ -140,10 +129,9 @@ public class DynamicLinkUtils {
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }
 
-        try {
+        if (DynamicIntentUtils.isActivityResolved(context, intent)) {
             context.startActivity(Intent.createChooser(intent, title));
             return true;
-        } catch (Exception ignored) {
         }
 
         return false;
@@ -153,16 +141,11 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
      * @param title The application chooser title if more than one apps are available.
      * @param message The default share message which user can modify.
      *                <p>{@code null} to supply app and package name.
      * @param image The optional image bitmap uri to be shared.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
@@ -177,15 +160,10 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
      * @param title The application chooser title if more than one apps are available.
      * @param message The default share message which user can modify.
      *                <p>{@code null} to supply app and package name.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
@@ -200,12 +178,7 @@ public class DynamicLinkUtils {
      * Share application via system default share intent so that user can select from the
      * available apps if more than one apps are available.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
@@ -220,44 +193,16 @@ public class DynamicLinkUtils {
      * respective apps if installed on the device. Special treatment is applied for the
      * Facebook URLs to open them directly in the app.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
      * @param url The web or app link to open.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
      * @see Intent#ACTION_VIEW
      */
-    @TargetApi(Build.VERSION_CODES.R)
     public static boolean viewUrl(@NonNull Context context, @NonNull String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        try {
-            if (DynamicSdkUtils.is30()) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER);
-            }
-
-            context.startActivity(intent);
-            return true;
-        } catch (Exception e) {
-            try {
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                context.startActivity(intent);
-                return true;
-            } catch (Exception ignored) {
-            }
-        }
-
-        return false;
+        return DynamicIntentUtils.viewIntent(context,
+                new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     /**
@@ -266,13 +211,10 @@ public class DynamicLinkUtils {
      * @param context The context to retrieve the resources.
      * @param packageName Application package name to build the search query.
      *
-     * @throws ActivityNotFoundException If no activity is found.
-     *
      * @return {@code true} on successful operation.
      *
      * @see Intent#ACTION_VIEW
      */
-    @TargetApi(Build.VERSION_CODES.R)
     public static boolean viewInGooglePlay(@NonNull Context context,
             @NonNull String packageName) {
         if (viewUrl(context, URL_MARKET + packageName)) {
@@ -286,18 +228,12 @@ public class DynamicLinkUtils {
      * View app on Google Play or Android Market.
      * <p>Can be used for the quick feedback or rating from the user.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
      * @see #viewInGooglePlay(Context, String)
      */
-    @TargetApi(Build.VERSION_CODES.R)
     public static boolean rateApp(@NonNull Context context) {
         return viewInGooglePlay(context, context.getPackageName());
     }
@@ -305,19 +241,13 @@ public class DynamicLinkUtils {
     /**
      * View other apps of a Publisher on Google Play or Android Market.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
      * @param publisher The publisher name to build the search query.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
      * @see Intent#ACTION_VIEW
      */
-    @TargetApi(Build.VERSION_CODES.R)
     public static boolean moreApps(@NonNull Context context, @NonNull String publisher) {
         if (viewUrl(context, URL_MARKET_SEARCH_PUB + publisher)) {
             return true;
@@ -331,33 +261,27 @@ public class DynamicLinkUtils {
      * <p>Subject of the email will be generated automatically by detecting the manufacturer,
      * device, Android version and the app version along with the supplied app name.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
-     *
      * @param context The context to retrieve the resources.
-     * @param email The email id of the developer.
+     * @param emails The email ids of the developer.
      * @param subject The optional email subject.
      * @param text The optional email text.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
      * @see Intent#ACTION_SENDTO
      * @see MailTo#MAILTO_SCHEME
      */
-    public static boolean email(@NonNull Context context, @NonNull String email,
+    public static boolean email(@NonNull Context context, @NonNull String[] emails,
             @Nullable String subject, @Nullable String text) {
-        try {
-            Intent intent = new Intent(Intent.ACTION_SENDTO,
-                    Uri.parse(MailTo.MAILTO_SCHEME + email));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            intent.putExtra(Intent.EXTRA_TEXT, text);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse(MailTo.MAILTO_SCHEME));
+        intent.putExtra(Intent.EXTRA_EMAIL, emails);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
 
+        if (DynamicIntentUtils.isActivityResolved(context, intent)) {
             context.startActivity(intent);
             return true;
-        } catch (Exception ignored) {
         }
 
         return false;
@@ -368,15 +292,30 @@ public class DynamicLinkUtils {
      * <p>Subject of the email will be generated automatically by detecting the manufacturer,
      * device, Android version and the app version along with the supplied app name.
      *
-     * <p>This method throws {@link ActivityNotFoundException} if there was no activity found
-     * to run the given intent.
+     * @param context The context to retrieve the resources.
+     * @param email The email id of the developer.
+     * @param subject The optional email subject.
+     * @param text The optional email text.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see Intent#ACTION_SENDTO
+     * @see MailTo#MAILTO_SCHEME
+     */
+    public static boolean email(@NonNull Context context, @NonNull String email,
+            @Nullable String subject, @Nullable String text) {
+        return email(context, new String[] { email }, subject, text);
+    }
+
+    /**
+     * Ask questions or submit bug report to the developer via email.
+     * <p>Subject of the email will be generated automatically by detecting the manufacturer,
+     * device, Android version and the app version along with the supplied app name.
      *
      * @param context The context to retrieve the resources.
      * @param appName The app name for the email subject.
      *                <p>{@code null} to get it from the supplied context.
      * @param email The email id of the developer.
-     *
-     * @throws ActivityNotFoundException If no activity is found.
      *
      * @return {@code true} on successful operation.
      *
@@ -385,23 +324,22 @@ public class DynamicLinkUtils {
      */
     public static boolean report(@NonNull Context context,
             @Nullable String appName, @NonNull String email) {
+        String version = null;
         try {
-            String version = context.getPackageManager().getPackageInfo(
+            version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA).versionName;
-
-            if (appName == null) {
-                appName = context.getApplicationInfo().loadLabel(
-                        context.getPackageManager()).toString();
-            }
-
-            return email(context, email, String.format(
-                    context.getResources().getString(R.string.adu_bug_title), appName,
-                    version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE),
-                    context.getResources().getString(R.string.adu_bug_desc));
         } catch (Exception ignored) {
         }
 
-        return false;
+        if (appName == null) {
+            appName = context.getApplicationInfo().loadLabel(
+                    context.getPackageManager()).toString();
+        }
+
+        return email(context, email, String.format(
+                context.getResources().getString(R.string.adu_bug_title), appName,
+                version, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE),
+                context.getResources().getString(R.string.adu_bug_desc));
     }
 
     /**
@@ -413,18 +351,9 @@ public class DynamicLinkUtils {
      *
      * @return {@code true} if the email client exists on the device.
      */
-    @SuppressLint("QueryPermissionsNeeded")
     public static boolean isEmailExists(@NonNull Context context) {
-        List<ResolveInfo> list = null;
-
-        try {
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(MailTo.MAILTO_SCHEME));
-            PackageManager packageManager = context.getPackageManager();
-            list = packageManager.queryIntentActivities(intent, 0);
-        } catch (Exception ignored) {
-        }
-
-        return list != null && list.size() > 0;
+        return DynamicIntentUtils.isActivityResolved(context,
+                new Intent(Intent.ACTION_SENDTO, Uri.parse(MailTo.MAILTO_SCHEME)));
     }
 
     /**
@@ -481,11 +410,11 @@ public class DynamicLinkUtils {
      *                   {@link ApplicationErrorReport#TYPE_RUNNING_SERVICE}.
      * @param crashInfo The crash info for the report.
      *
-     * @throws ActivityNotFoundException If no activity is found.
+     * @return {@code true} on successful operation.
      *
      * @see ApplicationErrorReport
      */
-    public static void feedback(@NonNull Context context,
+    public static boolean feedback(@NonNull Context context,
             @Nullable String appName, @NonNull String email, int reportType,
             @Nullable ApplicationErrorReport.CrashInfo crashInfo) {
         ApplicationErrorReport report = new ApplicationErrorReport();
@@ -507,11 +436,11 @@ public class DynamicLinkUtils {
             intent.setClassName(PACKAGE_FEEDBACK, PACKAGE_FEEDBACK + ".FeedbackActivity");
         }
 
-        try {
-            context.startActivity(intent);
-        } catch (Exception e) {
-            report(context, appName, email);
+        if (DynamicIntentUtils.viewIntent(context, intent)) {
+            return true;
         }
+
+        return report(context, appName, email);
     }
 
     /**
@@ -525,13 +454,13 @@ public class DynamicLinkUtils {
      *                <p>{@code null} to get it from the supplied context.
      * @param email The email id of the developer.
      *
-     * @throws ActivityNotFoundException If no activity is found.
+     * @return {@code true} on successful operation.
      *
      * @see ApplicationErrorReport
      * @see ApplicationErrorReport#TYPE_NONE
      */
-    public static void feedback(@NonNull Context context,
+    public static boolean feedback(@NonNull Context context,
             @Nullable String appName, @NonNull String email) {
-        feedback(context, appName, email, ApplicationErrorReport.TYPE_NONE, null);
+        return feedback(context, appName, email, ApplicationErrorReport.TYPE_NONE, null);
     }
 }

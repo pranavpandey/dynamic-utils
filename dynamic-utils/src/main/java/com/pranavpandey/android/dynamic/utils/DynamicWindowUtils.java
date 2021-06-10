@@ -60,15 +60,55 @@ public class DynamicWindowUtils {
             return null;
         }
 
-        if (context instanceof Activity) {
-            return ((Activity) context).getWindowManager().getDefaultDisplay();
+        if (DynamicSdkUtils.is30()) {
+            return context.getDisplay();
+        } else {
+            WindowManager windowManager = context instanceof Activity
+                    ? ((Activity) context).getWindowManager()
+                    : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+            return windowManager != null ? windowManager.getDefaultDisplay() : null;
+        }
+    }
+
+    /**
+     * Returns the display metrics for the supplied context.
+     *
+     * @param context The context to be used.
+     *
+     * @return The display metrics for the supplied context.
+     *
+     * @see Context#getResources()
+     * @see Resources#getDisplayMetrics()
+     */
+    public static @Nullable DisplayMetrics getDisplayMetrics(@Nullable Context context) {
+        if (context == null) {
+            return null;
         }
 
-        WindowManager windowManager = (WindowManager)
-                context.getSystemService(Context.WINDOW_SERVICE);
+        return context.getResources().getDisplayMetrics();
+    }
 
-        return DynamicSdkUtils.is30() ? context.getDisplay()
-                : windowManager != null ? windowManager.getDefaultDisplay() : null;
+    /**
+     * Returns the current window metrics for the supplied context.
+     *
+     * @param context The context to be used.
+     *
+     * @return The current window metrics for the supplied context.
+     *
+     * @see WindowManager#getCurrentWindowMetrics()
+     */
+    @TargetApi(Build.VERSION_CODES.R)
+    public static @Nullable WindowMetrics getCurrentWindowMetrics(@Nullable Context context) {
+        if (!DynamicSdkUtils.is30() || context == null) {
+            return null;
+        }
+
+        WindowManager windowManager = context instanceof Activity
+                ? ((Activity) context).getWindowManager()
+                : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+        return windowManager != null ? windowManager.getCurrentWindowMetrics() : null;
     }
 
     /**
@@ -107,21 +147,15 @@ public class DynamicWindowUtils {
     public static @NonNull Point getAppUsableScreenSize(@Nullable Context context) {
         Point size = new Point();
 
-        if (DynamicSdkUtils.is30() && context != null) {
-            WindowMetrics windowMetrics;
+        if (DynamicSdkUtils.is30()) {
+            WindowMetrics windowMetrics = getCurrentWindowMetrics(context);
 
-            if (context instanceof Activity) {
-                windowMetrics = ((Activity) context).getWindowManager().getCurrentWindowMetrics();
-            } else {
-                WindowManager windowManager = (WindowManager)
-                        context.getSystemService(Context.WINDOW_SERVICE);
-                windowMetrics = windowManager.getCurrentWindowMetrics();
+            if (windowMetrics != null) {
+                Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(
+                        WindowInsets.Type.navigationBars());
+                size.x = windowMetrics.getBounds().width() - insets.left - insets.right;
+                size.y = windowMetrics.getBounds().height() - insets.top - insets.bottom;
             }
-
-            Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(
-                    WindowInsets.Type.navigationBars());
-            size.x = windowMetrics.getBounds().width() - insets.left - insets.right;
-            size.y = windowMetrics.getBounds().height() - insets.top - insets.bottom;
         } else {
             Display display = getDisplay(context);
 
@@ -144,28 +178,29 @@ public class DynamicWindowUtils {
      * @see Context#WINDOW_SERVICE
      * @see Point
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @TargetApi(Build.VERSION_CODES.R)
     public static @NonNull Point getRealScreenSize(@Nullable Context context) {
         Point size = new Point();
-        Display display = getDisplay(context);
 
-        if (display != null) {
-            try {
-                if (DynamicSdkUtils.is17()) {
-                    display.getRealSize(size);
-                } else if (DynamicSdkUtils.is14()) {
-                    Object width = Display.class.getMethod("getRawWidth").invoke(display);
-                    Object height = Display.class.getMethod("getRawHeight").invoke(display);
+        if (DynamicSdkUtils.is30()) {
+            WindowMetrics windowMetrics = getCurrentWindowMetrics(context);
 
-                    if (width != null) {
-                        size.x = (Integer) width;
-                    }
+            if (windowMetrics != null) {
+                size.x = windowMetrics.getBounds().width();
+                size.y = windowMetrics.getBounds().height();
+            }
+        } else if (DynamicSdkUtils.is17()) {
+            Display display = getDisplay(context);
 
-                    if (height != null) {
-                        size.y = (Integer) height;
-                    }
-                }
-            } catch (Exception ignored) {
+            if (display != null) {
+                display.getRealSize(size);
+            }
+        } else {
+            DisplayMetrics displayMetrics = getDisplayMetrics(context);
+
+            if (displayMetrics != null) {
+                size.x = displayMetrics.widthPixels;
+                size.y = displayMetrics.heightPixels;
             }
         }
 

@@ -117,6 +117,47 @@ public class DynamicPackageUtils {
     }
 
     /**
+     * Get package version code from the given package.
+     *
+     * @param context The context to get the package manager.
+     * @param packageName The package name to get its version code.
+     *
+     * @return The package version code.
+     *
+     * @see android.content.pm.PackageInfo#versionCode
+     */
+    public static @Nullable String getVersionCode(@Nullable Context context,
+            @Nullable String packageName) {
+        if (context == null || packageName == null) {
+            return null;
+        }
+
+        try {
+            return Integer.toString(context.getPackageManager().getPackageInfo(
+                    packageName, PackageManager.GET_META_DATA).versionCode);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Get package version code from the given context.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return The package version code.
+     *
+     * @see android.content.pm.PackageInfo#versionCode
+     */
+    public static @Nullable String getVersionCode(@Nullable Context context) {
+        if (context == null) {
+            return null;
+        }
+
+        return getVersionCode(context, context.getPackageName());
+    }
+
+    /**
      * Get package version name from the given package.
      *
      * @param context The context to get the package manager.
@@ -126,7 +167,7 @@ public class DynamicPackageUtils {
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static @Nullable String getAppVersion(@Nullable Context context,
+    public static @Nullable String getVersionName(@Nullable Context context,
             @Nullable String packageName) {
         if (context == null || packageName == null) {
             return null;
@@ -149,12 +190,12 @@ public class DynamicPackageUtils {
      *
      * @see android.content.pm.PackageInfo#versionName
      */
-    public static @Nullable String getAppVersion(@Nullable Context context) {
+    public static @Nullable String getVersionName(@Nullable Context context) {
         if (context == null) {
             return null;
         }
 
-        return getAppVersion(context, context.getPackageName());
+        return getVersionName(context, context.getPackageName());
     }
 
     /**

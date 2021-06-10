@@ -25,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.core.graphics.ColorUtils;
 
+import com.pranavpandey.android.dynamic.utils.cache.IntegerLruCache;
+
 import java.util.Random;
 
 /**
@@ -41,6 +43,18 @@ public class DynamicColorUtils {
      * Amount to calculate the contrast color.
      */
     private static final float CONTRAST_FACTOR = 1.6f;
+
+    /**
+     * Cache for the color integers.
+     */
+    private static final IntegerLruCache<String> mColorLruCache;
+
+    /*
+     * Initializing the required fields.
+     */
+    static {
+        mColorLruCache = new IntegerLruCache<>();
+    }
 
     /**
      * Generate a random rgb color.
@@ -365,19 +379,29 @@ public class DynamicColorUtils {
      */
     public static @ColorInt int getContrastColor(@ColorInt int color, @ColorInt int contrastWith,
             @FloatRange(from = 0f, to = 1f) float visibleContrast, boolean recursive) {
+        final String key = Integer.toString(color) + contrastWith + visibleContrast;
+        @ColorInt Integer contrastColor = mColorLruCache.get(key);
+
+        if (contrastColor != null) {
+            return contrastColor;
+        }
+
         float contrast = calculateContrast(color, contrastWith);
         if (contrast < visibleContrast) {
             float finalContrast = Math.max(visibleContrast,
                     (visibleContrast - contrast) * CONTRAST_FACTOR);
             if (isColorDark(contrastWith)) {
-                return recursive && isColorDark(color)
+                contrastColor = recursive && isColorDark(color)
                         ? getContrastColor(color, color, visibleContrast, false)
                         : getLighterColor(color, finalContrast);
             } else {
-                return recursive && !isColorDark(color)
+                contrastColor = recursive && !isColorDark(color)
                         ? getContrastColor(color, color, visibleContrast, false)
                         : getDarkerColor(color, finalContrast);
             }
+
+            mColorLruCache.put(key, contrastColor);
+            return contrastColor;
         }
 
         return color;

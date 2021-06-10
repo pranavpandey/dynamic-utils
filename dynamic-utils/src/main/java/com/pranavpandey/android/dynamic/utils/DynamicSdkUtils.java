@@ -29,6 +29,15 @@ import android.os.Build;
 public class DynamicSdkUtils {
 
     /**
+     * Detects if the current API version is a preview.
+     *
+     * @return {@code true} if the current API version is a preview.
+     */
+    public static boolean isPreview() {
+        return Build.VERSION.PREVIEW_SDK_INT != 0;
+    }
+
+    /**
      * Detects if the current API version is 14 or above.
      *
      * @param equals {@code true} to check for equality.
@@ -390,8 +399,7 @@ public class DynamicSdkUtils {
      */
     public static boolean is30(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.R
-                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
-                || is29(true) && Build.VERSION.PREVIEW_SDK_INT != 0;
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.R;
     }
 
     /**
@@ -412,7 +420,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is S or above.
      */
     public static boolean isS(boolean equals) {
-        return is30(equals) && Build.VERSION.PREVIEW_SDK_INT != 0;
+        return is30(equals) && isPreview();
     }
 
     /**
@@ -421,6 +429,6 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is S or above.
      */
     public static boolean isS() {
-        return is30(false);
+        return isS(false);
     }
 }

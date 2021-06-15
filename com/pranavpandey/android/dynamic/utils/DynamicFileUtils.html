@@ -755,7 +755,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
                                  @Nullable
                                  java.io.File&nbsp;file)</pre>
 <div class="block">Returns uri from the file. 
- <p>It will automatically use the @link FileProvider} on API 24 and above devices.</div>
+ <p>It will automatically use the @link FileProvider} on API 24 and above.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - The context to get the file provider.</dd>
@@ -987,10 +987,10 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
                                @Nullable
                                java.lang.String&nbsp;extension)</pre>
 <div class="block">Save and returns uri from the bitmap.
- <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+ <p>It will automatically use the @link FileProvider} on API 24 and above.
 
  <p>It requires <a href="https://developer.android.com/reference/android/Manifest.permission.html?is-external=true#WRITE_EXTERNAL_STORAGE" title="class or interface in android" class="externalLink"><code>Manifest.permission.WRITE_EXTERNAL_STORAGE</code></a> permission on
- pre KitKat (<a href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html?is-external=true#JELLY_BEAN_MR2" title="class or interface in android.os" class="externalLink"><code>Build.VERSION_CODES.JELLY_BEAN_MR2</code></a> or below) devices.</div>
+ API 18 and below.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - The context to get the file provider.</dd>
@@ -1018,10 +1018,10 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
                                @NonNull
                                java.lang.String&nbsp;name)</pre>
 <div class="block">Save and returns uri from the bitmap.
- <p>It will automatically use the @link FileProvider} on API 24 and above devices.
+ <p>It will automatically use the @link FileProvider} on API 24 and above.
 
  <p>It requires <a href="https://developer.android.com/reference/android/Manifest.permission.html?is-external=true#WRITE_EXTERNAL_STORAGE" title="class or interface in android" class="externalLink"><code>Manifest.permission.WRITE_EXTERNAL_STORAGE</code></a> permission on
- pre KitKat (<a href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html?is-external=true#JELLY_BEAN_MR2" title="class or interface in android.os" class="externalLink"><code>Build.VERSION_CODES.JELLY_BEAN_MR2</code></a> or below) devices.</div>
+ API 18 and below.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>context</code> - The context to get the file provider.</dd>
@@ -1225,6 +1225,8 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <dd><code>subject</code> - The subject for the intent chooser.</dd>
 <dd><code>file</code> - The file to be shared.</dd>
 <dd><code>mimeType</code> - The mime type of the file.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://developer.android.com/reference/android/content/ActivityNotFoundException.html?is-external=true" title="class or interface in android.content" class="externalLink">ActivityNotFoundException</a></code> - The activity not found exception.</dd>
 </dl>
 </li>
 </ul>
@@ -1252,6 +1254,8 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <dd><code>subject</code> - The subject for the intent chooser.</dd>
 <dd><code>uris</code> - The content uris to be shared.</dd>
 <dd><code>mimeType</code> - The mime type of the file.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://developer.android.com/reference/android/content/ActivityNotFoundException.html?is-external=true" title="class or interface in android.content" class="externalLink">ActivityNotFoundException</a></code> - The activity not found exception.</dd>
 </dl>
 </li>
 </ul>
@@ -1348,7 +1352,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/cont
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../help-doc.html">Help</a></li>
 </ul>
-<div class="aboutLanguage"><h5>3.4.1</h5></div>
+<div class="aboutLanguage"><h5>4.0.0</h5></div>
 </div>
 <div class="subNav">
 <ul class="navList" id="allclasses_navbar_bottom">

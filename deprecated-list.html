@@ -95,6 +95,53 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="header">
 <h1 title="Deprecated API" class="title">Deprecated API</h1>
 <h2 title="Contents">Contents</h2>
+<ul>
+<li><a href="#method">Methods</a></li>
+</ul>
+</div>
+<div class="contentContainer"><a id="method">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<table class="deprecatedSummary">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#cancelTask(android.os.AsyncTask)">com.pranavpandey.android.dynamic.utils.DynamicTaskUtils.cancelTask&#8203;(AsyncTask&lt;?, ?, ?&gt;)</a></th>
+<td class="colLast">
+<div class="deprecationComment">Use <a href="com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#cancelTask(com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask,boolean)"><code>DynamicTaskUtils.cancelTask(DynamicTask, boolean)</code></a> or standard
+             <code>java.util.concurrent</code> APIs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#executeTask(android.os.AsyncTask)">com.pranavpandey.android.dynamic.utils.DynamicTaskUtils.executeTask&#8203;(AsyncTask&lt;Object, ?, ?&gt;)</a></th>
+<td class="colLast">
+<div class="deprecationComment">Use <a href="com/pranavpandey/android/dynamic/utils/DynamicTaskUtils.html#executeTask(com.pranavpandey.android.dynamic.utils.concurrent.DynamicTask)"><code>DynamicTaskUtils.executeTask(DynamicTask)</code></a> or standard
+             <code>java.util.concurrent</code> APIs.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="com/pranavpandey/android/dynamic/utils/DynamicViewUtils.html#isEdgeToEdge(android.view.View)">com.pranavpandey.android.dynamic.utils.DynamicViewUtils.isEdgeToEdge&#8203;(View)</a></th>
+<td class="colLast">
+<div class="deprecationComment">Try to use <code>WindowInsetsControllerCompat</code> if possible.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="com/pranavpandey/android/dynamic/utils/DynamicViewUtils.html#setEdgeToEdge(android.view.View,boolean)">com.pranavpandey.android.dynamic.utils.DynamicViewUtils.setEdgeToEdge&#8203;(View, boolean)</a></th>
+<td class="colLast">
+<div class="deprecationComment">Use <a href="com/pranavpandey/android/dynamic/utils/DynamicWindowUtils.html#setEdgeToEdge(android.view.Window,boolean)"><code>DynamicWindowUtils.setEdgeToEdge(Window, boolean)</code></a> to support
+             latest API levels.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 </div>
 </main>
 <footer role="contentinfo">
@@ -116,7 +163,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li><a href="index-all.html">Index</a></li>
 <li><a href="help-doc.html">Help</a></li>
 </ul>
-<div class="aboutLanguage"><h5>3.4.1</h5></div>
+<div class="aboutLanguage"><h5>4.0.0</h5></div>
 </div>
 <div class="subNav">
 <ul class="navList" id="allclasses_navbar_bottom">

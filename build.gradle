@@ -30,7 +30,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.0-alpha02'
-        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
 

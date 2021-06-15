@@ -242,6 +242,7 @@ public class DynamicPackageUtils {
      * Load activity icon from the given component name.
      *
      * @param context The context to get the package manager.
+     * @param componentName The component name to be used.
      *
      * @return The activity icon drawable.
      *
@@ -265,6 +266,7 @@ public class DynamicPackageUtils {
      * Load activity icon resource from the given component name.
      *
      * @param context The context to get the package manager.
+     * @param componentName The component name to be used.
      *
      * @return The activity icon resource.
      *

@@ -247,13 +247,13 @@ experience accordingly. Pass `true` in the alternate method to check for equalit
 
 - `boolean is14()` - To detect if the current API version is 14 (Android 4.0) or above.
 
-- `boolean is14(equals)` - To detect if the current API version is 14 (Android 4.0) or above.
+- `boolean is14(equals)` - To detect if the current API version is equal to 14 (Android 4.0).
 
 ...
 
 - `boolean is30()` - To detect if the current API version is 30 (Android 11) or above.
 
-- `boolean is30(equals)` - To detect if the current API version is 30 (Android 11) or above.
+- `boolean is30(equals)` - To detect if the current API version is equal to 30 (Android 11).
 
 ### DynamicViewUtils
 

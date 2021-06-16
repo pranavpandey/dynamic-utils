@@ -192,6 +192,8 @@ public class DynamicLinkUtils {
      * View any URL in the available app or browser. Some URLs will automatically open in their
      * respective apps if installed on the device. Special treatment is applied for the
      * Facebook URLs to open them directly in the app.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to retrieve the resources.
      * @param url The web or app link to open.
@@ -207,6 +209,8 @@ public class DynamicLinkUtils {
 
     /**
      * View app on Google Play or Android Market.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to retrieve the resources.
      * @param packageName Application package name to build the search query.
@@ -227,6 +231,8 @@ public class DynamicLinkUtils {
     /**
      * View app on Google Play or Android Market.
      * <p>Can be used for the quick feedback or rating from the user.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to retrieve the resources.
      *
@@ -240,6 +246,8 @@ public class DynamicLinkUtils {
 
     /**
      * View other apps of a Publisher on Google Play or Android Market.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to retrieve the resources.
      * @param publisher The publisher name to build the search query.

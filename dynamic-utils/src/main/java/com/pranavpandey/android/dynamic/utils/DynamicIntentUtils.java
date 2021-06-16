@@ -198,6 +198,8 @@ public class DynamicIntentUtils {
 
     /**
      * View any Intent in the available app or browser.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with appropriate
+     * {@code scheme(s)} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to retrieve the resources.
      * @param intent The intent to view.

@@ -188,8 +188,8 @@ extends java.lang.Object</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#calculateContrast(int,int)">calculateContrast</a></span>&#8203;(int&nbsp;color1,
                  int&nbsp;color2)</code></th>
 <td class="colLast">
-<div class="block">Calculate color contrast difference between two colors based
- on luma value according to XYZ color space.</div>
+<div class="block">Calculate color contrast difference between two colors based on the luminance
+ value according to XYZ color space.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -655,7 +655,7 @@ public static&nbsp;int&nbsp;shiftColor&#8203;(@ColorInt
 public static&nbsp;int&nbsp;getAccentColor&#8203;(@ColorInt
                                  int&nbsp;color)</pre>
 <div class="block">Calculate accent color based on the given color for android theme generation.
- <p>Still in beta so, sometimes may be inaccurate colors.</div>
+ <p>Still in beta, so sometimes may produce inaccurate colors.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>color</code> - The color whose accent color to be calculated.</dd>
@@ -674,8 +674,8 @@ public static&nbsp;int&nbsp;getAccentColor&#8203;(@ColorInt
                                       int&nbsp;color1,
                                       @ColorInt
                                       int&nbsp;color2)</pre>
-<div class="block">Calculate color contrast difference between two colors based
- on luma value according to XYZ color space.</div>
+<div class="block">Calculate color contrast difference between two colors based on the luminance
+ value according to XYZ color space.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>color1</code> - The first color to calculate the contrast difference.</dd>
@@ -925,7 +925,7 @@ public static&nbsp;int&nbsp;CMYKToRGB&#8203;(@FloatRange(from=0.0,to=100.0)
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../help-doc.html">Help</a></li>
 </ul>
-<div class="aboutLanguage"><h5>4.0.0</h5></div>
+<div class="aboutLanguage"><h5>4.0.1</h5></div>
 </div>
 <div class="subNav">
 <ul class="navList" id="allclasses_navbar_bottom">

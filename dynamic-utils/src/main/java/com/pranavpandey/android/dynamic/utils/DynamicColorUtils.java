@@ -266,7 +266,7 @@ public class DynamicColorUtils {
 
     /**
      * Calculate accent color based on the given color for android theme generation.
-     * <p>Still in beta so, sometimes may be inaccurate colors.
+     * <p>Still in beta, so sometimes may produce inaccurate colors.
      *
      * @param color The color whose accent color to be calculated.
      *
@@ -303,8 +303,8 @@ public class DynamicColorUtils {
     }
 
     /**
-     * Calculate color contrast difference between two colors based
-     * on luma value according to XYZ color space.
+     * Calculate color contrast difference between two colors based on the luminance
+     * value according to XYZ color space.
      *
      * @param color1 The first color to calculate the contrast difference.
      * @param color2 The second color to calculate the contrast difference.

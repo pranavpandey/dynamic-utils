@@ -23,6 +23,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Insets;
 import android.graphics.Point;
+import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -61,14 +62,20 @@ public class DynamicWindowUtils {
         }
 
         if (DynamicSdkUtils.is30()) {
-            return context.getDisplay();
-        } else {
-            WindowManager windowManager = context instanceof Activity
-                    ? ((Activity) context).getWindowManager()
-                    : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-            return windowManager != null ? windowManager.getDefaultDisplay() : null;
+            try {
+                return context.getDisplay();
+            } catch (Exception ignored) {
+                DisplayManager displayManager = (DisplayManager)
+                        context.getSystemService(Context.DISPLAY_SERVICE);
+                return displayManager != null ? displayManager.getDisplay(
+                        Display.DEFAULT_DISPLAY) : null;
+            }
         }
+
+        WindowManager windowManager = context instanceof Activity
+                ? ((Activity) context).getWindowManager()
+                : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return windowManager != null ? windowManager.getDefaultDisplay() : null;
     }
 
     /**
@@ -107,7 +114,6 @@ public class DynamicWindowUtils {
         WindowManager windowManager = context instanceof Activity
                 ? ((Activity) context).getWindowManager()
                 : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
         return windowManager != null ? windowManager.getCurrentWindowMetrics() : null;
     }
 
@@ -318,12 +324,12 @@ public class DynamicWindowUtils {
     public static int getScreenOrientation(@Nullable Context context) {
         int orientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
         Display display = getDisplay(context);
+        DisplayMetrics displayMatrix = getDisplayMetrics(context);
 
-        if (display == null) {
+        if (display == null || displayMatrix == null) {
             return orientation;
         }
 
-        DisplayMetrics displayMatrix = context.getResources().getDisplayMetrics();
         float scale = displayMatrix.density;
         int rotation = display.getRotation();
         int width = (int) (displayMatrix.widthPixels * scale + 0.5f);

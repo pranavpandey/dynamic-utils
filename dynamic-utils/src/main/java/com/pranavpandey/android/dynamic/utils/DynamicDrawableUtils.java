@@ -104,23 +104,17 @@ public class DynamicDrawableUtils {
                 mode = PorterDuff.Mode.SRC_IN;
             }
 
-            // Handle issue with layer drawables.
-            if (DynamicSdkUtils.is21(true)) {
-                if (wrap) {
-                    drawable = drawable.mutate();
-                }
-
-                drawable.setColorFilter(color, mode);
-            } else {
-                if (wrap) {
+            if (wrap) {
+                // Handle exception with layer drawables on older API levels.
+                try {
                     drawable = DrawableCompat.wrap(drawable);
                     drawable = drawable.mutate();
+                } catch (Exception ignored) {
                 }
-
-                DrawableCompat.setTintMode(drawable, mode);
-                DrawableCompat.setTint(drawable, color);
             }
 
+            DrawableCompat.setTintMode(drawable, mode);
+            DrawableCompat.setTint(drawable, color);
             drawable.invalidateSelf();
         }
 

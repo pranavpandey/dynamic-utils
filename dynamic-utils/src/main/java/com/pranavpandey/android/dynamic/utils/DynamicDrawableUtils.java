@@ -114,6 +114,7 @@ public class DynamicDrawableUtils {
             } else {
                 if (wrap) {
                     drawable = DrawableCompat.wrap(drawable);
+                    drawable = drawable.mutate();
                 }
 
                 DrawableCompat.setTintMode(drawable, mode);

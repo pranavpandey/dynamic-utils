@@ -35,6 +35,7 @@ import android.view.WindowMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 
 /**
@@ -65,8 +66,8 @@ public class DynamicWindowUtils {
             try {
                 return context.getDisplay();
             } catch (Exception ignored) {
-                DisplayManager displayManager = (DisplayManager)
-                        context.getSystemService(Context.DISPLAY_SERVICE);
+                DisplayManager displayManager = ContextCompat.getSystemService(
+                        context, DisplayManager.class);
                 return displayManager != null ? displayManager.getDisplay(
                         Display.DEFAULT_DISPLAY) : null;
             }
@@ -74,7 +75,7 @@ public class DynamicWindowUtils {
 
         WindowManager windowManager = context instanceof Activity
                 ? ((Activity) context).getWindowManager()
-                : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                : ContextCompat.getSystemService(context, WindowManager.class);
         return windowManager != null ? windowManager.getDefaultDisplay() : null;
     }
 
@@ -113,7 +114,7 @@ public class DynamicWindowUtils {
 
         WindowManager windowManager = context instanceof Activity
                 ? ((Activity) context).getWindowManager()
-                : (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                : ContextCompat.getSystemService(context, WindowManager.class);
         return windowManager != null ? windowManager.getCurrentWindowMetrics() : null;
     }
 

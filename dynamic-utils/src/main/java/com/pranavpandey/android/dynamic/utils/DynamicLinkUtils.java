@@ -27,6 +27,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.net.MailTo;
 
 /**
@@ -78,15 +79,14 @@ public class DynamicLinkUtils {
      */
     public static boolean copyToClipboard(@NonNull Context context,
             @NonNull String label, @NonNull String text) {
-        ClipboardManager clipboard = (ClipboardManager)
-                context.getSystemService(Context.CLIPBOARD_SERVICE);
-
-        if (clipboard != null) {
-            clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
-            return true;
+        ClipboardManager clipboard = ContextCompat.getSystemService(
+                context, ClipboardManager.class);
+        if (clipboard == null) {
+            return false;
         }
 
-        return false;
+        clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
+        return true;
     }
 
     /**

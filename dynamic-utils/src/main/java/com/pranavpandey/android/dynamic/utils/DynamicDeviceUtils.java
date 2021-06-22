@@ -29,6 +29,7 @@ import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
+import androidx.core.content.ContextCompat;
 
 import java.text.DateFormat;
 
@@ -55,7 +56,7 @@ public class DynamicDeviceUtils {
             return;
         }
 
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator vibrator = ContextCompat.getSystemService(context, Vibrator.class);
         if (vibrator == null) {
             return;
         }

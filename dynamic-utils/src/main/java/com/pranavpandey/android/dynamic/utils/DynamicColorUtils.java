@@ -192,15 +192,16 @@ public class DynamicColorUtils {
             @FloatRange(from = 0f, to = 1f) float amount) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
+
         if (hsv[2] == 0) {
-            hsv[2] = Math.min(amount, VISIBLE_CONTRAST);
+            hsv[2] = Math.min(1f, Math.max(amount, VISIBLE_CONTRAST));
             color = Color.HSVToColor(Color.alpha(color), hsv);
         }
 
-        int alpha = (int) ((Color.alpha(color) + (255 - Color.alpha(color)) * amount));
-        int red = (int) ((Color.red(color) + (255 - Color.red(color)) * amount));
-        int green = (int) ((Color.green(color) + (255 - Color.green(color)) * amount));
-        int blue = (int) ((Color.blue(color) + (255 - Color.blue(color)) * amount));
+        int alpha = (int) (Color.alpha(color) + (255 - Color.alpha(color)) * amount);
+        int red = (int) (Color.red(color) + (255 - Color.red(color)) * amount);
+        int green = (int) (Color.green(color) + (255 - Color.green(color)) * amount);
+        int blue = (int) (Color.blue(color) + (255 - Color.blue(color)) * amount);
 
         return Color.argb(Math.max(alpha, Color.alpha(color)), red, green, blue);
     }

@@ -37,7 +37,7 @@ public class DynamicColorUtils {
     /**
      * Visible contrast between the two colors.
      */
-    private static final float VISIBLE_CONTRAST = 0.4f;
+    private static final float VISIBLE_CONTRAST = 0.45f;
 
     /**
      * Amount to calculate the contrast color.
@@ -218,6 +218,14 @@ public class DynamicColorUtils {
      */
     public static @ColorInt int getDarkerColor(@ColorInt int color,
             @FloatRange(from = 0f, to = 1f) float amount) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+
+        if (hsv[2] == 1f) {
+            hsv[2] = Math.max(0f, Math.min(amount, VISIBLE_CONTRAST));
+            color = Color.HSVToColor(Color.alpha(color), hsv);
+        }
+
         int alpha = (int) (Color.alpha(color) * (1f - amount));
         int red = (int) (Color.red(color) * (1f - amount));
         int green = (int) (Color.green(color) * (1f - amount));

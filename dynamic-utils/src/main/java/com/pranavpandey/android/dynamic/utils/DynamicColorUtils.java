@@ -179,29 +179,32 @@ public class DynamicColorUtils {
     }
 
     /**
-     * Lightens a color by a given amount.
+     * Darkens a color by a given amount.
      *
-     * @param color The color to lighten.
-     * @param amount The amount to lighten the color.
+     * @param color The color to darken.
+     * @param amount The amount to darken the color.
      *               <p>{@code 0} will leave the color unchanged.
-     *               <p>{@code 1} will make the color completely white.
+     *               <p>{@code 1} will make the color completely black.
+     * @param adjust {@code true} to adjust the visible contrast.
      *
-     * @return The lighter color.
+     * @return The darker color.
      */
-    public static @ColorInt int getLighterColor(@ColorInt int color,
-            @FloatRange(from = 0f, to = 1f) float amount) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
+    public static @ColorInt int getDarkerColor(@ColorInt int color,
+            @FloatRange(from = 0f, to = 1f) float amount, boolean adjust) {
+        if (adjust) {
+            float[] hsv = new float[3];
+            Color.colorToHSV(color, hsv);
 
-        if (hsv[2] == 0) {
-            hsv[2] = Math.min(1f, Math.max(amount, VISIBLE_CONTRAST));
-            color = Color.HSVToColor(Color.alpha(color), hsv);
+            if (hsv[2] == 1f) {
+                hsv[2] = Math.max(0f, Math.min(amount, VISIBLE_CONTRAST));
+                color = Color.HSVToColor(Color.alpha(color), hsv);
+            }
         }
 
-        int alpha = (int) (Color.alpha(color) + (255 - Color.alpha(color)) * amount);
-        int red = (int) (Color.red(color) + (255 - Color.red(color)) * amount);
-        int green = (int) (Color.green(color) + (255 - Color.green(color)) * amount);
-        int blue = (int) (Color.blue(color) + (255 - Color.blue(color)) * amount);
+        int alpha = (int) (Color.alpha(color) * (1f - amount));
+        int red = (int) (Color.red(color) * (1f - amount));
+        int green = (int) (Color.green(color) * (1f - amount));
+        int blue = (int) (Color.blue(color) * (1f - amount));
 
         return Color.argb(Math.max(alpha, Color.alpha(color)), red, green, blue);
     }
@@ -218,20 +221,53 @@ public class DynamicColorUtils {
      */
     public static @ColorInt int getDarkerColor(@ColorInt int color,
             @FloatRange(from = 0f, to = 1f) float amount) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
+        return getDarkerColor(color, amount, true);
+    }
 
-        if (hsv[2] == 1f) {
-            hsv[2] = Math.max(0f, Math.min(amount, VISIBLE_CONTRAST));
-            color = Color.HSVToColor(Color.alpha(color), hsv);
+    /**
+     * Lightens a color by a given amount.
+     *
+     * @param color The color to lighten.
+     * @param amount The amount to lighten the color.
+     *               <p>{@code 0} will leave the color unchanged.
+     *               <p>{@code 1} will make the color completely white.
+     * @param adjust {@code true} to adjust the visible contrast.
+     *
+     * @return The lighter color.
+     */
+    public static @ColorInt int getLighterColor(@ColorInt int color,
+            @FloatRange(from = 0f, to = 1f) float amount, boolean adjust) {
+        if (adjust) {
+            float[] hsv = new float[3];
+            Color.colorToHSV(color, hsv);
+
+            if (hsv[2] == 0) {
+                hsv[2] = Math.min(1f, Math.max(amount, VISIBLE_CONTRAST));
+                color = Color.HSVToColor(Color.alpha(color), hsv);
+            }
         }
 
-        int alpha = (int) (Color.alpha(color) * (1f - amount));
-        int red = (int) (Color.red(color) * (1f - amount));
-        int green = (int) (Color.green(color) * (1f - amount));
-        int blue = (int) (Color.blue(color) * (1f - amount));
+        int alpha = (int) (Color.alpha(color) + (255 - Color.alpha(color)) * amount);
+        int red = (int) (Color.red(color) + (255 - Color.red(color)) * amount);
+        int green = (int) (Color.green(color) + (255 - Color.green(color)) * amount);
+        int blue = (int) (Color.blue(color) + (255 - Color.blue(color)) * amount);
 
         return Color.argb(Math.max(alpha, Color.alpha(color)), red, green, blue);
+    }
+
+    /**
+     * Lightens a color by a given amount.
+     *
+     * @param color The color to lighten.
+     * @param amount The amount to lighten the color.
+     *               <p>{@code 0} will leave the color unchanged.
+     *               <p>{@code 1} will make the color completely white.
+     *
+     * @return The lighter color.
+     */
+    public static @ColorInt int getLighterColor(@ColorInt int color,
+            @FloatRange(from = 0f, to = 1f) float amount) {
+        return getLighterColor(color, amount, true);
     }
 
     /**

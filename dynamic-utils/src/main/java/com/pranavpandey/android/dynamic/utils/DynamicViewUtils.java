@@ -35,6 +35,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
+import androidx.core.text.HtmlCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -503,8 +504,8 @@ public class DynamicViewUtils {
     /**
      * Equivalent to calling {@link TextView#setTextSize(int, float)}.
      *
-     * @param remoteViews The remote views to set the text size.
-     * @param viewId The id of the view whose text size should change.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param units The units of size (e.g. COMPLEX_UNIT_SP).
      * @param size The size of the text.
      */
@@ -525,8 +526,8 @@ public class DynamicViewUtils {
     /**
      * Set the text view max lines for the remote views.
      *
-     * @param remoteViews The remote views to set the text view max lines.
-     * @param viewId The id of the text view whose max lines to be set.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param lines The max lines to be set.
      *
      * @see RemoteViews#setInt(int, String, int)
@@ -544,25 +545,89 @@ public class DynamicViewUtils {
      * Equivalent to calling {@link RemoteViews#setTextViewText(int, CharSequence)}
      * and hide the view if the text is empty.
      *
-     * @param remoteViews The remote views to set the text size.
-     * @param viewId The id of the view whose text size should change.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param text The text to be set.
+     * @param visible {@code true} to make the text view visible in case of non-empty text.
      */
-    public static void setTextViewText(@NonNull RemoteViews remoteViews,
-            @IdRes int viewId, @Nullable CharSequence text) {
+    public static void setTextViewText(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @Nullable CharSequence text, boolean visible) {
+        if (remoteViews == null) {
+            return;
+        }
+
         if (!TextUtils.isEmpty(text)) {
             remoteViews.setTextViewText(viewId, text);
-            remoteViews.setViewVisibility(viewId, View.VISIBLE);
+
+            if (visible) {
+                remoteViews.setViewVisibility(viewId, View.VISIBLE);
+            }
         } else {
             remoteViews.setViewVisibility(viewId, View.GONE);
         }
     }
 
     /**
+     * Equivalent to calling {@link RemoteViews#setTextViewText(int, CharSequence)}
+     * and hide the view if the text is empty.
+     *
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
+     * @param text The text to be set.
+     *
+     * @see #setTextViewText(RemoteViews, int, CharSequence, boolean)
+     */
+    public static void setTextViewText(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @Nullable CharSequence text) {
+        setTextViewText(remoteViews, viewId, text, true);
+    }
+
+    /**
+     * Equivalent to calling {@link RemoteViews#setTextViewText(int, CharSequence)}
+     * and hide the view if the text is empty.
+     *
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
+     * @param text The text to be set.
+     * @param visible {@code true} to make the text view visible in case of non-empty text.
+     *
+     * @see HtmlCompat#fromHtml(String, int)
+     * @see #setTextViewText(RemoteViews, int, CharSequence, boolean)
+     */
+    public static void setTextViewTextHtml(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @Nullable CharSequence text, boolean visible) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        if (text != null && !TextUtils.isEmpty(text)) {
+            setTextViewText(remoteViews, viewId, HtmlCompat.fromHtml(
+                    (String) text, HtmlCompat.FROM_HTML_MODE_COMPACT), visible);
+        } else {
+            remoteViews.setViewVisibility(viewId, View.GONE);
+        }
+    }
+
+    /**
+     * Equivalent to calling {@link RemoteViews#setTextViewText(int, CharSequence)}
+     * and hide the view if the text is empty.
+     *
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
+     * @param text The text to be set.
+     *
+     * @see #setTextViewTextHtml(RemoteViews, int, CharSequence, boolean)
+     */
+    public static void setTextViewTextHtml(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @Nullable CharSequence text) {
+        setTextViewTextHtml(remoteViews, viewId, text, true);
+    }
+
+    /**
      * Set the text view all caps for the remote views.
      *
-     * @param remoteViews The remote views to set the text view all caps.
-     * @param viewId The id of the text view whose max lines to be set.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param allCaps {@code true} to set the all caps.
      *
      * @see RemoteViews#setBoolean(int, String, boolean)
@@ -577,9 +642,9 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Set the text view all caps for the remote views.
+     * Set the text view all caps.
      *
-     * @param textView The remote views to set the text view max lines.
+     * @param textView The text view to be used.
      * @param allCaps {@code true} to set the all caps.
      *
      * @see TextView#setAllCaps(boolean)
@@ -612,8 +677,8 @@ public class DynamicViewUtils {
     /**
      * Set the alpha for the remote views.
      *
-     * @param remoteViews The remote views to set the alpha.
-     * @param viewId The id of the view whose alpha to be set.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param alpha The alpha value to be set.
      *
      * @see RemoteViews#setInt(int, String, int)
@@ -630,8 +695,8 @@ public class DynamicViewUtils {
     /**
      * Set the enabled state for the remote views.
      *
-     * @param remoteViews The remote views to set the enabled state.
-     * @param viewId The id of the view whose enabled state to be set.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param enabled {@code true} to enable the view.
      *
      * @see RemoteViews#setBoolean(int, String, boolean)
@@ -648,8 +713,8 @@ public class DynamicViewUtils {
     /**
      * Set the background color for the remote views.
      *
-     * @param remoteViews The remote views to set the background color.
-     * @param viewId The id of the view whose background color to be set.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param color The color value to be set.
      *
      * @see RemoteViews#setInt(int, String, int)
@@ -666,8 +731,8 @@ public class DynamicViewUtils {
     /**
      * Set the color filter for the remote views.
      *
-     * @param remoteViews The remote views to set the color filter.
-     * @param viewId The id of the view whose color filter to be set.
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
      * @param color The color value to be set.
      *
      * @see RemoteViews#setInt(int, String, int)
@@ -679,5 +744,44 @@ public class DynamicViewUtils {
         }
 
         remoteViews.setInt(viewId, "setColorFilter", color);
+    }
+
+    /**
+     * Set the text view link color for the remote views.
+     *
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
+     * @param color The color to be set.
+     *
+     * @see RemoteViews#setInt(int, String, int)
+     */
+    public static void setTextViewLinkColor(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @ColorInt int color) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setInt(viewId, "setLinkTextColor", color);
+    }
+
+    /**
+     * Set the text view colors for the remote views.
+     *
+     * @param remoteViews The remote views to be used.
+     * @param viewId The id of the view to be used.
+     * @param color The color to be set.
+     * @param linkColor The link color to be set.
+     *
+     * @see RemoteViews#setTextColor(int, int)
+     * @see #setTextViewLinkColor(RemoteViews, int, int)
+     */
+    public static void setTextViewColors(@Nullable RemoteViews remoteViews,
+            @IdRes int viewId, @ColorInt int color, @ColorInt int linkColor) {
+        if (remoteViews == null) {
+            return;
+        }
+
+        remoteViews.setTextColor(viewId, color);
+        setTextViewLinkColor(remoteViews, viewId, linkColor);
     }
 }

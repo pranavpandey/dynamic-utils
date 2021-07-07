@@ -81,12 +81,12 @@ public class DynamicLinkUtils {
             @NonNull String label, @NonNull String text) {
         ClipboardManager clipboard = ContextCompat.getSystemService(
                 context, ClipboardManager.class);
-        if (clipboard == null) {
-            return false;
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
+            return true;
         }
 
-        clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
-        return true;
+        return false;
     }
 
     /**
@@ -104,8 +104,12 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_SEND
      */
-    public static boolean share(@NonNull Context context, @Nullable String title,
+    public static boolean share(@Nullable Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri uri, @Nullable String mimeType) {
+        if (context == null) {
+            return false;
+        }
+
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType("text/plain");
@@ -151,7 +155,7 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_SEND
      */
-    public static boolean share(@NonNull Context context, @Nullable String title,
+    public static boolean share(@Nullable Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri image) {
         return share(context, title, message, image, "image/*");
     }
@@ -169,7 +173,7 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_SEND
      */
-    public static boolean share(@NonNull Context context,
+    public static boolean share(@Nullable Context context,
             @Nullable String title, @Nullable String message) {
         return share(context, title, message, null);
     }
@@ -184,7 +188,7 @@ public class DynamicLinkUtils {
      *
      * @see #share(Context, String, String)
      */
-    public static boolean shareApp(@NonNull Context context) {
+    public static boolean shareApp(@Nullable Context context) {
         return share(context, null, null);
     }
 
@@ -202,7 +206,7 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_VIEW
      */
-    public static boolean viewUrl(@NonNull Context context, @NonNull String url) {
+    public static boolean viewUrl(@Nullable Context context, @NonNull String url) {
         return DynamicIntentUtils.viewIntent(context,
                 new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
@@ -219,7 +223,7 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_VIEW
      */
-    public static boolean viewInGooglePlay(@NonNull Context context,
+    public static boolean viewInGooglePlay(@Nullable Context context,
             @NonNull String packageName) {
         if (viewUrl(context, URL_MARKET + packageName)) {
             return true;
@@ -240,7 +244,11 @@ public class DynamicLinkUtils {
      *
      * @see #viewInGooglePlay(Context, String)
      */
-    public static boolean rateApp(@NonNull Context context) {
+    public static boolean rateApp(@Nullable Context context) {
+        if (context == null) {
+            return false;
+        }
+
         return viewInGooglePlay(context, context.getPackageName());
     }
 
@@ -256,7 +264,7 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_VIEW
      */
-    public static boolean moreApps(@NonNull Context context, @NonNull String publisher) {
+    public static boolean moreApps(@Nullable Context context, @NonNull String publisher) {
         if (viewUrl(context, URL_MARKET_SEARCH_PUB + publisher)) {
             return true;
         }
@@ -279,9 +287,10 @@ public class DynamicLinkUtils {
      * @see Intent#ACTION_SENDTO
      * @see MailTo#MAILTO_SCHEME
      */
-    public static boolean email(@NonNull Context context, @NonNull String[] emails,
+    public static boolean email(@Nullable Context context, @NonNull String[] emails,
             @Nullable String subject, @Nullable String text) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setData(Uri.parse(MailTo.MAILTO_SCHEME));
         intent.putExtra(Intent.EXTRA_EMAIL, emails);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -310,7 +319,7 @@ public class DynamicLinkUtils {
      * @see Intent#ACTION_SENDTO
      * @see MailTo#MAILTO_SCHEME
      */
-    public static boolean email(@NonNull Context context, @NonNull String email,
+    public static boolean email(@Nullable Context context, @NonNull String email,
             @Nullable String subject, @Nullable String text) {
         return email(context, new String[] { email }, subject, text);
     }
@@ -330,8 +339,12 @@ public class DynamicLinkUtils {
      * @see Intent#ACTION_SENDTO
      * @see MailTo#MAILTO_SCHEME
      */
-    public static boolean report(@NonNull Context context,
+    public static boolean report(@Nullable Context context,
             @Nullable String appName, @NonNull String email) {
+        if (context == null) {
+            return false;
+        }
+
         String version = null;
         try {
             version = context.getPackageManager().getPackageInfo(
@@ -359,7 +372,7 @@ public class DynamicLinkUtils {
      *
      * @return {@code true} if the email client exists on the device.
      */
-    public static boolean isEmailExists(@NonNull Context context) {
+    public static boolean isEmailExists(@Nullable Context context) {
         return DynamicIntentUtils.isActivityResolved(context,
                 new Intent(Intent.ACTION_SENDTO, Uri.parse(MailTo.MAILTO_SCHEME)));
     }
@@ -371,7 +384,7 @@ public class DynamicLinkUtils {
      *
      * @return {@code true} if the GMS (Google Mobile Services) package exists on the device.
      */
-    public static boolean isGMSExists(@NonNull Context context) {
+    public static boolean isGMSExists(@Nullable Context context) {
         return DynamicPackageUtils.isPackageExists(context, PACKAGE_GMS);
     }
 
@@ -382,7 +395,7 @@ public class DynamicLinkUtils {
      *
      * @return {@code true} if the Google feedback package exists on the device.
      */
-    public static boolean isGoogleFeedbackExists(@NonNull Context context) {
+    public static boolean isGoogleFeedbackExists(@Nullable Context context) {
         return DynamicPackageUtils.isPackageExists(context, PACKAGE_FEEDBACK);
     }
 
@@ -396,7 +409,7 @@ public class DynamicLinkUtils {
      * @see #isGMSExists(Context)
      * @see #isGoogleFeedbackExists(Context)
      */
-    public static boolean isFeedbackExists(@NonNull Context context) {
+    public static boolean isFeedbackExists(@Nullable Context context) {
         return isGMSExists(context) || isGoogleFeedbackExists(context);
     }
 
@@ -422,9 +435,13 @@ public class DynamicLinkUtils {
      *
      * @see ApplicationErrorReport
      */
-    public static boolean feedback(@NonNull Context context,
+    public static boolean feedback(@Nullable Context context,
             @Nullable String appName, @NonNull String email, int reportType,
             @Nullable ApplicationErrorReport.CrashInfo crashInfo) {
+        if (context == null) {
+            return false;
+        }
+
         ApplicationErrorReport report = new ApplicationErrorReport();
         report.packageName = report.processName = context.getPackageName();
         report.time = System.currentTimeMillis();
@@ -467,7 +484,7 @@ public class DynamicLinkUtils {
      * @see ApplicationErrorReport
      * @see ApplicationErrorReport#TYPE_NONE
      */
-    public static boolean feedback(@NonNull Context context,
+    public static boolean feedback(@Nullable Context context,
             @Nullable String appName, @NonNull String email) {
         return feedback(context, appName, email, ApplicationErrorReport.TYPE_NONE, null);
     }

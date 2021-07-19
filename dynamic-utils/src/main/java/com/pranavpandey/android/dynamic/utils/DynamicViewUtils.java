@@ -36,15 +36,44 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.text.HtmlCompat;
+import androidx.core.text.TextUtilsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import java.util.Locale;
+
 /**
  * Helper class to perform {@link View} operations.
  */
 public class DynamicViewUtils {
+
+    /**
+     * Checks if the supplied view is the only root layout in the view heirarchy.
+     *
+     * @param <T> The type of the view.
+     *
+     * @return {@code true} if the supplied view is the only root layout in the view heirarchy.
+     */
+    public static <T extends View> boolean isRootLayout(@Nullable T view) {
+        return view != null && !(view.getParent() instanceof View);
+
+//        if (view == null || !(view.getParent() instanceof View)) {
+//            return true;
+//        }
+//
+//        View parent = (View) view.getParent();
+//        while (parent != null && !parent.getClass().isInstance(view)) {
+//            if (parent.getParent() instanceof View) {
+//                parent = (View) parent.getParent();
+//            } else {
+//                parent = null;
+//            }
+//        }
+//
+//        return parent == null;
+    }
 
     /**
      * Set the hide navigation flag for edge-to-edge content on API 23 and above.
@@ -224,6 +253,26 @@ public class DynamicViewUtils {
     }
 
     /**
+     * Checks whether the layout direction is RTL (right-to-left).
+     *
+     * @param view The view to be used.
+     *
+     * @return {@code true} if the layout direction is RTL (right-to-left).
+     *
+     * @see ViewCompat#getLayoutDirection(View)
+     * @see TextUtilsCompat#getLayoutDirectionFromLocale(Locale)
+     * @see ViewCompat#LAYOUT_DIRECTION_RTL
+     */
+    public static boolean isLayoutRtl(@Nullable View view) {
+        if (view == null) {
+            return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault())
+                    == ViewCompat.LAYOUT_DIRECTION_RTL;
+        }
+
+        return ViewCompat.getLayoutDirection(view) == ViewCompat.LAYOUT_DIRECTION_RTL;
+    }
+
+    /**
      * Apply window insets padding for the supplied view.
      *
      * @param view The view to set the insets padding.
@@ -247,11 +296,12 @@ public class DynamicViewUtils {
         ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                v.setPadding(left ? paddingLeft + insets.getInsets(
+                final boolean isRtl = isLayoutRtl(v);
+                v.setPadding(left ? isRtl ? paddingRight : paddingLeft + insets.getInsets(
                         WindowInsetsCompat.Type.systemBars()).left : paddingLeft,
                         top ? paddingTop + insets.getInsets(
                                 WindowInsetsCompat.Type.systemBars()).top : paddingTop,
-                        right ? paddingRight + insets.getInsets(
+                        right ? isRtl ? paddingLeft : paddingRight + insets.getInsets(
                                 WindowInsetsCompat.Type.systemBars()).right : paddingRight,
                         bottom ? paddingBottom + insets.getInsets(
                                 WindowInsetsCompat.Type.systemBars()).bottom : paddingBottom);
@@ -354,56 +404,58 @@ public class DynamicViewUtils {
      * @param bottom {@code true} to apply the bottom window inset margin.
      * @param consume {@code true} to consume the applied window margin.
      */
-    public static void applyWindowInsetsMargin(@Nullable View view, final boolean left,
+    public static void applyWindowInsetsMargin(final @Nullable View view, final boolean left,
             final boolean top, final boolean right, final boolean bottom, final boolean consume) {
-        if (view == null) {
+        if (view == null || !(view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams)) {
             return;
         }
 
-        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-            final ViewGroup.MarginLayoutParams layoutParams =
-                    (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        final ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        final int leftMargin = layoutParams.leftMargin;
+        final int topMargin = layoutParams.topMargin;
+        final int rightMargin = layoutParams.rightMargin;
+        final int bottomMargin = layoutParams.bottomMargin;
 
-            final int leftMargin = layoutParams.leftMargin;
-            final int topMargin = layoutParams.topMargin;
-            final int rightMargin = layoutParams.rightMargin;
-            final int bottomMargin = layoutParams.bottomMargin;
-
-            ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
-                @Override
-                public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                    if (left) {
-                        layoutParams.leftMargin = leftMargin
-                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).left;
-                    }
-                    if (top) {
-                        layoutParams.topMargin = topMargin
-                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-                    }
-                    if (right) {
-                        layoutParams.rightMargin = rightMargin
-                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
-                    }
-                    if (bottom) {
-                        layoutParams.bottomMargin = bottomMargin
-                                + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
-                    }
-
-                    return !consume ? insets :
-                            new WindowInsetsCompat.Builder(insets).setInsets(
-                                    WindowInsetsCompat.Type.systemBars(),
-                                    Insets.of(left ? 0 : insets.getInsets(
-                                            WindowInsetsCompat.Type.systemBars()).left,
-                                            top ? 0 : insets.getInsets(
-                                                    WindowInsetsCompat.Type.systemBars()).top,
-                                            right ? 0 : insets.getInsets(
-                                                    WindowInsetsCompat.Type.systemBars()).right,
-                                            bottom ? 0 : insets.getInsets(
-                                                    WindowInsetsCompat.Type.systemBars()).bottom))
-                                    .build();
+        ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                final boolean isRtl = isLayoutRtl(v);
+                if (left) {
+                    layoutParams.leftMargin = isRtl ? rightMargin : leftMargin
+                            + insets.getInsets(WindowInsetsCompat.Type.systemBars()).left;
                 }
-            });
-        }
+                if (top) {
+                    layoutParams.topMargin = topMargin
+                            + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+                }
+                if (right) {
+                    layoutParams.rightMargin = isRtl ? leftMargin : rightMargin
+                            + insets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
+                }
+                if (bottom) {
+                    layoutParams.bottomMargin = bottomMargin
+                            + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+                }
+
+                view.setLayoutParams(layoutParams);
+
+                return !consume ? insets :
+                        new WindowInsetsCompat.Builder(insets).setInsets(
+                                WindowInsetsCompat.Type.systemBars(),
+                                Insets.of(left ? 0 : insets.getInsets(
+                                        WindowInsetsCompat.Type.systemBars()).left,
+                                        top ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).top,
+                                        right ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).right,
+                                        bottom ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).bottom))
+                                .build();
+            }
+        });
+
+        requestApplyWindowInsets(view);
     }
 
     /**

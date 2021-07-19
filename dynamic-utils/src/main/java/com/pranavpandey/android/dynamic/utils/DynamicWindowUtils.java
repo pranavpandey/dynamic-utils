@@ -154,7 +154,11 @@ public class DynamicWindowUtils {
     public static @NonNull Point getAppUsableScreenSize(@Nullable Context context) {
         Point size = new Point();
 
-        if (DynamicSdkUtils.is30()) {
+        /*
+         * This approach is not efficient on API 30 (Samsung OneUI) when some specific mode
+         * is enabled like Game mode, so we are using it on API 31 and above.
+         */
+        if (DynamicSdkUtils.is31()) {
             WindowMetrics windowMetrics = getCurrentWindowMetrics(context);
 
             if (windowMetrics != null) {
@@ -296,9 +300,30 @@ public class DynamicWindowUtils {
     }
 
     /**
+     * Set the show wallpaper flag for the supplied window.
+     * <p>This method must be called before window is created.
+     *
+     * @param window The window to be used.
+     * @param showWallpaper {@code true} to show the wallpaper.
+     *
+     * @see WindowManager.LayoutParams#FLAG_SHOW_WALLPAPER
+     */
+    public static void setShowWallpaper(@Nullable Window window, boolean showWallpaper) {
+        if (window == null) {
+            return;
+        }
+
+        if (showWallpaper) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
+        }
+    }
+
+    /**
      * Set the hide navigation flag for edge-to-edge content on API 23 and above.
      *
-     * @param window The window to set the system ui flags.
+     * @param window The window to be used.
      * @param edgeToEdge {@code true} to hide the layout navigation.
      */
     @TargetApi(Build.VERSION_CODES.R)

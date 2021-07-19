@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -134,10 +135,12 @@ public class DynamicIntentUtils {
     /**
      * Checks whether the supplied intent has at least one activity to handle it.
      *
-     * @param context The context to ge the package manager.
+     * @param context The context to get the package manager.
      * @param intent The intent to be resolved.
      *
      * @return {@code true} if the supplied intent has at least one activity to handle it.
+     *
+     * @see PackageManager#resolveActivity(Intent, int)
      */
     public static boolean isActivityResolved(@Nullable Context context, @Nullable Intent intent) {
         if (context == null || intent == null) {
@@ -146,6 +149,58 @@ public class DynamicIntentUtils {
 
         return (context.getPackageManager().resolveActivity(
                 intent, PackageManager.MATCH_DEFAULT_ONLY) != null);
+    }
+
+    /**
+     * Checks the availability of a file picker.
+     *
+     * @param context The context to get the package manager.
+     * @param downloads {@code true) to consider the download location on older API levels.
+     *
+     * @return {@code true} if a file picker is present.
+     *
+     * @see #isActivityResolved(Context, Intent)
+     * @see Intent#ACTION_GET_CONTENT
+     * @see Intent#ACTION_OPEN_DOCUMENT
+     *
+     * @see Environment#getExternalStoragePublicDirectory(String)
+     * @see Environment#DIRECTORY_DOWNLOADS
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static boolean isFilePicker(@Nullable Context context, boolean downloads) {
+        if (context == null) {
+            return false;
+        }
+
+        final Intent intent;
+        if (DynamicSdkUtils.is19()) {
+             intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+             intent.setType(DynamicFileUtils.FILE_MIME);
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+
+            if (downloads) {
+                return Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS) != null;
+            }
+        }
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        return isActivityResolved(context, intent);
+    }
+
+    /**
+     * Checks the availability of a file picker.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if a file picker is present.
+     *
+     * @see #isFilePicker(Context)
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static boolean isFilePicker(@Nullable Context context) {
+        return isFilePicker(context, false);
     }
 
     /**
@@ -158,12 +213,12 @@ public class DynamicIntentUtils {
      * 
      * @see PendingIntent#FLAG_IMMUTABLE
      */
-    @TargetApi(Build.VERSION_CODES.M)
+    @TargetApi(Build.VERSION_CODES.S)
     public static int addMutabilityFlag(int flags, boolean mutable) {
         if (DynamicSdkUtils.is23() && !mutable) {
             return flags | PendingIntent.FLAG_IMMUTABLE;
-        } else if (DynamicSdkUtils.isS() && mutable) {
-            // TODO: Add mutability flag.
+        } else if (DynamicSdkUtils.is31() && mutable) {
+            return flags | PendingIntent.FLAG_MUTABLE;
         }
 
         return flags;

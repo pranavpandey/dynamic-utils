@@ -32,6 +32,8 @@ import androidx.annotation.RequiresPermission;
 import androidx.core.content.ContextCompat;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Helper class to detect device specific features like Telephony, etc.
@@ -99,6 +101,22 @@ public class DynamicDeviceUtils {
 
         return String.format(context.getResources().getString(R.string.adu_format_blank_space),
                 df.format(milliSeconds), tf.format(milliSeconds));
+    }
+
+    /**
+     * Retrieve a date and time string with separators {@code yyyy-MM-dd-HH-mm-ss}
+     * from the supplied milliSeconds.
+     *
+     * @param milliSeconds The millis to be converted into date and time.
+     *
+     * @return The formatted date and time string with separators.
+     *
+     * @see SimpleDateFormat
+     */
+    public static @NonNull String getDateWithSeparator(long milliSeconds) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
+        return dateFormat.format(milliSeconds);
     }
 
     /**

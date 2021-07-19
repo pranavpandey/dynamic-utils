@@ -62,19 +62,24 @@ import java.util.zip.ZipOutputStream;
 public class DynamicFileUtils {
 
     /**
+     * Default mime type for the file.
+     */
+    public static final String FILE_MIME = "*/*";
+
+    /**
      * Default suffix for the file provider.
      */
-    private static final String FILE_PROVIDER = ".FileProvider";
+    public static final String FILE_PROVIDER = ".FileProvider";
 
     /**
      * Constant to match the content uri.
      */
-    private static final String URI_MATCHER_CONTENT = "content:";
+    public static final String URI_MATCHER_CONTENT = "content:";
 
     /**
      * Constant to match the file uri.
      */
-    private static final String URI_MATCHER_FILE = "file:";
+    public static final String URI_MATCHER_FILE = "file:";
 
     /**
      * Constant for the default data directory.
@@ -103,10 +108,44 @@ public class DynamicFileUtils {
             return null;
         }
 
-        return context.getExternalFilesDir(null).getPath()
-                + File.separator + ADU_DEFAULT_DIR_DATA
-                + File.separator + context.getPackageName()
-                + File.separator + ADU_DEFAULT_DIR_TEMP + File.separator;
+        File temp;
+        return (temp = context.getExternalFilesDir(null)) != null
+                ? temp.getPath() + File.separator + ADU_DEFAULT_DIR_DATA
+                + File.separator + context.getPackageName() + File.separator
+                + ADU_DEFAULT_DIR_TEMP + File.separator : null;
+    }
+
+    /**
+     * Returns the default directory according to the supplied type if accessible.
+     *
+     * @param type The type of the directory.
+     *
+     * @return The default directory according to the supplied type if accessible.
+     */
+    public static @Nullable File getDirectory(@NonNull String type) {
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    }
+
+    /**
+     * Returns the default directory according to the supplied type if accessible.
+     *
+     * @param type The type of the directory.
+     * @param fileName The optional file name.
+     *
+     * @return The default directory according to the supplied type if accessible.
+     */
+    public static @Nullable File getDirectory(@NonNull String type, @Nullable String fileName) {
+        if (fileName == null) {
+            return Environment.getExternalStoragePublicDirectory(type);
+        }
+
+        File file;
+        if ((file = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS)) != null) {
+            return (new File(file.getPath() + File.separator + fileName));
+        }
+
+        return null;
     }
 
     /**
@@ -861,7 +900,7 @@ public class DynamicFileUtils {
         ShareCompat.IntentBuilder intentBuilder =
                 new ShareCompat.IntentBuilder(activity)
                         .setSubject(subject != null ? subject : title)
-                        .setType(mimeType != null ? mimeType : "*/*")
+                        .setType(mimeType != null ? mimeType : FILE_MIME)
                         .setChooserTitle(title);
 
         for (Uri uri : uris) {
@@ -916,9 +955,8 @@ public class DynamicFileUtils {
      *
      * @return The intent to request a storage location for the supplied file.
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static @NonNull Intent getSaveToFileIntent(@NonNull Context context,
-            @NonNull File file, @NonNull String mimeType) {
+            @Nullable File file, @NonNull String mimeType) {
         return getSaveToFileIntent(context, getUriFromFile(context, file), mimeType);
     }
 
@@ -930,12 +968,12 @@ public class DynamicFileUtils {
      * @return The intent intent to select a file according to the mime type.
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static Intent getFileSelectIntent(@NonNull String mimeType) {
+    public static @NonNull Intent getFileSelectIntent(@NonNull String mimeType) {
         Intent intent;
 
         if (DynamicSdkUtils.is19()) {
             intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.setType("*/*");
+            intent.setType(FILE_MIME);
         } else {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType(mimeType);

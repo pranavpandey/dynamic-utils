@@ -417,10 +417,32 @@ public class DynamicSdkUtils {
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
+     * @return {@code true} if the current API version is 31 or above.
+     */
+    public static boolean is31(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.S
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+    }
+
+    /**
+     * Detects if the current API version is 31 or above.
+     *
+     * @return {@code true} if the current API version is 31 or above.
+     */
+    public static boolean is31() {
+        return is31(false);
+    }
+
+    /**
+     * Detects if the current API version is 31 or above.
+     *
+     * @param equals {@code true} to check for equality.
+     *               <p>{@code false} to match greater than or equal.
+     *
      * @return {@code true} if the current API version is S or above.
      */
     public static boolean isS(boolean equals) {
-        return is30(equals) && isPreview();
+        return is31(equals) || (is30(equals) && isPreview());
     }
 
     /**

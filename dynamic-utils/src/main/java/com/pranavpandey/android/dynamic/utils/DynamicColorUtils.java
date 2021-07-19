@@ -93,8 +93,8 @@ public class DynamicColorUtils {
     /**
      * Adjust alpha of a color according to the given parameter.
      *
-     * @param color The color whose alpha to be adjusted.
-     * @param factor Factor in float by which adjust the alpha.
+     * @param color The color to adjust the alpha.
+     * @param factor The factor in float to be set.
      *
      * @return The color with adjusted alpha.
      */
@@ -110,7 +110,7 @@ public class DynamicColorUtils {
     /**
      * Checks whether the color has alpha component.
      *
-     * @param color The color to check the alpha component.
+     * @param color The color to be checked for alpha component.
      *
      * @return {@code true} if the color has alpha component.
      */
@@ -121,7 +121,7 @@ public class DynamicColorUtils {
     /**
      * Set alpha to a color.
      *
-     * @param color The color whose alpha to be set.
+     * @param color The color to set the alpha.
      * @param alpha The alpha to be set.
      *
      * @return The color with alpha.
@@ -134,12 +134,23 @@ public class DynamicColorUtils {
     /**
      * Remove alpha from a color.
      *
-     * @param color The color whose alpha to be removed.
+     * @param color The color to remove the alpha.
      *
      * @return The color without alpha.
      */
     public static @ColorInt int removeAlpha(@ColorInt int color) {
         return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    /**
+     * Checks whether the color is translucent.
+     *
+     * @param color The color to be checked for transparency.
+     *
+     * @return {@code true} if the color is translucent.
+     */
+    public static boolean isTranslucent(@ColorInt int color) {
+        return Color.alpha(color) > 0 && Color.alpha(color) < 255;
     }
 
     /**
@@ -181,7 +192,7 @@ public class DynamicColorUtils {
     /**
      * Darkens a color by a given amount.
      *
-     * @param color The color to darken.
+     * @param color The color to be darkened.
      * @param amount The amount to darken the color.
      *               <p>{@code 0} will leave the color unchanged.
      *               <p>{@code 1} will make the color completely black.
@@ -212,7 +223,7 @@ public class DynamicColorUtils {
     /**
      * Darkens a color by a given amount.
      *
-     * @param color The color to darken.
+     * @param color The color to be darkened.
      * @param amount The amount to darken the color.
      *               <p>{@code 0} will leave the color unchanged.
      *               <p>{@code 1} will make the color completely black.
@@ -227,7 +238,7 @@ public class DynamicColorUtils {
     /**
      * Lightens a color by a given amount.
      *
-     * @param color The color to lighten.
+     * @param color The color to be lightened.
      * @param amount The amount to lighten the color.
      *               <p>{@code 0} will leave the color unchanged.
      *               <p>{@code 1} will make the color completely white.
@@ -258,7 +269,7 @@ public class DynamicColorUtils {
     /**
      * Lightens a color by a given amount.
      *
-     * @param color The color to lighten.
+     * @param color The color to be lightened.
      * @param amount The amount to lighten the color.
      *               <p>{@code 0} will leave the color unchanged.
      *               <p>{@code 1} will make the color completely white.

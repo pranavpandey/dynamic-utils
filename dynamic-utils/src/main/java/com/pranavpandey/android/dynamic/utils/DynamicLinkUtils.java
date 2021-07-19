@@ -128,7 +128,7 @@ public class DynamicLinkUtils {
 
         if (uri != null) {
             intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.setType(mimeType != null ? mimeType : "*/*");
+            intent.setType(mimeType != null ? mimeType : DynamicFileUtils.FILE_MIME);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }

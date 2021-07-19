@@ -16,6 +16,15 @@
 -->
 
 <manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pranavpandey.android.dynamic.utils">
+
+    <!-- Query intents on API 30 and above. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
 
 </manifest>

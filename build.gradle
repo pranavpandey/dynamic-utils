@@ -16,9 +16,9 @@
 
 buildscript {
     ext.versions = [
-            'compileSdk': 30,
+            'compileSdk': 31,
             'minSdk'    : 14,
-            'targetSdk' : 30,
+            'targetSdk' : 31,
             'buildTools': '30.0.3',
             'androidx'  : '1.6.0'
     ]
@@ -29,7 +29,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha02'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
     }
 }
 

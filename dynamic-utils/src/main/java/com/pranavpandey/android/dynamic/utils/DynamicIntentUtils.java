@@ -155,7 +155,7 @@ public class DynamicIntentUtils {
      * Checks the availability of a file picker.
      *
      * @param context The context to get the package manager.
-     * @param downloads {@code true) to consider the download location on older API levels.
+     * @param downloads {@code true} to consider the download location on older API levels.
      *
      * @return {@code true} if a file picker is present.
      *

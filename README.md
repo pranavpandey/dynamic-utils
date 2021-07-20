@@ -15,6 +15,8 @@ Android 4.0 (API 14).
 project to AndroidX.
 <br/>Since v3.3.0, added [Concurrent][concurrent] package to replace the deprecated
 [AsyncTask][async-task] API.
+<br/>Since v4.1.0, it is dependent on Java 8 due to the dependency on
+[AndroidX Core](https://developer.android.com/jetpack/androidx/releases/core).
 
 ---
 
@@ -46,7 +48,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:4.0.1'
+    implementation 'com.pranavpandey.android:dynamic-utils:4.1.0'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'

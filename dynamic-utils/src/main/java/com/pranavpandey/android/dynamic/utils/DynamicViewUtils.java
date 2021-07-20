@@ -52,6 +52,7 @@ public class DynamicViewUtils {
     /**
      * Checks if the supplied view is the only root layout in the view heirarchy.
      *
+     * @param view The view to be checked.
      * @param <T> The type of the view.
      *
      * @return {@code true} if the supplied view is the only root layout in the view heirarchy.

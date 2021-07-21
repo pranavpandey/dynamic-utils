@@ -22,6 +22,9 @@ import java.util.concurrent.Callable;
 
 /**
  * Base class to implement the {@link Callable} with parameters.
+ *
+ * @param <T> The type of the params.
+ * @param <R> The type of the result.
  */
 public abstract class DynamicCallable<T, R> implements Callable<R> {
 

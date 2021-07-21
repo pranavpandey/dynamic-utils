@@ -34,6 +34,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Base class to represent {@link Runnable} according to the {@link DynamicRunnable}.
+ *
+ * @param <T> The type of the params.
+ * @param <P> The type of the progress.
+ * @param <R> The type of the result.
  */
 public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
 

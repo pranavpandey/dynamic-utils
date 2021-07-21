@@ -23,6 +23,10 @@ import java.lang.ref.WeakReference;
 
 /**
  * Callback to retrieve the result dynamically.
+ *
+ * @param <V> The type of the view.
+ * @param <P> The type of the placeholder.
+ * @param <R> The type of the result.
  */
 public abstract class DynamicCallback<V, P, R> {
 

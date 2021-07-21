@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 
 /**
  * A {@link DynamicLruCache} for the {@link Bitmap}.
+ *
+ * @param <T> The type of the key for this cache.
  */
 public final class BitmapLruCache<T> extends DynamicLruCache<T, Bitmap> {
 

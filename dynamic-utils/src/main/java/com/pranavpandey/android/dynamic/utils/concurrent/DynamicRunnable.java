@@ -22,6 +22,10 @@ import androidx.annotation.WorkerThread;
 
 /**
  * Base class to receive the callback from an asynchronous work.
+ *
+ * @param <T> The type of the params.
+ * @param <P> The type of the progress.
+ * @param <R> The type of the result.
  */
 public abstract class DynamicRunnable<T, P, R> implements Runnable {
 

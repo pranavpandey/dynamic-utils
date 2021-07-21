@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 
 /**
  * Base class to represent the result of a asynchronous work.
+ *
+ * @param <T> The type of the data.
  */
 public abstract class DynamicResult<T> {
 

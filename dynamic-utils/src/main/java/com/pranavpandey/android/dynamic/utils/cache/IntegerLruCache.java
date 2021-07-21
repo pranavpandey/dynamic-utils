@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 
 /**
  * A {@link DynamicLruCache} for the {@link Integer}.
+ *
+ * @param <T> The type of the key for this cache.
  */
 public final class IntegerLruCache<T> extends DynamicLruCache<T, Integer> {
 

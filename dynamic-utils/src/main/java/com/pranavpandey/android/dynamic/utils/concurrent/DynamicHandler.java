@@ -28,6 +28,9 @@ import java.lang.ref.WeakReference;
 /**
  * A {@link Handler} to handle updates from the {@link DynamicTask}.
  *
+ * @param <P> The type of the progress.
+ * @param <R> The type of the result.
+ *
  * @see DynamicRunnable
  * @see DynamicRunnable#finish(DynamicResult)
  * @see DynamicRunnable#onProgressUpdate(DynamicResult)

@@ -20,6 +20,9 @@ import androidx.collection.LruCache;
 
 /**
  * An {@link LruCache} to provide base for the other caches.
+ *
+ * @param <T> The type of the key for this cache.
+ * @param <V> The type of the value for this cache.
  */
 public abstract class DynamicLruCache<T, V> extends LruCache<T, V> {
 

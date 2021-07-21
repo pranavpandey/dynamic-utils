@@ -25,6 +25,8 @@ import androidx.annotation.NonNull;
 
 /**
  * A {@link DynamicLruCache} for the {@link Drawable}.
+ *
+ * @param <T> The type of the key for this cache.
  */
 public final class DrawableLruCache<T> extends DynamicLruCache<T, Drawable> {
 

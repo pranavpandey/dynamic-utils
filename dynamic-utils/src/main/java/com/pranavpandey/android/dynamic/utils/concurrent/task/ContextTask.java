@@ -26,6 +26,10 @@ import java.lang.ref.WeakReference;
 
 /**
  * A {@link DynamicTask} to perform operations with {@link Context}.
+ *
+ * @param <T> The type of the params.
+ * @param <P> The type of the progress.
+ * @param <R> The type of the result.
  */
 public abstract class ContextTask<T, P, R> extends DynamicTask<T, P, R> {
 

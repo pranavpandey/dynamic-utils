@@ -40,9 +40,14 @@ public class DynamicColorUtils {
     private static final float VISIBLE_CONTRAST = 0.45f;
 
     /**
+     * Maximum contrast between the two colors.
+     */
+    private static final float MAX_CONTRAST = 1f;
+
+    /**
      * Amount to calculate the contrast color.
      */
-    private static final float CONTRAST_FACTOR = 1.6f;
+    private static final float CONTRAST_FACTOR = 1.5f;
 
     /**
      * Cache for the color integers.
@@ -394,8 +399,25 @@ public class DynamicColorUtils {
      * Calculate tint based on a given color for better readability.
      *
      * @param color The color whose tint to be calculated.
+     * @param visibleContrast The acceptable contrast between the two colors.
      *
      * @return The tint of the given color.
+     *
+     * @see #getContrastColor(int, int, float)
+     */
+    public static @ColorInt int getTintColor(@ColorInt int color,
+            @FloatRange(from = 0f, to = 1f) float visibleContrast) {
+        return getContrastColor(color, color, visibleContrast);
+    }
+
+    /**
+     * Calculate tint based on a given color for better readability.
+     *
+     * @param color The color whose tint to be calculated.
+     *
+     * @return The tint of the given color.
+     *
+     * @see #getContrastColor(int, int)
      */
     public static @ColorInt int getTintColor(@ColorInt int color) {
         return getContrastColor(color, color);
@@ -444,8 +466,8 @@ public class DynamicColorUtils {
 
         float contrast = calculateContrast(color, contrastWith);
         if (contrast < visibleContrast) {
-            float finalContrast = Math.max(visibleContrast,
-                    (visibleContrast - contrast) * CONTRAST_FACTOR);
+            float finalContrast = Math.min(MAX_CONTRAST, Math.max(visibleContrast,
+                    (visibleContrast - contrast) * CONTRAST_FACTOR));
             if (isColorDark(contrastWith)) {
                 contrastColor = recursive && isColorDark(color)
                         ? getContrastColor(color, color, visibleContrast, false)

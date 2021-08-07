@@ -17,7 +17,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pranavpandey.android.dynamic.utils">
+    package="com.pranavpandey.android.dynamic.util">
 
     <!-- Query intents on API 30 and above. -->
     <queries>

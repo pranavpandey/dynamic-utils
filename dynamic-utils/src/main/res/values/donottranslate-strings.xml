@@ -24,6 +24,7 @@
     <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>
 
     <!-- Submit bug report -->
-    <string name="adu_bug_title">%1$s (v%2$s, %3$s, %4$s, %5$s)</string>
+    <string name="adu_report_title">%1$s (%2$s | %3$d, %4$s, %5$s, %6$s)</string>
+    <string name="adu_report_title_license">%1$s (%2$s | %3$d | %4$b, %5$s, %6$s, %7$s)</string>
 
 </resources>

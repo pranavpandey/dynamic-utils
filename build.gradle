@@ -19,7 +19,7 @@ buildscript {
             'compileSdk': 31,
             'minSdk'    : 14,
             'targetSdk' : 31,
-            'buildTools': '30.0.3',
+            'buildTools': '31.0.0',
             'androidx'  : '1.6.0'
     ]
 
@@ -29,7 +29,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha06'
     }
 }
 

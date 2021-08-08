@@ -333,6 +333,6 @@ Pranav Pandey
 [executor-service]: https://developer.android.com/reference/java/util/concurrent/ExecutorService
 [thread-pool-executor]: https://developer.android.com/reference/java/util/concurrent/ThreadPoolExecutor
 [java-concurrent]: https://developer.android.com/reference/java/util/concurrent/package-summary
-[concurrent]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/utils/concurrent
-[concurrent-task]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/utils/concurrent/task
-[concurrent-dynamic-executor]: https://github.com/pranavpandey/dynamic-utils/blob/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/utils/concurrent/DynamicExecutor.java
+[concurrent]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/util/concurrent
+[concurrent-task]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/util/concurrent/task
+[concurrent-dynamic-executor]: https://github.com/pranavpandey/dynamic-utils/blob/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/util/concurrent/DynamicExecutor.java

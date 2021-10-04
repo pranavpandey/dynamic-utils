@@ -66,6 +66,8 @@ public class DynamicDeviceUtils {
      * @param encryption The encryption method to be used.
      * @param hidden {@code true} if the network is hidden.
      *
+     * @return The Wi-Fi configuration according to the supplied parameters.
+     *
      * @see WifiConfiguration
      */
     @SuppressWarnings("deprecation")
@@ -114,10 +116,13 @@ public class DynamicDeviceUtils {
     /**
      * Try to save the Wi-Fi configuration according to the supplied parameters.
      *
+     * @param context The context to used.
      * @param ssid The network ssid to be used.
      * @param password The password to be used.
      * @param encryption The encryption method to be used.
      * @param hidden {@code true} if the network is hidden.
+     *
+     * @return {code true} on successful operation.
      *
      * @see #getWifiConfiguration(String, String, String, boolean)
      * @see WifiManager#addNetworkSuggestions(List)

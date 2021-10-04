@@ -439,8 +439,8 @@ public class DynamicColorUtils {
     public static @ColorInt int getStateColor(@ColorInt int color,
             @FloatRange(from = 0f, to = 1f) float lightenBy,
             @FloatRange(from = 0f, to = 1f) float darkenBy) {
-        return isColorDark(color) ? getLighterColor(color, lightenBy)
-                : getDarkerColor(color, darkenBy);
+        return isColorDark(color) ? getLighterColor(color, lightenBy, false)
+                : getDarkerColor(color, darkenBy, false);
     }
 
     /**
@@ -479,6 +479,7 @@ public class DynamicColorUtils {
             }
 
             mColorLruCache.put(key, contrastColor);
+
             return contrastColor;
         }
 

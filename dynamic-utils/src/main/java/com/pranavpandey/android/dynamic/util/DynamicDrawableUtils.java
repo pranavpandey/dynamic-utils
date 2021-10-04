@@ -43,10 +43,16 @@ public class DynamicDrawableUtils {
      * @param drawable The background drawable to be set.
      *
      * @see DynamicSdkUtils#is16()
+     * @see View#setBackground(Drawable)
+     * @see View#setBackgroundDrawable(Drawable)
      */
     @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
+    public static void setBackground(@Nullable View view, @Nullable Drawable drawable) {
+        if (view == null) {
+            return;
+        }
+
         if (DynamicSdkUtils.is16()) {
             view.setBackground(drawable);
         } else {

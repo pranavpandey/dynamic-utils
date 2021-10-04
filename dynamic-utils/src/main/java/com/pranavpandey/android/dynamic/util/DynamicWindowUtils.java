@@ -267,7 +267,7 @@ public class DynamicWindowUtils {
     /**
      * Detects if on-screen navigation bar is present or not.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      *
      * @return {@code true} if on-screen navigation bar is present.
      */
@@ -278,7 +278,7 @@ public class DynamicWindowUtils {
     /**
      * Detects support for navigation bar theme.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      *
      * @return {@code true} if navigation bar theme is supported.
      */
@@ -289,7 +289,7 @@ public class DynamicWindowUtils {
     /**
      * Detects support for gesture navigation.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      *
      * @return {@code true} if gesture navigation is supported.
      */

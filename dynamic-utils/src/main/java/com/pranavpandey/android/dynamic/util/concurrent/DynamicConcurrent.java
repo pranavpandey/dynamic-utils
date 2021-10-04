@@ -278,6 +278,7 @@ public class DynamicConcurrent {
             return executorService.submit(runnable);
         } else {
             new Handler(Looper.getMainLooper()).post(runnable);
+
             return null;
         }
     }

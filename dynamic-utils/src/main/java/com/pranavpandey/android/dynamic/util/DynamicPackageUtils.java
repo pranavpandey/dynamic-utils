@@ -92,6 +92,7 @@ public class DynamicPackageUtils {
 
         try {
             PackageManager packageManager = context.getPackageManager();
+
             return packageManager.getPackageInfo(packageName,
                     PackageManager.GET_META_DATA).applicationInfo.loadLabel(packageManager);
         } catch (Exception e) {

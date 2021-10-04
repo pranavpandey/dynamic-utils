@@ -655,7 +655,7 @@ public class DynamicViewUtils {
 
         if (text != null && !TextUtils.isEmpty(text)) {
             setTextViewText(remoteViews, viewId, HtmlCompat.fromHtml(
-                    (String) text, HtmlCompat.FROM_HTML_MODE_COMPACT), visible);
+                    text.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT), visible);
         } else {
             remoteViews.setViewVisibility(viewId, View.GONE);
         }

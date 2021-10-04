@@ -17,16 +17,19 @@
 package com.pranavpandey.android.dynamic.util;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.ImageDecoder;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -38,11 +41,75 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
 
 /**
  * Helper class to perform {@link Bitmap} operations.
  */
 public class DynamicBitmapUtils {
+
+    /**
+     * Default size to decode the bitmap.
+     */
+    public static final int SIZE_DEFAULT = 1;
+
+    /**
+     * Default sample size to decode the bitmap.
+     */
+    public static final int SAMPLE_DEFAULT = 0;
+
+    /**
+     * Default sample size to decode the logo bitmap.
+     */
+    public static final int SAMPLE_LOGO = 4;
+
+    /**
+     * Retrieve the bitmap from the supplied URI.
+     *
+     * @param context The context to get the content resolver.
+     * @param uri The URI to retrieve the bitmap.
+     * @param options The bitmap factory options to be used.
+     *
+     * @return The bitmap from the supplied URI.
+     *
+     * @see BitmapFactory#decodeFileDescriptor(FileDescriptor, Rect, BitmapFactory.Options)
+     * @see ImageDecoder#decodeBitmap(ImageDecoder.Source)
+     * @see MediaStore.Images.Media#getBitmap(ContentResolver, Uri)
+     */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.P)
+    public static @Nullable Bitmap getBitmap(@Nullable Context context,
+            @Nullable Uri uri, @Nullable BitmapFactory.Options options) {
+        if (context == null || uri == null) {
+            return null;
+        }
+
+        Bitmap bitmap = null;
+
+        try {
+            if (options != null || DynamicSdkUtils.is21()) {
+                AssetFileDescriptor asset = context.getContentResolver()
+                        .openAssetFileDescriptor(uri, "r");
+
+                if (asset != null) {
+                    bitmap = BitmapFactory.decodeFileDescriptor(asset.getParcelFileDescriptor()
+                                    .getFileDescriptor(), null, options);
+                    asset.close();
+                }
+            } else {
+                if (DynamicSdkUtils.is28()) {
+                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(
+                            context.getContentResolver(), uri));
+                } else {
+                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
 
     /**
      * Retrieve the bitmap from the supplied URI.
@@ -52,24 +119,10 @@ public class DynamicBitmapUtils {
      *
      * @return The bitmap from the supplied URI.
      *
-     * @see Context#getContentResolver()
+     * @see #getBitmap(Context, Uri, BitmapFactory.Options)
      */
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.P)
     public static @Nullable Bitmap getBitmap(@Nullable Context context, @Nullable Uri uri) {
-        if (context != null && uri != null) {
-            try {
-                if (DynamicSdkUtils.is28()) {
-                    return ImageDecoder.decodeBitmap(ImageDecoder.createSource(
-                            context.getContentResolver(), uri));
-                } else {
-                    return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-                }
-            } catch (Exception ignored) {
-            }
-        }
-
-        return null;
+        return getBitmap(context, uri, null);
     }
 
     /**
@@ -85,31 +138,72 @@ public class DynamicBitmapUtils {
      */
     public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable,
             int width, int height, boolean compress, int quality) {
-        if (drawable != null) {
-            try {
-                if (width < 0 || height < 0) {
-                    width = 1;
-                    height = 1;
-                }
-
-                Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-                drawable.draw(canvas);
-
-                if (compress) {
-                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, quality, byteArray);
-                    return BitmapFactory.decodeByteArray(byteArray.toByteArray(),
-                            0, byteArray.size());
-                } else {
-                    return bitmap;
-                }
-            } catch (Exception ignored) {
-            }
+        if (drawable == null) {
+            return null;
         }
 
-        return null;
+        if (width <= 0) {
+            width = SIZE_DEFAULT;
+        }
+
+        if (height <= 0) {
+            height = SIZE_DEFAULT;
+        }
+
+        int drawableWidth = drawable.getIntrinsicWidth();
+        int drawableHeight = drawable.getIntrinsicHeight();
+        float ratio = (float) width / height;
+        float ratioDrawable = (float) drawableWidth / drawableHeight;
+
+        drawableWidth = width;
+        drawableHeight = height;
+        if (ratio > ratioDrawable) {
+            drawableWidth = (int) (width * ratioDrawable);
+        } else if (ratio < ratioDrawable) {
+            drawableHeight = (int) (height / ratioDrawable);
+        }
+
+        Bitmap bitmap = null;
+        final int left = (width - drawableWidth) / 2;
+        final int top = (height - drawableHeight) / 2;
+
+        try {
+            bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(left, top, drawableWidth + left, drawableHeight + top);
+            drawable.draw(canvas);
+
+            if (compress) {
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, quality, byteArray);
+
+                if (!bitmap.isRecycled()) {
+                    bitmap.recycle();
+                }
+
+                return BitmapFactory.decodeByteArray(byteArray.toByteArray(),
+                        0, byteArray.size());
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    /**
+     * Get bitmap from the supplied drawable.
+     *
+     * @param drawable The drawable to get the bitmap.
+     * @param width The width in dip for the bitmap.
+     * @param height The height in dip for the bitmap.
+     *
+     * @return The bitmap from the supplied drawable.
+     *
+     * @see #getBitmap(Drawable, int, int, boolean, int)
+     */
+    public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable, int width, int height) {
+        return getBitmap(drawable, width, height, false, SAMPLE_DEFAULT);
     }
 
     /**
@@ -120,6 +214,8 @@ public class DynamicBitmapUtils {
      * @param quality The quality of the compressed bitmap.
      *
      * @return The bitmap from the supplied drawable.
+     *
+     * @see #getBitmap(Drawable, int, int, boolean, int)
      */
     public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable,
             boolean compress, int quality) {
@@ -137,14 +233,101 @@ public class DynamicBitmapUtils {
      * @param drawable The drawable to get the bitmap.
      *
      * @return The bitmap from the supplied drawable.
+     *
+     * @see #getBitmap(Drawable, int, int)
      */
     public static @Nullable Bitmap getBitmap(@Nullable Drawable drawable) {
         if (drawable != null) {
             return getBitmap(drawable, drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(), false, 0);
+                    drawable.getIntrinsicHeight());
         }
 
         return null;
+    }
+
+    /**
+     * Retrieve the compressed bitmap from the supplied URI.
+     *
+     * @param context The context to get the content resolver.
+     * @param uri The URI to retrieve the bitmap.
+     *
+     * @return The compressed bitmap from the supplied URI.
+     *
+     * @see #SAMPLE_LOGO
+     * @see #getBitmap(Context, Uri, BitmapFactory.Options)
+     */
+    public static @Nullable Bitmap getBitmapLogo(@Nullable Context context, @Nullable Uri uri) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = SAMPLE_LOGO;
+
+        return getBitmap(context, uri, options);
+    }
+
+    /**
+     * Resize bitmap to the new width and height.
+     *
+     * @param bitmap The bitmap to resize.
+     * @param newWidth The new width for the bitmap.
+     * @param newHeight The new height for the bitmap.
+     * @param maxWidth The maximum width for the bitmap.
+     * @param maxHeight The maximum height for the bitmap.
+     * @param recycle {@code true} to recycle the original bitmap.
+     *
+     * @return The resized bitmap with new width and height.
+     */
+    public static @Nullable Bitmap resizeBitmap(@Nullable Bitmap bitmap,
+            int newWidth, int newHeight, int maxWidth, int maxHeight, boolean recycle) {
+        if (bitmap == null) {
+            return null;
+        }
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float ratioBitmap = (float) width / height;
+        float ratioNew = (float) newWidth / newHeight;
+        float ratioMax = (float) maxWidth / maxHeight;
+
+        Bitmap resized;
+        newWidth = maxWidth;
+        newHeight = maxHeight;
+        if (ratioMax > ratioNew) {
+            newWidth = (int) (maxWidth * ratioBitmap);
+        } else {
+            newHeight = (int) (maxHeight / ratioBitmap);
+        }
+
+        try {
+            resized = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+        } catch (Exception e) {
+            e.getStackTrace();
+
+            resized = !bitmap.isRecycled() ? bitmap.copy(
+                    Bitmap.Config.ARGB_8888, true) : null;
+        } finally {
+            if (recycle && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+        }
+
+        return resized;
+    }
+
+    /**
+     * Resize bitmap to the new width and height.
+     *
+     * @param bitmap The bitmap to resize.
+     * @param newWidth The new width for the bitmap.
+     * @param newHeight The new height for the bitmap.
+     * @param maxWidth The maximum width for the bitmap.
+     * @param maxHeight The maximum height for the bitmap.
+     *
+     * @return The resized bitmap with new width and height.
+     *
+     * @see #resizeBitmap(Bitmap, int, int, int, int, boolean)
+     */
+    public static @Nullable Bitmap resizeBitmap(@Nullable Bitmap bitmap,
+            int newWidth, int newHeight, int maxWidth, int maxHeight) {
+        return resizeBitmap(bitmap, newWidth, newHeight, maxWidth, maxHeight, true);
     }
 
     /**
@@ -155,31 +338,54 @@ public class DynamicBitmapUtils {
      * @param newHeight The new height for the bitmap.
      *
      * @return The resized bitmap with new width and height.
+     *
+     * @see #resizeBitmap(Bitmap, int, int, int, int)
      */
     public static @Nullable Bitmap resizeBitmap(@Nullable Bitmap bitmap,
             int newWidth, int newHeight) {
+        return resizeBitmap(bitmap, newWidth, newHeight, newWidth, newHeight);
+    }
+
+    /**
+     * Resize bitmap according to the max width and height.
+     *
+     * @param bitmap The bitmap to resize.
+     * @param maxWidth The maximum width for the bitmap.
+     * @param maxHeight The maximum height for the bitmap.
+     * @param recycle {@code true} to recycle the original bitmap.
+     *
+     * @return The resized bitmap according to the max width and height.
+     *
+     * @see #resizeBitmap(Bitmap, int, int, int, int)
+     */
+    public static @Nullable Bitmap resizeBitmapMax(@Nullable Bitmap bitmap,
+            int maxWidth, int maxHeight, boolean recycle) {
         if (bitmap == null) {
             return null;
         }
 
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                newWidth, newHeight, Bitmap.Config.ARGB_8888);
-        float scaleX = newWidth / (float) bitmap.getWidth();
-        float scaleY = newHeight / (float) bitmap.getHeight();
-        float pivotX = 0;
-        float pivotY = 0;
+        return resizeBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(),
+                maxWidth, maxHeight, recycle);
+    }
 
-        Matrix scaleMatrix = new Matrix();
-        scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY);
+    /**
+     * Resize bitmap according to the max width and height.
+     *
+     * @param bitmap The bitmap to resize.
+     * @param maxWidth The maximum width for the bitmap.
+     * @param maxHeight The maximum height for the bitmap.
+     *
+     * @return The resized bitmap according to the max width and height.
+     *
+     * @see #resizeBitmap(Bitmap, int, int, int, int)
+     */
+    public static @Nullable Bitmap resizeBitmapMax(@Nullable Bitmap bitmap,
+            int maxWidth, int maxHeight) {
+        if (bitmap == null) {
+            return null;
+        }
 
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setFilterBitmap(true);
-
-        Canvas canvas = new Canvas(resizedBitmap);
-        canvas.setMatrix(scaleMatrix);
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-
-        return resizedBitmap;
+        return resizeBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), maxWidth, maxHeight);
     }
 
     /**
@@ -199,7 +405,7 @@ public class DynamicBitmapUtils {
 
         Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, newWidth, newHeight);
 
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         paint.setFilterBitmap(true);
 
         Canvas canvas = new Canvas(croppedBitmap);
@@ -222,9 +428,9 @@ public class DynamicBitmapUtils {
             return null;
         }
 
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColorFilter(colorFilter);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         paint.setFilterBitmap(true);
+        paint.setColorFilter(colorFilter);
 
         Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(bitmap, 0, 0, paint);
@@ -253,9 +459,14 @@ public class DynamicBitmapUtils {
      * @return The dominant color extracted from the bitmap.
      */
     public static @ColorInt int getDominantColor(@NonNull Bitmap bitmap) {
-        Bitmap newBitmap = resizeBitmap(bitmap, 1, 1);
-        final @ColorInt int color = newBitmap.getPixel(0, 0);
-        newBitmap.recycle();
+        Bitmap newBitmap = resizeBitmap(bitmap, 1, 1,
+                1, 1, false);
+        @ColorInt int color = Color.BLACK;
+
+        if (newBitmap != null) {
+            color = newBitmap.getPixel(0, 0);
+            newBitmap.recycle();
+        }
 
         return color;
     }

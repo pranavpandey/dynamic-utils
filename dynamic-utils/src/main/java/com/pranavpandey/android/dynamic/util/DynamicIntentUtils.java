@@ -35,6 +35,24 @@ import androidx.annotation.Nullable;
 public class DynamicIntentUtils {
 
     /**
+     * Action to capture the matrix result.
+     */
+    public static final String ACTION_MATRIX_CAPTURE_RESULT =
+            "com.pranavpandey.matrix.intent.action.CAPTURE_RESULT";
+
+    /**
+     * Intent extra key for the matrix data.
+     */
+    public static final String EXTRA_MATRIX_DATA =
+            "com.pranavpandey.matrix.intent.extra.CODE_DATA";
+
+    /**
+     * Intent extra key for the matrix format.
+     */
+    public static final String EXTRA_MATRIX_FORMAT =
+            "com.pranavpandey.matrix.intent.extra.CODE_FORMAT";
+
+    /**
      * Returns the intent for the supplied class and flags.
      *
      * @param context The context to create the intent.
@@ -46,18 +64,17 @@ public class DynamicIntentUtils {
      *
      * @return The intent for the supplied class and flags.
      */
-    public static @NonNull Intent getIntent(@NonNull Context context,
+    public static @NonNull Intent getIntent(@Nullable Context context,
             @Nullable Class<?> clazz, int flags) {
         Intent intent;
-        if (clazz != null) {
+        if (context != null && clazz != null) {
             intent = new Intent(context, clazz);
             intent.setComponent(new ComponentName(context, clazz));
         } else {
             intent = new Intent();
         }
 
-        intent.addFlags(flags);
-        return intent;
+        return intent.addFlags(flags);
     }
 
     /**
@@ -70,7 +87,7 @@ public class DynamicIntentUtils {
      *
      * @return The intent for the supplied class.
      */
-    public static @NonNull Intent getIntent(@NonNull Context context, @Nullable Class<?> clazz) {
+    public static @NonNull Intent getIntent(@Nullable Context context, @Nullable Class<?> clazz) {
         return getIntent(context, clazz, 0);
     }
 
@@ -87,7 +104,7 @@ public class DynamicIntentUtils {
      * @return The activity intent for the supplied class.
      */
     public static @NonNull Intent getActivityIntent(
-            @NonNull Context context, @Nullable Class<?> clazz) {
+            @Nullable Context context, @Nullable Class<?> clazz) {
         return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_NEW_TASK);
     }
@@ -104,7 +121,7 @@ public class DynamicIntentUtils {
      * @return The activity intent for the supplied class to get the result.
      */
     public static @NonNull Intent getActivityIntentForResult(
-            @NonNull Context context, @Nullable Class<?> clazz) {
+            @Nullable Context context, @Nullable Class<?> clazz) {
         return getIntent(context, clazz, Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
@@ -155,6 +172,7 @@ public class DynamicIntentUtils {
      * Checks the availability of a file picker.
      *
      * @param context The context to get the package manager.
+     * @param mimeType The mime type for the file.
      * @param downloads {@code true} to consider the download location on older API levels.
      *
      * @return {@code true} if a file picker is present.
@@ -167,26 +185,59 @@ public class DynamicIntentUtils {
      * @see Environment#DIRECTORY_DOWNLOADS
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static boolean isFilePicker(@Nullable Context context, boolean downloads) {
+    public static boolean isFilePicker(@Nullable Context context,
+            @Nullable String mimeType, boolean downloads) {
         if (context == null) {
             return false;
         }
 
+        if (mimeType == null) {
+            mimeType = DynamicFileUtils.MIME_ALL;
+        }
+
         final Intent intent;
         if (DynamicSdkUtils.is19()) {
-             intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-             intent.setType(DynamicFileUtils.FILE_MIME);
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         } else {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
-
-            if (downloads) {
-                return Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DOWNLOADS) != null;
-            }
         }
+
+        intent.setType(mimeType);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
-        return isActivityResolved(context, intent);
+        return isActivityResolved(context, intent)
+                || (downloads && Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS) != null);
+    }
+
+    /**
+     * Checks the availability of a file picker.
+     *
+     * @param context The context to get the package manager.
+     * @param mimeType The mime type for the file.
+     *
+     * @return {@code true} if a file picker is present.
+     *
+     * @see #isFilePicker(Context, String, boolean)
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static boolean isFilePicker(@Nullable Context context, @Nullable String mimeType) {
+        return isFilePicker(context, mimeType, false);
+    }
+
+    /**
+     * Checks the availability of a file picker.
+     *
+     * @param context The context to get the package manager.
+     * @param downloads {@code true} to consider the download location on older API levels.
+     *
+     * @return {@code true} if a file picker is present.
+     *
+     * @see #isFilePicker(Context, String, boolean)
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static boolean isFilePicker(@Nullable Context context, boolean downloads) {
+        return isFilePicker(context, null, downloads);
     }
 
     /**
@@ -196,11 +247,11 @@ public class DynamicIntentUtils {
      *
      * @return {@code true} if a file picker is present.
      *
-     * @see #isFilePicker(Context)
+     * @see #isFilePicker(Context, String, boolean)
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static boolean isFilePicker(@Nullable Context context) {
-        return isFilePicker(context, false);
+        return isFilePicker(context, null, false);
     }
 
     /**
@@ -256,7 +307,7 @@ public class DynamicIntentUtils {
      * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with appropriate
      * {@code scheme(s)} in {@code AndroidManifest} to support API 30.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      * @param intent The intent to view.
      *
      * @return {@code true} on successful operation.
@@ -276,9 +327,14 @@ public class DynamicIntentUtils {
         try {
             if (DynamicSdkUtils.is30()) {
                 intentTemp.addFlags(Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER);
+
+                if (!isActivityResolved(context, intentTemp)) {
+                    intentTemp.removeFlags(Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER);
+                }
             }
 
             context.startActivity(intentTemp);
+
             return true;
         } catch (Exception ignored) {
             intentTemp = new Intent(intent);
@@ -287,10 +343,40 @@ public class DynamicIntentUtils {
 
             if (isActivityResolved(context, intentTemp)) {
                 context.startActivity(intentTemp);
+
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Checks whether the device can capture the matrix result.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the device has at least one activity to capture the matrix result.
+     *
+     * @see #isActivityResolved(Context, Intent)
+     * @see #ACTION_MATRIX_CAPTURE_RESULT
+     */
+    public static boolean isMatrixCaptureResult(@Nullable Context context) {
+        return isActivityResolved(context, new Intent(ACTION_MATRIX_CAPTURE_RESULT));
+    }
+
+    /**
+     * Checks whether the device can capture the matrix result.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the device has at least one activity to capture the matrix result.
+     *
+     * @see #isActivityResolved(Context, Intent)
+     * @see #ACTION_MATRIX_CAPTURE_RESULT
+     */
+    public static @NonNull Intent getMatrixCaptureResultIntent(@Nullable Context context) {
+        return getActivityIntentForResult(context, null)
+                .setAction(ACTION_MATRIX_CAPTURE_RESULT);
     }
 }

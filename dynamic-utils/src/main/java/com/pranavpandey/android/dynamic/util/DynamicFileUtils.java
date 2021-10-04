@@ -62,9 +62,19 @@ import java.util.zip.ZipOutputStream;
 public class DynamicFileUtils {
 
     /**
-     * Default mime type for the file.
+     * Constant for the {@code any} mime type.
      */
-    public static final String FILE_MIME = "*/*";
+    public static final String MIME_ALL = "*/*";
+
+    /**
+     * Constant for the {@code application/*} mime type.
+     */
+    public static final String MIME_APPLICATION = "application/*";
+
+    /**
+     * Constant for the {@code application/octet-stream} mime type.
+     */
+    public static final String MIME_OCTET_STREAM = "application/octet-stream";
 
     /**
      * Default suffix for the file provider.
@@ -84,17 +94,37 @@ public class DynamicFileUtils {
     /**
      * Constant for the default data directory.
      */
-    public static final String ADU_DEFAULT_DIR_DATA = "data";
+    public static final String DIR_DATA = "data";
 
     /**
      * Constant for the default temp directory.
      */
-    public static final String ADU_DEFAULT_DIR_TEMP = "temp";
+    public static final String DIR_TEMP = "temp";
 
     /**
-     * Constant for the {@code application/octet-stream} mime type.
+     * Default file extension for the image.
      */
-    public static final String ADU_MIME_OCTET_STREAM = "application/octet-stream";
+    public static final String EXTENSION_IMAGE = ".png";
+
+    /**
+     * Returns the default external directory for the app appended with the supplied path.
+     *
+     * @param context The context to be used.
+     * @param path The path to be appended.
+     *
+     * @return The default external directory for the app appended with the supplied path.
+     *
+     * @see Context#getExternalFilesDir(String)
+     */
+    public static @Nullable String getExternalDir(
+            @Nullable Context context, @Nullable String path) {
+        File dir;
+        if (context == null || (dir = context.getExternalFilesDir(null)) == null) {
+            return null;
+        }
+
+        return dir.getPath() + File.separator + path + File.separator;
+    }
 
     /**
      * Returns the default {@code temp} directory for the context.
@@ -102,17 +132,11 @@ public class DynamicFileUtils {
      * @param context The context to get the package name.
      *
      * @return The default {@code temp} directory for the context.
+     *
+     * @see #getExternalDir(Context, String)
      */
-    public static @Nullable String getTempDir(@NonNull Context context) {
-        if (context.getExternalFilesDir(null) == null) {
-            return null;
-        }
-
-        File temp;
-        return (temp = context.getExternalFilesDir(null)) != null
-                ? temp.getPath() + File.separator + ADU_DEFAULT_DIR_DATA
-                + File.separator + context.getPackageName() + File.separator
-                + ADU_DEFAULT_DIR_TEMP + File.separator : null;
+    public static @Nullable String getTempDir(@Nullable Context context) {
+        return getExternalDir(context, DIR_TEMP);
     }
 
     /**
@@ -121,9 +145,15 @@ public class DynamicFileUtils {
      * @param type The type of the directory.
      *
      * @return The default directory according to the supplied type if accessible.
+     *
+     * @see Environment#getExternalStoragePublicDirectory(String)
      */
-    public static @Nullable File getDirectory(@NonNull String type) {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    public static @Nullable File getPublicDir(@Nullable String type) {
+        if (type == null) {
+            return null;
+        }
+
+        return Environment.getExternalStoragePublicDirectory(type);
     }
 
     /**
@@ -133,15 +163,16 @@ public class DynamicFileUtils {
      * @param fileName The optional file name.
      *
      * @return The default directory according to the supplied type if accessible.
+     *
+     * @see #getPublicDir(String)
      */
-    public static @Nullable File getDirectory(@NonNull String type, @Nullable String fileName) {
+    public static @Nullable File getPublicDir(@NonNull String type, @Nullable String fileName) {
         if (fileName == null) {
-            return Environment.getExternalStoragePublicDirectory(type);
+            return getPublicDir(type);
         }
 
         File file;
-        if ((file = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS)) != null) {
+        if ((file = getPublicDir(type)) != null) {
             return (new File(file.getPath() + File.separator + fileName));
         }
 
@@ -356,8 +387,8 @@ public class DynamicFileUtils {
      *
      * @see Uri
      */
-    public static @Nullable Uri getUriFromFile(@NonNull Context context, @Nullable File file) {
-        if (file == null) {
+    public static @Nullable Uri getUriFromFile(@Nullable Context context, @Nullable File file) {
+        if (context == null || file == null) {
             return null;
         }
 
@@ -380,8 +411,8 @@ public class DynamicFileUtils {
      * @see Context#getContentResolver()
      */
     public static @Nullable String getFileNameFromUri(
-            @NonNull Context context, @Nullable Uri uri) {
-        if (uri == null) {
+            @Nullable Context context, @Nullable Uri uri) {
+        if (context == null || uri == null) {
             return null;
         }
 
@@ -423,7 +454,7 @@ public class DynamicFileUtils {
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeToFile(@NonNull File source, 
+    public static boolean writeToFile(@NonNull File source,
             @NonNull File destination, @NonNull String outputFileName) {
         boolean success = false;
 
@@ -466,9 +497,9 @@ public class DynamicFileUtils {
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeToFile(@NonNull Context context, 
+    public static boolean writeToFile(@Nullable Context context,
             @Nullable Uri sourceUri, @Nullable Uri destinationUri, @NonNull String mode) {
-        if (sourceUri == null || destinationUri == null) {
+        if (context == null || sourceUri == null || destinationUri == null) {
             return false;
         }
 
@@ -534,9 +565,9 @@ public class DynamicFileUtils {
      *
      * @return {@code true} if the file has been written successfully.
      */
-    public static boolean writeStringToFile(@NonNull Context context, @Nullable String data, 
+    public static boolean writeStringToFile(@Nullable Context context, @Nullable String data,
             @Nullable Uri sourceUri, @Nullable Uri destinationUri, @NonNull String mode) {
-        if (sourceUri == null) {
+        if (context == null || sourceUri == null) {
             return false;
         }
 
@@ -615,7 +646,11 @@ public class DynamicFileUtils {
      * @return The string data after reading the file.
      */
     public static @Nullable String readStringFromFile(
-            @NonNull Context context, @NonNull Uri fileUri) {
+            @Nullable Context context, @Nullable Uri fileUri) {
+        if (context == null || fileUri == null) {
+            return null;
+        }
+
         String string = null;
 
         try {
@@ -660,25 +695,26 @@ public class DynamicFileUtils {
      *
      * @see Uri
      */
-    public static @Nullable Uri getBitmapUri(@NonNull Context context,
+    public static @Nullable Uri getBitmapUri(@Nullable Context context,
             @Nullable Bitmap bitmap, @NonNull String name, @Nullable String extension) {
         Uri bitmapUri = null;
-        if (extension == null) {
-            extension = ".png";
-        }
+        String tempDir = getTempDir(context);
 
-        if (bitmap != null) {
+        if (bitmap != null && tempDir != null) {
             try {
-                File picturesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                if (picturesDir != null) {
-                    File storagePath = new File(picturesDir.getPath(), name);
-                    String image = storagePath + File.separator + name + extension;
-                    storagePath.mkdirs();
+                if (extension == null) {
+                    extension = EXTENSION_IMAGE;
+                }
 
-                    FileOutputStream out = new FileOutputStream(image);
+                File bitmapDir = new File(tempDir);
+                String bitmapPath = bitmapDir.getPath() + File.separator + name + extension;
+                File bitmapFile = new File(bitmapPath);
+
+                if (verifyFile(bitmapDir)) {
+                    FileOutputStream out = new FileOutputStream(bitmapPath);
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
                     out.close();
-                    bitmapUri = getUriFromFile(context, new File(image));
+                    bitmapUri = getUriFromFile(context, bitmapFile);
                 }
             } catch (Exception ignored) {
             }
@@ -702,7 +738,7 @@ public class DynamicFileUtils {
      *
      * @see Uri
      */
-    public static @Nullable Uri getBitmapUri(@NonNull Context context,
+    public static @Nullable Uri getBitmapUri(@Nullable Context context,
             @Nullable Bitmap bitmap, @NonNull String name) {
         return getBitmapUri(context, bitmap, name, null);
     }
@@ -726,7 +762,7 @@ public class DynamicFileUtils {
     /**
      * Checks whether the extension is valid for a file.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      * @param file The file to get the extension.
      * @param extension The extension to be validated.
      *
@@ -744,7 +780,7 @@ public class DynamicFileUtils {
     /**
      * Checks whether the extension is valid for a URI.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      * @param uri The URI to get the extension.
      * @param extension The extension to be validated.
      *
@@ -762,7 +798,7 @@ public class DynamicFileUtils {
     /**
      * Checks whether the extension is valid for an intent.
      *
-     * @param context The context to retrieve the resources.
+     * @param context The context to be used.
      * @param intent The intent to get the extension.
      * @param extension The extension to be validated.
      *
@@ -801,12 +837,12 @@ public class DynamicFileUtils {
             if (intent.getParcelableExtra(Intent.EXTRA_STREAM) != null) {
                 validMime = isValidMimeType(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM),
-                        ADU_MIME_OCTET_STREAM, extension)
+                        MIME_OCTET_STREAM, extension)
                         && isValidExtension(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM), extension);
             } else {
                 validMime = isValidMimeType(context, intent.getData(),
-                        ADU_MIME_OCTET_STREAM, extension) && isValidExtension(
+                        MIME_OCTET_STREAM, extension) && isValidExtension(
                                 context, intent.getData(), extension);
             }
         }
@@ -836,7 +872,7 @@ public class DynamicFileUtils {
         validMime = type != null && type.contains(mimeType);
 
         if (!validMime) {
-            validMime = (type == null || ADU_MIME_OCTET_STREAM.equals(type))
+            validMime = (type == null || MIME_OCTET_STREAM.equals(type))
                     && isValidExtension(context, uri, extension);
         }
 
@@ -900,7 +936,7 @@ public class DynamicFileUtils {
         ShareCompat.IntentBuilder intentBuilder =
                 new ShareCompat.IntentBuilder(activity)
                         .setSubject(subject != null ? subject : title)
-                        .setType(mimeType != null ? mimeType : FILE_MIME)
+                        .setType(mimeType != null ? mimeType : MIME_ALL)
                         .setChooserTitle(title);
 
         for (Uri uri : uris) {
@@ -931,19 +967,17 @@ public class DynamicFileUtils {
         if (DynamicSdkUtils.is19()) {
             intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         } else {
-            intent = new Intent(Intent.ACTION_PICK);
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
         }
 
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-
+        intent.setType(mimeType);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.putExtra(Intent.EXTRA_TITLE, getFileNameFromUri(context, file));
         intent.putExtra(Intent.EXTRA_STREAM, file);
-        intent.setType(mimeType);
 
-        return intent;
+        return intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
     }
 
     /**
@@ -973,16 +1007,36 @@ public class DynamicFileUtils {
 
         if (DynamicSdkUtils.is19()) {
             intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.setType(FILE_MIME);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         } else {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType(mimeType);
         }
 
+        intent.setType(mimeType);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
-        return intent;
+        return intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+    }
+
+    /**
+     * Try to take the persistable storage permission for the intent data URI.
+     *
+     * @param context The context to get the content resolver.
+     * @param data The intent to get the file URI.
+     *
+     * @see android.content.ContentResolver#takePersistableUriPermission(Uri, int)
+     * @see #getFileSelectIntent(String)
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void takePersistedUriPermission(
+            @Nullable Context context, @Nullable Intent data) {
+        if (!DynamicSdkUtils.is19() || context == null
+                || data == null || data.getData() == null) {
+            return;
+        }
+
+        context.getContentResolver().takePersistableUriPermission(
+                data.getData(), Intent.FLAG_GRANT_READ_URI_PERMISSION);
     }
 }

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -89,13 +89,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -140,6 +140,45 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="memberSummary">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Field</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#SAMPLE_DEFAULT">SAMPLE_DEFAULT</a></span></code></th>
+<td class="colLast">
+<div class="block">Default sample size to decode the bitmap.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#SAMPLE_LOGO">SAMPLE_LOGO</a></span></code></th>
+<td class="colLast">
+<div class="block">Default sample size to decode the logo bitmap.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#SIZE_DEFAULT">SIZE_DEFAULT</a></span></code></th>
+<td class="colLast">
+<div class="block">Default size to decode the bitmap.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section role="region">
 <ul class="blockList">
@@ -226,12 +265,21 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBitmap(android.content.Context,android.net.Uri,android.graphics.BitmapFactory.Options)">getBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+         <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net" class="externalLink">Uri</a>&nbsp;uri,
+         <a href="https://developer.android.com/reference/android/graphics/BitmapFactory.Options.html?is-external=true" title="class or interface in android.graphics" class="externalLink">BitmapFactory.Options</a>&nbsp;options)</code></th>
+<td class="colLast">
+<div class="block">Retrieve the bitmap from the supplied URI.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBitmap(android.graphics.drawable.Drawable)">getBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html?is-external=true" title="class or interface in android.graphics.drawable" class="externalLink">Drawable</a>&nbsp;drawable)</code></th>
 <td class="colLast">
 <div class="block">Get bitmap from the supplied drawable.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBitmap(android.graphics.drawable.Drawable,boolean,int)">getBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html?is-external=true" title="class or interface in android.graphics.drawable" class="externalLink">Drawable</a>&nbsp;drawable,
          boolean&nbsp;compress,
@@ -240,7 +288,16 @@ extends java.lang.Object</pre>
 <div class="block">Get bitmap from the supplied drawable.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBitmap(android.graphics.drawable.Drawable,int,int)">getBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html?is-external=true" title="class or interface in android.graphics.drawable" class="externalLink">Drawable</a>&nbsp;drawable,
+         int&nbsp;width,
+         int&nbsp;height)</code></th>
+<td class="colLast">
+<div class="block">Get bitmap from the supplied drawable.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBitmap(android.graphics.drawable.Drawable,int,int,boolean,int)">getBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html?is-external=true" title="class or interface in android.graphics.drawable" class="externalLink">Drawable</a>&nbsp;drawable,
          int&nbsp;width,
@@ -251,20 +308,70 @@ extends java.lang.Object</pre>
 <div class="block">Get bitmap from the supplied drawable.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBitmapLogo(android.content.Context,android.net.Uri)">getBitmapLogo</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+             <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net" class="externalLink">Uri</a>&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Retrieve the compressed bitmap from the supplied URI.</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDominantColor(android.graphics.Bitmap)">getDominantColor</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap)</code></th>
 <td class="colLast">
 <div class="block">Extract the dominant color from the supplied bitmap.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resizeBitmap(android.graphics.Bitmap,int,int)">resizeBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
             int&nbsp;newWidth,
             int&nbsp;newHeight)</code></th>
 <td class="colLast">
 <div class="block">Resize bitmap to the new width and height.</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resizeBitmap(android.graphics.Bitmap,int,int,int,int)">resizeBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+            int&nbsp;newWidth,
+            int&nbsp;newHeight,
+            int&nbsp;maxWidth,
+            int&nbsp;maxHeight)</code></th>
+<td class="colLast">
+<div class="block">Resize bitmap to the new width and height.</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resizeBitmap(android.graphics.Bitmap,int,int,int,int,boolean)">resizeBitmap</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+            int&nbsp;newWidth,
+            int&nbsp;newHeight,
+            int&nbsp;maxWidth,
+            int&nbsp;maxHeight,
+            boolean&nbsp;recycle)</code></th>
+<td class="colLast">
+<div class="block">Resize bitmap to the new width and height.</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resizeBitmapMax(android.graphics.Bitmap,int,int)">resizeBitmapMax</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+               int&nbsp;maxWidth,
+               int&nbsp;maxHeight)</code></th>
+<td class="colLast">
+<div class="block">Resize bitmap according to the max width and height.</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resizeBitmapMax(android.graphics.Bitmap,int,int,boolean)">resizeBitmapMax</a></span>&#8203;(<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+               int&nbsp;maxWidth,
+               int&nbsp;maxHeight,
+               boolean&nbsp;recycle)</code></th>
+<td class="colLast">
+<div class="block">Resize bitmap according to the max width and height.</div>
 </td>
 </tr>
 </table>
@@ -284,6 +391,58 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a id="SIZE_DEFAULT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SIZE_DEFAULT</h4>
+<pre>public static final&nbsp;int SIZE_DEFAULT</pre>
+<div class="block">Default size to decode the bitmap.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.pranavpandey.android.dynamic.util.DynamicBitmapUtils.SIZE_DEFAULT">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="SAMPLE_DEFAULT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SAMPLE_DEFAULT</h4>
+<pre>public static final&nbsp;int SAMPLE_DEFAULT</pre>
+<div class="block">Default sample size to decode the bitmap.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.pranavpandey.android.dynamic.util.DynamicBitmapUtils.SAMPLE_DEFAULT">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="SAMPLE_LOGO">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>SAMPLE_LOGO</h4>
+<pre>public static final&nbsp;int SAMPLE_LOGO</pre>
+<div class="block">Default sample size to decode the logo bitmap.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.pranavpandey.android.dynamic.util.DynamicBitmapUtils.SAMPLE_LOGO">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -310,6 +469,34 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="getBitmap(android.content.Context,android.net.Uri,android.graphics.BitmapFactory.Options)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBitmap</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;getBitmap&#8203;(@Nullable
+                               <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+                               @Nullable
+                               <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net" class="externalLink">Uri</a>&nbsp;uri,
+                               @Nullable
+                               <a href="https://developer.android.com/reference/android/graphics/BitmapFactory.Options.html?is-external=true" title="class or interface in android.graphics" class="externalLink">BitmapFactory.Options</a>&nbsp;options)</pre>
+<div class="block">Retrieve the bitmap from the supplied URI.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the content resolver.</dd>
+<dd><code>uri</code> - The URI to retrieve the bitmap.</dd>
+<dd><code>options</code> - The bitmap factory options to be used.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The bitmap from the supplied URI.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="https://developer.android.com/reference/android/graphics/BitmapFactory.html?is-external=true#decodeFileDescriptor(java.io.FileDescriptor,android.graphics.Rect,android.graphics.BitmapFactory.Options)" title="class or interface in android.graphics" class="externalLink"><code>BitmapFactory.decodeFileDescriptor(FileDescriptor, Rect, BitmapFactory.Options)</code></a>, 
+<a href="https://developer.android.com/reference/android/graphics/ImageDecoder.html?is-external=true#decodeBitmap(android.graphics.ImageDecoder.Source)" title="class or interface in android.graphics" class="externalLink"><code>ImageDecoder.decodeBitmap(ImageDecoder.Source)</code></a>, 
+<a href="https://developer.android.com/reference/android/provider/MediaStore.Images.Media.html?is-external=true#getBitmap(android.content.ContentResolver,android.net.Uri)" title="class or interface in android.provider" class="externalLink"><code>MediaStore.Images.Media.getBitmap(ContentResolver, Uri)</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="getBitmap(android.content.Context,android.net.Uri)">
 <!--   -->
 </a>
@@ -329,7 +516,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/grap
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The bitmap from the supplied URI.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="https://developer.android.com/reference/android/content/Context.html?is-external=true#getContentResolver()" title="class or interface in android.content" class="externalLink"><code>Context.getContentResolver()</code></a></dd>
+<dd><a href="#getBitmap(android.content.Context,android.net.Uri,android.graphics.BitmapFactory.Options)"><code>getBitmap(Context, Uri, BitmapFactory.Options)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -359,6 +546,30 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/grap
 </dl>
 </li>
 </ul>
+<a id="getBitmap(android.graphics.drawable.Drawable,int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBitmap</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;getBitmap&#8203;(@Nullable
+                               <a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html?is-external=true" title="class or interface in android.graphics.drawable" class="externalLink">Drawable</a>&nbsp;drawable,
+                               int&nbsp;width,
+                               int&nbsp;height)</pre>
+<div class="block">Get bitmap from the supplied drawable.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>drawable</code> - The drawable to get the bitmap.</dd>
+<dd><code>width</code> - The width in dip for the bitmap.</dd>
+<dd><code>height</code> - The height in dip for the bitmap.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The bitmap from the supplied drawable.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#getBitmap(android.graphics.drawable.Drawable,int,int,boolean,int)"><code>getBitmap(Drawable, int, int, boolean, int)</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="getBitmap(android.graphics.drawable.Drawable,boolean,int)">
 <!--   -->
 </a>
@@ -378,6 +589,8 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/grap
 <dd><code>quality</code> - The quality of the compressed bitmap.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The bitmap from the supplied drawable.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#getBitmap(android.graphics.drawable.Drawable,int,int,boolean,int)"><code>getBitmap(Drawable, int, int, boolean, int)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -396,6 +609,88 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/grap
 <dd><code>drawable</code> - The drawable to get the bitmap.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The bitmap from the supplied drawable.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#getBitmap(android.graphics.drawable.Drawable,int,int)"><code>getBitmap(Drawable, int, int)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="getBitmapLogo(android.content.Context,android.net.Uri)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBitmapLogo</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;getBitmapLogo&#8203;(@Nullable
+                                   <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+                                   @Nullable
+                                   <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net" class="externalLink">Uri</a>&nbsp;uri)</pre>
+<div class="block">Retrieve the compressed bitmap from the supplied URI.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the content resolver.</dd>
+<dd><code>uri</code> - The URI to retrieve the bitmap.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The compressed bitmap from the supplied URI.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#SAMPLE_LOGO"><code>SAMPLE_LOGO</code></a>, 
+<a href="#getBitmap(android.content.Context,android.net.Uri,android.graphics.BitmapFactory.Options)"><code>getBitmap(Context, Uri, BitmapFactory.Options)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="resizeBitmap(android.graphics.Bitmap,int,int,int,int,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resizeBitmap</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;resizeBitmap&#8203;(@Nullable
+                                  <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+                                  int&nbsp;newWidth,
+                                  int&nbsp;newHeight,
+                                  int&nbsp;maxWidth,
+                                  int&nbsp;maxHeight,
+                                  boolean&nbsp;recycle)</pre>
+<div class="block">Resize bitmap to the new width and height.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bitmap</code> - The bitmap to resize.</dd>
+<dd><code>newWidth</code> - The new width for the bitmap.</dd>
+<dd><code>newHeight</code> - The new height for the bitmap.</dd>
+<dd><code>maxWidth</code> - The maximum width for the bitmap.</dd>
+<dd><code>maxHeight</code> - The maximum height for the bitmap.</dd>
+<dd><code>recycle</code> - <code>true</code> to recycle the original bitmap.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The resized bitmap with new width and height.</dd>
+</dl>
+</li>
+</ul>
+<a id="resizeBitmap(android.graphics.Bitmap,int,int,int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resizeBitmap</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;resizeBitmap&#8203;(@Nullable
+                                  <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+                                  int&nbsp;newWidth,
+                                  int&nbsp;newHeight,
+                                  int&nbsp;maxWidth,
+                                  int&nbsp;maxHeight)</pre>
+<div class="block">Resize bitmap to the new width and height.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bitmap</code> - The bitmap to resize.</dd>
+<dd><code>newWidth</code> - The new width for the bitmap.</dd>
+<dd><code>newHeight</code> - The new height for the bitmap.</dd>
+<dd><code>maxWidth</code> - The maximum width for the bitmap.</dd>
+<dd><code>maxHeight</code> - The maximum height for the bitmap.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The resized bitmap with new width and height.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#resizeBitmap(android.graphics.Bitmap,int,int,int,int,boolean)"><code>resizeBitmap(Bitmap, int, int, int, int, boolean)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -418,6 +713,58 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/grap
 <dd><code>newHeight</code> - The new height for the bitmap.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The resized bitmap with new width and height.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#resizeBitmap(android.graphics.Bitmap,int,int,int,int)"><code>resizeBitmap(Bitmap, int, int, int, int)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="resizeBitmapMax(android.graphics.Bitmap,int,int,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resizeBitmapMax</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;resizeBitmapMax&#8203;(@Nullable
+                                     <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+                                     int&nbsp;maxWidth,
+                                     int&nbsp;maxHeight,
+                                     boolean&nbsp;recycle)</pre>
+<div class="block">Resize bitmap according to the max width and height.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bitmap</code> - The bitmap to resize.</dd>
+<dd><code>maxWidth</code> - The maximum width for the bitmap.</dd>
+<dd><code>maxHeight</code> - The maximum height for the bitmap.</dd>
+<dd><code>recycle</code> - <code>true</code> to recycle the original bitmap.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The resized bitmap according to the max width and height.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#resizeBitmap(android.graphics.Bitmap,int,int,int,int)"><code>resizeBitmap(Bitmap, int, int, int, int)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="resizeBitmapMax(android.graphics.Bitmap,int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resizeBitmapMax</h4>
+<pre class="methodSignature">@Nullable
+public static&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;resizeBitmapMax&#8203;(@Nullable
+                                     <a href="https://developer.android.com/reference/android/graphics/Bitmap.html?is-external=true" title="class or interface in android.graphics" class="externalLink">Bitmap</a>&nbsp;bitmap,
+                                     int&nbsp;maxWidth,
+                                     int&nbsp;maxHeight)</pre>
+<div class="block">Resize bitmap according to the max width and height.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bitmap</code> - The bitmap to resize.</dd>
+<dd><code>maxWidth</code> - The maximum width for the bitmap.</dd>
+<dd><code>maxHeight</code> - The maximum height for the bitmap.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The resized bitmap according to the max width and height.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#resizeBitmap(android.graphics.Bitmap,int,int,int,int)"><code>resizeBitmap(Bitmap, int, int, int, int)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -596,13 +943,13 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/grap
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

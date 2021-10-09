@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -89,13 +89,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -140,6 +140,45 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="memberSummary">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Field</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ACTION_MATRIX_CAPTURE_RESULT">ACTION_MATRIX_CAPTURE_RESULT</a></span></code></th>
+<td class="colLast">
+<div class="block">Action to capture the matrix result.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#EXTRA_MATRIX_DATA">EXTRA_MATRIX_DATA</a></span></code></th>
+<td class="colLast">
+<div class="block">Intent extra key for the matrix data.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#EXTRA_MATRIX_FORMAT">EXTRA_MATRIX_FORMAT</a></span></code></th>
+<td class="colLast">
+<div class="block">Intent extra key for the matrix format.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section role="region">
 <ul class="blockList">
@@ -231,6 +270,13 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
+<td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMatrixCaptureResultIntent(android.content.Context)">getMatrixCaptureResultIntent</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</code></th>
+<td class="colLast">
+<div class="block">Checks whether the device can capture the matrix result.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/net/Uri.html?is-external=true" title="class or interface in android.net" class="externalLink">Uri</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStreamOrData(android.content.Intent,java.lang.String)">getStreamOrData</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;intent,
                java.lang.String&nbsp;action)</code></th>
@@ -238,7 +284,7 @@ extends java.lang.Object</pre>
 <div class="block">Returns the intent stream or data URI according to the supplied action.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isActivityResolved(android.content.Context,android.content.Intent)">isActivityResolved</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
                   <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;intent)</code></th>
@@ -246,14 +292,14 @@ extends java.lang.Object</pre>
 <div class="block">Checks whether the supplied intent has at least one activity to handle it.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isFilePicker(android.content.Context)">isFilePicker</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</code></th>
 <td class="colLast">
 <div class="block">Checks the availability of a file picker.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isFilePicker(android.content.Context,boolean)">isFilePicker</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
             boolean&nbsp;downloads)</code></th>
@@ -261,7 +307,31 @@ extends java.lang.Object</pre>
 <div class="block">Checks the availability of a file picker.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isFilePicker(android.content.Context,java.lang.String)">isFilePicker</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+            java.lang.String&nbsp;mimeType)</code></th>
+<td class="colLast">
+<div class="block">Checks the availability of a file picker.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isFilePicker(android.content.Context,java.lang.String,boolean)">isFilePicker</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+            java.lang.String&nbsp;mimeType,
+            boolean&nbsp;downloads)</code></th>
+<td class="colLast">
+<div class="block">Checks the availability of a file picker.</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isMatrixCaptureResult(android.content.Context)">isMatrixCaptureResult</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</code></th>
+<td class="colLast">
+<div class="block">Checks whether the device can capture the matrix result.</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#viewIntent(android.content.Context,android.content.Intent)">viewIntent</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
           <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;intent)</code></th>
@@ -286,6 +356,58 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a id="ACTION_MATRIX_CAPTURE_RESULT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ACTION_MATRIX_CAPTURE_RESULT</h4>
+<pre>public static final&nbsp;java.lang.String ACTION_MATRIX_CAPTURE_RESULT</pre>
+<div class="block">Action to capture the matrix result.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.pranavpandey.android.dynamic.util.DynamicIntentUtils.ACTION_MATRIX_CAPTURE_RESULT">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="EXTRA_MATRIX_DATA">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>EXTRA_MATRIX_DATA</h4>
+<pre>public static final&nbsp;java.lang.String EXTRA_MATRIX_DATA</pre>
+<div class="block">Intent extra key for the matrix data.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.pranavpandey.android.dynamic.util.DynamicIntentUtils.EXTRA_MATRIX_DATA">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="EXTRA_MATRIX_FORMAT">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>EXTRA_MATRIX_FORMAT</h4>
+<pre>public static final&nbsp;java.lang.String EXTRA_MATRIX_FORMAT</pre>
+<div class="block">Intent extra key for the matrix format.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.pranavpandey.android.dynamic.util.DynamicIntentUtils.EXTRA_MATRIX_FORMAT">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -319,7 +441,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getIntent</h4>
 <pre class="methodSignature">@NonNull
-public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getIntent&#8203;(@NonNull
+public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getIntent&#8203;(@Nullable
                                <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
                                @Nullable
                                java.lang.Class&lt;?&gt;&nbsp;clazz,
@@ -345,7 +467,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/cont
 <li class="blockList">
 <h4>getIntent</h4>
 <pre class="methodSignature">@NonNull
-public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getIntent&#8203;(@NonNull
+public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getIntent&#8203;(@Nullable
                                <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
                                @Nullable
                                java.lang.Class&lt;?&gt;&nbsp;clazz)</pre>
@@ -368,7 +490,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/cont
 <li class="blockList">
 <h4>getActivityIntent</h4>
 <pre class="methodSignature">@NonNull
-public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getActivityIntent&#8203;(@NonNull
+public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getActivityIntent&#8203;(@Nullable
                                        <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
                                        @Nullable
                                        java.lang.Class&lt;?&gt;&nbsp;clazz)</pre>
@@ -393,7 +515,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/cont
 <li class="blockList">
 <h4>getActivityIntentForResult</h4>
 <pre class="methodSignature">@NonNull
-public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getActivityIntentForResult&#8203;(@NonNull
+public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getActivityIntentForResult&#8203;(@Nullable
                                                 <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
                                                 @Nullable
                                                 java.lang.Class&lt;?&gt;&nbsp;clazz)</pre>
@@ -456,6 +578,56 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 </dl>
 </li>
 </ul>
+<a id="isFilePicker(android.content.Context,java.lang.String,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isFilePicker</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;isFilePicker&#8203;(@Nullable
+                                   <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+                                   @Nullable
+                                   java.lang.String&nbsp;mimeType,
+                                   boolean&nbsp;downloads)</pre>
+<div class="block">Checks the availability of a file picker.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the package manager.</dd>
+<dd><code>mimeType</code> - The mime type for the file.</dd>
+<dd><code>downloads</code> - <code>true</code> to consider the download location on older API levels.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>true</code> if a file picker is present.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#isActivityResolved(android.content.Context,android.content.Intent)"><code>isActivityResolved(Context, Intent)</code></a>, 
+<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true#ACTION_GET_CONTENT" title="class or interface in android.content" class="externalLink"><code>Intent.ACTION_GET_CONTENT</code></a>, 
+<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true#ACTION_OPEN_DOCUMENT" title="class or interface in android.content" class="externalLink"><code>Intent.ACTION_OPEN_DOCUMENT</code></a>, 
+<a href="https://developer.android.com/reference/android/os/Environment.html?is-external=true#getExternalStoragePublicDirectory(java.lang.String)" title="class or interface in android.os" class="externalLink"><code>Environment.getExternalStoragePublicDirectory(String)</code></a>, 
+<a href="https://developer.android.com/reference/android/os/Environment.html?is-external=true#DIRECTORY_DOWNLOADS" title="class or interface in android.os" class="externalLink"><code>Environment.DIRECTORY_DOWNLOADS</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="isFilePicker(android.content.Context,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isFilePicker</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;isFilePicker&#8203;(@Nullable
+                                   <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context,
+                                   @Nullable
+                                   java.lang.String&nbsp;mimeType)</pre>
+<div class="block">Checks the availability of a file picker.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the package manager.</dd>
+<dd><code>mimeType</code> - The mime type for the file.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>true</code> if a file picker is present.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#isFilePicker(android.content.Context,java.lang.String,boolean)"><code>isFilePicker(Context, String, boolean)</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="isFilePicker(android.content.Context,boolean)">
 <!--   -->
 </a>
@@ -473,11 +645,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>true</code> if a file picker is present.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#isActivityResolved(android.content.Context,android.content.Intent)"><code>isActivityResolved(Context, Intent)</code></a>, 
-<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true#ACTION_GET_CONTENT" title="class or interface in android.content" class="externalLink"><code>Intent.ACTION_GET_CONTENT</code></a>, 
-<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true#ACTION_OPEN_DOCUMENT" title="class or interface in android.content" class="externalLink"><code>Intent.ACTION_OPEN_DOCUMENT</code></a>, 
-<a href="https://developer.android.com/reference/android/os/Environment.html?is-external=true#getExternalStoragePublicDirectory(java.lang.String)" title="class or interface in android.os" class="externalLink"><code>Environment.getExternalStoragePublicDirectory(String)</code></a>, 
-<a href="https://developer.android.com/reference/android/os/Environment.html?is-external=true#DIRECTORY_DOWNLOADS" title="class or interface in android.os" class="externalLink"><code>Environment.DIRECTORY_DOWNLOADS</code></a></dd>
+<dd><a href="#isFilePicker(android.content.Context,java.lang.String,boolean)"><code>isFilePicker(Context, String, boolean)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -496,7 +664,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>true</code> if a file picker is present.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#isFilePicker(android.content.Context)"><code>isFilePicker(Context)</code></a></dd>
+<dd><a href="#isFilePicker(android.content.Context,java.lang.String,boolean)"><code>isFilePicker(Context, String, boolean)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -560,7 +728,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <a id="viewIntent(android.content.Context,android.content.Intent)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>viewIntent</h4>
 <pre class="methodSignature">public static&nbsp;boolean&nbsp;viewIntent&#8203;(@Nullable
@@ -572,12 +740,53 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
  <code>scheme(s)</code> in <code>AndroidManifest</code> to support API 30.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>context</code> - The context to retrieve the resources.</dd>
+<dd><code>context</code> - The context to be used.</dd>
 <dd><code>intent</code> - The intent to view.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>true</code> on successful operation.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true#ACTION_VIEW" title="class or interface in android.content" class="externalLink"><code>Intent.ACTION_VIEW</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="isMatrixCaptureResult(android.content.Context)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isMatrixCaptureResult</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;isMatrixCaptureResult&#8203;(@Nullable
+                                            <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</pre>
+<div class="block">Checks whether the device can capture the matrix result.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the package manager.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>true</code> if the device has at least one activity to capture the matrix result.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#isActivityResolved(android.content.Context,android.content.Intent)"><code>isActivityResolved(Context, Intent)</code></a>, 
+<a href="#ACTION_MATRIX_CAPTURE_RESULT"><code>ACTION_MATRIX_CAPTURE_RESULT</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="getMatrixCaptureResultIntent(android.content.Context)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getMatrixCaptureResultIntent</h4>
+<pre class="methodSignature">@NonNull
+public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getMatrixCaptureResultIntent&#8203;(@Nullable
+                                                  <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</pre>
+<div class="block">Checks whether the device can capture the matrix result.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>context</code> - The context to get the package manager.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>true</code> if the device has at least one activity to capture the matrix result.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#isActivityResolved(android.content.Context,android.content.Intent)"><code>isActivityResolved(Context, Intent)</code></a>, 
+<a href="#ACTION_MATRIX_CAPTURE_RESULT"><code>ACTION_MATRIX_CAPTURE_RESULT</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -634,13 +843,13 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

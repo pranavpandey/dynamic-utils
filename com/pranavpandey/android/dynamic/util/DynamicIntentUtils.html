@@ -273,7 +273,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static <a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMatrixCaptureResultIntent(android.content.Context)">getMatrixCaptureResultIntent</a></span>&#8203;(<a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</code></th>
 <td class="colLast">
-<div class="block">Checks whether the device can capture the matrix result.</div>
+<div class="block">Returns the intent to capture the matrix result.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
@@ -778,14 +778,14 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/net/
 <pre class="methodSignature">@NonNull
 public static&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;getMatrixCaptureResultIntent&#8203;(@Nullable
                                                   <a href="https://developer.android.com/reference/android/content/Context.html?is-external=true" title="class or interface in android.content" class="externalLink">Context</a>&nbsp;context)</pre>
-<div class="block">Checks whether the device can capture the matrix result.</div>
+<div class="block">Returns the intent to capture the matrix result.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>context</code> - The context to get the package manager.</dd>
+<dd><code>context</code> - The context to get the intent.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd><code>true</code> if the device has at least one activity to capture the matrix result.</dd>
+<dd>The intent to capture the matrix result.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#isActivityResolved(android.content.Context,android.content.Intent)"><code>isActivityResolved(Context, Intent)</code></a>, 
+<dd><a href="#getActivityIntentForResult(android.content.Context,java.lang.Class)"><code>getActivityIntentForResult(Context, Class)</code></a>, 
 <a href="#ACTION_MATRIX_CAPTURE_RESULT"><code>ACTION_MATRIX_CAPTURE_RESULT</code></a></dd>
 </dl>
 </li>
@@ -818,7 +818,7 @@ public static&nbsp;<a href="https://developer.android.com/reference/android/cont
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../help-doc.html">Help</a></li>
 </ul>
-<div class="aboutLanguage"><h5>4.3.0</h5></div>
+<div class="aboutLanguage"><h5>4.3.1</h5></div>
 </div>
 <div class="subNav">
 <ul class="navList" id="allclasses_navbar_bottom">

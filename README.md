@@ -17,6 +17,8 @@ project to AndroidX.
 [AsyncTask][async-task] API.
 <br/>Since v4.1.0, it is dependent on Java 8 due to the dependency on
 [AndroidX Core](https://developer.android.com/jetpack/androidx/releases/core).
+<br/>Since v4.3.0, it supports some helper methods to capture results via
+[Barquode](https://github.com/pranavpandey/dynamic-utils#barquode-for-android) app.
 
 ---
 
@@ -37,6 +39,7 @@ project to AndroidX.
     - [DynamicSdkUtils](https://github.com/pranavpandey/dynamic-utils#dynamicsdkutils)
     - [DynamicViewUtils](https://github.com/pranavpandey/dynamic-utils#dynamicviewutils)
     - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
+- [Barquode](https://github.com/pranavpandey/dynamic-utils#barquode-for-android)
 - [License](https://github.com/pranavpandey/dynamic-utils#license)
 
 ---
@@ -48,7 +51,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:4.2.0'
+    implementation 'com.pranavpandey.android:dynamic-utils:4.3.0'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'
@@ -283,6 +286,39 @@ Helper class to perform `window` operations and to detect system configurations 
 
 ---
 
+## Barquode for Android
+Added helper methods in `intent` utils to capture results via [Barquode][barquode] app.
+
+### Capture
+
+```java
+/**
+ * Checks whether the device can capture the matrix result.
+ *
+ * @param context The context to get the package manager.
+ *
+ * @return {@code true} if the device has at least one activity to capture the matrix result.
+ */
+public static boolean isMatrixCaptureResult(@Nullable Context context);
+
+/**
+ * Returns the intent to capture the matrix result.
+ *
+ * @param context The context to get the intent.
+ *
+ * @return The intent to capture the matrix result.
+ */
+public static @NonNull Intent getMatrixCaptureResultIntent(@Nullable Context context);
+```
+
+### Result
+`Barquode` app returns the result in the form of `intent` extras.
+
+*String* `com.pranavpandey.matrix.intent.extra.CODE_DATA`
+<br/>*String* `com.pranavpandey.matrix.intent.extra.CODE_FORMAT`
+
+---
+
 ## Translations
 
 - German (de) - Flubberlutsch
@@ -336,3 +372,4 @@ Pranav Pandey
 [concurrent]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/util/concurrent
 [concurrent-task]: https://github.com/pranavpandey/dynamic-utils/tree/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/util/concurrent/task
 [concurrent-dynamic-executor]: https://github.com/pranavpandey/dynamic-utils/blob/master/dynamic-utils/src/main/java/com/pranavpandey/android/dynamic/util/concurrent/DynamicExecutor.java
+[barquode]: https://play.google.com/store/apps/details?id=com.pranavpandey.matrix

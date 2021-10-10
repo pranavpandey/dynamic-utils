@@ -366,13 +366,13 @@ public class DynamicIntentUtils {
     }
 
     /**
-     * Checks whether the device can capture the matrix result.
+     * Returns the intent to capture the matrix result.
      *
-     * @param context The context to get the package manager.
+     * @param context The context to get the intent.
      *
-     * @return {@code true} if the device has at least one activity to capture the matrix result.
+     * @return The intent to capture the matrix result.
      *
-     * @see #isActivityResolved(Context, Intent)
+     * @see #getActivityIntentForResult(Context, Class)
      * @see #ACTION_MATRIX_CAPTURE_RESULT
      */
     public static @NonNull Intent getMatrixCaptureResultIntent(@Nullable Context context) {

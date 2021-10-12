@@ -210,7 +210,8 @@ public class DynamicLinkUtils {
 
         if (DynamicIntentUtils.isActivityResolved(context,
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))) {
-            context.startActivity(Intent.createChooser(intent, title));
+            context.startActivity(Intent.createChooser(intent, title)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
             return true;
         }

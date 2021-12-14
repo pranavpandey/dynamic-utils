@@ -238,7 +238,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Verifies a file if it exist or not.
+     * Verifies a file if it exists or not.
      *
      * @param file The file to be verified.
      *
@@ -259,7 +259,7 @@ public class DynamicFileUtils {
     }
 
     /**
-     * Delete a directory.
+     * Deletes a directory.
      *
      * @param dir The directory to be deleted.
      *
@@ -378,7 +378,7 @@ public class DynamicFileUtils {
 
     /**
      * Returns URI from the file.
-     * <p>It will automatically use the @link FileProvider} on API 24 and above.
+     * <p>It will automatically use the {@link FileProvider} on API 24 and above.
      *
      * @param context The context to get the file provider.
      * @param file The file to get the URI.
@@ -999,7 +999,7 @@ public class DynamicFileUtils {
      *
      * @param mimeType The mime type for the file.
      *
-     * @return The intent intent to select a file according to the mime type.
+     * @return The intent to select a file according to the mime type.
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static @NonNull Intent getFileSelectIntent(@NonNull String mimeType) {

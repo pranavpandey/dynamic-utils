@@ -296,7 +296,8 @@ public class DynamicViewUtils {
 
         ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
             @Override
-            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+            public @NonNull WindowInsetsCompat onApplyWindowInsets(
+                    @NonNull View v, @NonNull WindowInsetsCompat insets) {
                 final boolean isRtl = isLayoutRtl(v);
                 v.setPadding(left ? isRtl ? paddingRight : paddingLeft + insets.getInsets(
                         WindowInsetsCompat.Type.systemBars()).left : paddingLeft,
@@ -420,7 +421,8 @@ public class DynamicViewUtils {
 
         ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
             @Override
-            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+            public @NonNull WindowInsetsCompat onApplyWindowInsets(
+                    @NonNull View v, @NonNull WindowInsetsCompat insets) {
                 final boolean isRtl = isLayoutRtl(v);
                 if (left) {
                     layoutParams.leftMargin = isRtl ? rightMargin : leftMargin

@@ -133,13 +133,13 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Set light status bar if we are using light primary color on API 23 and above.
+     * Set light status bar on API 23 and above.
      *
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light status bar.
+     *
+     * @see #setLightStatusBar(View, boolean)
      */
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.M)
     public static void setLightStatusBar(@Nullable View view, boolean light) {
         if (view == null) {
             return;
@@ -149,8 +149,28 @@ public class DynamicViewUtils {
             WindowInsetsControllerCompat controller = ViewCompat.getWindowInsetsController(view);
             if (controller != null) {
                 controller.setAppearanceLightStatusBars(light);
+            } else {
+                setLightStatusBarLegacy(view, light);
             }
-        } else if (DynamicSdkUtils.is23()) {
+        } else {
+            setLightStatusBarLegacy(view, light);
+        }
+    }
+
+    /**
+     * Set light status bar by using the legacy method on API 23 and above.
+     *
+     * @param view The view to get the system ui flags.
+     * @param light {@code true} to set the light status bar.
+     */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void setLightStatusBarLegacy(@Nullable View view, boolean light) {
+        if (view == null) {
+            return;
+        }
+
+        if (DynamicSdkUtils.is23()) {
             int flags = view.getSystemUiVisibility();
             if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -163,13 +183,13 @@ public class DynamicViewUtils {
     }
 
     /**
-     * Set light navigation bar if we are using light primary color on API 26 and above.
+     * Set light navigation bar on API 26 and above.
      *
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light navigation bar.
+     *
+     * @see #setLightNavigationBarLegacy(View, boolean)
      */
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.O)
     public static void setLightNavigationBar(@Nullable View view, boolean light) {
         if (view == null) {
             return;
@@ -179,8 +199,28 @@ public class DynamicViewUtils {
             WindowInsetsControllerCompat controller = ViewCompat.getWindowInsetsController(view);
             if (controller != null) {
                 controller.setAppearanceLightNavigationBars(light);
+            } else {
+                setLightNavigationBarLegacy(view, light);
             }
-        } else if (DynamicSdkUtils.is26()) {
+        } else {
+            setLightNavigationBarLegacy(view, light);
+        }
+    }
+
+    /**
+     * Set light navigation bar on API 26 and above.
+     *
+     * @param view The view to get the system ui flags.
+     * @param light {@code true} to set the light navigation bar.
+     */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.O)
+    public static void setLightNavigationBarLegacy(@Nullable View view, boolean light) {
+        if (view == null) {
+            return;
+        }
+
+        if (DynamicSdkUtils.is26()) {
             int flags = view.getSystemUiVisibility();
             if (light) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;

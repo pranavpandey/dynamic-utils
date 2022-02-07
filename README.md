@@ -322,6 +322,7 @@ public static @NonNull Intent getMatrixCaptureResultIntent(@Nullable Context con
 ## Translations
 
 - German (de) - Flubberlutsch
+- French (fr) - Nitesh Jha | Others
 - Hindi (hi) - Siddh Narhari
 - Indonesian (in) - Gamal Kevin A
 - Italian (it) - Nicola

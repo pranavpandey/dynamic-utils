@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":41,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":41,"i24":9,"i25":9,"i26":9,"i27":9,"i28":9,"i29":9,"i30":9,"i31":9,"i32":9,"i33":9,"i34":9,"i35":9,"i36":9,"i37":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":41,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":41,"i24":9,"i25":9,"i26":9,"i27":9,"i28":9,"i29":9,"i30":9,"i31":9,"i32":9,"i33":9,"i34":9,"i35":9,"i36":9,"i37":9,"i38":9,"i39":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -392,18 +392,34 @@ extends java.lang.Object</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLightNavigationBar(android.view.View,boolean)">setLightNavigationBar</a></span>&#8203;(<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
                      boolean&nbsp;light)</code></th>
 <td class="colLast">
-<div class="block">Set light navigation bar if we are using light primary color on API 26 and above.</div>
+<div class="block">Set light navigation bar on API 26 and above.</div>
 </td>
 </tr>
 <tr id="i26" class="altColor">
 <td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLightStatusBar(android.view.View,boolean)">setLightStatusBar</a></span>&#8203;(<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
-                 boolean&nbsp;light)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLightNavigationBarLegacy(android.view.View,boolean)">setLightNavigationBarLegacy</a></span>&#8203;(<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
+                           boolean&nbsp;light)</code></th>
 <td class="colLast">
-<div class="block">Set light status bar if we are using light primary color on API 23 and above.</div>
+<div class="block">Set light navigation bar on API 26 and above.</div>
 </td>
 </tr>
 <tr id="i27" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLightStatusBar(android.view.View,boolean)">setLightStatusBar</a></span>&#8203;(<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
+                 boolean&nbsp;light)</code></th>
+<td class="colLast">
+<div class="block">Set light status bar on API 23 and above.</div>
+</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLightStatusBarLegacy(android.view.View,boolean)">setLightStatusBarLegacy</a></span>&#8203;(<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
+                       boolean&nbsp;light)</code></th>
+<td class="colLast">
+<div class="block">Set light status bar by using the legacy method on API 23 and above.</div>
+</td>
+</tr>
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextSwitcherText(android.widget.TextSwitcher,java.lang.CharSequence)">setTextSwitcherText</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/TextSwitcher.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextSwitcher</a>&nbsp;view,
                    java.lang.CharSequence&nbsp;text)</code></th>
@@ -411,7 +427,7 @@ extends java.lang.Object</pre>
 <div class="block">Set the text switcher text and animate only if there is a text change.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewAllCaps(android.widget.RemoteViews,int,boolean)">setTextViewAllCaps</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                   int&nbsp;viewId,
@@ -420,7 +436,7 @@ extends java.lang.Object</pre>
 <div class="block">Set the text view all caps for the remote views.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewAllCaps(android.widget.TextView,boolean)">setTextViewAllCaps</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a>&nbsp;textView,
                   boolean&nbsp;allCaps)</code></th>
@@ -428,7 +444,7 @@ extends java.lang.Object</pre>
 <div class="block">Set the text view all caps.</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewColors(android.widget.RemoteViews,int,int,int)">setTextViewColors</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                  int&nbsp;viewId,
@@ -438,7 +454,7 @@ extends java.lang.Object</pre>
 <div class="block">Set the text view colors for the remote views.</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewLinkColor(android.widget.RemoteViews,int,int)">setTextViewLinkColor</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                     int&nbsp;viewId,
@@ -447,7 +463,7 @@ extends java.lang.Object</pre>
 <div class="block">Set the text view link color for the remote views.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewMaxLines(android.widget.RemoteViews,int,int)">setTextViewMaxLines</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                    int&nbsp;viewId,
@@ -456,7 +472,7 @@ extends java.lang.Object</pre>
 <div class="block">Set the text view max lines for the remote views.</div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewText(android.widget.RemoteViews,int,java.lang.CharSequence)">setTextViewText</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                int&nbsp;viewId,
@@ -466,7 +482,7 @@ extends java.lang.Object</pre>
  and hide the view if the text is empty.</div>
 </td>
 </tr>
-<tr id="i34" class="altColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewText(android.widget.RemoteViews,int,java.lang.CharSequence,boolean)">setTextViewText</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                int&nbsp;viewId,
@@ -477,7 +493,7 @@ extends java.lang.Object</pre>
  and hide the view if the text is empty.</div>
 </td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewTextHtml(android.widget.RemoteViews,int,java.lang.CharSequence)">setTextViewTextHtml</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                    int&nbsp;viewId,
@@ -487,7 +503,7 @@ extends java.lang.Object</pre>
  and hide the view if the text is empty.</div>
 </td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewTextHtml(android.widget.RemoteViews,int,java.lang.CharSequence,boolean)">setTextViewTextHtml</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                    int&nbsp;viewId,
@@ -498,7 +514,7 @@ extends java.lang.Object</pre>
  and hide the view if the text is empty.</div>
 </td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextViewTextSize(android.widget.RemoteViews,int,int,float)">setTextViewTextSize</a></span>&#8203;(<a href="https://developer.android.com/reference/android/widget/RemoteViews.html?is-external=true" title="class or interface in android.widget" class="externalLink">RemoteViews</a>&nbsp;remoteViews,
                    int&nbsp;viewId,
@@ -624,7 +640,26 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public static&nbsp;void&nbsp;setLightStatusBar&#8203;(@Nullable
                                      <a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
                                      boolean&nbsp;light)</pre>
-<div class="block">Set light status bar if we are using light primary color on API 23 and above.</div>
+<div class="block">Set light status bar on API 23 and above.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>view</code> - The view to get the system ui flags.</dd>
+<dd><code>light</code> - <code>true</code> to set the light status bar.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#setLightStatusBar(android.view.View,boolean)"><code>setLightStatusBar(View, boolean)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="setLightStatusBarLegacy(android.view.View,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLightStatusBarLegacy</h4>
+<pre class="methodSignature">public static&nbsp;void&nbsp;setLightStatusBarLegacy&#8203;(@Nullable
+                                           <a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
+                                           boolean&nbsp;light)</pre>
+<div class="block">Set light status bar by using the legacy method on API 23 and above.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>view</code> - The view to get the system ui flags.</dd>
@@ -641,7 +676,26 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public static&nbsp;void&nbsp;setLightNavigationBar&#8203;(@Nullable
                                          <a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
                                          boolean&nbsp;light)</pre>
-<div class="block">Set light navigation bar if we are using light primary color on API 26 and above.</div>
+<div class="block">Set light navigation bar on API 26 and above.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>view</code> - The view to get the system ui flags.</dd>
+<dd><code>light</code> - <code>true</code> to set the light navigation bar.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#setLightNavigationBarLegacy(android.view.View,boolean)"><code>setLightNavigationBarLegacy(View, boolean)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="setLightNavigationBarLegacy(android.view.View,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLightNavigationBarLegacy</h4>
+<pre class="methodSignature">public static&nbsp;void&nbsp;setLightNavigationBarLegacy&#8203;(@Nullable
+                                               <a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;view,
+                                               boolean&nbsp;light)</pre>
+<div class="block">Set light navigation bar on API 26 and above.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>view</code> - The view to get the system ui flags.</dd>
@@ -1372,7 +1426,7 @@ extends java.lang.Object</pre>
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../help-doc.html">Help</a></li>
 </ul>
-<div class="aboutLanguage"><h5>4.4.0</h5></div>
+<div class="aboutLanguage"><h5>4.4.1</h5></div>
 </div>
 <div class="subNav">
 <ul class="navList" id="allclasses_navbar_bottom">

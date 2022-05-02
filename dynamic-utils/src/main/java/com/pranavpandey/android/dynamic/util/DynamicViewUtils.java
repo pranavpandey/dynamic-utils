@@ -39,6 +39,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.core.text.TextUtilsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
@@ -135,11 +136,34 @@ public class DynamicViewUtils {
     /**
      * Set light status bar on API 23 and above.
      *
+     * @param window The window to which the view is attached.
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light status bar.
      *
      * @see #setLightStatusBar(View, boolean)
      */
+    public static void setLightStatusBar(@Nullable Window window,
+            @Nullable View view, boolean light) {
+        if (view == null) {
+            return;
+        }
+
+        if (window != null && DynamicSdkUtils.is30()) {
+            WindowCompat.getInsetsController(window, view).setAppearanceLightStatusBars(light);
+        } else {
+            setLightStatusBar(view, light);
+        }
+    }
+
+    /**
+     * Set light status bar on API 23 and above.
+     *
+     * @param view The view to get the system ui flags.
+     * @param light {@code true} to set the light status bar.
+     *
+     * @see #setLightStatusBarLegacy(View, boolean)
+     */
+    @SuppressWarnings("deprecation")
     public static void setLightStatusBar(@Nullable View view, boolean light) {
         if (view == null) {
             return;
@@ -185,11 +209,34 @@ public class DynamicViewUtils {
     /**
      * Set light navigation bar on API 26 and above.
      *
+     * @param window The window to which the view is attached.
+     * @param view The view to get the system ui flags.
+     * @param light {@code true} to set the light navigation bar.
+     *
+     * @see #setLightNavigationBar(View, boolean)
+     */
+    public static void setLightNavigationBar(@Nullable Window window,
+            @Nullable View view, boolean light) {
+        if (view == null) {
+            return;
+        }
+
+        if (window != null && DynamicSdkUtils.is30()) {
+            WindowCompat.getInsetsController(window, view).setAppearanceLightNavigationBars(light);
+        } else {
+            setLightNavigationBar(view, light);
+        }
+    }
+
+    /**
+     * Set light navigation bar on API 26 and above.
+     *
      * @param view The view to get the system ui flags.
      * @param light {@code true} to set the light navigation bar.
      *
      * @see #setLightNavigationBarLegacy(View, boolean)
      */
+    @SuppressWarnings("deprecation")
     public static void setLightNavigationBar(@Nullable View view, boolean light) {
         if (view == null) {
             return;

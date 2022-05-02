@@ -475,4 +475,25 @@ public class DynamicSdkUtils {
     public static boolean isS() {
         return isS(false);
     }
+
+    /**
+     * Detects if the current API version is 33 or above.
+     *
+     * @param equals {@code true} to check for equality.
+     *               <p>{@code false} to match greater than or equal.
+     *
+     * @return {@code true} if the current API version is T or above.
+     */
+    public static boolean isT(boolean equals) {
+        return is32(equals) && isPreview();
+    }
+
+    /**
+     * Detects if the current API version is 33 or above.
+     *
+     * @return {@code true} if the current API version is T or above.
+     */
+    public static boolean isT() {
+        return isT(false);
+    }
 }

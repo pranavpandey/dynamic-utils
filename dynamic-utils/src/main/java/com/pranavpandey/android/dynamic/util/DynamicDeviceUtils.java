@@ -200,22 +200,36 @@ public class DynamicDeviceUtils {
     }
 
     /**
+     * Checks whether the device has a system feature.
+     *
+     * @param context The context to be used.
+     * @param feature The feature to be checked.
+     *
+     * @return {@code true} if the device has the system feature.
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static boolean hasSystemFeature(@Nullable Context context, @NonNull String feature) {
+        if (context == null) {
+            return false;
+        }
+
+        return context.getPackageManager().hasSystemFeature(feature);
+    }
+
+    /**
      * Checks whether the device has camera feature.
      *
      * @param context The context to be used.
      *
      * @return {@code true} if the device has camera feature.
      *
+     * @see #hasSystemFeature(Context, String)
      * @see PackageManager#FEATURE_CAMERA
      * @see PackageManager#FEATURE_CAMERA_ANY
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static boolean hasCameraFeature(@Nullable Context context) {
-        if (context == null) {
-            return false;
-        }
-
-        return context.getPackageManager().hasSystemFeature(DynamicSdkUtils.is17()
+        return hasSystemFeature(context, DynamicSdkUtils.is17()
                 ? PackageManager.FEATURE_CAMERA_ANY : PackageManager.FEATURE_CAMERA);
     }
 
@@ -226,14 +240,41 @@ public class DynamicDeviceUtils {
      *
      * @return {@code true} if the device has flashlight feature.
      *
+     * @see #hasSystemFeature(Context, String)
      * @see PackageManager#FEATURE_CAMERA_FLASH
      */
     public static boolean hasFlashlightFeature(@Nullable Context context) {
-        if (context == null) {
-            return false;
-        }
+        return hasSystemFeature(context, PackageManager.FEATURE_CAMERA_FLASH);
+    }
 
-        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    /**
+     * Detects the telephony feature by using {@link PackageManager}.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the device has telephony feature.
+     *
+     * @see #hasSystemFeature(Context, String)
+     * @see PackageManager#FEATURE_TELEPHONY
+     */
+    public static boolean hasTelephony(@NonNull Context context) {
+        return hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY);
+    }
+
+    /**
+     * Detects the hinge sensor feature by using {@link PackageManager}.
+     *
+     * @param context The context to get the package manager.
+     *
+     * @return {@code true} if the device has hinge sensor feature feature.
+     *
+     * @see #hasSystemFeature(Context, String)
+     * @see PackageManager#FEATURE_SENSOR_HINGE_ANGLE
+     */
+    @TargetApi(Build.VERSION_CODES.R)
+    public static boolean hasHingeFeature(@NonNull Context context) {
+        return DynamicSdkUtils.is30() && hasSystemFeature(
+                context, PackageManager.FEATURE_SENSOR_HINGE_ANGLE);
     }
 
     /**
@@ -265,20 +306,6 @@ public class DynamicDeviceUtils {
         } else {
             vibrator.vibrate(duration);
         }
-    }
-
-    /**
-     * Detects the telephony feature by using {@link PackageManager}.
-     *
-     * @param context The context to get the package manager.
-     *
-     * @return {@code true} if the device has telephony feature.
-     *
-     * @see PackageManager#hasSystemFeature(String)
-     * @see PackageManager#FEATURE_TELEPHONY
-     */
-    public static boolean hasTelephony(@NonNull Context context) {
-        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
     }
 
     /**

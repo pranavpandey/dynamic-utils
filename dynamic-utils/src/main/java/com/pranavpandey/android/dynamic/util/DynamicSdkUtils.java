@@ -434,12 +434,12 @@ public class DynamicSdkUtils {
     }
 
     /**
-     * Detects if the current API version is 31 or above.
+     * Detects if the current API version is 32 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if the current API version is 31 or above.
+     * @return {@code true} if the current API version is 32 or above.
      */
     public static boolean is32(boolean equals) {
         return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.S_V2
@@ -456,28 +456,29 @@ public class DynamicSdkUtils {
     }
 
     /**
-     * Detects if the current API version is 31 or above.
+     * Detects if the current API version is 33 or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
      *
-     * @return {@code true} if the current API version is S or above.
+     * @return {@code true} if the current API version is 33 or above.
      */
-    public static boolean isS(boolean equals) {
-        return is32(equals) || (is31(equals) && isPreview()) || (is30(equals) && isPreview());
-    }
-
-    /**
-     * Detects if the current API version is 31 or above.
-     *
-     * @return {@code true} if the current API version is S or above.
-     */
-    public static boolean isS() {
-        return isS(false);
+    public static boolean is33(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
     }
 
     /**
      * Detects if the current API version is 33 or above.
+     *
+     * @return {@code true} if the current API version is 33 or above.
+     */
+    public static boolean is33() {
+        return is33(false);
+    }
+
+    /**
+     * Detects if the current API version is T or above.
      *
      * @param equals {@code true} to check for equality.
      *               <p>{@code false} to match greater than or equal.
@@ -489,7 +490,7 @@ public class DynamicSdkUtils {
     }
 
     /**
-     * Detects if the current API version is 33 or above.
+     * Detects if the current API version is T or above.
      *
      * @return {@code true} if the current API version is T or above.
      */

@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/pranavpandey/dynamic-utils/master/graphics/dynamic-utils.png" width="160" height="160" align="right" hspace="20">
+<img src="./graphics/dynamic-utils.png" width="160" height="160" align="right" hspace="20">
 
 # Dynamic Utils
 

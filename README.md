@@ -39,7 +39,7 @@ project to AndroidX.
     - [DynamicSdkUtils](https://github.com/pranavpandey/dynamic-utils#dynamicsdkutils)
     - [DynamicViewUtils](https://github.com/pranavpandey/dynamic-utils#dynamicviewutils)
     - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-- [Barquode](https://github.com/pranavpandey/dynamic-utils#barquode-for-android)
+- [Barquode](https://github.com/pranavpandey/dynamic-utils#barquode)
 - [License](https://github.com/pranavpandey/dynamic-utils#license)
 
 ---
@@ -286,8 +286,11 @@ Helper class to perform `window` operations and to detect system configurations 
 
 ---
 
-## Barquode for Android
-Added helper methods in `intent` utils to capture results via [Barquode][barquode] app.
+<img src="./graphics/barquode.png" width="160" height="160" align="right" hspace="20">
+
+## Barquode
+
+Added helper methods in `intent` utils to capture results via [Barquode][barquode] for Android.
 
 ### Capture
 
@@ -312,6 +315,7 @@ public static @NonNull Intent getMatrixCaptureResultIntent(@Nullable Context con
 ```
 
 ### Result
+
 `Barquode` app returns the result in the form of `intent` extras.
 
 *String* `com.pranavpandey.matrix.intent.extra.CODE_DATA`

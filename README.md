@@ -16,31 +16,31 @@ project to AndroidX.
 <br/>Since v3.3.0, added [Concurrent][concurrent] package to replace the deprecated
 [AsyncTask][async-task] API.
 <br/>Since v4.1.0, it is dependent on Java 8 due to the dependency on
-[AndroidX Core](https://developer.android.com/jetpack/androidx/releases/core).
+[AndroidX Core][androidx core].
 <br/>Since v4.3.0, it supports some helper methods to capture results via
-[Barquode](https://github.com/pranavpandey/dynamic-utils#barquode-for-android) app.
+[Barquode](#barquode-for-android) app.
 
 ---
 
 ## Contents
 
-- [Installation](https://github.com/pranavpandey/dynamic-utils#installation)
-- [Usage](https://github.com/pranavpandey/dynamic-utils#usage)
-    - [Concurrent](https://github.com/pranavpandey/dynamic-utils#concurrent)
-    - [DynamicAnimUtils](https://github.com/pranavpandey/dynamic-utils#dynamicanimutils)
-    - [DynamicBitmapUtils](https://github.com/pranavpandey/dynamic-utils#dynamicbitmaputils)
-    - [DynamicColorUtils](https://github.com/pranavpandey/dynamic-utils#dynamiccolorutils)
-    - [DynamicDeviceUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdeviceutils)
-    - [DynamicDrawableUtils](https://github.com/pranavpandey/dynamic-utils#dynamicdrawableutils)
-    - [DynamicLinkUtils](https://github.com/pranavpandey/dynamic-utils#dynamiclinkutils)
-    - [DynamicPackageUtils](https://github.com/pranavpandey/dynamic-utils#dynamicpackageutils)
-    - [DynamicTaskUtils](https://github.com/pranavpandey/dynamic-utils#dynamictaskutils)
-    - [DynamicUnitUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-    - [DynamicSdkUtils](https://github.com/pranavpandey/dynamic-utils#dynamicsdkutils)
-    - [DynamicViewUtils](https://github.com/pranavpandey/dynamic-utils#dynamicviewutils)
-    - [DynamicWindowUtils](https://github.com/pranavpandey/dynamic-utils#dynamicwindowutils)
-- [Barquode](https://github.com/pranavpandey/dynamic-utils#barquode)
-- [License](https://github.com/pranavpandey/dynamic-utils#license)
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Concurrent](#concurrent)
+    - [DynamicAnimUtils](#dynamicanimutils)
+    - [DynamicBitmapUtils](#dynamicbitmaputils)
+    - [DynamicColorUtils](#dynamiccolorutils)
+    - [DynamicDeviceUtils](#dynamicdeviceutils)
+    - [DynamicDrawableUtils](#dynamicdrawableutils)
+    - [DynamicLinkUtils](#dynamiclinkutils)
+    - [DynamicPackageUtils](#dynamicpackageutils)
+    - [DynamicTaskUtils](#dynamictaskutils)
+    - [DynamicUnitUtils](#dynamicwindowutils)
+    - [DynamicSdkUtils](#dynamicsdkutils)
+    - [DynamicViewUtils](#dynamicviewutils)
+    - [DynamicWindowUtils](#dynamicwindowutils)
+- [Barquode](#barquode)
+- [License](#license)
 
 ---
 
@@ -290,7 +290,8 @@ Helper class to perform `window` operations and to detect system configurations 
 
 ## Barquode
 
-Added helper methods in `intent` utils to capture results via [Barquode][barquode] for Android.
+It has various helper methods in `intent` utils to capture results via the [Barquode][barquode] 
+app available for Android.
 
 ### Capture
 
@@ -368,6 +369,7 @@ Pranav Pandey
 
 [android-support]: https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0
 [androidx]: https://developer.android.com/jetpack/androidx
+[androidx core]: https://developer.android.com/jetpack/androidx/releases/core
 [androidx-migrate]: https://developer.android.com/jetpack/androidx/migrate
 [documentation]: https://pranavpandey.github.io/dynamic-utils
 [async-task]: https://developer.android.com/reference/android/os/AsyncTask

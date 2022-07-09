@@ -66,7 +66,7 @@ It is divided into different classes according to their category for easy unders
 This library is fully commented so I am highlighting some of the functions below, keep exploring
 for more hidden features.
 
-> For complete reference, please read the [documentation][documentation].
+> For a complete reference, please read the [documentation][documentation].
 
 ### Concurrent
 
@@ -286,7 +286,8 @@ Helper class to perform `window` operations and to detect system configurations 
 
 ---
 
-<img src="./graphics/barquode.png" width="160" height="160" align="right" hspace="20">
+<img src="./graphics/apps/pranavpandey-barquode.png"
+  width="140" height="140" align="right" hspace="20">
 
 ## Barquode
 

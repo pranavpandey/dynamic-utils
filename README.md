@@ -3,7 +3,6 @@
 # Dynamic Utils
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![Build Status](https://travis-ci.org/pranavpandey/dynamic-utils.svg?branch=master)](https://travis-ci.org/pranavpandey/dynamic-utils)
 [![Release](https://img.shields.io/maven-central/v/com.pranavpandey.android/dynamic-utils)](https://search.maven.org/artifact/com.pranavpandey.android/dynamic-utils)
 
 A collection of static methods and packages to perform dynamic operations on Android 2.3 (API 9)
@@ -51,7 +50,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:4.4.3'
+    implementation 'com.pranavpandey.android:dynamic-utils:4.4.4'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'

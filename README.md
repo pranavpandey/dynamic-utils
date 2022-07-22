@@ -337,7 +337,7 @@ public static @NonNull Intent getMatrixCaptureResultIntent(@Nullable Context con
 - Spanish (es) - Dave
 - Turkish (tr) - Fatih Fırıncı
 - Chinese (Simplified) (zh-rCN) - 残念
-- Chinese (Traditional) (zh-rTW) - 會呼吸的風
+- Chinese (Traditional) (zh-rTW) - 會呼吸的風 | 人工知能
 
 ---
 

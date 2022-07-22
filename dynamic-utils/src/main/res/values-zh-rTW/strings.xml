@@ -18,9 +18,9 @@
 <resources>
 
     <!-- Share app -->
-    <string name="adu_share_to">通過&#8230;分享</string>
+    <string name="adu_share_to">透過&#8230;分享</string>
 
     <!-- Submit bug report -->
-    <string name="adu_bug_desc">我的錯誤或問題是&#8230;\n多久發生一次錯誤？\n你有使用任何自定義/修改的ROM，框架或者內核嗎？</string>
+    <string name="adu_bug_desc">我的錯誤或問題是&#8230;\n多久發生一次錯誤？\n你有使用任何客製化/修改的 ROM，架構或者內核嗎？</string>
 
 </resources>

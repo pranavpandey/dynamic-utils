@@ -51,12 +51,12 @@ import java.util.Locale;
 public class DynamicViewUtils {
 
     /**
-     * Checks if the supplied view is the only root layout in the view heirarchy.
+     * Checks if the supplied view is the only root layout in the view hierarchy.
      *
      * @param view The view to be checked.
      * @param <T> The type of the view.
      *
-     * @return {@code true} if the supplied view is the only root layout in the view heirarchy.
+     * @return {@code true} if the supplied view is the only root layout in the view hierarchy.
      */
     public static <T extends View> boolean isRootLayout(@Nullable T view) {
         return view != null && !(view.getParent() instanceof View);
@@ -385,12 +385,11 @@ public class DynamicViewUtils {
             @Override
             public @NonNull WindowInsetsCompat onApplyWindowInsets(
                     @NonNull View v, @NonNull WindowInsetsCompat insets) {
-                final boolean isRtl = isLayoutRtl(v);
-                v.setPadding(left ? isRtl ? paddingRight : paddingLeft + insets.getInsets(
+                v.setPadding(left ? paddingLeft + insets.getInsets(
                         WindowInsetsCompat.Type.systemBars()).left : paddingLeft,
                         top ? paddingTop + insets.getInsets(
                                 WindowInsetsCompat.Type.systemBars()).top : paddingTop,
-                        right ? isRtl ? paddingLeft : paddingRight + insets.getInsets(
+                        right ? paddingRight + insets.getInsets(
                                 WindowInsetsCompat.Type.systemBars()).right : paddingRight,
                         bottom ? paddingBottom + insets.getInsets(
                                 WindowInsetsCompat.Type.systemBars()).bottom : paddingBottom);
@@ -426,6 +425,17 @@ public class DynamicViewUtils {
     }
 
     /**
+     * Apply horizontal window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     *
+     * @see #applyWindowInsetsHorizontal(View, boolean)
+     */
+    public static void applyWindowInsetsHorizontal(@Nullable View view) {
+        applyWindowInsetsHorizontal(view, false);
+    }
+
+    /**
      * Apply vertical window insets padding for the supplied view.
      *
      * @param view The view to set the insets padding.
@@ -435,6 +445,17 @@ public class DynamicViewUtils {
      */
     public static void applyWindowInsetsVertical(@Nullable View view, boolean consume) {
         applyWindowInsets(view, false, true, false, true, consume);
+    }
+
+    /**
+     * Apply vertical window insets padding for the supplied view.
+     *
+     * @param view The view to set the insets padding.
+     *
+     * @see #applyWindowInsetsVertical(View, boolean)
+     */
+    public static void applyWindowInsetsVertical(@Nullable View view) {
+        applyWindowInsetsVertical(view, false);
     }
 
     /**
@@ -510,9 +531,8 @@ public class DynamicViewUtils {
             @Override
             public @NonNull WindowInsetsCompat onApplyWindowInsets(
                     @NonNull View v, @NonNull WindowInsetsCompat insets) {
-                final boolean isRtl = isLayoutRtl(v);
                 if (left) {
-                    layoutParams.leftMargin = isRtl ? rightMargin : leftMargin
+                    layoutParams.leftMargin = leftMargin
                             + insets.getInsets(WindowInsetsCompat.Type.systemBars()).left;
                 }
                 if (top) {
@@ -520,7 +540,7 @@ public class DynamicViewUtils {
                             + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
                 }
                 if (right) {
-                    layoutParams.rightMargin = isRtl ? leftMargin : rightMargin
+                    layoutParams.rightMargin = rightMargin
                             + insets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
                 }
                 if (bottom) {
@@ -561,6 +581,17 @@ public class DynamicViewUtils {
     }
 
     /**
+     * Apply horizontal window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     *
+     * @see #applyWindowInsetsMarginHorizontal(View, boolean)
+     */
+    public static void applyWindowInsetsMarginHorizontal(@Nullable View view) {
+        applyWindowInsetsMarginHorizontal(view, false);
+    }
+
+    /**
      * Apply vertical window insets margin for the supplied view.
      *
      * @param view The view to set the insets margin.
@@ -573,14 +604,50 @@ public class DynamicViewUtils {
     }
 
     /**
+     * Apply vertical window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     *
+     * @see #applyWindowInsetsMarginVertical(View, boolean)
+     */
+    public static void applyWindowInsetsMarginVertical(@Nullable View view) {
+        applyWindowInsetsMarginVertical(view, false);
+    }
+
+    /**
+     * Apply bottom window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsMarginBottom(@Nullable View view, boolean consume) {
+        applyWindowInsetsMargin(view, false, false, false, true, consume);
+    }
+
+    /**
      * Apply bottom window insets margin for the supplied view.
      *
      * @param view The view to set the insets margin.
      *
-     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     * @see #applyWindowInsetsMarginBottom(View, boolean)
      */
     public static void applyWindowInsetsMarginBottom(@Nullable View view) {
-        applyWindowInsetsMargin(view, false, false, false, true, false);
+        applyWindowInsetsMarginBottom(view, false);
+    }
+
+    /**
+     * Apply horizontal and bottom window insets margin for the supplied view.
+     *
+     * @param view The view to set the insets margin.
+     * @param consume {@code true} to consume the applied window insets.
+     *
+     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     */
+    public static void applyWindowInsetsMarginHorizontalBottom(
+            @Nullable View view, boolean consume) {
+        applyWindowInsetsMargin(view, true, false, true, true, consume);
     }
 
     /**
@@ -588,10 +655,10 @@ public class DynamicViewUtils {
      *
      * @param view The view to set the insets margin.
      *
-     * @see #applyWindowInsetsMargin(View, boolean, boolean, boolean, boolean, boolean)
+     * @see #applyWindowInsetsMarginHorizontalBottom(View, boolean)
      */
     public static void applyWindowInsetsMarginHorizontalBottom(@Nullable View view) {
-        applyWindowInsetsMargin(view, true, false, true, true, false);
+        applyWindowInsetsMarginHorizontalBottom(view, false);
     }
 
     /**

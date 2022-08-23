@@ -23,7 +23,6 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
-import androidx.core.graphics.ColorUtils;
 
 import com.pranavpandey.android.dynamic.util.cache.IntegerLruCache;
 
@@ -50,6 +49,11 @@ public class DynamicColorUtils {
     private static final float CONTRAST_FACTOR = 1.5f;
 
     /**
+     * Maximum value to replace the color components.
+     */
+    private static final float REPLACE_FACTOR = 0.2f;
+
+    /**
      * Cache for the color integers.
      */
     private static final IntegerLruCache<String> mColorLruCache;
@@ -73,9 +77,9 @@ public class DynamicColorUtils {
         Random random = new Random();
         float hue = (float) random.nextInt(360);
         float saturation = random.nextFloat();
-        float lightness = random.nextFloat();
+        float value = random.nextFloat();
 
-        return ColorUtils.HSLToColor(new float[] { hue, saturation, lightness });
+        return Color.HSVToColor(new float[] { hue, saturation, value });
     }
 
     /**
@@ -591,5 +595,31 @@ public class DynamicColorUtils {
         cmyk[0] = (1f - red - cmyk[3]) / (1f - cmyk[3]);
         cmyk[1] = (1f - green - cmyk[3]) / (1f - cmyk[3]);
         cmyk[2] = (1f - blue - cmyk[3]) / (1f - cmyk[3]);
+    }
+
+    /**
+     * Replace HSV components of a color integer.
+     *
+     * @param color The color to be replaced.
+     * @param with The color with replacements.
+     *
+     * @return The color with replaced HSV components.
+     */
+    public static @ColorInt int replaceColor(@ColorInt int color, @ColorInt int with) {
+        float[] hsvColor = new float[3];
+        float[] hsvWith = new float[3];
+        Color.colorToHSV(color, hsvColor);
+        Color.colorToHSV(with, hsvWith);
+
+        hsvColor[0] = hsvWith[0];
+        if (hsvColor[1] <= REPLACE_FACTOR) {
+            hsvColor[1] = hsvWith[1];
+        }
+        if (hsvColor[2] <= REPLACE_FACTOR) {
+            hsvColor[2] = hsvWith[2];
+        }
+
+        @ColorInt int intColor = setAlpha(Color.HSVToColor(hsvColor), Color.alpha(color));
+        return isColorDark(color) == isColorDark(intColor) ? intColor : getTintColor(intColor);
     }
 }

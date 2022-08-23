@@ -125,7 +125,7 @@ public abstract class DynamicTask<T, P, R> extends DynamicRunnable<T, P, R> {
     }
 
     /**
-     * Notify results on the main thread if teh task was not started before.
+     * Notify results on the main thread if the task was not started before.
      *
      * @param result The result to be notified.
      */

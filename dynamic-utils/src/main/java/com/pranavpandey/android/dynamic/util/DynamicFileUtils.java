@@ -831,19 +831,19 @@ public class DynamicFileUtils {
             return false;
         }
 
-        boolean validMime = mimeType.equals(intent.getType());
+        boolean validMime = mimeType.equals(intent.getType())
+                && isValidExtension(context, intent.getData(), extension);
 
         if (!validMime) {
             if (intent.getParcelableExtra(Intent.EXTRA_STREAM) != null) {
                 validMime = isValidMimeType(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM),
-                        MIME_OCTET_STREAM, extension)
-                        && isValidExtension(context,
+                        MIME_OCTET_STREAM, extension) && isValidExtension(context,
                         (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM), extension);
             } else {
                 validMime = isValidMimeType(context, intent.getData(),
                         MIME_OCTET_STREAM, extension) && isValidExtension(
-                                context, intent.getData(), extension);
+                        context, intent.getData(), extension);
             }
         }
 

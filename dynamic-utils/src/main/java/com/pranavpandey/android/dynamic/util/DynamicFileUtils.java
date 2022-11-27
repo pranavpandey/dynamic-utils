@@ -843,7 +843,7 @@ public class DynamicFileUtils {
             } else {
                 validMime = isValidMimeType(context, intent.getData(),
                         MIME_OCTET_STREAM, extension) && isValidExtension(
-                        context, intent.getData(), extension);
+                                context, intent.getData(), extension);
             }
         }
 

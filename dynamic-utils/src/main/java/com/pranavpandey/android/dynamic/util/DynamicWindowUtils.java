@@ -16,6 +16,7 @@
 
 package com.pranavpandey.android.dynamic.util;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -44,6 +45,11 @@ import androidx.core.view.WindowCompat;
  * @see WindowManager
  */
 public class DynamicWindowUtils {
+
+    /**
+     * Maximum height for the gesture navigation in DP.
+     */
+    public static final int GESTURE_NAVIGATION_BAR_HEIGHT = 24;
 
     /**
      * Returns the correct display according to the different API levels.
@@ -225,6 +231,7 @@ public class DynamicWindowUtils {
      *
      * @return The status bar size in pixels.
      */
+    @SuppressLint({"InternalInsetResource", "DiscouragedApi"})
     public static int getStatusBarSize(@NonNull Context context) {
         int resourceId = context.getResources().getIdentifier(
                 "status_bar_height", "dimen", "android");
@@ -295,8 +302,8 @@ public class DynamicWindowUtils {
      */
     public static boolean isGestureNavigation(@NonNull Context context) {
         Point navigationBarSize = getNavigationBarSize(context);
-        return DynamicSdkUtils.is29() && navigationBarSize.y > 0
-                && navigationBarSize.y <= DynamicUnitUtils.convertDpToPixels(24);
+        return DynamicSdkUtils.is29() && navigationBarSize.y > 0 && navigationBarSize.y
+                <= DynamicUnitUtils.convertDpToPixels(GESTURE_NAVIGATION_BAR_HEIGHT);
     }
 
     /**

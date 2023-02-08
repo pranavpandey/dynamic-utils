@@ -69,6 +69,7 @@ public class DynamicIntentUtils {
         Intent intent;
         if (context != null && clazz != null) {
             intent = new Intent(context, clazz);
+            intent.setPackage(context.getPackageName());
             intent.setComponent(new ComponentName(context, clazz));
         } else {
             intent = new Intent();

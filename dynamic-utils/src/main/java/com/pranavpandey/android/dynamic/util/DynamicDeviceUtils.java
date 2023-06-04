@@ -301,8 +301,12 @@ public class DynamicDeviceUtils {
         }
 
         if (DynamicSdkUtils.is26()) {
-            vibrator.vibrate(VibrationEffect.createOneShot(
-                    duration, VibrationEffect.DEFAULT_AMPLITUDE));
+            try {
+                vibrator.vibrate(VibrationEffect.createOneShot(
+                        duration, VibrationEffect.DEFAULT_AMPLITUDE));
+            } catch (Exception e) {
+                vibrator.vibrate(duration);
+            }
         } else {
             vibrator.vibrate(duration);
         }

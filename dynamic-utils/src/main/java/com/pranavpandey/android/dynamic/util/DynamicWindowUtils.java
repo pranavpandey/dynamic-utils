@@ -364,9 +364,14 @@ public class DynamicWindowUtils {
         }
 
         float scale = displayMatrix.density;
-        int rotation = display.getRotation();
         int width = (int) (displayMatrix.widthPixels * scale + 0.5f);
         int height = (int) (displayMatrix.heightPixels * scale + 0.5f);
+
+        int rotation = Surface.ROTATION_0;
+        try {
+            rotation = display.getRotation();
+        } catch (Exception ignored) {
+        }
 
         if ((rotation == Surface.ROTATION_0
                 || rotation == Surface.ROTATION_180) && height > width ||

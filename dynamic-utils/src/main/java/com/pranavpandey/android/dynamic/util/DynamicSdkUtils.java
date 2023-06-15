@@ -478,6 +478,28 @@ public class DynamicSdkUtils {
     }
 
     /**
+     * Detects if the current API version is 34 or above.
+     *
+     * @param equals {@code true} to check for equality.
+     *               <p>{@code false} to match greater than or equal.
+     *
+     * @return {@code true} if the current API version is 34 or above.
+     */
+    public static boolean is34(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
+    }
+
+    /**
+     * Detects if the current API version is 34 or above.
+     *
+     * @return {@code true} if the current API version is 34 or above.
+     */
+    public static boolean is34() {
+        return is34(false);
+    }
+
+    /**
      * Detects if the current API version is U or above.
      *
      * @param equals {@code true} to check for equality.
@@ -486,7 +508,7 @@ public class DynamicSdkUtils {
      * @return {@code true} if the current API version is U or above.
      */
     public static boolean isU(boolean equals) {
-        return is33(equals) && isPreview();
+        return is34() || (is33(equals) && isPreview());
     }
 
     /**

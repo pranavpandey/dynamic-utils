@@ -264,12 +264,20 @@ public class DynamicIntentUtils {
      * @return The updated flags.
      * 
      * @see PendingIntent#FLAG_IMMUTABLE
+     * @see PendingIntent#FLAG_MUTABLE
+     * @see PendingIntent#FLAG_NO_CREATE
+     * @see PendingIntent#FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT
      */
-    @TargetApi(Build.VERSION_CODES.S)
+    @TargetApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public static int addMutabilityFlag(int flags, boolean mutable) {
         if (DynamicSdkUtils.is23() && !mutable) {
             return flags | PendingIntent.FLAG_IMMUTABLE;
         } else if (DynamicSdkUtils.is31() && mutable) {
+            if (DynamicSdkUtils.is34()) {
+                flags = flags | PendingIntent.FLAG_NO_CREATE
+                        | PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT;
+            }
+
             return flags | PendingIntent.FLAG_MUTABLE;
         }
 
@@ -297,7 +305,6 @@ public class DynamicIntentUtils {
      * @return The updated flags.
      *
      * @see #addMutabilityFlag(int, boolean)
-     * @see PendingIntent#FLAG_IMMUTABLE
      */
     public static int addImmutableFlag(int flags) {
         return addMutabilityFlag(flags, false);

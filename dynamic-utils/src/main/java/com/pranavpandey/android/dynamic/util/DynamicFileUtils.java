@@ -107,6 +107,11 @@ public class DynamicFileUtils {
     public static final String EXTENSION_IMAGE = ".png";
 
     /**
+     * Constant for the next line character.
+     */
+    public static final String CHARACTER_NEXT_LINE = "\n";
+
+    /**
      * Returns the default external directory for the app appended with the supplied path.
      *
      * @param context The context to be used.
@@ -642,11 +647,14 @@ public class DynamicFileUtils {
      *
      * @param context The context to get content resolver.
      * @param fileUri The source file URI.
+     * @param nextLine {@code true} to append next line character after each line.
      *
      * @return The string data after reading the file.
+     *
+     * @see #CHARACTER_NEXT_LINE
      */
-    public static @Nullable String readStringFromFile(
-            @Nullable Context context, @Nullable Uri fileUri) {
+    public static @Nullable String readStringFromFile(@Nullable Context context,
+            @Nullable Uri fileUri, boolean nextLine) {
         if (context == null || fileUri == null) {
             return null;
         }
@@ -664,6 +672,10 @@ public class DynamicFileUtils {
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
                         stringBuilder.append(line);
+
+                        if (nextLine) {
+                            stringBuilder.append(CHARACTER_NEXT_LINE);
+                        }
                     }
                 } catch (Exception ignored) {
                 } finally {
@@ -677,6 +689,21 @@ public class DynamicFileUtils {
         }
 
         return string;
+    }
+
+    /**
+     * Reads a string data from the file URI.
+     *
+     * @param context The context to get content resolver.
+     * @param fileUri The source file URI.
+     *
+     * @return The string data after reading the file.
+     *
+     * @see #readStringFromFile(Context, Uri, boolean)
+     */
+    public static @Nullable String readStringFromFile(
+            @Nullable Context context, @Nullable Uri fileUri) {
+        return readStringFromFile(context, fileUri, false);
     }
 
     /**

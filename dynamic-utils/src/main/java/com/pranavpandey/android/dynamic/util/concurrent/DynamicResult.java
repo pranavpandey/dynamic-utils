@@ -55,6 +55,8 @@ public abstract class DynamicResult<T> {
 
     /**
      * The result class to represent the success.
+     *
+     * @param <T> The type of the success.
      */
     public static final class Success<T> extends DynamicResult<T> {
 
@@ -70,6 +72,8 @@ public abstract class DynamicResult<T> {
 
     /**
      * The result class to represent the progress.
+     *
+     * @param <T> The type of the progress.
      */
     public static final class Progress<T> extends DynamicResult<T> {
 
@@ -85,6 +89,8 @@ public abstract class DynamicResult<T> {
 
     /**
      * The result class to represent the error.
+     *
+     * @param <T> The type of the error.
      */
     public static final class Error<T> extends DynamicResult<T> {
 

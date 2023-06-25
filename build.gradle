@@ -67,12 +67,12 @@ ext {
     mavenDir = 'com/pranavpandey/android'
     mavenArtifactId = 'dynamic-utils'
     mavenInceptionYear = '2017'
-    mavenVersion = '4.4.8'
-    mavenVersionCode = 43
+    mavenVersion = '4.5.0'
+    mavenVersionCode = 44
 
     developerId = 'pranavpandey'
     developerName = 'Pranav Pandey'
-    developerEmail = 'pranavpande92@gmail.com'
+    developerEmail = 'dynamic@pranavpandey.com'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'

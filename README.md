@@ -18,6 +18,7 @@ project to AndroidX.
 [AndroidX Core][androidx core].
 <br/>Since v4.3.0, it supports some helper methods to capture results via
 [Barquode](#barquode-for-android) app.
+<br/>Since v4.5.1, it is targeting Java 17 to provide maximum compatibility.
 
 ---
 

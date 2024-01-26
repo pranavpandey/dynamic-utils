@@ -27,10 +27,19 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+
+        // Raw R8 releases.
+        maven {
+            url("https://storage.googleapis.com/r8-releases/raw")
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
+        classpath 'com.android.tools.build:gradle:8.2.1'
+
+        // More info: https://issuetracker.google.com/issues/280659987
+        // noinspection GradleDependency, keep R8 version to AGP 8.1.0-beta4.
+        classpath("com.android.tools:r8:8.1.46")
     }
 }
 
@@ -45,7 +54,7 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
 

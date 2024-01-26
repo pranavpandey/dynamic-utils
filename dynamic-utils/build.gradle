@@ -59,7 +59,9 @@ project.afterEvaluate {
             destinationDir = new File(destinationDir, variant.baseName)
 
             source = variant.sourceSets.collect {
-                it.java.sourceFiles }.inject { m, i -> m + i
+                it.java.sourceFiles
+            }.inject {
+                m, i -> m + i
             }
             doFirst {
                 classpath = project.files(variant.javaCompileProvider.get().classpath.files,

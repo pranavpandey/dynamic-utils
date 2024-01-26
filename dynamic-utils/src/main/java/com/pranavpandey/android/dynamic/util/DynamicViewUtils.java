@@ -713,6 +713,21 @@ public class DynamicViewUtils {
     /**
      * Equivalent to calling {@link TextView#setTextSize(int, float)}.
      *
+     * @param textView The text view to be used.
+     * @param units The units of size (e.g. COMPLEX_UNIT_SP).
+     * @param size The size of the text.
+     */
+    public static void setTextViewTextSize(@Nullable TextView textView, int units, float size) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTextSize(units, size);
+    }
+
+    /**
+     * Equivalent to calling {@link TextView#setTextSize(int, float)}.
+     *
      * @param remoteViews The remote views to be used.
      * @param viewId The id of the view to be used.
      * @param units The units of size (e.g. COMPLEX_UNIT_SP).

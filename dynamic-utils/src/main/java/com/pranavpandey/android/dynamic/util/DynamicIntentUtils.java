@@ -274,7 +274,7 @@ public class DynamicIntentUtils {
             return flags | PendingIntent.FLAG_IMMUTABLE;
         } else if (DynamicSdkUtils.is31() && mutable) {
             if (DynamicSdkUtils.is34()) {
-                flags = flags | PendingIntent.FLAG_NO_CREATE
+                flags = flags | PendingIntent.FLAG_UPDATE_CURRENT
                         | PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT;
             }
 

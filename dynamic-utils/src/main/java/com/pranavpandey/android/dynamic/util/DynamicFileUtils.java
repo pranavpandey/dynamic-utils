@@ -406,6 +406,42 @@ public class DynamicFileUtils {
     }
 
     /**
+     * Returns file from the URI.
+     *
+     * @param uri The URI to get the file.
+     *
+     * @return The file from the URI.
+     *
+     * @see Uri#getPath()
+     */
+    public static @Nullable File getFileFromUri(@Nullable Uri uri) {
+        if (uri == null || uri.getPath() == null) {
+            return null;
+        }
+
+        return new File(uri.getPath());
+    }
+
+    /**
+     * Returns file from the URI string.
+     *
+     * @param uri The URI to get the file.
+     *
+     * @return The file from the URI string.
+     *
+     * @see Context#getContentResolver()
+     */
+    public static @Nullable File getFileFromUri(@Nullable String uri) {
+        try {
+            return getFileFromUri(Uri.parse(uri));
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+    }
+
+    /**
      * Returns file name from the URI.
      *
      * @param context The context to get content resolver.

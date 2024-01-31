@@ -35,7 +35,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.1'
+        classpath 'com.android.tools.build:gradle:8.2.2'
 
         // More info: https://issuetracker.google.com/issues/280659987
         // noinspection GradleDependency, keep R8 version to AGP 8.1.0-beta4.

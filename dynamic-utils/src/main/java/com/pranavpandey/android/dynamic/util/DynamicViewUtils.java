@@ -86,6 +86,7 @@ public class DynamicViewUtils {
      * @deprecated Use {@link DynamicWindowUtils#setEdgeToEdge(Window, boolean)} to support
      *             latest API levels.
      */
+    @Deprecated
     @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.M)
     public static void setEdgeToEdge(@Nullable View view, boolean edgeToEdge) {
@@ -120,6 +121,7 @@ public class DynamicViewUtils {
      *
      * @deprecated Try to use {@link WindowInsetsControllerCompat} if possible.
      */
+    @Deprecated
     @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.M)
     public static boolean isEdgeToEdge(@NonNull View view) {

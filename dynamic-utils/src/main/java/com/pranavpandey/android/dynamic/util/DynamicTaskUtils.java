@@ -42,6 +42,7 @@ public class DynamicTaskUtils {
      * @deprecated Use {@link #executeTask(DynamicTask)} or standard
      *             {@code java.util.concurrent} APIs.
      */
+    @Deprecated
     @SuppressWarnings("deprecation")
     public static void executeTask(@Nullable AsyncTask<Object, ?, ?> task) {
         if (task == null) {
@@ -66,6 +67,7 @@ public class DynamicTaskUtils {
      * @deprecated Use {@link #cancelTask(DynamicTask, boolean)} or standard
      *             {@code java.util.concurrent} APIs.
      */
+    @Deprecated
     @SuppressWarnings("deprecation")
     public static void cancelTask(@Nullable AsyncTask<?, ?, ?> task) {
         if (task == null) {

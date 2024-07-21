@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 Pranav Pandey
+ * Copyright 2017-2024 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -344,6 +344,21 @@ public class DynamicDeviceUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
         return dateFormat.format(milliSeconds);
+    }
+
+    /**
+     * Checks whether the device has a One UI version installed.
+     *
+     * @return {@code true} if the device has a One UI version installed.
+     */
+    @SuppressWarnings("JavaReflectionMemberAccess")
+    public static boolean isSamsungOneUI() {
+        try {
+            return Build.VERSION.class.getDeclaredField("SEM_PLATFORM_INT")
+                    .getInt(null) >= 9000;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**

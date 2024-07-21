@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 Pranav Pandey
+ * Copyright 2017-2024 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Insets;
 import android.graphics.Point;
-import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -36,6 +35,7 @@ import android.view.WindowMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 
@@ -44,12 +44,19 @@ import androidx.core.view.WindowCompat;
  *
  * @see WindowManager
  */
+@TargetApi(Build.VERSION_CODES.R)
 public class DynamicWindowUtils {
 
     /**
      * Maximum height for the gesture navigation in DP.
      */
     public static final int GESTURE_NAVIGATION_BAR_HEIGHT = 24;
+
+    /**
+     * Inset type to calculate the app usable screen size.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public static int APP_USABLE_SCREEN_SIZE_INSETS = 0;
 
     /**
      * Returns the correct display according to the different API levels.
@@ -61,28 +68,13 @@ public class DynamicWindowUtils {
      * @see Context#getDisplay()
      * @see WindowManager#getDefaultDisplay()
      */
-    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.R)
     public static @Nullable Display getDisplay(@Nullable Context context) {
         if (context == null) {
             return null;
         }
 
-        if (DynamicSdkUtils.is30()) {
-            try {
-                return context.getDisplay();
-            } catch (Exception ignored) {
-                DisplayManager displayManager = ContextCompat.getSystemService(
-                        context, DisplayManager.class);
-                return displayManager != null ? displayManager.getDisplay(
-                        Display.DEFAULT_DISPLAY) : null;
-            }
-        }
-
-        WindowManager windowManager = context instanceof Activity
-                ? ((Activity) context).getWindowManager()
-                : ContextCompat.getSystemService(context, WindowManager.class);
-        return windowManager != null ? windowManager.getDefaultDisplay() : null;
+        return ContextCompat.getDisplayOrDefault(context);
     }
 
     /**
@@ -160,16 +152,13 @@ public class DynamicWindowUtils {
     public static @NonNull Point getAppUsableScreenSize(@Nullable Context context) {
         Point size = new Point();
 
-        /*
-         * This approach is not efficient on API 30 (Samsung OneUI) when some specific mode
-         * is enabled like Game mode, so we are using it on API 31 and above.
-         */
-        if (DynamicSdkUtils.is31()) {
+        if (DynamicSdkUtils.is30()) {
             WindowMetrics windowMetrics = getCurrentWindowMetrics(context);
 
             if (windowMetrics != null) {
                 Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(
-                        WindowInsets.Type.navigationBars());
+                        APP_USABLE_SCREEN_SIZE_INSETS != 0 ? APP_USABLE_SCREEN_SIZE_INSETS
+                                : WindowInsets.Type.navigationBars());
                 size.x = windowMetrics.getBounds().width() - insets.left - insets.right;
                 size.y = windowMetrics.getBounds().height() - insets.top - insets.bottom;
             }

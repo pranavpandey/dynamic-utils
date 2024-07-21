@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Copyright 2017-2022 Pranav Pandey
+	Copyright 2017-2024 Pranav Pandey
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Query packages on API 30 and above. -->
+    <queries>
+        <package android:name="com.google.android.gms" />
+    </queries>
 
     <!-- Query intents on API 30 and above. -->
     <queries>

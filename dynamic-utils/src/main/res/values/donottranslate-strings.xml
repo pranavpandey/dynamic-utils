@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Copyright 2017-2022 Pranav Pandey
+	Copyright 2017-2024 Pranav Pandey
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -17,11 +17,16 @@
 
 <resources>
 
+    <!-- Store -->
+    <string name="adu_store_google_play">Google Play</string>
+    <string name="adu_store_samsung_galaxy_store">Galaxy Store</string>
+
     <!-- Format -->
     <string name="adu_format_blank_space">%1$s %2$s</string>
 
     <!-- Share app -->
     <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>
+    <string name="adu_share_desc_samsung_galaxy_store">%1$s\n"https://apps.samsung.com/appquery/appDetail.as?appId="%2$s</string>
 
     <!-- Submit bug report -->
     <string name="adu_report_title">%1$s (%2$s | %3$d, %4$s, %5$s, %6$s)</string>

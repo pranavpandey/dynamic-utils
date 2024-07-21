@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 Pranav Pandey
+ * Copyright 2017-2024 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,6 +71,18 @@ public class DynamicLinkUtils {
      */
     private static final String URL_GOOGLE_PLAY_SEARCH_PUB =
             "http://play.google.com/store/search?q=pub:";
+
+    /**
+     *  Samsung Galaxy Store app URL template to open app details.
+     */
+    private static final String URL_SAMSUNG_GALAXY_STORE =
+            "https://apps.samsung.com/appquery/appDetail.as?appId=";
+
+    /**
+     * Samsung Galaxy Store app search query template to search apps of a publisher.
+     */
+    private static final String URL_SAMSUNG_GALAXY_STORE_SEARCH_PUB =
+            "https://apps.samsung.com/appquery/sellerProductList.as?SellerID=";
 
     /**
      * Constant for the bookmarks URI.
@@ -173,13 +185,15 @@ public class DynamicLinkUtils {
      *                <p>{@code null} to supply app and package name.
      * @param uri The optional content URI to be shared.
      * @param mimeType The optional mime type for the file.
+     * @param flavor The product flavor to be used.
      *
      * @return {@code true} on successful operation.
      *
      * @see Intent#ACTION_SEND
      */
     public static boolean share(@Nullable Context context, @Nullable String title,
-            @Nullable String message, @Nullable Uri uri, @Nullable String mimeType) {
+            @Nullable String message, @Nullable Uri uri, @Nullable String mimeType,
+            @DynamicSdkUtils.DynamicFlavor String flavor) {
         if (context == null) {
             return false;
         }
@@ -194,9 +208,17 @@ public class DynamicLinkUtils {
         }
 
         if (message == null) {
-            message = String.format(context.getString(R.string.adu_share_desc),
-                    context.getApplicationInfo().loadLabel(context.getPackageManager()),
-                    context.getPackageName());
+            if (DynamicSdkUtils.DynamicFlavor.EXTERNAL.equals(flavor)
+                    && DynamicDeviceUtils.isSamsungOneUI()) {
+                message = String.format(context.getString(
+                        R.string.adu_share_desc_samsung_galaxy_store),
+                        context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                        context.getPackageName());
+            } else {
+                message = String.format(context.getString(R.string.adu_share_desc),
+                        context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                        context.getPackageName());
+            }
         }
 
         intent.putExtra(Intent.EXTRA_TEXT, message);
@@ -228,6 +250,27 @@ public class DynamicLinkUtils {
      * @param message The default share message which user can modify.
      *                <p>{@code null} to supply app and package name.
      * @param image The optional image bitmap URI to be shared.
+     * @param flavor The product flavor to be used.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see Intent#ACTION_SEND
+     */
+    public static boolean share(@Nullable Context context,
+            @Nullable String title, @Nullable String message, @Nullable Uri image,
+            @DynamicSdkUtils.DynamicFlavor String flavor) {
+        return share(context, title, message, image, "image/*", flavor);
+    }
+
+    /**
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
+     *
+     * @param context The context to be used.
+     * @param title The application chooser title if more than one apps are available.
+     * @param message The default share message which user can modify.
+     *                <p>{@code null} to supply app and package name.
+     * @param image The optional image bitmap URI to be shared.
      *
      * @return {@code true} on successful operation.
      *
@@ -235,7 +278,26 @@ public class DynamicLinkUtils {
      */
     public static boolean share(@Nullable Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri image) {
-        return share(context, title, message, image, "image/*");
+        return share(context, title, message, image, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+    }
+
+    /**
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
+     *
+     * @param context The context to be used.
+     * @param title The application chooser title if more than one apps are available.
+     * @param message The default share message which user can modify.
+     *                <p>{@code null} to supply app and package name.
+     * @param flavor The product flavor to be used.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see Intent#ACTION_SEND
+     */
+    public static boolean share(@Nullable Context context, @Nullable String title,
+            @Nullable String message, @DynamicSdkUtils.DynamicFlavor String flavor) {
+        return share(context, title, message, null, flavor);
     }
 
     /**
@@ -253,7 +315,23 @@ public class DynamicLinkUtils {
      */
     public static boolean share(@Nullable Context context,
             @Nullable String title, @Nullable String message) {
-        return share(context, title, message, null);
+        return share(context, title, message, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+    }
+
+    /**
+     * Share application via system default share intent so that user can select from the
+     * available apps if more than one apps are available.
+     *
+     * @param context The context to be used.
+     * @param flavor The product flavor to be used.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #share(Context, String, String)
+     */
+    public static boolean shareApp(@Nullable Context context,
+            @DynamicSdkUtils.DynamicFlavor String flavor) {
+        return share(context, null, null, flavor);
     }
 
     /**
@@ -267,7 +345,7 @@ public class DynamicLinkUtils {
      * @see #share(Context, String, String)
      */
     public static boolean shareApp(@Nullable Context context) {
-        return share(context, null, null);
+        return shareApp(context, DynamicSdkUtils.DynamicFlavor.GOOGLE);
     }
 
     /**
@@ -301,7 +379,7 @@ public class DynamicLinkUtils {
      * {@code https or http} in {@code AndroidManifest} to support API 30.
      *
      * @param context The context to be used.
-     * @param packageName Application package name to build the search query.
+     * @param packageName The app package name to build the search query.
      *
      * @return {@code true} on successful operation.
      *
@@ -317,6 +395,126 @@ public class DynamicLinkUtils {
     }
 
     /**
+     * View app on Samsung Galaxy Store.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param packageName The app package name to build the search query.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see Intent#ACTION_VIEW
+     */
+    public static boolean viewInSamsungGalaxyStore(@Nullable Context context,
+            @NonNull String packageName) {
+        return viewUrl(context, URL_SAMSUNG_GALAXY_STORE + packageName);
+    }
+
+    /**
+     * View app on Google Play (or Android Market) or Samsung Galaxy Store if available.
+     * <p>Can be used to view app details within the supported stores.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param packageName The app package name to build the search query.
+     * @param flavor The product flavor to be used.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #viewInGooglePlay(Context, String)
+     * @see #viewInSamsungGalaxyStore(Context, String)
+     * @see DynamicSdkUtils.DynamicFlavor
+     */
+    public static boolean viewApp(@Nullable Context context, @NonNull String packageName,
+            @DynamicSdkUtils.DynamicFlavor String flavor) {
+        if (DynamicSdkUtils.DynamicFlavor.EXTERNAL.equals(flavor)) {
+            return viewAppExternal(context, packageName);
+        } else if (context == null) {
+            return false;
+        }
+
+        if (viewInGooglePlay(context, packageName)) {
+            return true;
+        } else if (DynamicDeviceUtils.isSamsungOneUI()) {
+            return viewInSamsungGalaxyStore(context, packageName);
+        }
+        
+        return false;
+    }
+
+    /**
+     * View app on Google Play (or Android Market) or Samsung Galaxy Store if available.
+     * <p>Can be used to view app details within the supported stores.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param packageName The app package name to build the search query.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #viewApp(Context, String, String)
+     * @see DynamicSdkUtils.DynamicFlavor#GOOGLE
+     */
+    public static boolean viewApp(@Nullable Context context, @NonNull String packageName) {
+        return viewApp(context, packageName, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+    }
+
+    /**
+     * View app on Google Play (or Android Market) or Samsung Galaxy Store if available.
+     * External stores will be preferred first.
+     * <p>Can be used to view app details within the supported stores.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param packageName The app package name to build the search query.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #viewInGooglePlay(Context, String)
+     * @see #viewInSamsungGalaxyStore(Context, String)
+     */
+    public static boolean viewAppExternal(@Nullable Context context, @NonNull String packageName) {
+        if (context == null) {
+            return false;
+        }
+
+
+        if (DynamicDeviceUtils.isSamsungOneUI()
+                && viewInSamsungGalaxyStore(context, packageName)) {
+            return true;
+        } else {
+            return viewInGooglePlay(context, packageName);
+        }
+    }
+
+    /**
+     * View app on Google Play or Android Market.
+     * <p>Can be used for the quick feedback or rating from the user.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param flavor The product flavor to be used.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #viewApp(Context, String, String)
+     * @see DynamicSdkUtils.DynamicFlavor
+     */
+    public static boolean rateApp(@Nullable Context context,
+            @DynamicSdkUtils.DynamicFlavor String flavor) {
+        if (context == null) {
+            return false;
+        }
+
+        return viewApp(context, context.getPackageName(), flavor);
+    }
+
+    /**
      * View app on Google Play or Android Market.
      * <p>Can be used for the quick feedback or rating from the user.
      * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
@@ -326,14 +524,10 @@ public class DynamicLinkUtils {
      *
      * @return {@code true} on successful operation.
      *
-     * @see #viewInGooglePlay(Context, String)
+     * @see #rateApp(Context, String)
      */
     public static boolean rateApp(@Nullable Context context) {
-        if (context == null) {
-            return false;
-        }
-
-        return viewInGooglePlay(context, context.getPackageName());
+        return rateApp(context, DynamicSdkUtils.DynamicFlavor.GOOGLE);
     }
 
     /**
@@ -346,7 +540,7 @@ public class DynamicLinkUtils {
      *
      * @return {@code true} on successful operation.
      *
-     * @see Intent#ACTION_VIEW
+     * @see #viewUrl(Context, String)
      */
     public static boolean moreApps(@Nullable Context context, @NonNull String publisher) {
         if (viewUrl(context, URL_MARKET_SEARCH_PUB + publisher)) {
@@ -354,6 +548,22 @@ public class DynamicLinkUtils {
         }
 
         return viewUrl(context, URL_GOOGLE_PLAY_SEARCH_PUB + publisher);
+    }
+
+    /**
+     * View other apps of a Samsung Galaxy Store.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param publisher The publisher name to build the search query.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #viewUrl(Context, String)
+     */
+    public static boolean moreAppsSamsung(@Nullable Context context, @NonNull String publisher) {
+        return viewUrl(context, URL_SAMSUNG_GALAXY_STORE_SEARCH_PUB + publisher);
     }
 
     /**

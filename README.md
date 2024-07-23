@@ -19,6 +19,7 @@ project to AndroidX.
 <br/>Since v4.3.0, it supports some helper methods to capture results via
 [Barquode](#barquode-for-android) app.
 <br/>Since v4.5.1, it is targeting Java 17 to provide maximum compatibility.
+<br/>Since v4.6.0, the minimum SDK is Android 4.4 (API 19) to comply with the latest policies.
 
 ---
 
@@ -55,7 +56,7 @@ It can be installed by adding the following dependency to your `build.gradle` fi
 ```groovy
 dependencies {
     // For AndroidX enabled projects.
-    implementation 'com.pranavpandey.android:dynamic-utils:4.5.1'
+    implementation 'com.pranavpandey.android:dynamic-utils:4.6.0'
 
     // For legacy projects.
     implementation 'com.pranavpandey.android:dynamic-utils:1.3.0'

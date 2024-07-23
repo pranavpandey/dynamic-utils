@@ -35,7 +35,7 @@ buildscript {
 }
 
 plugins {
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 allprojects {
@@ -67,8 +67,8 @@ ext {
     mavenDir = 'com/pranavpandey/android'
     mavenArtifactId = 'dynamic-utils'
     mavenInceptionYear = '2017'
-    mavenVersion = '4.5.1'
-    mavenVersionCode = 45
+    mavenVersion = '4.6.0'
+    mavenVersionCode = 46
 
     developerId = 'pranavpandey'
     developerName = 'Pranav Pandey'

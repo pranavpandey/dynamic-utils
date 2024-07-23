@@ -15,7 +15,11 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="package-declaration-page">
-<script type="text/javascript">var pathtoroot = "../../../../../";
+<script type="text/javascript">var evenRowColor = "even-row-color";
+var oddRowColor = "odd-row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -81,8 +85,9 @@ loadScripts(document, 'script');</script>
 </li>
 <li>
 <div id="class-summary">
-<div class="caption"><span>Classes</span></div>
-<div class="summary-table two-column-summary">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button><button id="class-summary-tab7" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab7', 2)" class="table-tab">Annotation Interfaces</button></div>
+<div id="class-summary.tabpanel" role="tabpanel">
+<div class="summary-table two-column-summary" aria-labelledby="class-summary-tab0">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="DynamicAnimUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicAnimUtils</a></div>
@@ -130,25 +135,30 @@ loadScripts(document, 'script');</script>
 <div class="block">Helper class to detect the Android SDK version at runtime so that we can provide the 
  user experience accordingly.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="DynamicTaskUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicTaskUtils</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab7"><a href="DynamicSdkUtils.DynamicFlavor.html" title="annotation interface in com.pranavpandey.android.dynamic.util">DynamicSdkUtils.DynamicFlavor</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab7">
+<div class="block">Product flavors to support external app stores.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="DynamicTaskUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicTaskUtils</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Helper class to easily execute or cancel an <a href="https://developer.android.com/reference/android/os/AsyncTask.html" title="class or interface in android.os" class="external-link"><code>AsyncTask</code></a> by handling all the exceptions.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="DynamicTextUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicTextUtils</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="DynamicTextUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicTextUtils</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Helper class to perform text operations.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="DynamicUnitUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicUnitUtils</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="DynamicUnitUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicUnitUtils</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Helper class to perform unit conversions.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="DynamicViewUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicViewUtils</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="DynamicViewUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicViewUtils</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Helper class to perform <a href="https://developer.android.com/reference/android/view/View.html" title="class or interface in android.view" class="external-link"><code>View</code></a> operations.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="DynamicWindowUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicWindowUtils</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="DynamicWindowUtils.html" title="class in com.pranavpandey.android.dynamic.util">DynamicWindowUtils</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Helper class to perform window operations and to detect system configurations at runtime.</div>
+</div>
 </div>
 </div>
 </div>

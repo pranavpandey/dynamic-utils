@@ -421,6 +421,13 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Equivalent to calling <a href="https://developer.android.com/reference/android/widget/TextView.html#setTextSize(int,float)" title="class or interface in android.widget" class="external-link"><code>TextView.setTextSize(int, float)</code></a>.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setTextViewTextSize(android.widget.TextView,int,float)" class="member-name-link">setTextViewTextSize</a><wbr>(<a href="https://developer.android.com/reference/android/widget/TextView.html" title="class or interface in android.widget" class="external-link">TextView</a>&nbsp;textView,
+ int&nbsp;units,
+ float&nbsp;size)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Equivalent to calling <a href="https://developer.android.com/reference/android/widget/TextView.html#setTextSize(int,float)" title="class or interface in android.widget" class="external-link"><code>TextView.setTextSize(int, float)</code></a>.</div>
+</div>
 </div>
 </div>
 </div>
@@ -471,7 +478,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="setEdgeToEdge(android.view.View,boolean)">
 <h3>setEdgeToEdge</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEdgeToEdge</span><wbr><span class="parameters">(<a href="https://developer.android.com/reference/androidx/annotation/Nullable.html" title="class or interface in androidx.annotation" class="external-link">@Nullable</a>
+<div class="member-signature"><span class="annotations"><a href="https://developer.android.com/reference/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEdgeToEdge</span><wbr><span class="parameters">(<a href="https://developer.android.com/reference/androidx/annotation/Nullable.html" title="class or interface in androidx.annotation" class="external-link">@Nullable</a>
  <a href="https://developer.android.com/reference/android/view/View.html" title="class or interface in android.view" class="external-link">View</a>&nbsp;view,
  boolean&nbsp;edgeToEdge)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
@@ -489,7 +497,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="isEdgeToEdge(android.view.View)">
 <h3>isEdgeToEdge</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEdgeToEdge</span><wbr><span class="parameters">(<a href="https://developer.android.com/reference/androidx/annotation/NonNull.html" title="class or interface in androidx.annotation" class="external-link">@NonNull</a>
+<div class="member-signature"><span class="annotations"><a href="https://developer.android.com/reference/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEdgeToEdge</span><wbr><span class="parameters">(<a href="https://developer.android.com/reference/androidx/annotation/NonNull.html" title="class or interface in androidx.annotation" class="external-link">@NonNull</a>
  <a href="https://developer.android.com/reference/android/view/View.html" title="class or interface in android.view" class="external-link">View</a>&nbsp;view)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
 <div class="deprecation-comment">Try to use <a href="https://developer.android.com/reference/androidx/core/view/WindowInsetsControllerCompat.html" title="class or interface in androidx.core.view" class="external-link"><code>WindowInsetsControllerCompat</code></a> if possible.</div>
@@ -1072,6 +1081,22 @@ loadScripts(document, 'script');</script>
 <li><a href="https://developer.android.com/reference/android/widget/TextSwitcher.html#setText(java.lang.CharSequence)" title="class or interface in android.widget" class="external-link"><code>TextSwitcher.setText(CharSequence)</code></a></li>
 </ul>
 </dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setTextViewTextSize(android.widget.TextView,int,float)">
+<h3>setTextViewTextSize</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTextViewTextSize</span><wbr><span class="parameters">(<a href="https://developer.android.com/reference/androidx/annotation/Nullable.html" title="class or interface in androidx.annotation" class="external-link">@Nullable</a>
+ <a href="https://developer.android.com/reference/android/widget/TextView.html" title="class or interface in android.widget" class="external-link">TextView</a>&nbsp;textView,
+ int&nbsp;units,
+ float&nbsp;size)</span></div>
+<div class="block">Equivalent to calling <a href="https://developer.android.com/reference/android/widget/TextView.html#setTextSize(int,float)" title="class or interface in android.widget" class="external-link"><code>TextView.setTextSize(int, float)</code></a>.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>textView</code> - The text view to be used.</dd>
+<dd><code>units</code> - The units of size (e.g. COMPLEX_UNIT_SP).</dd>
+<dd><code>size</code> - The size of the text.</dd>
 </dl>
 </section>
 </li>

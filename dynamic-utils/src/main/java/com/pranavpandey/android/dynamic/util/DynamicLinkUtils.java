@@ -34,6 +34,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.net.MailTo;
 
+import com.pranavpandey.android.dynamic.util.product.DynamicFlavor;
+
 import java.util.ArrayList;
 
 /**
@@ -193,7 +195,7 @@ public class DynamicLinkUtils {
      */
     public static boolean share(@Nullable Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri uri, @Nullable String mimeType,
-            @DynamicSdkUtils.DynamicFlavor String flavor) {
+            @DynamicFlavor String flavor) {
         if (context == null) {
             return false;
         }
@@ -208,7 +210,7 @@ public class DynamicLinkUtils {
         }
 
         if (message == null) {
-            if (DynamicSdkUtils.DynamicFlavor.EXTERNAL.equals(flavor)
+            if (DynamicFlavor.EXTERNAL.equals(flavor)
                     && DynamicDeviceUtils.isSamsungOneUI()) {
                 message = String.format(context.getString(
                         R.string.adu_share_desc_samsung_galaxy_store),
@@ -256,9 +258,8 @@ public class DynamicLinkUtils {
      *
      * @see Intent#ACTION_SEND
      */
-    public static boolean share(@Nullable Context context,
-            @Nullable String title, @Nullable String message, @Nullable Uri image,
-            @DynamicSdkUtils.DynamicFlavor String flavor) {
+    public static boolean share(@Nullable Context context, @Nullable String title,
+            @Nullable String message, @Nullable Uri image, @DynamicFlavor String flavor) {
         return share(context, title, message, image, "image/*", flavor);
     }
 
@@ -278,7 +279,7 @@ public class DynamicLinkUtils {
      */
     public static boolean share(@Nullable Context context, @Nullable String title,
             @Nullable String message, @Nullable Uri image) {
-        return share(context, title, message, image, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+        return share(context, title, message, image, DynamicFlavor.DEFAULT);
     }
 
     /**
@@ -296,7 +297,7 @@ public class DynamicLinkUtils {
      * @see Intent#ACTION_SEND
      */
     public static boolean share(@Nullable Context context, @Nullable String title,
-            @Nullable String message, @DynamicSdkUtils.DynamicFlavor String flavor) {
+            @Nullable String message, @DynamicFlavor String flavor) {
         return share(context, title, message, null, flavor);
     }
 
@@ -315,7 +316,7 @@ public class DynamicLinkUtils {
      */
     public static boolean share(@Nullable Context context,
             @Nullable String title, @Nullable String message) {
-        return share(context, title, message, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+        return share(context, title, message, DynamicFlavor.DEFAULT);
     }
 
     /**
@@ -329,8 +330,7 @@ public class DynamicLinkUtils {
      *
      * @see #share(Context, String, String)
      */
-    public static boolean shareApp(@Nullable Context context,
-            @DynamicSdkUtils.DynamicFlavor String flavor) {
+    public static boolean shareApp(@Nullable Context context, @DynamicFlavor String flavor) {
         return share(context, null, null, flavor);
     }
 
@@ -345,7 +345,7 @@ public class DynamicLinkUtils {
      * @see #share(Context, String, String)
      */
     public static boolean shareApp(@Nullable Context context) {
-        return shareApp(context, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+        return shareApp(context, DynamicFlavor.DEFAULT);
     }
 
     /**
@@ -425,11 +425,11 @@ public class DynamicLinkUtils {
      *
      * @see #viewInGooglePlay(Context, String)
      * @see #viewInSamsungGalaxyStore(Context, String)
-     * @see DynamicSdkUtils.DynamicFlavor
+     * @see DynamicFlavor
      */
-    public static boolean viewApp(@Nullable Context context, @NonNull String packageName,
-            @DynamicSdkUtils.DynamicFlavor String flavor) {
-        if (DynamicSdkUtils.DynamicFlavor.EXTERNAL.equals(flavor)) {
+    public static boolean viewApp(@Nullable Context context,
+            @NonNull String packageName, @DynamicFlavor String flavor) {
+        if (DynamicFlavor.EXTERNAL.equals(flavor)) {
             return viewAppExternal(context, packageName);
         } else if (context == null) {
             return false;
@@ -456,10 +456,10 @@ public class DynamicLinkUtils {
      * @return {@code true} on successful operation.
      *
      * @see #viewApp(Context, String, String)
-     * @see DynamicSdkUtils.DynamicFlavor#GOOGLE
+     * @see DynamicFlavor#GOOGLE
      */
     public static boolean viewApp(@Nullable Context context, @NonNull String packageName) {
-        return viewApp(context, packageName, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+        return viewApp(context, packageName, DynamicFlavor.DEFAULT);
     }
 
     /**
@@ -503,10 +503,9 @@ public class DynamicLinkUtils {
      * @return {@code true} on successful operation.
      *
      * @see #viewApp(Context, String, String)
-     * @see DynamicSdkUtils.DynamicFlavor
+     * @see DynamicFlavor
      */
-    public static boolean rateApp(@Nullable Context context,
-            @DynamicSdkUtils.DynamicFlavor String flavor) {
+    public static boolean rateApp(@Nullable Context context, @DynamicFlavor String flavor) {
         if (context == null) {
             return false;
         }
@@ -527,7 +526,7 @@ public class DynamicLinkUtils {
      * @see #rateApp(Context, String)
      */
     public static boolean rateApp(@Nullable Context context) {
-        return rateApp(context, DynamicSdkUtils.DynamicFlavor.GOOGLE);
+        return rateApp(context, DynamicFlavor.DEFAULT);
     }
 
     /**

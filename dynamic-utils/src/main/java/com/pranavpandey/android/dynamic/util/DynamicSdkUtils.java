@@ -29,22 +29,6 @@ import android.os.Build;
 public class DynamicSdkUtils {
 
     /**
-     * Product flavors to support external app stores.
-     */
-    public @interface DynamicFlavor {
-
-        /**
-         * Constant for the Google Play Store.
-         */
-        String GOOGLE = "google";
-
-        /**
-         * Constant for the external app store.
-         */
-        String EXTERNAL = "external";
-    }
-
-    /**
      * Detects if the current API version is a preview.
      *
      * @return {@code true} if the current API version is a preview.

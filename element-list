@@ -4,4 +4,5 @@ com.pranavpandey.android.dynamic.util.concurrent
 com.pranavpandey.android.dynamic.util.concurrent.task
 com.pranavpandey.android.dynamic.util.loader
 com.pranavpandey.android.dynamic.util.loader.handler
+com.pranavpandey.android.dynamic.util.product
 com.pranavpandey.android.dynamic.util.watcher

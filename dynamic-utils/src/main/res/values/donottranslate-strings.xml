@@ -21,6 +21,11 @@
     <string name="adu_store_google_play">Google Play</string>
     <string name="adu_store_samsung_galaxy_store">Galaxy Store</string>
 
+    <!-- URL -->
+    <string name="adu_url_me_website">https://pranavpandey.com</string>
+    <string name="adu_url_me_google_play">https://play.google.com/store/apps/dev?id=6608630615059087491</string>
+    <string name="adu_url_me_samsung_galaxy_store">https://apps.samsung.com/appquery/sellerProductList.as?SellerID=000000160572</string>
+
     <!-- Format -->
     <string name="adu_format_blank_space">%1$s %2$s</string>
 

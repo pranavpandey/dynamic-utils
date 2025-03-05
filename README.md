@@ -1,13 +1,14 @@
-<img src="./graphics/icon.png" width="160" height="160" align="right" hspace="20">
+<img src="./graphics/icon.png" height="160">
 
 # Dynamic Utils
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Release](https://img.shields.io/maven-central/v/com.pranavpandey.android/dynamic-utils)](https://search.maven.org/artifact/com.pranavpandey.android/dynamic-utils)
 
-A collection of static methods and packages to perform dynamic operations on Android 2.3 (API 9)
-and above.
+**A collection of static methods and packages to perform dynamic operations on Android 2.3 (API 9)
+and above.**
 
+> [!IMPORTANT]
 > Since v0.4.0, it uses [26.x.x support libraries][android-support] so, minimum SDK will be
 Android 4.0 (API 14).
 <br/>Since v2.0.0, it uses [AndroidX][androidx] so, first [migrate][androidx-migrate] your
@@ -291,8 +292,7 @@ Helper class to perform `window` operations and to detect system configurations 
 
 ---
 
-<img src="./graphics/apps/pranavpandey-barquode.png"
-  width="140" height="140" align="right" hspace="20">
+<img src="./graphics/apps/pranavpandey-barquode.png" height="140">
 
 ## Barquode
 

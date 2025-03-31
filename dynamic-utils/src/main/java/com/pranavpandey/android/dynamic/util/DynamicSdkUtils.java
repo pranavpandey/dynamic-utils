@@ -520,4 +520,26 @@ public class DynamicSdkUtils {
     public static boolean is35() {
         return is35(false);
     }
+
+    /**
+     * Detects if the current API version is 36 or above.
+     *
+     * @param equals {@code true} to check for equality.
+     *               <p>{@code false} to match greater than or equal.
+     *
+     * @return {@code true} if the current API version is 36 or above.
+     */
+    public static boolean is36(boolean equals) {
+        return equals ? Build.VERSION.SDK_INT == Build.VERSION_CODES.BAKLAVA
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA;
+    }
+
+    /**
+     * Detects if the current API version is 36 or above.
+     *
+     * @return {@code true} if the current API version is 36 or above.
+     */
+    public static boolean is36() {
+        return is36(false);
+    }
 }

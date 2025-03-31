@@ -147,6 +147,10 @@ public class DynamicIntentUtils {
             return intent.getParcelableExtra(Intent.EXTRA_STREAM);
         }
 
+        if (intent.getClipData() != null && intent.getClipData().getItemAt(0) != null) {
+            return intent.getClipData().getItemAt(0).getUri();
+        }
+
         return intent.getData();
     }
 

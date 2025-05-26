@@ -398,9 +398,9 @@ public class DynamicViewUtils {
 
                 return !consume ? insets :
                         new WindowInsetsCompat.Builder(insets).setInsets(
-                                WindowInsetsCompat.Type.systemBars(),
-                                Insets.of(left ? 0 : insets.getInsets(
-                                        WindowInsetsCompat.Type.systemBars()).left,
+                                WindowInsetsCompat.Type.systemBars(), Insets.of(
+                                        left ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).left,
                                         top ? 0 : insets.getInsets(
                                                 WindowInsetsCompat.Type.systemBars()).top,
                                         right ? 0 : insets.getInsets(
@@ -554,9 +554,9 @@ public class DynamicViewUtils {
 
                 return !consume ? insets :
                         new WindowInsetsCompat.Builder(insets).setInsets(
-                                WindowInsetsCompat.Type.systemBars(),
-                                Insets.of(left ? 0 : insets.getInsets(
-                                        WindowInsetsCompat.Type.systemBars()).left,
+                                WindowInsetsCompat.Type.systemBars(), Insets.of(
+                                        left ? 0 : insets.getInsets(
+                                                WindowInsetsCompat.Type.systemBars()).left,
                                         top ? 0 : insets.getInsets(
                                                 WindowInsetsCompat.Type.systemBars()).top,
                                         right ? 0 : insets.getInsets(

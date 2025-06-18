@@ -87,6 +87,11 @@ public class DynamicLinkUtils {
             "https://apps.samsung.com/appquery/sellerProductList.as?SellerID=";
 
     /**
+     *  HUAWEI AppGallery app URL template to open app details.
+     */
+    private static final String URL_HUAWEI_APP_GALLERY = "appmarket://details?id=";
+
+    /**
      * Constant for the bookmarks URI.
      */
     private static final Uri URI_BOOKMARKS = Uri.parse("content://browser/bookmarks");
@@ -210,12 +215,18 @@ public class DynamicLinkUtils {
         }
 
         if (message == null) {
-            if (DynamicFlavor.EXTERNAL.equals(flavor)
-                    && DynamicDeviceUtils.isSamsungOneUI()) {
-                message = String.format(context.getString(
-                        R.string.adu_share_desc_samsung_galaxy_store),
-                        context.getApplicationInfo().loadLabel(context.getPackageManager()),
-                        context.getPackageName());
+            if (DynamicFlavor.EXTERNAL.equals(flavor)) {
+                if (DynamicDeviceUtils.isSamsungOneUI()) {
+                    message = String.format(
+                            context.getString(R.string.adu_share_desc_samsung_galaxy_store),
+                            context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                            context.getPackageName());
+                } else if (DynamicDeviceUtils.isHuaweiEMUI(context)) {
+                    message = String.format(
+                            context.getString(R.string.adu_share_desc_huawei_app_gallery),
+                            context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                            context.getPackageName());
+                }
             } else {
                 message = String.format(context.getString(R.string.adu_share_desc),
                         context.getApplicationInfo().loadLabel(context.getPackageManager()),
@@ -412,6 +423,23 @@ public class DynamicLinkUtils {
     }
 
     /**
+     * View app on HUAWEI AppGallery.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
+     * {@code https or http} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param packageName The app package name to build the search query.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see Intent#ACTION_VIEW
+     */
+    public static boolean viewInHuaweiAppGallery(@Nullable Context context,
+            @NonNull String packageName) {
+        return viewUrl(context, URL_HUAWEI_APP_GALLERY + packageName);
+    }
+
+    /**
      * View app on Google Play (or Android Market) or Samsung Galaxy Store if available.
      * <p>Can be used to view app details within the supported stores.
      * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with scheme
@@ -485,6 +513,9 @@ public class DynamicLinkUtils {
 
         if (DynamicDeviceUtils.isSamsungOneUI()
                 && viewInSamsungGalaxyStore(context, packageName)) {
+            return true;
+        } else if (DynamicDeviceUtils.isHuaweiEMUI(context)
+                && viewInHuaweiAppGallery(context, packageName)) {
             return true;
         } else {
             return viewInGooglePlay(context, packageName);

@@ -20,11 +20,13 @@
     <!-- Store -->
     <string name="adu_store_google_play">Google Play</string>
     <string name="adu_store_samsung_galaxy_store">Galaxy Store</string>
+    <string name="adu_store_huawei_app_gallery">AppGallery</string>
 
     <!-- URL -->
     <string name="adu_url_me_website">https://pranavpandey.com</string>
     <string name="adu_url_me_google_play">https://play.google.com/store/apps/dev?id=6608630615059087491</string>
     <string name="adu_url_me_samsung_galaxy_store">https://apps.samsung.com/appquery/sellerProductList.as?SellerID=000000160572</string>
+    <string name="adu_url_me_huawei_app_gallery">@string/adu_url_me_website</string>
 
     <!-- Format -->
     <string name="adu_format_blank_space">%1$s %2$s</string>
@@ -32,6 +34,7 @@
     <!-- Share app -->
     <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>
     <string name="adu_share_desc_samsung_galaxy_store">%1$s\n"https://apps.samsung.com/appquery/appDetail.as?appId="%2$s</string>
+    <string name="adu_share_desc_huawei_app_gallery">%1$s\n"https://appgallery.cloud.huawei.com/appDetail?pkgName="%2$s</string>
 
     <!-- Submit bug report -->
     <string name="adu_report_title">%1$s (%2$s | %3$d, %4$s, %5$s, %6$s)</string>

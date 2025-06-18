@@ -362,6 +362,20 @@ public class DynamicDeviceUtils {
     }
 
     /**
+     * Checks whether the device has an EMUI version installed.
+     *
+     * @param context The context to resolve the activities.
+     *
+     * @return {@code true} if the device has an EMUI version installed.
+     */
+    public static boolean isHuaweiEMUI(@Nullable Context context) {
+        return  (Build.MANUFACTURER.toLowerCase().contains("huawei")
+                || Build.BRAND.toLowerCase().contains("huawei"))
+                && DynamicIntentUtils.isActivityResolved(context,
+                new Intent("com.huawei.appmarket.intent.action.MainActivity"));
+    }
+
+    /**
      * Checks whether the device has MIUI services installed.
      *
      * @param context The context to resolve the activities.

@@ -184,19 +184,24 @@ loadScripts(document, 'script');</script>
 <div class="block">Detects the telephony feature by using <a href="https://developer.android.com/reference/android/content/pm/PackageManager.html" title="class or interface in android.content.pm" class="external-link"><code>PackageManager</code></a>.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isSamsungOneUI()" class="member-name-link">isSamsungOneUI</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isHuaweiEMUI(android.content.Context)" class="member-name-link">isHuaweiEMUI</a><wbr>(<a href="https://developer.android.com/reference/android/content/Context.html" title="class or interface in android.content" class="external-link">Context</a>&nbsp;context)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Checks whether the device has a One UI version installed.</div>
+<div class="block">Checks whether the device has an EMUI version installed.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isXiaomiMIUI(android.content.Context)" class="member-name-link">isXiaomiMIUI</a><wbr>(<a href="https://developer.android.com/reference/android/content/Context.html" title="class or interface in android.content" class="external-link">Context</a>&nbsp;context)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isSamsungOneUI()" class="member-name-link">isSamsungOneUI</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks whether the device has a One UI version installed.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isXiaomiMIUI(android.content.Context)" class="member-name-link">isXiaomiMIUI</a><wbr>(<a href="https://developer.android.com/reference/android/content/Context.html" title="class or interface in android.content" class="external-link">Context</a>&nbsp;context)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Checks whether the device has MIUI services installed.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#vibrate(android.content.Context,long)" class="member-name-link">vibrate</a><wbr>(<a href="https://developer.android.com/reference/android/content/Context.html" title="class or interface in android.content" class="external-link">Context</a>&nbsp;context,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#vibrate(android.content.Context,long)" class="member-name-link">vibrate</a><wbr>(<a href="https://developer.android.com/reference/android/content/Context.html" title="class or interface in android.content" class="external-link">Context</a>&nbsp;context,
  long&nbsp;duration)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Vibrate device for the supplied duration.</div>
 </div>
 </div>
@@ -492,6 +497,20 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd><code>true</code> if the device has a One UI version installed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isHuaweiEMUI(android.content.Context)">
+<h3>isHuaweiEMUI</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isHuaweiEMUI</span><wbr><span class="parameters">(<a href="https://developer.android.com/reference/androidx/annotation/Nullable.html" title="class or interface in androidx.annotation" class="external-link">@Nullable</a>
+ <a href="https://developer.android.com/reference/android/content/Context.html" title="class or interface in android.content" class="external-link">Context</a>&nbsp;context)</span></div>
+<div class="block">Checks whether the device has an EMUI version installed.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>context</code> - The context to resolve the activities.</dd>
+<dt>Returns:</dt>
+<dd><code>true</code> if the device has an EMUI version installed.</dd>
 </dl>
 </section>
 </li>

@@ -21,6 +21,7 @@ project to AndroidX.
 [Barquode](#barquode-for-android) app.
 <br/>Since v4.5.1, it is targeting Java 17 to provide maximum compatibility.
 <br/>Since v4.6.0, the minimum SDK is Android 4.4 (API 19) to comply with the latest policies.
+<br/>Since v4.7.0, the minimum SDK is Android 5.0 (API 21) to comply with the latest policies.
 
 ---
 

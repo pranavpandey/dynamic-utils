@@ -28,6 +28,14 @@
     <string name="adu_url_me_samsung_galaxy_store">https://apps.samsung.com/appquery/sellerProductList.as?SellerID=000000160572</string>
     <string name="adu_url_me_huawei_app_gallery">@string/adu_url_me_website</string>
 
+    <!-- Support -->
+    <string name="adu_url_mail" />
+    <string name="adu_url_mail_to" />
+    <string name="adu_url_mail_translate" />
+    <string name="adu_url_mail_to_translate" />
+    <string name="adu_url_translate" />
+    <string name="adu_url_privacy" />
+
     <!-- Format -->
     <string name="adu_format_blank_space">%1$s %2$s</string>
 

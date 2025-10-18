@@ -477,10 +477,12 @@ public class DynamicBitmapUtils {
      * @param view The view to get the bitmap.
      * @param width The width for the bitmap.
      * @param height The height for the bitmap.
+     * @param background The optional background.
      *
      * @return The bitmap from the supplied drawable.
      */
-    public static @Nullable Bitmap createBitmap(@Nullable View view, int width, int height) {
+    public static @Nullable Bitmap createBitmap(@Nullable View view,
+            int width, int height, @Nullable Drawable background) {
         if (view == null) {
             return null;
         }
@@ -493,22 +495,24 @@ public class DynamicBitmapUtils {
                             .convertDpToPixels(width), View.MeasureSpec.EXACTLY),
                     View.MeasureSpec.makeMeasureSpec(DynamicUnitUtils
                             .convertDpToPixels(height), View.MeasureSpec.EXACTLY));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         }
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
 
         Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(),
                 view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        Drawable background = view.getBackground();
 
-        if (background != null) {
+        if (background != null || (background = view.getBackground()) != null) {
+            background.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
             background.draw(canvas);
         }
-
         view.draw(canvas);
-        view.measure(View.MeasureSpec.makeMeasureSpec(oldWidth, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(oldHeight, View.MeasureSpec.EXACTLY));
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+
+        if (width > 0 && height > 0) {
+            view.measure(View.MeasureSpec.makeMeasureSpec(oldWidth, View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(oldHeight, View.MeasureSpec.EXACTLY));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
 
         return bitmap;
     }
@@ -517,8 +521,40 @@ public class DynamicBitmapUtils {
      * Creates a bitmap from the supplied view.
      *
      * @param view The view to get the bitmap.
+     * @param width The width for the bitmap.
+     * @param height The height for the bitmap.
      *
      * @return The bitmap from the supplied drawable.
+     *
+     * @see #createBitmap(View, int, int, Drawable)
+     */
+    public static @Nullable Bitmap createBitmap(@Nullable View view, int width, int height) {
+        return createBitmap(view, width, height, null);
+    }
+
+    /**
+     * Creates a bitmap from the supplied view.
+     *
+     * @param view The view to get the bitmap.
+     * @param background The optional background.
+     *
+     * @return The bitmap from the supplied drawable.
+     *
+     * @see #createBitmap(View, int, int, Drawable)
+     */
+    public static @Nullable Bitmap createBitmap(@Nullable View view,
+            @Nullable Drawable background) {
+        return createBitmap(view, 0, 0, background);
+    }
+
+    /**
+     * Creates a bitmap from the supplied view.
+     *
+     * @param view The view to get the bitmap.
+     *
+     * @return The bitmap from the supplied drawable.
+     *
+     * @see #createBitmap(View, int, int)
      */
     public static @Nullable Bitmap createBitmap(@Nullable View view) {
         return createBitmap(view, 0, 0);

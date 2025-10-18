@@ -20,10 +20,10 @@
     <!-- Store -->
     <string name="adu_store">支持商店</string>
 
-    <!-- Share app -->
+    <!-- Share -->
     <string name="adu_share_to">分享通过&#8230;</string>
 
-    <!-- Submit bug report -->
+    <!-- Report -->
     <string name="adu_bug_desc">我遇到的错误或问题是&#8230;\n\n发生错误的频率如何？\n\n你使用的是什么ROM(定制/修改的ROM)，框架和内核？</string>
 
 </resources>

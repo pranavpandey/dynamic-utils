@@ -39,12 +39,12 @@
     <!-- Format -->
     <string name="adu_format_blank_space">%1$s %2$s</string>
 
-    <!-- Share app -->
+    <!-- Share -->
     <string name="adu_share_desc">%1$s\n"http://play.google.com/store/apps/details?id="%2$s</string>
     <string name="adu_share_desc_samsung_galaxy_store">%1$s\n"https://apps.samsung.com/appquery/appDetail.as?appId="%2$s</string>
     <string name="adu_share_desc_huawei_app_gallery">%1$s\n"https://appgallery.cloud.huawei.com/appDetail?pkgName="%2$s</string>
 
-    <!-- Submit bug report -->
+    <!-- Report -->
     <string name="adu_report_title">%1$s (%2$s | %3$d, %4$s, %5$s, %6$s)</string>
     <string name="adu_report_title_license">%1$s (%2$s | %3$d | %4$b, %5$s, %6$s, %7$s)</string>
 

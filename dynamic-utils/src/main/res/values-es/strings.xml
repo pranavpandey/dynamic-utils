@@ -20,10 +20,10 @@
     <!-- Store -->
     <string name="adu_store">Tienda compatible</string>
 
-    <!-- Share app -->
+    <!-- Share -->
     <string name="adu_share_to">Compartir en&#8230;</string>
 
-    <!-- Submit bug report -->
+    <!-- Report -->
     <string name="adu_bug_desc">Mi error o pregunta es&#8230;\n\nEn caso de un error, ¿con qué frecuencia ocurre?\n\n¿Estás usando un rom, framework o kernel modificado?</string>
 
 </resources>

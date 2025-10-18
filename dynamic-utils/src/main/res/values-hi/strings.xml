@@ -20,10 +20,10 @@
     <!-- Store -->
     <string name="adu_store">समर्थित स्टोर</string>
 
-    <!-- Share app -->
+    <!-- Share -->
     <string name="adu_share_to">इसके द्वारा भेजें</string>
 
-    <!-- Submit bug report -->
+    <!-- Report -->
     <string name="adu_bug_desc">मेरा सवाल या समस्या है\n\nयदि समस्या है तो कितनी बार होती है?\n\nक्या आप कोई कस्टम रोम या फ्रेमवर्क या कर्नल का उपयोग करते हैं?</string>
 
 </resources>

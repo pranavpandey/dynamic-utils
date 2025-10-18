@@ -20,10 +20,10 @@
     <!-- Store -->
     <string name="adu_store">Loja suportada</string>
 
-    <!-- Share app -->
+    <!-- Share -->
     <string name="adu_share_to">Compartilhar via&#8230;</string>
 
-    <!-- Submit bug report -->
+    <!-- Report -->
     <string name="adu_bug_desc">Meu bug ou questão é&#8230;\n\nCom que frequência isso ocorre em caso de bug?\n\nVocê está usando alguma custom ROM, framework ou kernel?</string>
 
 </resources>

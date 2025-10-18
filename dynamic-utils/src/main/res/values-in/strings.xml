@@ -20,10 +20,10 @@
     <!-- Store -->
     <string name="adu_store">Toko yang Didukung</string>
 
-    <!-- Share app -->
+    <!-- Share -->
     <string name="adu_share_to">Bagikan via&#8230;</string>
 
-    <!-- Submit bug report -->
+    <!-- Report -->
     <string name="adu_bug_desc">Bug atau pertanyaan saya adalah&#8230;\n\nSeberapa sering bug ini terjadi?\n\nApakah anda menggunakan ROM kustom atau yang telah dimodifikasi, framework, atau kernel?</string>
 
 </resources>

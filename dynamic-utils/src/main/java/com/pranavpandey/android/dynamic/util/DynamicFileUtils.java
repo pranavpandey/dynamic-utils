@@ -1058,6 +1058,32 @@ public class DynamicFileUtils {
     }
 
     /**
+     * Returns an intent to select a directory.
+     * <p>It will fallback to the mime type content on unsupported devices.
+     *
+     * @param mimeType The fallback mime type for the file.
+     *
+     * @return The intent to select a directory or fallback file according to the mime type.
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static @NonNull Intent getDirectorySelectIntent(@NonNull String mimeType) {
+        Intent intent;
+
+        if (DynamicSdkUtils.is19()) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType(mimeType);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+        }
+
+        return intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+    }
+
+    /**
      * Returns an intent to select a file according to the mime type.
      *
      * @param mimeType The mime type for the file.
@@ -1080,6 +1106,18 @@ public class DynamicFileUtils {
 
         return intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                 | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+    }
+
+    /**
+     * Returns an intent to select a file according to the supplied mime types.
+     *
+     * @param mimeTypes The supported mime types for the file.
+     *
+     * @return The intent to select a file according to the supplied mime types.
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static @NonNull Intent getFileSelectIntent(@NonNull String[] mimeTypes) {
+        return getFileSelectIntent(MIME_ALL).putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
     }
 
     /**

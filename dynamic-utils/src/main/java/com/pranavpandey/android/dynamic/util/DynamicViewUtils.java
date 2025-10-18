@@ -354,12 +354,16 @@ public class DynamicViewUtils {
      * @see ViewCompat#LAYOUT_DIRECTION_RTL
      */
     public static boolean isLayoutRtl(@Nullable View view) {
-        if (view == null) {
-            return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault())
-                    == ViewCompat.LAYOUT_DIRECTION_RTL;
+        if (!DynamicSdkUtils.is17()) {
+            return false;
         }
 
-        return ViewCompat.getLayoutDirection(view) == ViewCompat.LAYOUT_DIRECTION_RTL;
+        if (view != null) {
+            return view.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        } else {
+            return TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
+        }
     }
 
     /**

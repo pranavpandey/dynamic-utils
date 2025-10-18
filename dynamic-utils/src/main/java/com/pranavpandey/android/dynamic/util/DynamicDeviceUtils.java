@@ -18,6 +18,7 @@ package com.pranavpandey.android.dynamic.util;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -275,6 +276,27 @@ public class DynamicDeviceUtils {
     public static boolean hasHingeFeature(@NonNull Context context) {
         return DynamicSdkUtils.is30() && hasSystemFeature(
                 context, PackageManager.FEATURE_SENSOR_HINGE_ANGLE);
+    }
+
+    /**
+     * Checks whether the supplied OpenGL ES version is supported.
+     *
+     * @param context The context to get the activity service.
+     * @param version The required version to be checked.
+     *
+     * @return {@code true} if the supplied OpenGL ES version is supported.
+     *
+     * @see ActivityManager#getDeviceConfigurationInfo
+     * @see android.content.pm.ConfigurationInfo#reqGlEsVersion
+     */
+    public static boolean isOpenGLES(@NonNull Context context, int version) {
+        ActivityManager activityManager;
+        if ((activityManager = ContextCompat.getSystemService(
+                context, ActivityManager.class)) != null) {
+            return activityManager.getDeviceConfigurationInfo().reqGlEsVersion >= version;
+        }
+
+        return false;
     }
 
     /**

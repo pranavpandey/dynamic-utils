@@ -49,6 +49,11 @@ public class DynamicColorUtils {
     private static final float CONTRAST_FACTOR = 1.5f;
 
     /**
+     * Amount to calculate the lighter contrast color.
+     */
+    private static final float CONTRAST_FACTOR_LIGHT = 1.7f;
+
+    /**
      * Maximum value to replace the color components.
      */
     private static final float REPLACE_FACTOR = 0.2f;
@@ -470,13 +475,16 @@ public class DynamicColorUtils {
 
         float contrast = calculateContrast(color, contrastWith);
         if (contrast < visibleContrast) {
-            float finalContrast = Math.min(MAX_CONTRAST, Math.max(visibleContrast,
-                    (visibleContrast - contrast) * CONTRAST_FACTOR));
+            float finalContrast;
             if (isColorDark(contrastWith)) {
+                finalContrast = Math.min(MAX_CONTRAST, Math.max(visibleContrast,
+                        (visibleContrast - contrast) * CONTRAST_FACTOR_LIGHT));
                 contrastColor = recursive && isColorDark(color)
                         ? getContrastColor(color, color, visibleContrast, false)
                         : getLighterColor(color, finalContrast);
             } else {
+                finalContrast = Math.min(MAX_CONTRAST, Math.max(visibleContrast,
+                        (visibleContrast - contrast) * CONTRAST_FACTOR));
                 contrastColor = recursive && !isColorDark(color)
                         ? getContrastColor(color, color, visibleContrast, false)
                         : getDarkerColor(color, finalContrast);

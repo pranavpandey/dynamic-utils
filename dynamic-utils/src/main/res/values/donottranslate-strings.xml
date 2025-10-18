@@ -45,7 +45,7 @@
     <string name="adu_share_desc_huawei_app_gallery">%1$s\n"https://appgallery.cloud.huawei.com/appDetail?pkgName="%2$s</string>
 
     <!-- Report -->
-    <string name="adu_report_title">%1$s (%2$s | %3$d, %4$s, %5$s, %6$s)</string>
-    <string name="adu_report_title_license">%1$s (%2$s | %3$d | %4$b, %5$s, %6$s, %7$s)</string>
+    <string name="adu_report_title">%1$s #%7$s (%2$s | %3$d, %4$s, %5$s, %6$s)</string>
+    <string name="adu_report_title_license">%1$s #%8$s (%2$s | %3$d | %4$b, %5$s, %6$s, %7$s)</string>
 
 </resources>

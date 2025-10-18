@@ -686,6 +686,7 @@ public class DynamicLinkUtils {
      *                <p>{@code null} to get it from the supplied context.
      * @param email The email id of the developer.
      * @param license {@code true} if the license is available on the devices.
+     * @param flavor The product flavor to be used.
      *
      * @return {@code true} on successful operation.
      *
@@ -693,7 +694,7 @@ public class DynamicLinkUtils {
      * @see MailTo#MAILTO_SCHEME
      */
     public static boolean report(@Nullable Context context, @Nullable String appName,
-            @Nullable String email, Boolean license) {
+            @Nullable String email, @Nullable Boolean license, @DynamicFlavor String flavor) {
         if (context == null) {
             return false;
         }
@@ -716,14 +717,36 @@ public class DynamicLinkUtils {
         if (license != null) {
             return email(context, email, String.format(context.getResources().getString(
                     R.string.adu_report_title_license), appName, versionName, versionCode,
-                    license, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE),
+                    license, Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE,
+                            flavor != null ? flavor : DynamicFlavor.DEFAULT),
                     context.getResources().getString(R.string.adu_bug_desc));
         } else {
             return email(context, email, String.format(context.getResources().getString(
                     R.string.adu_report_title), appName, versionName, versionCode,
-                    Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE),
+                    Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE,
+                            flavor != null ? flavor : DynamicFlavor.DEFAULT),
                     context.getResources().getString(R.string.adu_bug_desc));
         }
+    }
+
+    /**
+     * Ask questions or submit bug report to the developer via email.
+     * <p>Subject of the email will be generated automatically by detecting the manufacturer,
+     * device, Android version and the app version along with the supplied app name.
+     *
+     * @param context The context to be used.
+     * @param appName The app name for the email subject.
+     *                <p>{@code null} to get it from the supplied context.
+     * @param email The email id of the developer.
+     * @param license {@code true} if the license is available on the devices.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #report(Context, String, String, Boolean, String)
+     */
+    public static boolean report(@Nullable Context context, @Nullable String appName,
+            @Nullable String email, @Nullable Boolean license) {
+        return report(context, appName, email, license, DynamicFlavor.DEFAULT);
     }
 
     /**

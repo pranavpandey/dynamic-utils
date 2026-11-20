@@ -360,6 +360,76 @@ public class DynamicLinkUtils {
     }
 
     /**
+     * Returns the title with the store URL based on the product flavor.
+     *
+     * @param context The context to be used.
+     * @param title The custom title along with the store URL.
+     * @param flavor The product flavor to be used.
+     *
+     * @return The title with the store URL based on the product flavor.
+     */
+    public static @Nullable String getURLString(@Nullable Context context,
+            @Nullable String title, @DynamicFlavor String flavor) {
+        if (context == null) {
+            return title;
+        }
+
+        if (title == null) {
+            title = context.getApplicationInfo().loadLabel(
+                    context.getPackageManager()).toString();
+        }
+
+        String share = title;
+        if (DynamicFlavor.EXTERNAL.equals(flavor)) {
+            if (DynamicDeviceUtils.isSamsungOneUI()) {
+                share = String.format(
+                        context.getString(R.string.adu_share_desc_samsung_galaxy_store),
+                        context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                        context.getPackageName());
+            } else if (DynamicDeviceUtils.isHuaweiEMUI(context)) {
+                share = String.format(
+                        context.getString(R.string.adu_share_desc_huawei_app_gallery),
+                        context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                        context.getPackageName());
+            }
+        } else {
+            share = String.format(context.getString(R.string.adu_share_desc),
+                    context.getApplicationInfo().loadLabel(context.getPackageManager()),
+                    context.getPackageName());
+        }
+
+        return share;
+    }
+
+    /**
+     * Returns the title with the store URL based on the product flavor.
+     *
+     * @param context The context to be used.
+     * @param flavor The product flavor to be used.
+     *
+     * @return The title with the store URL based on the product flavor.
+     *
+     * @see #getURLString(Context, String, String)
+     */
+    public static @Nullable String getURLString(@Nullable Context context,
+            @DynamicFlavor String flavor) {
+        return getURLString(context, null, flavor);
+    }
+
+    /**
+     * Returns the title with the store URL based on the product flavor.
+     *
+     * @param context The context to be used.
+     *
+     * @return The title with the store URL based on the product flavor.
+     *
+     * @see #getURLString(Context, String)
+     */
+    public static @Nullable String getURLString(@Nullable Context context) {
+        return getURLString(context, DynamicFlavor.DEFAULT);
+    }
+
+    /**
      * View any URL in the available app or browser. Some URLs will automatically open in their
      * respective apps if installed on the device. Special treatment is applied for the
      * Facebook URLs to open them directly in the app.
@@ -467,6 +537,8 @@ public class DynamicLinkUtils {
             return true;
         } else if (DynamicDeviceUtils.isSamsungOneUI()) {
             return viewInSamsungGalaxyStore(context, packageName);
+        } else if (DynamicDeviceUtils.isHuaweiEMUI(context)) {
+            return viewInHuaweiAppGallery(context, packageName);
         }
         
         return false;

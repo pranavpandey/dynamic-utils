@@ -43,8 +43,7 @@ if (project.hasProperty("android")) {
         exclude "**/R", "**/R.**", "**/R\$**", "**/BuildConfig*"
 
         options.windowTitle = "${referenceTitle}"
-        options.links('http://docs.oracle.com/javase/8/docs/api',
-                'http://docs.oracle.com/javase/17/docs/api')
+        options.links('https://docs.oracle.com/en/java/javase/17/docs/api')
         options.links('https://developer.android.com/reference')
         options.linksOffline('https://developer.android.com/reference',
                 'https://developer.android.com/reference/androidx')
@@ -133,14 +132,16 @@ signing {
     sign publishing.publications
 }
 
-afterEvaluate { project ->
-    // Fix javadoc generation.
-    javadoc.classpath += files(android.libraryVariants.collect { variant ->
-        variant.javaCompileProvider.get().classpath.files
-    })
+androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+    tasks.named('javadoc', Javadoc).configure {
+        classpath += variant.compileClasspath
+        classpath += files(androidComponents.sdkComponents.bootClasspath)
+    }
+}
 
+afterEvaluate { project ->
     def pomTask = "generatePomFileForLibraryPublication"
-    def dependencies = [javadocJar, sourcesJar, assembleRelease, pomTask]
+    def dependencies = [javadocJar, sourcesJar, "assembleRelease", pomTask]
 
     // Convenience task to prepare everything we need for releases.
     tasks.register('prepareArtifacts') {

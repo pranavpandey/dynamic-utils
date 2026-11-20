@@ -50,42 +50,39 @@ tasks.register('generateJavadoc') {
     description "Generates Javadoc."
 }
 
-project.afterEvaluate {
-    android.libraryVariants.configureEach { variant ->
-        def task = project.tasks.create(
-                "generate${variant.name.capitalize()}Javadoc", Javadoc) {
-            title "${referenceTitle}<h4>${versionDesc}</h4><h5>${mavenVersion}</h5>"
-            description "Generates Javadoc for $variant.name."
-            destinationDir = new File(destinationDir, variant.baseName)
+androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+    def variantName = variant.name.capitalize()
+    def taskName = "generate${variantName}Javadoc"
 
-            source = variant.sourceSets.collect {
-                it.java.sourceFiles
-            }.inject {
-                m, i -> m + i
-            }
-            doFirst {
-                classpath = project.files(variant.javaCompileProvider.get().classpath.files,
-                        project.android.getBootClasspath())
-            }
+    def javadocTask = tasks.register(taskName, Javadoc) {
+        title "${referenceTitle}<h4>${versionDesc}</h4><h5>${mavenVersion}</h5>"
+        description "Generates Javadoc for $variant.name."
+        destinationDir = new File(destinationDir, variant.name)
 
-            if (JavaVersion.current().isJava8Compatible()) {
-                options.addStringOption('Xdoclint:none', '-quiet')
-            }
+        source = android.sourceSets.main.java.sourceFiles
+        classpath = variant.compileClasspath + files(androidComponents.sdkComponents.bootClasspath)
 
-            options.memberLevel = JavadocMemberLevel.PROTECTED
-            exclude "**/R", "**/R.**", "**/R\$**", "**/BuildConfig*"
-
-            options.windowTitle = "${referenceTitle}"
-            options.links('http://docs.oracle.com/javase/8/docs/api',
-                    'http://docs.oracle.com/javase/17/docs/api')
-            options.links('https://developer.android.com/reference')
-            options.linksOffline('https://developer.android.com/reference',
-                    'https://developer.android.com/reference/androidx')
-
-            failOnError false
+        if (JavaVersion.current().isJava8Compatible()) {
+            options.addStringOption('Xdoclint:none', '-quiet')
         }
 
-        task.dependsOn "assemble${variant.name.capitalize()}"
-        generateJavadoc.dependsOn task
+        options.memberLevel = JavadocMemberLevel.PROTECTED
+        exclude "**/R", "**/R.**", "**/R\$**", "**/BuildConfig*"
+
+        options.windowTitle = "${referenceTitle}"
+        options.links('https://docs.oracle.com/en/java/javase/17/docs/api')
+        options.links('https://developer.android.com/reference')
+        options.linksOffline('https://developer.android.com/reference',
+                'https://developer.android.com/reference/androidx')
+
+        failOnError false
+    }
+
+    javadocTask.configure {
+        dependsOn "assemble${variantName}"
+    }
+
+    tasks.named('generateJavadoc').configure {
+        dependsOn javadocTask
     }
 }

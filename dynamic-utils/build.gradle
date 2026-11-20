@@ -40,6 +40,7 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:${versions.kotlin}"))
 
     api "androidx.core:core:${versions.androidx}"
+    api "androidx.print:print:${versions.print}"
 }
 
 if (project.rootProject.file("${publication}").exists()) {

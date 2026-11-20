@@ -18,6 +18,7 @@
 <resources>
 
     <!-- Store -->
+    <string name="adu_org_google">Google</string>
     <string name="adu_store_google_play">Google Play</string>
     <string name="adu_store_samsung_galaxy_store">Galaxy Store</string>
     <string name="adu_store_huawei_app_gallery">AppGallery</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 Pranav Pandey
+ * Copyright 2017-2026 Pranav Pandey
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -321,13 +321,15 @@ public class DynamicIntentUtils {
      *
      * @param context The context to be used.
      * @param intent The intent to view.
+     * @param browser {@code true} to open if a supported web browser exists.
      *
      * @return {@code true} on successful operation.
      *
      * @see Intent#ACTION_VIEW
      */
     @TargetApi(Build.VERSION_CODES.R)
-    public static boolean viewIntent(@Nullable Context context, @Nullable Intent intent) {
+    public static boolean viewIntent(@Nullable Context context,
+            @Nullable Intent intent, boolean browser) {
         if (context == null || intent == null) {
             return false;
         }
@@ -346,21 +348,40 @@ public class DynamicIntentUtils {
             }
 
             context.startActivity(intentTemp);
-
             return true;
         } catch (Exception ignored) {
+            if (!browser) {
+                return false;
+            }
+
             intentTemp = new Intent(intent);
             intentTemp.addCategory(Intent.CATEGORY_BROWSABLE);
             intentTemp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             if (isActivityResolved(context, intentTemp)) {
                 context.startActivity(intentTemp);
-
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * View any Intent in the available app or browser.
+     * <p>Use {@code queries} tag for {@link Intent#ACTION_VIEW} with appropriate
+     * {@code scheme(s)} in {@code AndroidManifest} to support API 30.
+     *
+     * @param context The context to be used.
+     * @param intent The intent to view.
+     *
+     * @return {@code true} on successful operation.
+     *
+     * @see #viewIntent(Context, Intent, boolean)
+     */
+    @TargetApi(Build.VERSION_CODES.R)
+    public static boolean viewIntent(@Nullable Context context, @Nullable Intent intent) {
+        return viewIntent(context, intent, true);
     }
 
     /**

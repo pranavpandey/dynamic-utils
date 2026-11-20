@@ -20,7 +20,7 @@ buildscript {
             'minSdk'    : 21,
             'targetSdk' : 37,
             'buildTools': '37.0.0',
-            'androidx'  : '1.16.0',
+            'androidx'  : '1.19.1',
             'kotlin'    : '1.9.24',
             'print'     : '1.1.0'
     ]

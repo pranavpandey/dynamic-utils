@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.core.content.ContextCompat;
+import androidx.print.PrintHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -260,6 +261,21 @@ public class DynamicDeviceUtils {
      */
     public static boolean hasTelephony(@NonNull Context context) {
         return hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY);
+    }
+
+    /**
+     * Checks whether the device supports a printing service.
+     *
+     * @param context The context to be used.
+     *
+     * @return {@code true} if the device supports a printing service.
+     *
+     * @see PackageManager#FEATURE_PRINTING
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
+    public static boolean hasPrintService(@Nullable Context context) {
+        return DynamicSdkUtils.is20() && hasSystemFeature(context,
+                PackageManager.FEATURE_PRINTING) && PrintHelper.systemSupportsPrint();
     }
 
     /**

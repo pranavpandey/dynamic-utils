@@ -55,7 +55,7 @@ ext {
     projectDesc = 'A collection of static methods and packages to perform dynamic ' +
             'operations on Android.'
     versionDesc = 'A collection of static methods and packages to perform dynamic ' +
-            'operations on Android 4.0 (API 14) and above.'
+            'operations on Android 5.0 (API 21) and above.'
     referenceTitle = 'Dynamic Utils API reference'
 
     siteUrl = 'https://github.com/pranavpandey/dynamic-utils'
@@ -68,8 +68,8 @@ ext {
     mavenDir = 'com/pranavpandey/android'
     mavenArtifactId = 'dynamic-utils'
     mavenInceptionYear = '2017'
-    mavenVersion = '4.7.0'
-    mavenVersionCode = 48
+    mavenVersion = '4.7.1'
+    mavenVersionCode = 50
 
     developerId = 'pranavpandey'
     developerName = 'Pranav Pandey'
